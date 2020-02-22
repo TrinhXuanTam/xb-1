@@ -29,3 +29,4 @@ Odevzdání tasku
 Pokud jste již úkol dodělali, udělejte do něj merge master větve.
 Následně vytvořte nový merge request na větev master a za assignee dejte jméno **@ridzodan**.
 Do komentáře zapište, kolik času jste na úkolu strávili. (např.: `/spend 2h 10m`)
+Klikněte na **submit merge request**.
