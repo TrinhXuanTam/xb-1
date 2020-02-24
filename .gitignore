@@ -6,3 +6,6 @@ xb1_env
 
 # Python compiled bytecode
 *.pyc
+
+# Python cache files
+__pycache__/
