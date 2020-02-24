@@ -1,1 +1,8 @@
+# Virtual-env folder
 xb1_env
+
+# Database
+*.sqlite3
+
+# Python compiled bytecode
+*.pyc

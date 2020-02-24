@@ -4,7 +4,29 @@ Zapnutí projektu
 system requirements
 -------------------
 * python==3.8.1
+* python virtualenv (sudo pip install virtualenv)
 
+prvni spusteni
+--------------
+* prejdete do home directory projektu
+* vytvorte novy virtual enviroment (`virtualenv xb1_env`)
+* zapnete virtual enviroment (`source xb1_env/bin/activate`)
+* stahnete potrebne zavislosti (`pip install -r requirements.txt`)
+* prejdete do slozky, ve ktere je django projekt (`cd xb1`)
+* zapnete django server (`python manage.py runserver`)
+* pote co ho vypnete, spuste (`python manage.py migrate`), aplikuji se zmeny v aplikaci do databaze
+
+spusteni
+--------
+* prejdete do home directory projektu
+* zapnete virtual enviroment (`source xb1_env/bin/activate`)
+* prejdete do slozky, ve ktere je django projekt (`cd xb1`)
+* zapnete django server (`python manage.py runserver`)
+* *^^( v budoucnosti na to asi udelam skripty, at to nemusime psat dokola...)^^*
+
+vypnuti virtualenv
+------------------
+`deactivate`
 
 
 Code of conduct
