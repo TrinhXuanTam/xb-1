@@ -1,0 +1,13 @@
+<form method="post">{% csrf_token %}
+    {% for field in form.visible_fields %}
+      <tr>
+        <th>{{ field.label_tag }}</th>
+        <td>
+          {{ field.errors }}
+          {{ field }}
+          {{ field.help_text }}
+        </td>
+      </tr>
+    {% endfor %}
+    <input type="submit" value="Create animal">
+</form>

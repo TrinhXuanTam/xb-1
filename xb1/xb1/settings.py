@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'xb1.testApp'
 ]
 
 MIDDLEWARE = [
@@ -51,11 +52,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'xb1.urls'
 
+BASE_DIR = os.path.realpath(os.path.dirname(__file__))
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),],
-        'APP_DIRS': True,
+        'DIRS': [BASE_DIR + "/templates/", BASE_DIR + "/testApp/templates/"],
+        'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',

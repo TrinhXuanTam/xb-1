@@ -9,3 +9,6 @@ xb1_env
 
 # Python cache files
 __pycache__/
+
+# Vscode settings
+.vscode
