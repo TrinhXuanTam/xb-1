@@ -1,10 +1,15 @@
-html, body {
+html,
+body {
   height: 100vh;
   width: 100%;
   margin: 0px;
   padding: 0px;
   color: #000;
   font-family: sand-serif;
+}
+
+.carousel-item img {
+  object-fit: cover;
 }
 
 #slides {
@@ -18,14 +23,14 @@ html, body {
 }
 
 .carousel-caption {
-  font-family: 'Changa', sand-serif;
+  font-family: "Changa", sand-serif;
   position: absolute;
   top: 50%;
   transform: translateY(-38%);
 }
 
 .carousel-caption h1 {
-  font-family: 'Trade Winds', sand-serif;
+  font-family: "Trade Winds", sand-serif;
   font-size: 500%;
   text-transform: uppercase;
   text-shadow: 1px 1px 15px #000;
@@ -68,10 +73,8 @@ html, body {
   }
 
   #slides {
-
   }
 
   #slides img {
-
   }
 }
