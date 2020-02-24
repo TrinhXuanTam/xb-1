@@ -31,7 +31,5 @@ class AnimalCreateView(FormView):
 
     def form_valid(self, form):
 
-        # if form.instance.name == "dog":
-        #     return super(AnimalCreateView, self).form_invalid(form)
         form.instance.save()
         return super(AnimalCreateView, self).form_valid(form)
