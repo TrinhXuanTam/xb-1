@@ -1,3 +1,12 @@
+Zapnutí projektu
+================
+
+system requirements
+-------------------
+* python==3.8.1
+
+
+
 Code of conduct
 ===============
 
