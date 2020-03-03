@@ -8,6 +8,11 @@ body {
   font-family: sand-serif;
 }
 
+#feedback {
+  resize: none;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
 .carousel-item img {
   object-fit: cover;
   height: 100vh;
