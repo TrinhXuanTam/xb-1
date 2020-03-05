@@ -6,6 +6,10 @@ body {
   padding: 0px;
   color: #000;
   font-family: sand-serif;
+  background-image: url("../src/contactbg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .submitbutton {
@@ -74,8 +78,8 @@ body {
 
 .carousel-caption {
   font-family: "Changa", sand-serif;
-  position: absolute;
-  top: 50%;
+  position: fixed;
+  top: 40%;
   transform: translateY(-38%);
 }
 
