@@ -1,5 +1,6 @@
 # Virtual-env folder
 xb1_env
+venv
 
 # Database
 *.sqlite3
@@ -10,5 +11,6 @@ xb1_env
 # Python cache files
 __pycache__/
 
-# Vscode settings
+# IDE settings
 .vscode
+.idea
