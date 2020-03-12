@@ -8,7 +8,7 @@ system requirements
 
 prvni spusteni
 --------------
-* prejdete do home directory projektu
+* prejdete do home directory projektu (pro spusteni initial webu prejdete do slozky InitialWeb)
 * vytvorte novy virtual enviroment (`virtualenv xb1_env`)
 * zapnete virtual enviroment (`source xb1_env/bin/activate`)
 * stahnete potrebne zavislosti (`pip install -r requirements.txt`)
