@@ -11,6 +11,9 @@ venv
 # Python cache files
 __pycache__/
 
+# Static Root folder
+staticRoot
+
 # IDE settings
 .vscode
 .idea

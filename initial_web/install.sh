@@ -38,10 +38,13 @@ pip install -r requirements.txt;
 
 # Turn on project
 cd xb1;
-timeout 5 python manage.py runserver;
+timeout 5 python3 manage.py runserver;
 
 # Migrate database
-python manage.py migrate;
+python3 manage.py migrate;
+
+# Collect static files
+python3 manage.py collectstatic;
 
 # Run server
-python manage.py runserver;
+python3 manage.py runserver;

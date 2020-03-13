@@ -43,5 +43,8 @@ timeout 5 python3 manage.py runserver;
 # Migrate database
 python3 manage.py migrate;
 
+# Collect static files
+python3 manage.py collectstatic;
+
 # Run server
 python3 manage.py runserver;
