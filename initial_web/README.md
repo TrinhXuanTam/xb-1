@@ -14,5 +14,6 @@ Zapnuti na linux subsystemu pro windows
 ---------------------------------------
 Nemuzu zarucit ze to bude na 100% fungovat
 
-instalace: `sudo -H sh windows_install.sh`
-spusteni: `sh windows_run.sh`
+instalace: `sudo -H ./windows_install.sh`
+
+spusteni: `./windows_run.sh`
