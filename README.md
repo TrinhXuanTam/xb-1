@@ -2,17 +2,10 @@ Zapnutí projektu
 ================
 
 
-vypnuti virtualenv
-------------------
-`deactivate`
-
-vytvoreni superusera
---------------------
-`python3 manage.py createsuperuser`
-
 Instalace
 ---------
 Pro prvni zapnuti serveru zadejte: `sudo sh install.sh`
+
 
 Spusteni serveru
 ----------------
@@ -26,6 +19,21 @@ Nemuzu zarucit ze to bude na 100% fungovat
 instalace: `sudo -H ./windows_install.sh`
 
 spusteni: `./windows_run.sh`
+
+
+zaponuti virtualenv
+-------------------
+`source xb1_env/bin/activate`
+
+
+vypnuti virtualenv
+------------------
+`deactivate`
+
+
+vytvoreni superusera
+--------------------
+`python3 manage.py createsuperuser`
 
 
 prvni spusteni - OBLIGATORY
