@@ -2,24 +2,6 @@ Zapnutí projektu
 ================
 
 
-prvni spusteni
---------------
-* prejdete do home directory projektu (pro spusteni initial webu prejdete do slozky InitialWeb)
-* vytvorte novy virtual enviroment (`virtualenv xb1_env`)
-* zapnete virtual enviroment (`source xb1_env/bin/activate`)
-* stahnete potrebne zavislosti (`pip install -r requirements.txt`)
-* prejdete do slozky, ve ktere je django projekt (`cd xb1`)
-* zapnete django server (`python manage.py runserver`)
-* pote co ho vypnete, spuste (`python manage.py migrate`), aplikuji se zmeny v aplikaci do databaze
-
-spusteni
---------
-* prejdete do home directory projektu
-* zapnete virtual enviroment (`source xb1_env/bin/activate`)
-* prejdete do slozky, ve ktere je django projekt (`cd xb1`)
-* zapnete django server (`python manage.py runserver`)
-* *^^( v budoucnosti na to asi udelam skripty, at to nemusime psat dokola...)^^*
-
 vypnuti virtualenv
 ------------------
 `deactivate`
@@ -44,6 +26,24 @@ Nemuzu zarucit ze to bude na 100% fungovat
 instalace: `sudo -H ./windows_install.sh`
 
 spusteni: `./windows_run.sh`
+
+
+prvni spusteni - OBLIGATORY
+---------------------------
+* prejdete do home directory projektu (pro spusteni initial webu prejdete do slozky InitialWeb)
+* vytvorte novy virtual enviroment (`virtualenv xb1_env`)
+* zapnete virtual enviroment (`source xb1_env/bin/activate`)
+* stahnete potrebne zavislosti (`pip install -r requirements.txt`)
+* prejdete do slozky, ve ktere je django projekt (`cd xb1`)
+* zapnete django server (`python manage.py runserver`)
+* pote co ho vypnete, spuste (`python manage.py migrate`), aplikuji se zmeny v aplikaci do databaze
+
+spusteni - OBLIGATORY
+---------------------
+* prejdete do home directory projektu
+* zapnete virtual enviroment (`source xb1_env/bin/activate`)
+* prejdete do slozky, ve ktere je django projekt (`cd xb1`)
+* zapnete django server (`python manage.py runserver`)
 
 
 Code of conduct
