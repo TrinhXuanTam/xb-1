@@ -36,8 +36,8 @@ vytvoreni superusera
 `python3 manage.py createsuperuser`
 
 
-prvni spusteni - OBLIGATORY
----------------------------
+prvni spusteni - OLD
+--------------------
 * prejdete do home directory projektu (pro spusteni initial webu prejdete do slozky InitialWeb)
 * vytvorte novy virtual enviroment (`virtualenv xb1_env`)
 * zapnete virtual enviroment (`source xb1_env/bin/activate`)
@@ -46,8 +46,8 @@ prvni spusteni - OBLIGATORY
 * zapnete django server (`python manage.py runserver`)
 * pote co ho vypnete, spuste (`python manage.py migrate`), aplikuji se zmeny v aplikaci do databaze
 
-spusteni - OBLIGATORY
----------------------
+spusteni - OLD
+--------------
 * prejdete do home directory projektu
 * zapnete virtual enviroment (`source xb1_env/bin/activate`)
 * prejdete do slozky, ve ktere je django projekt (`cd xb1`)
