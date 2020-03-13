@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -22,7 +23,7 @@ class AnimalListView(ListView):
         return context
 
 
-class AnimalCreateView(FormView):
+class AnimalCreateView(LoginRequiredMixin, FormView):
 
     template_name = "animals_form.html"
     form_class = AnimalForm

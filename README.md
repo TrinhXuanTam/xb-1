@@ -1,10 +1,6 @@
 Zapnutí projektu
 ================
 
-system requirements
--------------------
-* python==3.8.1
-* python virtualenv (sudo pip install virtualenv)
 
 prvni spusteni
 --------------
@@ -27,6 +23,10 @@ spusteni
 vypnuti virtualenv
 ------------------
 `deactivate`
+
+vytvoreni superusera
+--------------------
+`python3 manage.py createsuperuser`
 
 
 Code of conduct
