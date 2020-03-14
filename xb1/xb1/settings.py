@@ -72,9 +72,9 @@ TEMPLATES = [
         'OPTIONS': {
             'debug': DEBUG,
             'loaders': [
+                'admin_tools.template_loaders.Loader',
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
-                'admin_tools.template_loaders.Loader',
             ],
             'context_processors': [
                 'django.template.context_processors.debug',
