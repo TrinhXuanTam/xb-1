@@ -4,13 +4,48 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import TemplateView
 from django.views.generic.list import ListView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, CreateView, UpdateView
 
 from .forms import AnimalForm
-from .models import Animal
+from .models import Animal, Article
+
+
+class ArticleListView(ListView):
+
+    model = Article
+    template_name = "articles.html"
+
+
+class ArticleCreateView(LoginRequiredMixin, CreateView):
+
+    model = Article
+    template_name = "articles_form.html"
+    fields = ["title", "text"]
+    success_url = reverse_lazy("articles:article_list")
+
+    def form_valid(self, form):
+
+        form.instance.author = self.request.user
+        return super(ArticleCreateView, self).form_valid(form)
+
+
+class ArticleUpdateView(LoginRequiredMixin, UpdateView):
+
+    model = Article
+    template_name = "articles_form.html"
+    fields = ["title", "text"]
+    success_url = reverse_lazy("articles:article_list")
+
+    def form_valid(self, form):
+
+        form.instance.author = self.request.user
+        return super(ArticleUpdateView, self).form_valid(form)
 
 
 class AnimalListView(ListView):
+    """
+    TODO - just for testing -will be deleted
+    """
 
     model = Animal
     template_name = "animals.html"
@@ -24,6 +59,9 @@ class AnimalListView(ListView):
 
 
 class AnimalCreateView(LoginRequiredMixin, FormView):
+    """
+    TODO - just for testing -will be deleted
+    """
 
     template_name = "animals_form.html"
     form_class = AnimalForm

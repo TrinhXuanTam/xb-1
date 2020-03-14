@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'xb1.articles'
+    'xb1.articles',
+    'xb1.core'
 ]
 
 MIDDLEWARE = [
@@ -62,7 +63,11 @@ BASE_DIR = os.path.realpath(os.path.dirname(__file__))
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR + "/templates/", BASE_DIR + "/articles/templates/"],
+        'DIRS': [
+            BASE_DIR + "/templates/",
+            BASE_DIR + "/articles/templates/",
+            BASE_DIR + "/core/templates/"
+        ],
         'APP_DIRS': False,
         'OPTIONS': {
             'debug': DEBUG,
@@ -143,5 +148,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticRoot')
 
 
 # Login
+AUTH_USER_MODEL = "core.User"
 LOGIN_REDIRECT_URL = "index"
 LOGIN_URL = "login"

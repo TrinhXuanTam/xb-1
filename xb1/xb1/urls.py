@@ -8,6 +8,7 @@ admin.autodiscover()
 
 urlpatterns = [
 
+    #Index
     url(r'^$', views.IndexView.as_view(), name='index'),
 
     # Admin urls
@@ -18,6 +19,8 @@ urlpatterns = [
     url(r'^login/$', views.LoginView.as_view(), name='login'),
     url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
 
+    # Apps.
     url(r"^articles/", include("xb1.articles.urls")),
+    url(r"^core/", include("xb1.core.urls")),
 
 ]
