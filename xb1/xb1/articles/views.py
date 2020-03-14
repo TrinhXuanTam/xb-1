@@ -27,7 +27,7 @@ class AnimalCreateView(LoginRequiredMixin, FormView):
 
     template_name = "animals_form.html"
     form_class = AnimalForm
-    success_url = reverse_lazy("testApp:animal_list")
+    success_url = reverse_lazy("articles:animal_list")
 
 
     def form_valid(self, form):

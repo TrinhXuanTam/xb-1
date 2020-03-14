@@ -2,7 +2,7 @@ from django.conf.urls import url
 
 from . import views
 
-app_name = 'testApp'
+app_name = 'articles'
 urlpatterns = [
 
     # Test views
