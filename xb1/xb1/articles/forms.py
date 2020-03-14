@@ -4,6 +4,9 @@ from .models import Animal
 
 
 class AnimalForm(forms.ModelForm):
+    """
+    TODO - just for testing -will be deleted
+    """
 
     class Meta:
         model = Animal
