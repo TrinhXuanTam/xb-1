@@ -21,6 +21,29 @@ instalace: `sudo -H ./windows_install.sh`
 spusteni: `./windows_run.sh`
 
 
+prvni zapnuti projektu ve windows powershellu
+---------------------------------------------
+! pro python muzete mit v systemu jiny alias nez `python`, pokud `python` nefunguje zkuste `python3`/`py`/`py3`
+
+* aby spravne fungovalo virtualni prostredi v powershellu, je nutne ho spustit v rezimu spravce a spustit: `Set-ExecutionPolicy Unrestricted -Force`
+* prejdete do home directory projektu (pro spusteni initial webu prejdete do slozky initial_web)
+* vytvorte novy virtual enviroment (`virtualenv xb1_env`)
+* zapnete virtual enviroment (`./xb1_env/Source/activate.ps1`)
+* stahnete potrebne zavislosti (`pip install -r requirements.txt`)
+* prejdete do slozky, ve ktere je django projekt (`cd xb1`)
+* zapnete django server (`python manage.py runserver`) - zobrazi se hlasky, "You have xx unaplied migratoions..." -> nejsou aplikovane migrace do databaze
+* vypnete server a spuste (`python manage.py migrate`), aplikuji se zmeny v aplikaci do databaze
+* zapnete django server (`python manage.py runserver`)
+
+
+spusteni serveru ve windows powershellu
+---------------------------------------
+* prejdete do home directory projektu
+* zapnete virtual enviroment (`./xb1_env/Source/activate.ps1`)
+* prejdete do slozky, ve ktere je django projekt (`cd xb1`)
+* zapnete django server (`python manage.py runserver`)
+
+
 zaponuti virtualenv
 -------------------
 `source xb1_env/bin/activate`
@@ -34,24 +57,6 @@ vypnuti virtualenv
 vytvoreni superusera
 --------------------
 `python3 manage.py createsuperuser`
-
-
-prvni spusteni - OLD
---------------------
-* prejdete do home directory projektu (pro spusteni initial webu prejdete do slozky InitialWeb)
-* vytvorte novy virtual enviroment (`virtualenv xb1_env`)
-* zapnete virtual enviroment (`source xb1_env/bin/activate`)
-* stahnete potrebne zavislosti (`pip install -r requirements.txt`)
-* prejdete do slozky, ve ktere je django projekt (`cd xb1`)
-* zapnete django server (`python manage.py runserver`)
-* pote co ho vypnete, spuste (`python manage.py migrate`), aplikuji se zmeny v aplikaci do databaze
-
-spusteni - OLD
---------------
-* prejdete do home directory projektu
-* zapnete virtual enviroment (`source xb1_env/bin/activate`)
-* prejdete do slozky, ve ktere je django projekt (`cd xb1`)
-* zapnete django server (`python manage.py runserver`)
 
 
 Code of conduct
