@@ -1,4 +1,12 @@
 <h1>Work in progress</h1>
 <br>
+{% if messages %}
+    {% for message in messages %}
+        <div>
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
 <a href="{% url 'articles:animal_list' %}">Animal list</a> <br>
 <a href="{% url 'articles:article_list' %}">Article list</a>

@@ -1,12 +1,13 @@
 from django.contrib import admin
 from django.conf.urls import url, include
-
 from . import views
+
 
 
 admin.autodiscover()
 
 urlpatterns = [
+
 
     #Index
     url(r'^$', views.IndexView.as_view(), name='index'),
@@ -18,6 +19,9 @@ urlpatterns = [
     # Login redirect urls
     url(r'^login/$', views.LoginView.as_view(), name='login'),
     url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
+
+    # Register
+    url(r'^register/', views.register, name='register'),
 
     # Apps.
     url(r"^articles/", include("xb1.articles.urls")),
