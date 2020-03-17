@@ -1,0 +1,115 @@
+body, html {
+  font-family: Helvetica, sans-serif;
+  height: 100%;
+  background: white;
+  background: radial-gradient(circle, rgba(48,59,67,1) 0%, rgba(0,0,0,1) 100%);
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+}
+
+.sidebar {
+  z-index: 1;
+  position: fixed;
+  left: 0;
+  width: 50px;
+  height: 100%;
+  background: radial-gradient(circle, rgba(30,35,44,1) 0%, rgba(0,0,0,1) 100%);
+  overflow: hidden;
+  transition: 1s;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 10px 0px 55px 1px rgba(0,0,0,0.75);
+}
+
+.sidebar:hover {
+  width: 250px;
+}
+
+.sidebar ul a {
+  text-decoration: none;
+  display: block;
+  height: 100%;
+  width: 100%;
+  line-height: 50px;
+  color: white;
+  padding-left: 20%;
+  transition: 0.3s;
+  white-space: nowrap;
+  word-spacing: 15px;
+}
+
+ul li:hover a {
+  padding-left: 25%;
+  background: white;
+  color: black;
+}
+
+ul li .fas {
+  margin-left: 3px;
+  font-size: 25px;
+  vertical-align: middle;
+}
+
+.sidebar-options {
+  margin-top: 10px;
+}
+.bottom{
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+}
+
+.content{
+  height: 100%; 
+  margin-left: 50px;
+  text-align: center;
+}
+
+.content img{
+  margin-top: 10px;
+  height: 150px;
+}
+
+.chat {
+  background: transparent;
+  border: none;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 20px;
+}
+
+.chat:focus {
+  outline: none;
+}
+
+.right{
+  position: absolute;
+  width: 28%;
+  top: 0;
+  right: 0;
+  height: 100%;
+}
+
+.left{
+  margin-top: 2rem;
+  width: 70%;
+  float: left;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border-top-right-radius: 10rem;
+  box-shadow: 10px 0px 55px 1px rgba(0,0,0,0.75);
+}
+
+.nav{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
