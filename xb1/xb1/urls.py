@@ -2,14 +2,10 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from . import views
 
-
-
 admin.autodiscover()
 
 urlpatterns = [
-
-
-    #Index
+    # Index
     url(r'^$', views.IndexView.as_view(), name='index'),
 
     # Admin urls
@@ -18,7 +14,10 @@ urlpatterns = [
 
     # Login redirect urls
     url(r'^login/$', views.LoginView.as_view(), name='login'),
-    url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
+    url(r'^logout/$', views.LogoutView.as_view(template_name='registration/logout.html'), name='logout'),
+
+    # Profile view
+    url(r'^profile/$', views.profile, name='profile'),
 
     # Register
     url(r'^register/', views.register, name='register'),
