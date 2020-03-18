@@ -33,3 +33,6 @@ class Article(models.Model):
     title = models.CharField("Title", max_length=100)
     author = models.ForeignKey(User, verbose_name="Author", on_delete=models.SET_NULL, blank=True, null=True)
     text = models.TextField("Text", blank=True, null=True)
+
+
+

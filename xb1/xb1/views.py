@@ -1,13 +1,16 @@
 from django.contrib.auth.views import LoginView as BaseLoginView, LogoutView as BaseLogoutView
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.urls import reverse_lazy
 from .core.forms import UserRegistrationForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .articles.models import Animal, Article
+from django.apps import apps
 
 
-class IndexView(TemplateView):
+class IndexView(ListView):
+    model = Article
     template_name = "index.html"
 
 

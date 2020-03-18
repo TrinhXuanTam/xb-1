@@ -28,3 +28,25 @@
 
 <a href="{% url 'articles:animal_list' %}">Animal list</a> <br>
 <a href="{% url 'articles:article_list' %}">Article list</a>
+
+<h1>Lastest Post</h1>
+
+<ul>
+{% for article in object_list %}
+    <li>
+        {%if forloop.last %}
+        {{ article.author }}: {{ article.title }}
+        <br>
+        {{ article.text }}
+        <br>
+        {%if article.author == user%}
+        <a href="{% url 'articles:article_update' pk=article.pk %}">Edit article</a>
+        {%endif%}
+        <br>
+        <br>
+        {% endif %}
+    </li>
+{% empty %}
+    <li>No articles created.</li>
+{% endfor %}
+</ul>
