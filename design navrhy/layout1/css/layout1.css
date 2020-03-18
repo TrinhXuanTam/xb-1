@@ -4,6 +4,7 @@ html {
   background: white;
   background: radial-gradient(circle, rgba(48,59,67,1) 0%, rgba(0,0,0,1) 100%);
   background-repeat: no-repeat;
+  color: white;
 }
 
 body{
@@ -80,7 +81,6 @@ body{
   border-bottom-right-radius: 10rem;
   box-shadow: 10px 0px 55px 1px rgba(0,0,0,0.75);
   padding: 3rem;
-  color: white;
   overflow: hidden;
   transition: 4s;
 }
