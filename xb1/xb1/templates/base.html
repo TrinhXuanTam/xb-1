@@ -61,7 +61,13 @@
       </ul>
     </nav>
 
+        <div class="content">
+                <div class="header">
+                     <a href = "{% url 'index' %}"><img src="{% static 'img/logo.png' %}"></a>
+                </div>
         {% block content %}
         {% endblock %}
+        </div>
+
   </body>
 </html>
