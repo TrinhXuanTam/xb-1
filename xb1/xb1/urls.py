@@ -14,7 +14,7 @@ urlpatterns = [
 
     # Login redirect urls
     url(r'^login/$', views.LoginView.as_view(), name='login'),
-    url(r'^logout/$', views.LogoutView.as_view(template_name='registration/logout.html'), name='logout'),
+    url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
 
     # Profile view
     url(r'^profile/$', views.profile, name='profile'),

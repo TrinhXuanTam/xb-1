@@ -19,8 +19,7 @@ class LoginView(BaseLoginView):
 
 
 class LogoutView(BaseLogoutView):
-    # next_page = reverse_lazy("login")
-    pass
+    next_page = reverse_lazy("index")
 
 
 def register(request):

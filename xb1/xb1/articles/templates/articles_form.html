@@ -1,4 +1,10 @@
+
+{% extends 'base.html' %}
+{%block content%}
+    <div style="width:800px; padding-top: 50px ; margin:0 auto;">
+
 <form method="post">{% csrf_token %}
+
     {% for field in form.visible_fields %}
       <tr>
         <th>{{ field.label_tag }}</th>
@@ -13,3 +19,5 @@
 </form>
 
 <a href="{% url 'articles:article_list' %}">Back</a> <br>
+    </div>
+{% endblock %}

@@ -1,13 +1,23 @@
-<h1>Articles</h1>
+{% extends 'base.html' %}
 
+
+        {% block content %}
+    <div style="width:800px; padding-top: 50px ; margin:0 auto;">
+
+<h1 style="width:150px; margin:0 auto;">Articles</h1>
 <ul>
 {% for article in object_list %}
     <li>
-        {{ article.author }}: {{ article.title }}
-        <br>
+        <h1>{{ article.title }}</h1>
         {{ article.text }}
         <br>
-        <a href="{% url 'articles:article_update' pk=article.pk %}">Edit article</a>
+                <h3>Autor: {{ article.author }}</h3>
+                {%if article.author == user%}
+                  <a href="{% url 'articles:article_update' pk=article.pk %}">Edit article</a>
+                  {%endif%}
+                <br>
+                <br>
+
     </li>
 {% empty %}
     <li>No articles created.</li>
@@ -18,3 +28,5 @@
 <a href="{% url 'articles:article_create' %}">Create new article</a>
 <br>
 <a href="{% url 'index' %}">Back</a>
+    </div>
+        {% endblock %}

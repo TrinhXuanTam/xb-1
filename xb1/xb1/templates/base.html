@@ -12,11 +12,8 @@
 
     <button class="chat"><i class="fas fa-comments fa-2x"></i></button>
 
-
     <div class="sidebar">
-
-
-      <ul class="sidebar-options">
+       <ul class="sidebar-options">
           {% if user.is_authenticated %}
                 <li><a href= "{% url 'profile' %}"><i class="fas fa-user"></i> Profil</a></li>
           {% else %}
@@ -64,41 +61,7 @@
       </ul>
     </nav>
 
-
-    <div class="content">
-
-      <div class="header">
-
-        <a href = "{% url 'index' %}"><img src="{% static 'img/logo.png' %}"></a>
-      </div>
-
-      <div class="right">
-        <ul class="preview">
-            {% for article in object_list %}
-            <li><h1>{{ article.title }}</h1><div class="preview-thumb"><img src="{% static 'img/universe.jpg' %}"></div><div class="preview-content">{{ article.text|slice:":100" }}<br><a href = "#">Read More</a></div></li>
-            {% empty %}
-                <li>No articles created.</li>
-            {% endfor %}
-        </ul>
-      </div>
-
-      <div class="left">
-          {% for article in object_list %}
-                {%if forloop.last %}
-        <h1>{{ article.title }}</h1>
-          <br>
-        <img src="{% static 'img/universe.jpg' %}">
-        <p>{{ article.text }}</p>
-
-        <br>
-        <h3>Autor: {{ article.author }}</h3>
-
-                {% endif %}
-          {% empty %}
-            <h1>No articles created.</h1>
-          {% endfor %}
-      </div>
-    </div>
+        {% block content %}
+        {% endblock %}
   </body>
 </html>
-
