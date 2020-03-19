@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'xb1.articles',
-    'xb1.core'
+    'xb1.core',
+    'xb1.contact',
 ]
 
 
@@ -87,6 +88,20 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'xb1.wsgi.application'
+
+# Email service backend
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_PORT = 587
+
+# Email from which emails will be sent.
+EMAIL_HOST_USER = "xb1.feedback@gmail.com"
+EMAIL_HOST_PASSWORD = "fitwiki1"
+
+# Email where feedback emails will be sent.
+FEEDBACK_EMAIL = "xb1.feedback@gmail.com"
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases

@@ -1,4 +1,4 @@
-from django.contrib.auth.views import LoginView as BaseLoginView, LogoutView as BaseLogoutView
+from django.contrib.auth.views import LoginView as BaseLoginView, LogoutView as BaseLogoutView, FormView
 from django.views.generic import TemplateView, ListView
 from django.urls import reverse_lazy
 from .core.forms import UserRegistrationForm
@@ -41,3 +41,5 @@ def register(request):
 @login_required
 def profile(request):
     return render(request, 'registration/profile.html')
+
+

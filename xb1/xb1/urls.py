@@ -25,5 +25,6 @@ urlpatterns = [
     # Apps.
     url(r"^articles/", include("xb1.articles.urls")),
     url(r"^core/", include("xb1.core.urls")),
+    url(r"^contact/", include("xb1.contact.urls")),
 
 ]
