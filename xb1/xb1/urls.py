@@ -14,10 +14,10 @@ urlpatterns = [
 
     # Login redirect urls
     url(r'^login/$', views.LoginView.as_view(), name='login'),
-    url(r'^logout/$', views.logout, name='logout'),
+    url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
 
     # Profile view
-    url(r'^profile/$', views.profile, name='profile'),
+    url(r'^profile/$', views.ProfileView.as_view(), name='profile'),
 
     # Register
     url(r'^register/', views.register, name='register'),
