@@ -1,7 +1,27 @@
-<h2>Login</h2>
-<form method="post">
-{% csrf_token %}
-{{ form.as_p }}
-<button type="submit">Login</button>
-    <small>Need an Account? <a href = "{% url 'register' %}">Sign up</a></small>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+{%block content %}
+    <div >
+        <form method = "POST">
+            {% csrf_token %}
+            <fieldset >
+                <legend>Log In</legend>
+                {{ form.as_p }}
+            </fieldset>
+            <div>
+                <button type = "submit">Login</button>
+            </div>
+        </form>
+        <div>
+                <small>Need an Account? <a href = "{% url 'register' %}">Sign Up</a></small>
+        </div>
+    </div>
+{%endblock content %}
+
+</body>
+</html>
