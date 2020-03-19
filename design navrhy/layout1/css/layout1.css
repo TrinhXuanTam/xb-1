@@ -21,7 +21,7 @@ body{
 }
 
 .content img{
-  height: 150px;
+  width: 100%;
 }
 
 .right{
@@ -37,7 +37,7 @@ body{
   transition: 4s;
   overflow-y: auto;
   overflow-x: hidden;
-  animation: 3.5s ease-out 0s 1 slideInFromRight;
+  animation: 2.8s ease-out 0s 1 slideInFromRight;
 }
 
 .right:hover{
