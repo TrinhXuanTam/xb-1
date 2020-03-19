@@ -50,15 +50,17 @@
         <li><a href="{% url 'articles:article_list' %}">Blog</a></li>
         <li><a href="#">O nás</a></li>
 
-          {% if messages %}
-    {% for message in messages %}
-       <li>
-           <h5 >{{ message }}</h5>
-       </li>
-    {% endfor %}
-            {% endif %}
+
 
       </ul>
+    <ul>
+           {% if messages %}
+    {% for message in messages %}
+
+          <li> <a>{{ message }} </a></li>
+    {% endfor %}
+            {% endif %}
+    </ul>
     </nav>
 
         <div class="content">

@@ -5,6 +5,7 @@ from .core.forms import UserRegistrationForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout as django_logout
 from .articles.models import Animal, Article
 from django.apps import apps
 
@@ -18,8 +19,10 @@ class LoginView(BaseLoginView):
     pass
 
 
-class LogoutView(BaseLogoutView):
-    next_page = reverse_lazy("index")
+def logout(request):
+    django_logout(request)
+    messages.success(request, 'You have been successfully logged out.')
+    return redirect('index')
 
 
 def register(request):
