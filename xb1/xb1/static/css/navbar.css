@@ -1,0 +1,29 @@
+.navigation_bar {
+    list-style: none;
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .navigation_bar ul{
+    margin-left: 50px;
+    height: 30px;
+    background-color: none;
+  }
+  
+  .navigation_bar li {
+    margin-left: 15px;
+    float: right;
+    height: auto;
+  }
+  
+  .navigation_bar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }

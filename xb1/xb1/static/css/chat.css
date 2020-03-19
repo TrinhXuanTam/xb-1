@@ -1,0 +1,15 @@
+.chat {
+  background: transparent;
+  border: none;
+  z-index: 1;
+  color: white;
+  cursor: pointer;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  margin: 20px;
+}
+
+.chat:focus {
+  outline: none;
+}

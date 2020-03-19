@@ -1,30 +1,38 @@
-<style>
-    li {
-  display: inline;
-}
-</style>
-<nav>
-    <ul>
-            <li ><a href = "{% url 'index' %}">Home</a></li>
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html>
+<body>
+  {%block content %}
 
-            {% if user.is_authenticated %}
-            <li><a href = "{% url 'logout' %}">Logout</a></li>
-            <li><a href = "{% url 'profile' %}">Profile</a></li>
-            {% else %}
-            <li><a href = "{% url 'login' %}">Login</a></li>
-            <li><a href = "{% url 'register' %}">Register</a></li>
-            {% endif %}
 
-    </ul>
-</nav>
-<h1>Work in progress</h1>
-{% if messages %}
-    {% for message in messages %}
-        <div>
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endif %}
+      <div class="right">
+        <ul class="preview">
+            {% for article in object_list %}
+            <li><h1>{{ article.title }}</h1><div class="preview-thumb"><img src="{% static 'img/universe.jpg' %}"></div><div class="preview-content">{{ article.text|slice:":100" }}<br><a href = "#">Read More</a></div></li>
+            {% empty %}
+                <li>No articles created.</li>
+            {% endfor %}
+        </ul>
+      </div>
 
-<a href="{% url 'articles:animal_list' %}">Animal list</a> <br>
-<a href="{% url 'articles:article_list' %}">Article list</a>
+      <div class="left">
+          {% for article in object_list %}
+                {%if forloop.last %}
+        <h1>{{ article.title }}</h1>
+          <br>
+        <img src="{% static 'img/universe.jpg' %}">
+        <p>{{ article.text }}</p>
+
+        <br>
+        <h3>Autor: {{ article.author }}</h3>
+
+                {% endif %}
+          {% empty %}
+            <h1>No articles created.</h1>
+          {% endfor %}
+      </div>
+  {% endblock %}
+</body>
+</html>
+
