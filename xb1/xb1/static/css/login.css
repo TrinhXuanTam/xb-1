@@ -1,5 +1,6 @@
 .modal {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -7,6 +8,7 @@
   width: 100%;
   height: 100%;
   overflow: auto;
+  transition: 3s;
 }
 
 .modal-content {
@@ -38,7 +40,6 @@
   margin: 30px;
 }
 
-/* The Close Button */
 .close {
   margin: 10px;
   color: rgba(255, 255, 255, 0.5);
@@ -48,8 +49,8 @@
   cursor: pointer;
 }
 
-.close:hover{
-    color: white;
+.close:hover {
+  color: white;
 }
 
 #login_trigger {

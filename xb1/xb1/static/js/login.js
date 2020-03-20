@@ -1,22 +1,28 @@
-var modal = document.getElementById("myModal");
+var modal = document.getElementById("login_modal");
 
 var span = document.getElementsByClassName("close")[0];
 
 var wrapper = document.getElementById("wrapper");
 
 span.onclick = function() {
-  modal.style.display = "none";
-  wrapper.style.filter = "blur(0)"
+  wrapper.style.filter = "blur(0)";
+  modal.style.transition = "1s";
+  modal.style.opacity = 0;
+  modal.style.visibility = "hidden";
 };
 
 window.onclick = function(event) {
   if (event.target == modal) {
-    modal.style.display = "none";
-    wrapper.style.filter = "blur(0)"
+    wrapper.style.filter = "blur(0)";
+    modal.style.transition = "1s";
+    modal.style.opacity = 0;
+    modal.style.visibility = "hidden";
   }
 };
 
 function openDialog() {
-  modal.style.display = "block";
-  wrapper.style.filter = "blur(5px)"
+  modal.style.transition = "3s";
+  modal.style.visibility = "visible";
+  modal.style.opacity = 1;
+  wrapper.style.filter = "blur(6px)";
 }
