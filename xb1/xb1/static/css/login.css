@@ -1,0 +1,65 @@
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.modal-content {
+  text-align: center;
+  background: radial-gradient(
+    circle,
+    rgba(30, 35, 44, 1) 0%,
+    rgba(13, 13, 13, 1) 100%
+  );
+  box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
+  border-radius: 2rem;
+  padding: 10px;
+  width: 20%;
+  height: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  transition: 4s;
+}
+
+.modal-content:hover {
+  box-shadow: 10px 0px 55px 1px rgba(255, 255, 255, 0.75);
+}
+
+.modal-content form {
+  margin: 30px;
+}
+
+/* The Close Button */
+.close {
+  margin: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  float: right;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover{
+    color: white;
+}
+
+#login_trigger {
+  cursor: pointer;
+}
+
+#wrapper {
+  transition: 2s filter linear;
+  -webkit-transition: 1s -webkit-filter linear;
+  -moz-transition: 1s -moz-filter linear;
+  -ms-transition: 1s -ms-filter linear;
+  -o-transition: 1s -o-filter linear;
+}
