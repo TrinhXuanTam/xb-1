@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 
+{% block include %}
+<link rel="stylesheet" href="{% static 'css/layout2.css' %}" >
+{% endblock %}
 
         {% block content %}
         <div class="main">
