@@ -1,12 +1,14 @@
 from django.contrib.auth.views import LoginView as BaseLoginView, LogoutView as BaseLogoutView
 from django.views.generic import TemplateView, ListView
 from django.urls import reverse_lazy
-from .core.forms import UserRegistrationForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .articles.models import Animal, Article
-from .core.models import User
 from django.contrib.auth.signals import user_logged_out, user_logged_in
+
+
+from .articles.models import Animal, Article
+from .core.forms import UserRegistrationForm
+from .core.models import User
 
 
 def show_logout_message(sender, user, request, **kwargs):
