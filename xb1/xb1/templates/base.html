@@ -19,9 +19,34 @@
     <div id="login_modal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
-        <form method = "POST">
-          <h1>Log In</h1>
-      </form>
+        {% if '/register/' in request.path %}
+        <form method = "POST" action = "{% url 'login' %}?next={% url 'index'%}">
+           {% csrf_token %}
+           <h1>User name</h1>
+              {{ login_form.username }}
+           <h1>Password</h1>
+           {{ login_form.password }}
+           <br>
+           <br>
+
+           <button type = "submit">Login</button>
+         </form>
+        {%else%}
+         <form method = "POST" action = "{% url 'login' %}?next={{ request.path }}">
+           {% csrf_token %}
+           <h1>User name</h1>
+              {{ login_form.username }}
+           <h1>Password</h1>
+           {{ login_form.password }}
+           <br>
+           <br>
+
+           <button type = "submit">Login</button>
+         </form>
+        {%endif%}
+                <div>
+                <small>Need an Account? <a href = "{% url 'register' %}">Sign Up</a></small>
+                </div>
       </div>
     </div>
 
@@ -36,12 +61,12 @@
           </li>
           {% else %}
           <li>
-            <a href="{% url 'login' %}"><i class="fas fa-user"></i> Login</a>
+            <a id="login_trigger2" onclick="openDialog()"><i class="fas fa-user"></i> Login</a>
           </li>
           {% endif %}
 
           <li>
-            <a href="#"><i class="fas fa-envelope"></i> Odkaz</a>
+            <a href="{% url 'contact:contact' %}"><i class="fas fa-envelope"></i> Kontakt</a>
           </li>
           <li>
             <a href="#"><i class="fas fa-calendar-week"></i> Odkaz</a>

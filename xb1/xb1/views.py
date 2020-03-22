@@ -4,11 +4,15 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.signals import user_logged_out, user_logged_in
+from .core.views import LoginMixinView
+from django.views.generic.edit import FormView
+
 
 
 from .articles.models import Animal, Article
 from .core.forms import UserRegistrationForm
 from .core.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 
 def show_logout_message(sender, user, request, **kwargs):
@@ -24,7 +28,7 @@ user_logged_out.connect(show_logout_message)
 user_logged_in.connect(show_login_message)
 
 
-class IndexView(ListView):
+class IndexView(LoginMixinView, ListView):
     model = Article
     template_name = "index.html"
 
@@ -37,9 +41,21 @@ class LogoutView(BaseLogoutView):
     pass
 
 
-class ProfileView(ListView):
+class ProfileView(LoginMixinView, ListView):
     model = User
     template_name = "profile.html"
+
+
+class Register(LoginMixinView, FormView):
+    template_name = "registration/register.html"
+    form_class = UserRegistrationForm
+
+    def form_valid(self, form):
+        form = self.form_class(self.request.POST)
+        form.save()
+        username = form.cleaned_data.get('username')
+        messages.success(self.request, f'Account created for {username}! You can now log in.')
+        return redirect('login')
 
 
 def register(request):
@@ -53,8 +69,3 @@ def register(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'form': form})
-
-
-
-
-

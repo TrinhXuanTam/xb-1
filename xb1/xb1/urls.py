@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^profile/$', views.ProfileView.as_view(), name='profile'),
 
     # Register
-    url(r'^register/', views.register, name='register'),
+    url(r'^register/', views.Register.as_view(), name='register'),
 
     # Apps.
     url(r"^articles/", include("xb1.articles.urls")),

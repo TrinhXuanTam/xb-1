@@ -16,6 +16,7 @@
   animation: 3.5s ease-out 0s 1 slideInFromRight;
 }
 
+
 .right:hover{
   background: rgba(255, 255, 255, 0.2);
   box-shadow: 10px 0px 55px 1px rgba(255,255,255,0.75);

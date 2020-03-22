@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
-{% load static %}
 <html lang="cs-CZ">
     <title>Kontakt</title>
 
 
     <body>
     {% block content %}
-
+    {% if user.is_authenticated %}
     <div class="carousel-caption">
       <h1 class="display-2">Kontakt</h1>
       <h3>
@@ -32,6 +31,26 @@
         </div>
       </div>
     </div>
-        {% endblock %}
+
+    {%else%}
+       <div class="modal-content">
+        <span class="close">&times;</span>
+         <form method = "POST" action = "{% url 'login' %}?next={{ request.path }}">
+           {% csrf_token %}
+           <h1>User name</h1>
+              {{ login_form.username }}
+           <h1>Password</h1>
+           {{ login_form.password }}
+           <br>
+           <br>
+
+           <button type = "submit">Login</button>
+         </form>
+                <div>
+                <small>Need an Account? <a href = "{% url 'register' %}">Sign Up</a></small>
+                </div>
+      </div>
+    {%endif%}
+    {% endblock %}
   </body>
 </html>

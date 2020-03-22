@@ -18,21 +18,21 @@
             <a href = "#">Read More</a>
           </div>
         </li>
-        
+
           {% empty %}
           <li>No articles created.</li>
         {% endfor %}
     </ul>
   </div>
-  
-  
+
+
   <div class="left">
     {% for article in object_list %}
       {%if forloop.last %}
         <h1>{{ article.title }}</h1><br>
         <img src="{% static 'img/universe.jpg' %}">
         <p>{{ article.text }}</p><br>
-        <h3>Autor: {{ article.author }}</h3>  
+        <h3>Autor: {{ article.author }}</h3>
       {% endif %}
 
         {% empty %}
@@ -40,4 +40,3 @@
     {% endfor %}
   </div>
 {% endblock %}
-
