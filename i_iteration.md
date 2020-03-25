@@ -13,18 +13,17 @@ Osnova
 2. Popis práce a její rozdělení členům týmu
 3. Analýza autorských práv původní webové aplikace
 4. Analýza konkurenčních stránek
-5. Seznam požadavků
-    1. Funkční požadavky
-    2. Nefunkční požadavky
+5. Funkční požadavky
+6. Nefunkční požadavky
 
 Obsah
 -----
 
 1. Základní popis projektu
 
-    Cílem projektu týmu Ikarie je vytvoření nové plně funkční webové aplikace, která bude sdružovat komunitu Sci-Fi časobisu XB-1.  
-    Projekt by měl nahradit v současnosti již nefunkční systém. Základním požadavkem projektu je především správná a bezpečná funkčnost základních funkcí potřebných pro správu a využívání fanouškovské webové aplikace, přesný výpis požadovaných funcionalit lze nalézt v sekci 5.1 Funkční požadavky.  
-    Design webové části nové aplikace by měl být inspirován starým vzhledem včetně znovu použití loga, které bylo dodáno zadavatelem projektu.  
+    Cílem projektu týmu Ikarie je vytvoření nové plně funkční webové aplikace, která bude sdružovat komunitu Sci-Fi časobisu XB-1.
+    Projekt by měl nahradit v současnosti již nefunkční systém. Základním požadavkem projektu je především správná a bezpečná funkčnost základních funkcí potřebných pro správu a využívání fanouškovské webové aplikace, přesný výpis požadovaných funcionalit lze nalézt v sekci 5.1 Funkční požadavky.
+    Design webové části nové aplikace by měl být inspirován starým vzhledem včetně znovu použití loga, které bylo dodáno zadavatelem projektu.
     Jelikož nebyly dodány žádné nároky na jazykové provedení, bude projekt vyvíjen v jazyku Python za pomoci frameworku Django. Konkrétní jazyk a framework byly vybrány po analýze současného trhu s webovými aplikacemi, kde je v současné době nejpoužívanějším frameworkem právě Django a to především kvůli své spolehlivosti, jednoduchosti a bezpečnosti, protože mnoho bezpečnostích mechanismů je již implementováno.
     
 2. Popis práce a její rozdělení členům týmu
@@ -51,3 +50,9 @@ Obsah
 4. Analýza konkurenčních stránek
 
     Mekty mekty
+    
+5. Funkční požadavky
+
+    Mekty mekty
+
+6. Nefunkční požadavky
