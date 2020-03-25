@@ -57,4 +57,7 @@ Obsah
 
 6. Nefunkční požadavky
 
-    responzivita, django, python, datové nároky, grafické nároky(designová forma) - Dodělám
+    *Grafická forma* - Webová aplikace, tedy všechny její stránky by měly používat stejnou grafickou formu pro zabezpečení co možná nějvětší čitelnosti a přehlednosti, a to včetně administrátoských stránek. Zároveň budou využity volně dostupné ikony a piktogramy pro větší názornost klíčových funcionalit.  
+    *Responzivita* - Vzhled webových stránek se automaticky bude měnit podle rozlišení zobrazovacího zařízení, především při nízkých rozlišeních a telefoních zařízeních.  
+    *Datové nároky* - Aplikace je koncipována jako více stránková aplikace, tedy bude mít mírně větší datové nároky než one-page aplikace.  
+    *Django* - Programovací framework byl vybrán na základě volně dostupných analýz současně existujících webových řešení, kde Django excelovalo v kategoriích požadovaných v zadání projektu.  
