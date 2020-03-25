@@ -25,11 +25,11 @@ Obsah
     Cílem projektu týmu Ikarie je vytvoření nové plně funkční webové aplikace, která bude sdružovat komunitu Sci-Fi časobisu XB-1.  
     Projekt by měl nahradit v současnosti již nefunkční systém. Základním požadavkem projektu je především správná a bezpečná funkčnost základních funkcí potřebných pro správu a využívání fanouškovské webové aplikace, přesný výpis požadovaných funcionalit lze nalézt v sekci 5.1 Funkční požadavky.  
     Design webové části nové aplikace by měl být inspirován starým vzhledem včetně znovu použití loga, které bylo dodáno zadavatelem projektu.  
-    Jelikož nebyly dodány žádné nároky na jazykové provedení, bude projekt po shodě členů týmu tvořen v jazyce Python s pomocí frameworku Django.
+    Jelikož nebyly dodány žádné nároky na jazykové provedení, bude projekt vyvíjen v jazyku Python za pomoci frameworku Django. Konkrétní jazyk a framework byly vybrány po analýze současného trhu s webovými aplikacemi, kde je v současné době nejpoužívanějším frameworkem právě Django a to především kvůli své spolehlivosti, jednoduchosti a bezpečnosti, protože mnoho bezpečností mechanismů je již implementováno.
     
 2. Popis práce a její rozdělení členům týmu
 
-    Práce na projektu je rozdělena na několik základních skupin, vývoj frontendu, vývoj backendu a testování. BLA  
+    Práce na webových projektech lze obecně rozdělit do několika samostatných částí vývoj frontendu, vývoj backendu, testování. Zároveň lze práci rozdělit na jednotlivé úkoly, které vyplývají ze specifického zadání projektu, např. vývoj systému pro uživatele, vývoj redakčního systému pro administrátora, správa eshopu, objednávek a platba.
     
     Členové týmu včetně rozdělení práce:  
     Daniel Ridzoň **(ridzodan)** - *Vedoucí týmu, správa git a merge requestů*  
