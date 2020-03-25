@@ -1,5 +1,10 @@
-První iterace
+Projekt XB-1
 =============
+
+Úvod
+----
+
+Tento dokument je první iterací a současně povinnou částí projektu XB-1
 
 Osnova
 ------
@@ -24,7 +29,15 @@ Obsah
     
 2. Popis práce a její rozdělení členům týmu
 
-    Práce na projektu je rozdělena na několik základních skupin, vývoj frontendu, vývoj backendu a testování.
+    Práce na projektu je rozdělena na několik základních skupin, vývoj frontendu, vývoj backendu a testování. BLA  
+    
+    Členové týmu včetně rozdělení práce:  
+    Daniel Ridzoň **(ridzodan)** - *Vedoucí týmu, správa git a merge requestů*  
+    Tomáš Kovářík **(kovart12)** - *Rozhraní eshop, testování*  
+    David Trinch **(trinhxu2)** - *PLACE_HOLDER*  
+    Adam Tran **(tranvuqu)** - *PLACE_HOLDER*  
+    Petr Šmejkal **(smejkp13)** - *PLACE_HOLDER*
+    
     
 3. Analýza autorských práv původní webové aplikace
 
@@ -33,4 +46,8 @@ Obsah
     Zároveň s tím musí být zajištěna dostatečná originalita nového vzhledu webové aplikace, aby nebyla porušena autorská práva.
     Ze slov zadavatele vyplývá, že je autorem/má povolení použít již dodané logo původní aplikace avšak nemá právo použít původní design a pozadí.
     Autorský zákon chránící díla včetně webového design, který je jako originální uspořádání a upravení již implementovaných komponent také předmětem autorského zákona.
-    Zároveň však zmiňuje že design webových stránek, který je často z mnoha různých důvodů podřizován velkému množství konvencí, včetně používání veřejně dostupných frameworků, může vykazovat určité rysové podobnosti s dílem jiného autora, protože tato podobnost neplyne z tvořivé činnosti autorů, ale ze základních prvků používaného framworku. 
+    Zároveň však zmiňuje že design webových stránek, který je často z mnoha různých důvodů podřizován velkému množství konvencí, včetně používání veřejně dostupných frameworků, může vykazovat určité rysové podobnosti s dílem jiného autora, protože tato podobnost neplyne z tvořivé činnosti autorů, ale ze základních prvků používaného framworku.
+
+4. Analýza konkurenčních stránek
+
+    Mekty mekty
