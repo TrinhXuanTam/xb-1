@@ -56,3 +56,5 @@ Obsah
     Mekty mekty
 
 6. Nefunkční požadavky
+
+    responzivita, django, python, datové nároky, grafické nároky(designová forma) - Dodělám
