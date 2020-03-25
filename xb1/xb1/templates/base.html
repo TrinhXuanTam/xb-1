@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 {% load static %}
 <html>
+
+
   <head>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="{% static 'js/loading.js' %}"></script>
@@ -13,9 +15,16 @@
     <link rel="stylesheet" href="{% static 'css/logo.css' %}" />
     {% block include %}{% endblock %}
   </head>
+
+
   <body>
+
+     <!-- Loading animation during slow connection -->
     <div id="loading"></div>
 
+
+
+    <!-- Modal login form -->
     <div id="login_modal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -45,82 +54,104 @@
          </form>
         {%endif%}
                 <div>
-                <small>Need an Account? <a href = "{% url 'register' %}">Sign Up</a></small>
+                <small>Need an Account? <br><a href = "{% url 'register' %}">Sign Up</a></small>
                 </div>
       </div>
     </div>
 
+
+
+
+
     <div id="wrapper">
-      <button class="chat"><i class="fas fa-comments fa-2x"></i></button>
+        <!-- Chat button -->
+        <button class="chat"><i class="fas fa-comments fa-2x"></i></button>
 
-      <div class="sidebar">
-        <ul class="sidebar-options">
-          {% if user.is_authenticated %}
-          <li>
-            <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profil</a>
-          </li>
-          {% else %}
-          <li>
-            <a id="login_trigger2" onclick="openDialog()"><i class="fas fa-user"></i> Login</a>
-          </li>
-          {% endif %}
+        <!-- Left sidebar -->
+        <div class="sidebar">
+            <!-- Top sidebar options -->
+            <ul class="sidebar-options">
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profil</a>
+                </li>
+                {% else %}
+                <li>
+                    <a class="login_trigger" onclick="openDialog()"><i class="fas fa-user"></i> Login</a>
+                </li>
+                {% endif %}
 
-          <li>
-            <a href="{% url 'contact:contact' %}"><i class="fas fa-envelope"></i> Kontakt</a>
-          </li>
-          <li>
-            <a href="#"><i class="fas fa-calendar-week"></i> Odkaz</a>
-          </li>
-          <li>
-            <a href="#"><i class="fas fa-link"></i> Odkaz</a>
-          </li>
-        </ul>
+                <li>
+                    <a class="login_trigger" onclick="openDialog()"><i class="fas fa-envelope"></i> Kontakt</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-calendar-week"></i> Odkaz</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-link"></i> Odkaz</a>
+                </li>
+            </ul>
 
-        <ul class="sidebar-options bottom">
-          <li>
-            <a href="#"><i class="fas fa-circle color"></i> Barva</a>
-          </li>
-          <li>
-            <a href="#"><i class="fas fa-question-circle"></i> Odkaz</a>
-          </li>
+            <!-- Bottom sidebar options -->
+            <ul class="sidebar-options bottom">
+                <li>
+                    <a href="#"><i class="fas fa-circle color"></i> Barva</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-question-circle"></i> Odkaz</a>
+                </li>
 
-          {% if user.is_authenticated %}
-          <li>
-            <a href="{% url 'logout' %}"
-              ><i class="fas fa-power-off"></i> Logout
-            </a>
-          </li>
-          {% endif %}
-        </ul>
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'logout' %}"
+                    ><i class="fas fa-power-off"></i> Logout
+                </a>
+            </li>
+            {% endif %}
+            </ul>
       </div>
 
-      <nav class="navigation_bar">
-        <ul>
-          {% if user.is_authenticated %} {% else %}
-          <li><a href="{% url 'register' %}">Registrace</a></li>
-          <li><a id="login_trigger" onclick="openDialog()">Přihlášení</a></li>
-          {% endif %}
 
-          <li><a href="{% url 'contact:contact' %}">Kontakt</a></li>
-          <li><a href="#">Shop</a></li>
-          <li><a href="{% url 'articles:article_list' %}">Blog</a></li>
-          <li><a href="#">O nás</a></li>
-        </ul>
-        {% if messages %} {% for message in messages %}
-        <li><a>{{ message }} </a></li>
-        {% endfor %} {% endif %}
+
+      <!-- Top navbar -->
+      <nav class="navigation_bar">
+          <!-- Options -->
+          <ul>
+              {% if user.is_authenticated %} {% else %}
+              <li><a href="{% url 'register' %}">Registrace</a></li>
+              <li><a class="login_trigger" onclick="openDialog()">Přihlášení</a></li>
+              {% endif %}
+
+              <li><a class="login_trigger" onclick="openDialog()">Kontakt</a></li>
+              <li><a href="#">Shop</a></li>
+              <li><a href="{% url 'articles:article_list' %}">Blog</a></li>
+              <li><a href="#">O nás</a></li>
+          </ul>
+
+          {% if messages %} {% for message in messages %}
+          <li><a>{{ message }} </a></li>
+          {% endfor %} {% endif %}
       </nav>
 
+
+
+      <!-- Page content -->
       <div class="content">
-        <div class="header">
-          <a href="{% url 'index' %}"
-            ><img id="logo" src="{% static 'img/logo.png' %}"
-          /></a>
-        </div>
-        {% block content %} {% endblock %}
+          <!-- Header -->
+          <div class="header">
+              <!-- Logo -->
+              <a href="{% url 'index' %}">
+                  <img id="logo" src="{% static 'img/logo.png' %}"/>
+              </a>
+          </div>
+          {% block content %} {% endblock %}
       </div>
 
+
+
+      <!-- Scripts -->
       <script src="{% static 'js/login.js' %}"></script>
+
     </div>
   </body>
 </html>

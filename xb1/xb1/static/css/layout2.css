@@ -1,28 +1,29 @@
 .main {
-  flex-grow: 1;
-  width: 70%;
-  height: auto;
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.03);
-  box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
-  border-top-left-radius: 3rem;
-  border-top-right-radius: 3rem;
-  margin-top: 3rem;
-  transition: 4s;
-  padding: 3rem;
-  animation: 3s ease-out 0s 1 slideInFromBottom;
+    flex-grow: 1;
+    width: 70%;
+    height: auto;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
+    border-top-left-radius: 3rem;
+    border-top-right-radius: 3rem;
+    margin-top: 3rem;
+    transition-property: background, box-shadow;
+    transition-duration: 4s;
+    padding: 3rem;
+    animation: 3s ease-out 0s 1 slideInFromBottom;
 }
 
 .main:hover {
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 10px 0px 55px 1px rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 10px 0px 55px 1px rgba(255, 255, 255, 0.75);
 }
 
 @keyframes slideInFromBottom {
-  0% {
-    transform: translateY(100%);
-  }
-  100% {
-    transform: translateY(0);
-  }
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }

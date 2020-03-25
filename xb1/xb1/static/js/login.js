@@ -24,5 +24,5 @@ function openDialog() {
   modal.style.transition = "3s";
   modal.style.visibility = "visible";
   modal.style.opacity = 1;
-  wrapper.style.filter = "blur(6px)";
+  wrapper.style.filter = "blur(10px)";
 }

@@ -1,66 +1,67 @@
 * {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  text-decoration: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
 }
 
 .sidebar {
-  z-index: 2;
-  position: fixed;
-  left: 0;
-  width: 50px;
-  height: 100%;
-  background: radial-gradient(
-    circle,
-    rgba(30, 35, 44, 1) 0%,
-    rgba(0, 0, 0, 1) 100%
-  );
-  overflow: hidden;
-  transition: 1s;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
+    z-index: 2;
+    position: fixed;
+    left: 0;
+    width: 50px;
+    height: 100%;
+    background: radial-gradient( circle,
+                                 rgba(30, 35, 44, 1) 0%,
+                                 rgba(0, 0, 0, 1) 100%
+                               );
+    overflow: hidden;
+    transition-property: width;
+    transition-duration: 1s;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
 }
 
 .sidebar:hover {
-  width: 250px;
+    width: 250px;
 }
 
 .sidebar ul a {
-  text-decoration: none;
-  display: block;
-  height: 100%;
-  width: 100%;
-  line-height: 50px;
-  color: white;
-  padding-left: 20%;
-  transition: 0.3s;
-  white-space: nowrap;
-  word-spacing: 15px;
+    text-decoration: none;
+    display: block;
+    height: 100%;
+    width: 100%;
+    line-height: 50px;
+    color: white;
+    padding-left: 20%;
+    transition-property: padding, background, color;
+    transition-duration: 0.3s;
+    white-space: nowrap;
+    word-spacing: 15px;
 }
 
 .sidebar ul li:hover a {
-  padding-left: 25%;
-  background: white;
-  color: black;
+    padding-left: 25%;
+    background: white;
+    color: black;
 }
 
 ul li .fas {
-  margin-left: 3px;
-  font-size: 25px;
-  vertical-align: middle;
+    margin-left: 3px;
+    font-size: 25px;
+    vertical-align: middle;
 }
 
 .sidebar-options {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 .bottom {
-  width: 100%;
-  position: absolute;
-  bottom: 0px;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
 }
 
 .color {
-  color: orange;
+    color: orange;
 }
