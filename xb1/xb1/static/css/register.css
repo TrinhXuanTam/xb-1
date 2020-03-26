@@ -1,0 +1,11 @@
+.registration_content {
+    text-align: center;
+}
+
+.header {
+    display: block;
+}
+
+.registration_form {
+    display: inline-block;
+}

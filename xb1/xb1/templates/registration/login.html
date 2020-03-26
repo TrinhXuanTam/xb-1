@@ -1,29 +1,18 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
 {%block content %}
-
-    <div >
-        <form method = "POST">
-            {% csrf_token %}
-                <h1>Log In</h1>
-            <br>
-                {{ form.as_p }}
-            <div>
-                <br>
-                <button type = "submit">Login</button>
-            </div>
-        </form>
+<div >
+    <form method = "POST">
+        {% csrf_token %}
+            <h1>Log In</h1>
+        <br>
+            {{ form.as_p }}
         <div>
-                <small>Need an Account? <a href = "{% url 'register' %}">Sign Up</a></small>
+            <br>
+            <button type = "submit">Login</button>
         </div>
+    </form>
+    <div>
+        <small>Need an Account? <a href = "{% url 'register' %}">Sign Up</a></small>
     </div>
+</div>
 {%endblock content %}
-
-</body>
-</html>

@@ -118,7 +118,6 @@
           <!-- Options -->
           <ul>
               {% if user.is_authenticated %} {% else %}
-              <li><a href="{% url 'register' %}">Registrace</a></li>
               <li><a class="login_trigger" onclick="openDialog()">Přihlášení</a></li>
               {% endif %}
 

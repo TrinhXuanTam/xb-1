@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
-<html lang="cs-CZ">
-    <title>Kontakt</title>
 
-
-    <body>
-    {% block content %}
+{% block content %}
     {% if user.is_authenticated %}
     <div class="carousel-caption">
       <h1 class="display-2">Kontakt</h1>
@@ -48,9 +44,7 @@
          </form>
                 <div>
                 <small>Need an Account? <a href = "{% url 'register' %}">Sign Up</a></small>
-                </div>
+        </div>
       </div>
     {%endif%}
-    {% endblock %}
-  </body>
-</html>
+{% endblock %}

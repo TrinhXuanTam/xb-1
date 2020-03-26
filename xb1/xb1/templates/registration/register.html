@@ -1,35 +1,41 @@
 <!DOCTYPE html>
-{% extends 'base.html' %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Registration</title>
-</head>
-<body>
-{%block content %}
-    <div style="width:800px; padding-top: 50px ; margin:0 auto;">
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/logo.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/register.css' %}" />
+    </head>
+    <body>
 
-    <div >
-        <form method = "POST">
-            {% csrf_token %}
-            <fieldset >
-                <legend>
-                    Join Today
-                </legend>
-                {{ form.as_p }}
-            </fieldset>
+        <div class="registration_content">
+            <div class="header">
+                <!-- Logo -->
+                <a href="{% url 'index' %}">
+                    <img id="logo" src="{% static 'img/logo.png' %}"/>
+                </a>
+            </div>
+
+
+            <!-- Registration form -->
+            <div class="registration_form">
+                <form method = "POST">
+                    {% csrf_token %}
+                    <h1>Join Today</h1>
+                    {{ form.as_p }}
+
+                    <div>
+                        <button type = "submit">Sign Up</button>
+                    </div>
+                </form>
+
+            </div>
             <div>
-                <button type = "submit">Sign Up</button>
+                <small >
+                    Already Have an account? <a  href="{% url 'login' %}"> Sign In </a>
+                </small>
             </div>
-        </form>
-        <div>
-            <small >
-                Already Have an account? <a  href="{% url 'login' %}"> Sign In </a>
-            </small>
-        </div>
     </div>
-            </div>
-{%endblock content %}
 
-</body>
+    </body>
 </html>
