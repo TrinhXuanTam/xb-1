@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.contrib.auth.forms import AuthenticationForm
 from django.views.generic import View
+from .forms import UserLoginForm
 
 
 class LoginMixinView(View):
@@ -9,7 +9,7 @@ class LoginMixinView(View):
 
         context = super(LoginMixinView, self).get_context_data(*args, **kwargs)
 
-        context["login_form"] = AuthenticationForm
+        context["login_form"] = UserLoginForm
 
         return context
 

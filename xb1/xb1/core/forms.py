@@ -1,6 +1,19 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 from .models import User
+
+# custom login form
+class UserLoginForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(UserLoginForm, self).__init__(*args, **kwargs)
+
+        # set text placeholders
+        self.fields['username'].widget.attrs['placeholder'] = 'Username'
+        self.fields['password'].widget.attrs['placeholder'] = 'Password'
+
+        # set css class
+        self.fields['username'].widget.attrs['class'] = 'login_input'
+        self.fields['password'].widget.attrs['class'] = 'login_input'
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -14,6 +27,8 @@ class UserRegistrationForm(UserCreationForm):
             self.fields[field_name].help_text = None
             # remove labels
             self.fields[field_name].label = False;
+
+            self.fields[field_name].widget.attrs['class'] = 'registration_input'
 
         # set text placeholders
         self.fields['username'].widget.attrs['placeholder'] = 'Username'
