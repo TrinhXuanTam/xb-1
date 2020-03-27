@@ -50,16 +50,16 @@ Obsah
 4. Analýza konkurenčních stránek
 
     Co jsou naše konkurenční stránky:
-        - fan page časopisů
-        - oficiální stránky časopisů
+    - fan page časopisů
+    - oficiální stránky časopisů
 
     Co obsahují konkurenční weby:
-        - články na téma daného časopisu
-        - občas i ukázku článku z tištěné verze
-        - diskuze pod články
-        - prodej předplatného a dalších předmětů, vztahující se k časopisu
-        - soutěže
-        - uživatelská sekce (fanart sekce, diskuze na volné téma)
+    - články na téma daného časopisu
+    - občas i ukázku článku z tištěné verze
+    - diskuze pod články
+    - prodej předplatného a dalších předmětů, vztahující se k časopisu
+    - soutěže
+    - uživatelská sekce (fanart sekce, diskuze na volné téma)
 
     
 5. Funkční požadavky
