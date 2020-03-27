@@ -35,7 +35,7 @@ Obsah
     Tomáš Kovářík **(kovart12)** - *Rozhraní eshop, testování*  
     David Trinch **(trinhxu2)** - *PLACE_HOLDER*  
     Adam Tran **(tranvuqu)** - *PLACE_HOLDER*  
-    Petr Šmejkal **(smejkp13)** - *PLACE_HOLDER*
+    Petr Šmejkal **(smejkp13)** - *frontend vývojář, testování*
     
     
 3. Analýza autorských práv původní webové aplikace
