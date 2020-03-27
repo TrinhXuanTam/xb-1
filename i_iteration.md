@@ -49,7 +49,18 @@ Obsah
 
 4. Analýza konkurenčních stránek
 
-    Mekty mekty
+    Co jsou naše konkurenční stránky:
+        - fan page časopisů
+        - oficiální stránky časopisů
+
+    Co obsahují konkurenční weby:
+        - články na téma daného časopisu
+        - občas i ukázku článku z tištěné verze
+        - diskuze pod články
+        - prodej předplatného a dalších předmětů, vztahující se k časopisu
+        - soutěže
+        - uživatelská sekce (fanart sekce, diskuze na volné téma)
+
     
 5. Funkční požadavky
 
@@ -93,6 +104,12 @@ Obsah
     Eshop:
     - přijímání objednávek
     - zpracování objednávek
+
+    - funkcionality pro administrátora
+        - přidání nové položky do eshopu
+        - přehled aktuálních objednávek
+        - přehled již proběhlých objednávek
+        - souhrn již proběhlých objednávek
 
     Ostatní:
     - při pomalém načítání na jakékoliv stránce se objeví animace pomalého načítání (točící se kolečko)
