@@ -53,7 +53,49 @@ Obsah
     
 5. Funkční požadavky
 
-    Mekty mekty
+    Web je spravován správci (uživateli administrátory). Dále existují běžní uživatelé, kteří mohou využít níže popsaných funkcí. Hlavním obsahem webu jsou články, ke kterým se vážou různé funkcionality v závislosti na typu uživatele. 
+    Dále je možné využít live chat nebo podpořit provozovatele zakoupením zboží v e-shopu.
+    
+    Uživatelská sekce:
+    - na každé stránce se nachazí vysouvací sidebar na levé straně, který nabízí růžné funkcionality uživatelské sekce
+    - registrace uživatelů - k registraci je nutné zadat přezdívku, e-mail a zvolit si heslo (včetně potvrzení), registrace musí být potvrzená odkazem v e-mailu
+
+    - správa uživatelů (práva administrátora)
+        - zabanování uživatele
+        - resetování hesla pro daného uživatele
+        - přidání práv administrátora danému účtu
+        - změna přezdívky libovolného uživatele
+    
+    - funkcionality běžného uživatele
+        - změna hesla
+
+    Články a komentáře:
+    - úvodní stránka zobrazuje aktuální (nejnovější) články
+    - v sekci na pravé straně stránky je možné vybírat ze seznamu článků
+
+    - funkcionality pro administrátora
+        - vyvoření článku
+        - smazání článku
+        - úprava článku
+        - přidání komentáře
+        - smazání komentáře
+
+    - funkcionality pro běžného uživatele
+        - zobrazování článků
+        - přidání komentáře
+    
+    - funkcionality pro neregistrované uživatele
+        - zobrazování článků
+
+    Live Chat:
+    - real-time chatování pro registrované uživatele 
+
+    Eshop:
+    - přijímání objednávek
+    - zpracování objednávek
+
+    Ostatní:
+    - při pomalém načítání na jakékoliv stránce se objeví animace pomalého načítání (točící se kolečko)
 
 6. Nefunkční požadavky
 
