@@ -69,9 +69,16 @@
                 </li>
                 {% endif %}
 
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'contact:contact' %}"><i class="fas fa-envelope"></i> Kontakt</a>
+                </li>
+                {% else %}
                 <li>
                     <a class="login_trigger" onclick="openDialog()"><i class="fas fa-envelope"></i> Kontakt</a>
                 </li>
+                {% endif %}
+
                 <li>
                     <a href="#"><i class="fas fa-calendar-week"></i> Odkaz</a>
                 </li>
@@ -105,11 +112,16 @@
       <nav class="navigation_bar">
           <!-- Options -->
           <ul>
-              {% if user.is_authenticated %} {% else %}
+              {% if not user.is_authenticated %}
               <li><a class="login_trigger" onclick="openDialog()">Přihlášení</a></li>
               {% endif %}
 
-              <li><a class="login_trigger" onclick="openDialog()">Kontakt</a></li>
+              {% if user.is_authenticated %}
+                  <li><a href="{% url 'contact:contact' %}">Kontakt</a></li>
+              {% else %}
+                  <li><a class="login_trigger" onclick="openDialog()">Kontakt</a></li>
+              {% endif %}
+
               <li><a href="#">Shop</a></li>
               <li><a href="{% url 'articles:article_list' %}">Blog</a></li>
               <li><a href="#">O nás</a></li>

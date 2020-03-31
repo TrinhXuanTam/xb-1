@@ -13,6 +13,9 @@
     padding: 3rem;
     animation: 3s ease-out 0s 1 slideInFromBottom;
 }
+a:hover {
+cursor: pointer;
+}
 
 .main:hover {
     background: rgba(255, 255, 255, 0.2);

@@ -33,7 +33,7 @@
             {%if user.is_authenticated%}
                 <a href="{% url 'articles:article_create' %}">Create new article</a>
             {%else%}
-                <a id="login_trigger2" onclick="openDialog()"><i class="fas fa-user"></i> Login to create an article </a>
+                <a id="login_trigger" onclick="openDialog()"><i class="fas fa-user"></i> Login to create an article </a>
             {%endif%}
 <br>
                                     </div>

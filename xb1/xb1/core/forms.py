@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 from .models import User
 
+
 # custom login form
 class UserLoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
@@ -15,6 +16,14 @@ class UserLoginForm(AuthenticationForm):
         self.fields['username'].widget.attrs['class'] = 'login_input'
         self.fields['password'].widget.attrs['class'] = 'login_input'
 
+    def confirm_login_allowed(self, user):
+        if not user.is_active:
+            raise forms.ValidationError(
+                "This account is inactive.",
+                code='inactive',
+            )
+
+
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField()
@@ -26,7 +35,7 @@ class UserRegistrationForm(UserCreationForm):
             # remove helper text
             self.fields[field_name].help_text = None
             # remove labels
-            self.fields[field_name].label = False;
+            self.fields[field_name].label = False
 
             self.fields[field_name].widget.attrs['class'] = 'registration_input'
 
