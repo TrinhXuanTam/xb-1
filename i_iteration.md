@@ -25,19 +25,19 @@ Obsah
     Projekt by měl nahradit v současnosti již nefunkční systém. Základním požadavkem projektu je především správná a bezpečná funkčnost základních funkcí potřebných pro správu a využívání fanouškovské webové aplikace, přesný výpis požadovaných funcionalit lze nalézt v sekci 5.1 Funkční požadavky.
     Design webové části nové aplikace by měl být inspirován starým vzhledem včetně znovu použití loga, které bylo dodáno zadavatelem projektu.
     Jelikož nebyly dodány žádné nároky na jazykové provedení, bude projekt vyvíjen v jazyku Python za pomoci frameworku Django. Konkrétní jazyk a framework byly vybrány po analýze současného trhu s webovými aplikacemi, kde je v současné době nejpoužívanějším frameworkem právě Django a to především kvůli své spolehlivosti, jednoduchosti a bezpečnosti, protože mnoho bezpečnostích mechanismů je již implementováno.
-    
+
 2. Popis práce a její rozdělení členům týmu
 
     Práce na webových projektech lze obecně rozdělit do několika samostatných částí vývoj frontendu, vývoj backendu, testování. Zároveň lze práci rozdělit na jednotlivé úkoly, které vyplývají ze specifického zadání projektu, např. vývoj systému pro uživatele, vývoj redakčního systému pro administrátora, správa eshopu, objednávek a platba.
-    
+
     Členové týmu včetně rozdělení práce:  
     Daniel Ridzoň **(ridzodan)** - *Vedoucí týmu, správa git a merge requestů*  
     Tomáš Kovářík **(kovart12)** - *Rozhraní eshop, testování*  
     David Trinch **(trinhxu2)** -  
     Adam Tran **(tranvuqu)** -  
     Petr Šmejkal **(smejkp13)** - *frontend vývojář, testování*
-    
-    
+
+
 3. Analýza autorských práv původní webové aplikace
 
     Součástí projektu je i analýza všech práv vztahujících se na současnou nefunkční verzi webové aplikace dodanou externí firmou zadavateli.
@@ -61,12 +61,12 @@ Obsah
     - soutěže
     - uživatelská sekce (fanart sekce, diskuze na volné téma)
 
-    
+
 5. Funkční požadavky
 
-    Web je spravován správci (uživateli administrátory). Dále existují běžní uživatelé, kteří mohou využít níže popsaných funkcí. Hlavním obsahem webu jsou články, ke kterým se vážou různé funkcionality v závislosti na typu uživatele. 
+    Web je spravován správci (uživateli administrátory). Dále existují běžní uživatelé, kteří mohou využít níže popsaných funkcí. Hlavním obsahem webu jsou články, ke kterým se vážou různé funkcionality v závislosti na typu uživatele.
     Dále je možné využít live chat nebo podpořit provozovatele zakoupením zboží v e-shopu.
-    
+
    Uživatelská sekce:
     - uživatelé se mohou nacházet ve dvou stavech:
         - aktivní = možnost přihlášení, práva běžného uživatele/administrátora
@@ -74,7 +74,7 @@ Obsah
         - zabanovaný = nemožnost se přihlásit a zamezení práv běžného uživatele/administrátora + nemožnost použít aktivační link (zabanování během registrace, např. překročení limitu odeslaných žádostí,... ), při pokusu o přihlášení mu bude sděleno, že je uživatel zabanovaný (důvod banu, délka banu)  
         ![](pictures/zivotni_cyklus_uzivatele.PNG)
     - na každé stránce se nachází vysouvací sidebar na levé straně, který nabízí různé funkcionality pro registrované uživatele (kontakt, zobrazení profilu, logout)
-    - registrace uživatelů: 
+    - registrace uživatelů:
         - k registraci je nutné zadat přezdívku, e-mail a zvolit si heslo (včetně potvrzení)
         - poté se uživateli pošle zpráva s aktivačním linkem (validní pouze 24 hodin od odeslání) na zadaný email
         - uživatel je v tuto chvíli označen jako neaktivní a nebude mu dovoleno se přihlásit bez potvrzení (v případě, že by se pokusil přihlásit s účtem v neaktivním stavu, bude mu oznámeno, že účet je neaktivní a bude mu nabídnuta možnost zadat email znova nebo znovu zaslání zprávy s aktivačním linkem)
@@ -98,9 +98,47 @@ Obsah
         - přístup k profilové sekci, ve které může editovat svůj profil
         - možnost se zapojit k diskuzím a jejich moderaci
         - možnost smazání komentářů k diskuzi/článku, které nejsou v souladu s podmínkami viz. sekce komentář
-        - možnost přidání/editace/smazání vlastních článků
+        - možnost přidání/editace/smazání vlastních článků  
 
-    Články a komentáře:
+   Články:
+   - Za článek považujeme soubor následujících atributů:
+        - Nadpis
+        - Autor
+        - Slug - identifikátor článku, který bude součástí URL
+        - Thumbnail - obrázek, který se má zobrazit při náhledu
+        - Kategorie - pomocí kategorií lze filtrovat články
+        - Klíčová slova - slova, na základě kterých je možné článek vyhledat
+        - Povolení komentářů
+        - Datum - doba, kdy bude článek zobrazitelný - po uplynutí této doby se stav článku změní na skrytý
+        - Obsah článku - obsahem článku může být text, obrázky či videa
+        - Zdroje
+        - Stav článku - viz. Stavy článků
+
+   - Správa článků:
+        - Práva k přidávání, editaci a mazání článku mají pouze administrátoři
+        - Správa těchto článků bude realizována pomocí vybraného redakčního systému
+
+   ![](pictures/cms.png)
+
+   - Stavy článků:
+        - Skrytý  = článek není přístupný z hlavní stránky, označuje rozpracovaný článek nebo článek, kterému skončila doba platnosti
+        - Publikovaný = článek je viditelný na hlavní stránce
+   - Zobrazení článků:
+        - Články se nachází na hlavní stránce
+        - Uprostřed se nachází uživatelem zvolený článek
+        - Nevybral-li uživatel žádný článek, zobrazí se ten nejnovější
+        - Pokud byly u vybraného článku povoleny komentáře, pak se pod ním zobrazí  komentáře uživatelů
+        - Napravo od hlavního článku je seznam náhledů dalších článků
+        - Tento seznam bude seřazený podle data publikace
+        - Po rozkliknutí náhledu se v prostoru hlavního článku načte zvolený článek
+  - Kategorie:
+        - Nabídka kategorií se nachází nad hlavním článkem
+        - Defaultně se uživateli zobrazují všechny články, dokud si nezvolí kategorii
+        - Po zvolení kategorie se v seznamu náhledů zobrazí pouze články, které jsou označené příslušnou kategorií
+
+  ![](pictures/index.png)
+
+   komentáře:
     - úvodní stránka zobrazuje aktuální (nejnovější) články
     - v sekci na pravé straně stránky je možné vybírat ze seznamu článků
 
@@ -114,12 +152,12 @@ Obsah
     - funkcionality pro běžného uživatele
         - zobrazování článků
         - přidání komentáře
-    
+
     - funkcionality pro neregistrované uživatele
         - zobrazování článků
 
     Live Chat:
-    - real-time chatování pro registrované uživatele 
+    - real-time chatování pro registrované uživatele
 
     Eshop:
     - přijímání objednávek
@@ -140,7 +178,7 @@ Obsah
     - Podpora počítačových rozlišení (1280x720, 1920x1080, 3840×2160)
     - Podpora mobilních rozlišení (540×960, 1280×720, 1920×1080)
     - Podpora velmi nízkých rozlišení vzhledek k základnímu designu stránek nebude zajištěna (méně než 540×960)  
-    
+
     Datové nároky:
     - Podpora jednotného designu napříč uživatelsky přístupných stránkách (použitelnost cache paměti)
     - Podpora jednotného designu pro administrátorské stránky nebude zajištěna, nevyhovující forma pro administrační stránky
@@ -150,8 +188,7 @@ Obsah
     Backend framework:
     - Použití Django frameworku psaném v jazyce Python (přesná verze včetně dalších požadovaných knihoven je obsažená v souboru ./../requirements.txt)
     - Framework byl vybrán na základě současné situace ve vývoji webových aplikací a kvality, kdy nejpřeněji splňuje dodané zadání, především implementace bezpečnostích prvků (CSRF)
-    
+
     Grafická forma:
     - Aplikační vzhled bude rozdělen na dva nezávislé grafické celky (uživatelský, administrátoský)
     - Použití ucelených a přehledných šablon včetně volně dostupných piktogramů a emotikonů pro znázornění některých klíčových funcionalit
-    
