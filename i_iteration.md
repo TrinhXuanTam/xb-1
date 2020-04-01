@@ -67,18 +67,37 @@ Obsah
     Web je spravován správci (uživateli administrátory). Dále existují běžní uživatelé, kteří mohou využít níže popsaných funkcí. Hlavním obsahem webu jsou články, ke kterým se vážou různé funkcionality v závislosti na typu uživatele. 
     Dále je možné využít live chat nebo podpořit provozovatele zakoupením zboží v e-shopu.
     
-    Uživatelská sekce:
-    - na každé stránce se nachazí vysouvací sidebar na levé straně, který nabízí růžné funkcionality uživatelské sekce
-    - registrace uživatelů - k registraci je nutné zadat přezdívku, e-mail a zvolit si heslo (včetně potvrzení), registrace musí být potvrzená odkazem v e-mailu
-
-    - správa uživatelů (práva administrátora)
-        - zabanování uživatele
-        - resetování hesla pro daného uživatele
-        - přidání práv administrátora danému účtu
-        - změna přezdívky libovolného uživatele
-    
-    - funkcionality běžného uživatele
+   Uživatelská sekce:
+    - uživatelé se mohou nacházet ve dvou stavech:
+        - aktivní = možnost přihlášení, práva běžného uživatele/administrátora
+        - neaktivní = nemožnost se přihlásit a zamezení práv běžného uživatele/administrátora, při pokusu o přihlášení mu bude sděleno, že je uživatel neaktivní, a nabídne mu znovu zaslání potvrzovacího emailu, či změny emailu
+        - zabanovaný = nemožnost se přihlásit a zamezení práv běžného uživatele/administrátora + nemožnost použít aktivační link (zabanování během registrace, např. překročení limitu odeslaných žádostí,... ), při pokusu o přihlášení mu bude sděleno, že je uživatel zabanovaný (důvod banu, délka banu)
+    - na každé stránce se nachází vysouvací sidebar na levé straně, který nabízí různé funkcionality pro registrované uživatele (kontakt, zobrazení profilu, logout)
+    - registrace uživatelů: 
+        - k registraci je nutné zadat přezdívku, e-mail a zvolit si heslo (včetně potvrzení)
+        - poté se uživateli pošle zpráva s aktivačním linkem (validní pouze 24 hodin od odeslání) na zadaný email
+        - uživatel je v tuto chvíli označen jako neaktivní a nebude mu dovoleno se přihlásit bez potvrzení (v případě, že by se pokusil přihlásit s účtem v neaktivním stavu, bude mu oznámeno, že účet je neaktivní a bude mu nabídnuta možnost zadat email znova nebo znovu zaslání zprávy s aktivačním linkem)
+        - po rozkliknutí validního linku bude uživatel ve aktivním stavu a budou mu zpřístupněny uživatelské funkcionality.
+    - sekce profil uživatele bude obsahovat:
+        - vyplnění bližších kontaktních údajů (trvalé bydliště, jméno, příjmení) pro automatické vyplnění při objednávání z e-shopu, popřípadě změna těchto údajů
         - změna hesla
+        - změna emailu (stejný způsob potvrzování jako při registraci)
+        - změna hesla a emailu bude notifikována na email uživatele (při změně emailu bude zaslána notifikace  na email před změnou)
+        - deaktivace účtu
+    - práva běžného registrovaného uživatele:
+        - přidávání/smazání/editace vlastních komentářů k článkům
+        - přístup k profilové sekci, ve které může editovat svůj profil
+        - kontakt s administrátory
+        - možnost se zapojit k diskuzím
+    - práva administrátorů:
+        - správa uživatelů (zabanování/odbanování uživatele, resetování hesla pro daného uživatele, přidání práv administrátora danému účtu, změna přezdívky libovolného uživatele)
+        - zabanování znamená, převod uživatele do neaktivního stavu
+        - odbanování znamená, převod uživatele z neaktivního stavu do aktivního stavu
+        - přidávání/smazání/editace vlastních komentářů k článkům
+        - přístup k profilové sekci, ve které může editovat svůj profil
+        - možnost se zapojit k diskuzím a jejich moderaci
+        - možnost smazání komentářů k diskuzi/článku, které nejsou v souladu s podmínkami viz. sekce komentář
+        - možnost přidání/editace/smazání vlastních článků
 
     Články a komentáře:
     - úvodní stránka zobrazuje aktuální (nejnovější) články
