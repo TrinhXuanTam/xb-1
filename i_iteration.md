@@ -156,6 +156,68 @@ Obsah
    - funkcionality pro neregistrované uživatele
         - zobrazování článků
 
+    Komentáře a fórum:
+    - TODO formátování?, budou správci fóra? (!= administrátor)
+    - Autorizovaní uživatelé budou moci přidávat vlastní obsah na stránku jednak jako komentáře pod články a také jako komentáře v uživatelském fóru.
+    - Komentáře pod články:
+        - Pod koncem článku bude sekce komentářů, ve které budou autorizovaní uživatelé moci diskutovat na téma článku.
+        - Každý n-tý komentář se uživateli zobrazí Captcha, aby se zabránilo spam botům.
+        - Uživatel bude moci reagovat na jakýkoli z komentářů.
+        - Reakce na komentáře budou vizuálně odsazené doprava (Bude stanovena maximální hloubka odsazení) pro zlepšení vizuálního kontextu diskuze.
+        - Autorizovaní uživatelé budou moci hodnotit komentáře pomocí up/down 
+
+        - jaké části má komentář:
+            - hlavička komentáře:
+                - ikona uživatele
+                - přezdívka uživatele
+                - datum a čas komentáře
+                - hodnocení komentáře
+            - tělo komentáře:
+                - pokud se jedná o reakci, bude před komentářem zobrazen nick uživatele, na kterého reaguje (@nick)
+                - samotný text komentáře
+                - text komentáře bude moci být formátován (jen omezeně TODO fotky?)
+            - zápatí komentáře
+                - odkaz na reakci na komentář ("Odpovědět")
+                - tlačítka up/down pro ohodnocení komentáře
+                - tlačítko na cenzuru komentáře (jen pokud je přihlášen administrátor)
+
+        - možnosti administrátora:
+            - nastavit, zda bude možné k článku přidávat komentáře
+            - možnost cenzury nevhodného komentáře (Komentář zůstane na místě, jen mu změněn původní text na informaci o nevhodném komentáři)
+            - pokud uživatel bude opakovaně porušovat podmínky vkládání komentářů, může být administrátorem zablokován jeho účet
+            - přidat vlastní komentář
+            - možnost ukončení diskuze (od této chvíle nepůjde do diskuze přidat nový komentář)
+
+        - možnosti autorizovaného uživatele:
+            - přidat nový komentář
+            - reagovat komentářem na jiný komentář
+            - ohodnotit komentář
+
+    - Uživatelské fórum
+        - Uživatelské fórum bude stejná komponenta jako komentáře
+        - Sekce bude vypadat a fungovat téměř stejně jako komentáře pod články
+        - rozdíly oproti komentářům pod články:
+            - místo článku, co udává téma, bude jen úvodní nadpis
+        - jednotlivé diskuze ve fóru budou kategorizované do různých sekcí (Volná diskuze, Fanart, ...)
+
+        - design:
+            - Úvodní stránka fóra bude zobrazovat náhledy jednotlivých sekcí (Bude se jednat jen o titulky a počet příspěvků)
+                - nahoře bude 5 fór, co byly v nedávné době aktivní
+                - následovat budou přehledy jednotlivých sekcí (také jen 5 posledních dle aktivity)
+            - Kliknutím na nadpis sekce, bude uživatel přesměrován přímo do sekce, kde již budou všechna fóra sekce seřazená dle poslední aktivity.
+            - Sekce bude podporovat stránkování, pro zabránění dlouhých seznamů
+            - Kliknutím na nadpis fóra bude uživatel přesměrován na jeho stránku, kde si bude moci přečíst jednotlivé komentáře a reagovat na ně.
+
+        - tvorba nové sekce:
+            - sekci může vytvořit jen administrátor
+            - u sekce může nastavit, zda tvorba fóra v sekci bude povolena pro všechny autorizované uživatele nebo jen pro administrátory
+
+        - tvorba nového fóra:
+            - Podle restrikcí sekce může autorizovaný uživatel / administrátor vytvořit v sekci nové fórum.
+            - Jestliže téma fóra nespadá do sekce, může být administrátorem přesunutu do vhodné sekce.
+            - Jestliže témá fóra je nevhodné, může být administrátorem smazáno.
+            - Jestliže téma fóra je duplicitní, může být administrátorem uzavřeno pro vkládání dalších komentářů.
+
    Live Chat:
    - real-time chatování pro registrované uživatele
 
