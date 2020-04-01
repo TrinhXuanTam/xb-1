@@ -33,7 +33,7 @@ Obsah
     Členové týmu včetně rozdělení práce:  
     Daniel Ridzoň **(ridzodan)** - *Vedoucí týmu, správa git a merge requestů*  
     Tomáš Kovářík **(kovart12)** - *Rozhraní eshop, testování*  
-    David Trinch **(trinhxu2)** - 
+    David Trinch **(trinhxu2)** -  
     Adam Tran **(tranvuqu)** -  
     Petr Šmejkal **(smejkp13)** - *frontend vývojář, testování*
     
