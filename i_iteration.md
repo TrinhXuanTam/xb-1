@@ -116,7 +116,22 @@ Obsah
 
 6. Nefunkční požadavky
 
-    *Grafická forma* - Webová aplikace, tedy všechny její stránky by měly používat stejnou grafickou formu pro zabezpečení co možná nějvětší čitelnosti a přehlednosti, a to včetně administrátoských stránek. Zároveň budou využity volně dostupné ikony a piktogramy pro větší názornost klíčových funcionalit.  
-    *Responzivita* - Vzhled webových stránek se automaticky bude měnit podle rozlišení zobrazovacího zařízení, především při nízkých rozlišeních a telefoních zařízeních.  
-    *Datové nároky* - Aplikace je koncipována jako více stránková aplikace, tedy bude mít mírně větší datové nároky než one-page aplikace.  
-    *Django* - Programovací framework byl vybrán na základě volně dostupných analýz současně existujících webových řešení, kde Django excelovalo v kategoriích požadovaných v zadání projektu.  
+    Responzivita:
+    - Podpora počítačových rozlišení (1280x720, 1920x1080, 3840×2160)
+    - Podpora mobilních rozlišení (540×960, 1280×720, 1920×1080)
+    - Podpora velmi nízkých rozlišení vzhledek k základnímu designu stránek nebude zajištěna (méně než 540×960)  
+    
+    Datové nároky:
+    - Podpora jednotného designu napříč uživatelsky přístupných stránkách (použitelnost cache paměti)
+    - Podpora jednotného designu pro administrátorské stránky nebude zajištěna, nevyhovující forma pro administrační stránky
+    - Více stránková aplikace, větší nároky než OnePage aplikace
+    - Grafické komponenty především pozadí a další obrázky budou velikostně a tedy kvalitativně omezeny pro dosažení nejmenších datových nároků při zachování dostatečné grafické kvality
+
+    Backend framework:
+    - Použití Django frameworku psaném v jazyce Python (přesná verze včetně dalších požadovaných knihoven je obsažená v souboru ./../requirements.txt)
+    - Framework byl vybrán na základě současné situace ve vývoji webových aplikací a kvality, kdy nejpřeněji splňuje dodané zadání, především implementace bezpečnostích prvků (CSRF)
+    
+    Grafická forma:
+    - Aplikační vzhled bude rozdělen na dva nezávislé grafické celky (uživatelský, administrátoský)
+    - Použití ucelených a přehledných šablon včetně volně dostupných piktogramů a emotikonů pro znázornění některých klíčových funcionalit
+    
