@@ -131,7 +131,7 @@ Obsah
         - Napravo od hlavního článku je seznam náhledů dalších článků
         - Tento seznam bude seřazený podle data publikace
         - Po rozkliknutí náhledu se v prostoru hlavního článku načte zvolený článek
-  - Kategorie:
+   - Kategorie:
         - Nabídka kategorií se nachází nad hlavním článkem
         - Defaultně se uživateli zobrazují všechny články, dokud si nezvolí kategorii
         - Po zvolení kategorie se v seznamu náhledů zobrazí pouze články, které jsou označené příslušnou kategorií
@@ -139,38 +139,38 @@ Obsah
   ![](pictures/index.png)
 
    komentáře:
-    - úvodní stránka zobrazuje aktuální (nejnovější) články
-    - v sekci na pravé straně stránky je možné vybírat ze seznamu článků
+   - úvodní stránka zobrazuje aktuální (nejnovější) články
+   - v sekci na pravé straně stránky je možné vybírat ze seznamu článků
 
-    - funkcionality pro administrátora
+   - funkcionality pro administrátora
         - vyvoření článku
         - smazání článku
         - úprava článku
         - přidání komentáře
         - smazání komentáře
 
-    - funkcionality pro běžného uživatele
+   - funkcionality pro běžného uživatele
         - zobrazování článků
         - přidání komentáře
 
-    - funkcionality pro neregistrované uživatele
+   - funkcionality pro neregistrované uživatele
         - zobrazování článků
 
-    Live Chat:
-    - real-time chatování pro registrované uživatele
+   Live Chat:
+   - real-time chatování pro registrované uživatele
 
-    Eshop:
-    - přijímání objednávek
-    - zpracování objednávek
+   Eshop:
+   - přijímání objednávek
+   - zpracování objednávek
 
-    - funkcionality pro administrátora
+   - funkcionality pro administrátora
         - přidání nové položky do eshopu
         - přehled aktuálních objednávek
         - přehled již proběhlých objednávek
         - souhrn již proběhlých objednávek
 
-    Ostatní:
-    - při pomalém načítání na jakékoliv stránce se objeví animace pomalého načítání (točící se kolečko)
+   Ostatní:
+   - při pomalém načítání na jakékoliv stránce se objeví animace pomalého načítání (točící se kolečko)
 
 6. Nefunkční požadavky
 
