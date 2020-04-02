@@ -51,13 +51,13 @@ Obsah
 
     Analyzované stránky: [seznam stránek](https://docs.google.com/document/d/1FJtkq1lKopBF3FOEsbx8Buzrjtc2HMCnLFihPfsKO6A/)
 
-    Současná konkurence:
-    - fan page časopisů: 
-        - [Fantasymag.cz](https://www.fantasymag.cz/)
-        - [Vanili.cz](https://www.vanili.cz/sci-fi/)
-    - oficiální stránky časopisů: 
-        - [Pevnost](https://www.pevnost.cz/)
-        - [Časopis ABC](https://www.abicko.cz/)
+    - Současná konkurence:
+        - fan page časopisů: 
+            - [Fantasymag.cz](https://www.fantasymag.cz/)
+            - [Vanili.cz](https://www.vanili.cz/sci-fi/)
+        - oficiální stránky časopisů: 
+            - [Pevnost](https://www.pevnost.cz/)
+            - [Časopis ABC](https://www.abicko.cz/)
     - Potenciální konkurence:
         - jako potenciální konkurenci můžeme považovat sci-fi časopisy, které ještě nevyužili internetu k propagaci (v dnešní době málo případů)
     - Obchodní a marketingová strategie konkurence:	
