@@ -223,13 +223,13 @@ Obsah
 
    Objednávky:
 
-    Tato sekce slouží k zakoupení předmětů a služeb. Výdělek slouží jako pomoc při financování chodu tohoto portálu. Nakupovat mohou pouze registrovaní uživatelé, nicméně zobrazení nabídky je možné pro všechny uživatele webu. Vyřizovaní objednávek probíhá ručně. Tato sekce není určena pro velmi frekventované objednávání, spíše pro občasné nakupování fandů.
+   Tato sekce slouží k zakoupení předmětů a služeb. Výdělek slouží jako pomoc při financování chodu tohoto portálu. Nakupovat mohou pouze registrovaní uživatelé, nicméně zobrazení nabídky je možné pro všechny uživatele webu. Vyřizovaní objednávek probíhá ručně. Tato sekce není určena pro velmi frekventované objednávání, spíše pro občasné nakupování fandů.
     
-    Funkcionality pro všechny uživatele:
-        -	Procházení nabídky, možnost rozkliknuti dané položky pro detailnější popis.
-        -	Seřazení položek podle ceny, názvu.
+   Funkcionality pro všechny uživatele:
+   -	Procházení nabídky, možnost rozkliknuti dané položky pro detailnější popis.
+   -	Seřazení položek podle ceny, názvu.
     
-    Funkcionality pro registrované uživatele:
+   Funkcionality pro registrované uživatele:
         -	Vložení položky do košíku.
         -	Odstranění položky z košíku.
         -	Průběh objednávky po nashromáždění všech zakupovaných položek v košíku (popis jednotlivých kroků):
