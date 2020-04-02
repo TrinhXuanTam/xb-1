@@ -228,29 +228,31 @@ Obsah
    Funkcionality pro všechny uživatele:
    -	Procházení nabídky, možnost rozkliknuti dané položky pro detailnější popis.
    -	Seřazení položek podle ceny, názvu.
-    
+
    Funkcionality pro registrované uživatele:
-        -	Vložení položky do košíku.
-        -	Odstranění položky z košíku.
+   -	Vložení položky do košíku.
+   -    Ostranění položky z košíku.
         -	Průběh objednávky po nashromáždění všech zakupovaných položek v košíku (popis jednotlivých kroků):
             1)	Rekapitulace zboží – možnost změny počtu kusů u dané položky, možnost odstranění položky.
             2)	Vyplnění požadovaných osobních údajů, tj. jméno, příjmení, adresa, email, telefon.
             3)	Výběr způsobu dodání a platby.
             4)	Rekapitulace objednávky a souhlas s podmínkami. Odeslání objednávky k ručnímu zpracování. Zároveň je objednávajícímu zaslán email s informacemi o jeho objednávce.
     
-    Administrátoři mají možnost úpravy této sekce pomocí následujících funkcionalit: 
-        -	Skrytí položky – položka je vidět ze strany administrátora, avšak není možné, aby byla zobrazena/objednána jiným typem uživatele. Z důvodu jednoduchosti není u jednotlivých položek vidět počet kusů skladem – právě zde lze využít skrytí položky (zároveň objednávka s velkým počtem kusů nějakého zboží není předpokládána).
-        -	Přidání položky do nabídky, vč. následujících atributů (výchozí jako skrytá položka):
-            -	název,
-            -	popis,
-            -	cena,
-            -	ilustrační obrázek.
-        -	Úprava položky z nabídky, tzn. úprava již dříve zmíněných atributů u dané položky.
-        -	Odstranění položky z nabídky.
-        -	Zobrazení seznamu všech aktivních a skrytých položek, řazeno abecedně podle jména.
-        -	Zobrazení seznamu samotných objednávek, které jsou dále vyřizovány ručně. Po vyřízení objednávky je možné označit tuto objednávku jako „vyřízená“ a je tedy možné zpětně sledovat historii objednávek.
+
+   Administrátoři mají možnost úpravy této sekce pomocí následujících funkcionalit: 
+   -	Skrytí položky – položka je vidět ze strany administrátora, avšak není možné, aby byla zobrazena/objednána jiným typem uživatele. Z důvodu jednoduchosti není u jednotlivých položek vidět počet kusů skladem – právě zde lze využít skrytí položky (zároveň objednávka s velkým počtem kusů nějakého zboží není předpokládána).
+   -	Přidání položky do nabídky, vč. následujících atributů (výchozí jako skrytá položka):
+        -	název,
+        -	popis,
+        -	cena,
+        -	ilustrační obrázek.
+   -	Úprava položky z nabídky, tzn. úprava již dříve zmíněných atributů u dané položky.
+   -	Odstranění položky z nabídky.
+   -	Zobrazení seznamu všech aktivních a skrytých položek, řazeno abecedně podle jména.
+   -	Zobrazení seznamu samotných objednávek, které jsou dále vyřizovány ručně. Po vyřízení objednávky je možné označit tuto objednávku jako „vyřízená“ a je tedy možné zpětně sledovat historii objednávek.
     
-    Případné reklamace jsou řešeny individuálně prostřednictvím emailu nebo po telefonu.
+
+   Případné reklamace jsou řešeny individuálně prostřednictvím emailu nebo po telefonu.
 
    Ostatní:
    - při pomalém načítání na jakékoliv stránce se objeví animace pomalého načítání (točící se kolečko)
