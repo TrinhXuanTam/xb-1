@@ -49,18 +49,37 @@ Obsah
 
 4. ANALÝZA KONKURENČNÍCH STRÁNEK
 
-    Co jsou naše konkurenční stránky:
-    - fan page časopisů
-    - oficiální stránky časopisů
+    Analyzované stránky: [seznam stránek](https://docs.google.com/document/d/1FJtkq1lKopBF3FOEsbx8Buzrjtc2HMCnLFihPfsKO6A/)
 
-    Co obsahují konkurenční weby:
-    - články na téma daného časopisu
-    - občas i ukázku článku z tištěné verze
-    - diskuze pod články
-    - prodej předplatného a dalších předmětů, vztahující se k časopisu
-    - soutěže
-    - uživatelská sekce (fanart sekce, diskuze na volné téma)
-
+    Současná konkurence:
+    - fan page časopisů: 
+        - [Fantasymag.cz](https://www.fantasymag.cz/)
+        - [Vanili.cz](https://www.vanili.cz/sci-fi/)
+    - oficiální stránky časopisů: 
+        - [Pevnost](https://www.pevnost.cz/)
+        - [Časopis ABC](https://www.abicko.cz/)
+    - Potenciální konkurence:
+        - jako potenciální konkurenci můžeme považovat sci-fi časopisy, které ještě nevyužili internetu k propagaci (v dnešní době málo případů)
+    - Obchodní a marketingová strategie konkurence:	
+        - prodej předplatného a dalších předmětů, vztahující se k časopisu (forma e-shopu/objednávek)
+        - zisk z prodeje zde většinou nebývá primárním cílem
+        - zaměření především na propagaci časopisu
+        - některé stránky obsahují reklamní bannery, občas tématické reklamy
+        - některé stránky mají i sponzory/partnery a navzájem se propagují
+        - časopis pevnost má na své stránce i nekomerční podcasty
+        - literární ocenění na hlavní stránce
+    - Použitelnost - jak snadná je orientace na webové stránce?:
+        - pro nové návštěvníky může být problém se ve stránkách zorientovat - časté používání slangových výrazů
+        - jsou použity známé layouty, které usnadňují hledání informací (horní navbar + sidebar)
+        - zlepšení použitelnosti - většina konkurenčních stránek umožňuje zpětnou vazbu od uživatelů 
+    - Přístupnost - je některá skupina uživatelů znevýhodněna?:
+        - bývají podporovány na zařízeních s různými rozlišeními - od mobilních (smartphones) po 4k zařízeních
+        - Kompatibilní s asistivními technologiemi pro handicapované (např.: textová alternativa obrázků - text to speech pro zrakově postižené)
+    - Obsah - co nabízejí konkurenční stránky?:
+        - články na téma daného časopisu
+        - diskuze pod články - komentáře
+        - soutěže - fanart a jiné umělecké soutěže
+        - uživatelská sekce (fanart sekce, diskuze na volné téma)
 
 5. FUNKČNÍ POŽADAVKY
 
