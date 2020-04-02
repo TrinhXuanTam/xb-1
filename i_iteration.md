@@ -19,14 +19,14 @@ Osnova
 Obsah
 -----
 
-1. Základní popis projektu
+1. ZÁKLADNÍ POPIS PROJEKTU
 
     Cílem projektu týmu Ikarie je vytvoření nové plně funkční webové aplikace, která bude sdružovat komunitu Sci-Fi časobisu XB-1.
     Projekt by měl nahradit v současnosti již nefunkční systém. Základním požadavkem projektu je především správná a bezpečná funkčnost základních funkcí potřebných pro správu a využívání fanouškovské webové aplikace, přesný výpis požadovaných funcionalit lze nalézt v sekci 5.1 Funkční požadavky.
     Design webové části nové aplikace by měl být inspirován starým vzhledem včetně znovu použití loga, které bylo dodáno zadavatelem projektu.
     Jelikož nebyly dodány žádné nároky na jazykové provedení, bude projekt vyvíjen v jazyku Python za pomoci frameworku Django. Konkrétní jazyk a framework byly vybrány po analýze současného trhu s webovými aplikacemi, kde je v současné době nejpoužívanějším frameworkem právě Django a to především kvůli své spolehlivosti, jednoduchosti a bezpečnosti, protože mnoho bezpečnostích mechanismů je již implementováno.
 
-2. Popis práce a její rozdělení členům týmu
+2. POPIS PRÁCE A JEJÍ ROZDĚLENÍ ČLENŮM TEAMU
 
     Práce na webových projektech lze obecně rozdělit do několika samostatných částí vývoj frontendu, vývoj backendu, testování. Zároveň lze práci rozdělit na jednotlivé úkoly, které vyplývají ze specifického zadání projektu, např. vývoj systému pro uživatele, vývoj redakčního systému pro administrátora, správa eshopu, objednávek a platba.
 
@@ -38,7 +38,7 @@ Obsah
     Petr Šmejkal **(smejkp13)** - *frontend vývojář, testování*
 
 
-3. Analýza autorských práv původní webové aplikace
+3. ANALÝZA AUTORSKÝCH PRÁV PŮVODNÍ WEBOVÉ APLIKACE
 
     Součástí projektu je i analýza všech práv vztahujících se na současnou nefunkční verzi webové aplikace dodanou externí firmou zadavateli.
     V současné době podle slov zadavatele se na serveru nachází pouze zlomek původních zdrojových kodů (jazyk neuveden), a protože nový projekt bude vyvíjen bez přístupu k původních zbývajícím zdrojovým kodům bude tedy zajištěna ochrana před možným proviněním proti autorskému zákonu.
@@ -47,7 +47,7 @@ Obsah
     Autorský zákon chránící díla včetně webového design, který je jako originální uspořádání a upravení již implementovaných komponent také předmětem autorského zákona.
     Zároveň však zmiňuje že design webových stránek, který je často z mnoha různých důvodů podřizován velkému množství konvencí, včetně používání veřejně dostupných frameworků, může vykazovat určité rysové podobnosti s dílem jiného autora, protože tato podobnost neplyne z tvořivé činnosti autorů, ale ze základních prvků používaného framworku.
 
-4. Analýza konkurenčních stránek
+4. ANALÝZA KONKURENČNÍCH STRÁNEK
 
     Co jsou naše konkurenční stránky:
     - fan page časopisů
@@ -62,12 +62,12 @@ Obsah
     - uživatelská sekce (fanart sekce, diskuze na volné téma)
 
 
-5. Funkční požadavky
+5. FUNKČNÍ POŽADAVKY
 
     Web je spravován správci (uživateli administrátory). Dále existují běžní uživatelé, kteří mohou využít níže popsaných funkcí. Hlavním obsahem webu jsou články, ke kterým se vážou různé funkcionality v závislosti na typu uživatele.
     Dále je možné využít live chat nebo podpořit provozovatele zakoupením zboží v e-shopu.
 
-   Uživatelská sekce:
+   **Uživatelská sekce:**
     - uživatelé se mohou nacházet ve dvou stavech:
         - aktivní = možnost přihlášení, práva běžného uživatele/administrátora
         - neaktivní = nemožnost se přihlásit a zamezení práv běžného uživatele/administrátora, při pokusu o přihlášení mu bude sděleno, že je uživatel neaktivní, a nabídne mu znovu zaslání potvrzovacího emailu, či změny emailu
@@ -100,7 +100,7 @@ Obsah
         - možnost smazání komentářů k diskuzi/článku, které nejsou v souladu s podmínkami viz. sekce komentář
         - možnost přidání/editace/smazání vlastních článků  
 
-   Články:
+   **Články:**
    - Za článek považujeme soubor následujících atributů:
         - Nadpis
         - Autor
@@ -138,7 +138,7 @@ Obsah
 
   ![](pictures/index.png)
 
-   komentáře:
+   **Komentáře:**
    - úvodní stránka zobrazuje aktuální (nejnovější) články
    - v sekci na pravé straně stránky je možné vybírat ze seznamu článků
 
@@ -156,7 +156,7 @@ Obsah
    - funkcionality pro neregistrované uživatele
         - zobrazování článků
 
-    Komentáře a fórum:
+    **Komentáře a fórum**:
     - TODO formátování?, budou správci fóra? (!= administrátor)
     - Autorizovaní uživatelé budou moci přidávat vlastní obsah na stránku jednak jako komentáře pod články a také jako komentáře v uživatelském fóru.
     - Komentáře pod články:
@@ -218,46 +218,46 @@ Obsah
             - Jestliže témá fóra je nevhodné, může být administrátorem smazáno.
             - Jestliže téma fóra je duplicitní, může být administrátorem uzavřeno pro vkládání dalších komentářů.
 
-   Live Chat:
+   **Live Chat:**
    - real-time chatování pro registrované uživatele
 
-   Objednávky:
+   **Objednávky:**
 
    Tato sekce slouží k zakoupení předmětů a služeb. Výdělek slouží jako pomoc při financování chodu tohoto portálu. Nakupovat mohou pouze registrovaní uživatelé, nicméně zobrazení nabídky je možné pro všechny uživatele webu. Vyřizovaní objednávek probíhá ručně. Tato sekce není určena pro velmi frekventované objednávání, spíše pro občasné nakupování fandů.
     
    Funkcionality pro všechny uživatele:
-   -	Procházení nabídky, možnost rozkliknuti dané položky pro detailnější popis.
-   -	Seřazení položek podle ceny, názvu.
+   - Procházení nabídky, možnost rozkliknuti dané položky pro detailnější popis.
+   - Seřazení položek podle ceny, názvu.
 
    Funkcionality pro registrované uživatele:
-   -	Vložení položky do košíku.
-   -    Ostranění položky z košíku.
-        -	Průběh objednávky po nashromáždění všech zakupovaných položek v košíku (popis jednotlivých kroků):
-            1)	Rekapitulace zboží – možnost změny počtu kusů u dané položky, možnost odstranění položky.
-            2)	Vyplnění požadovaných osobních údajů, tj. jméno, příjmení, adresa, email, telefon.
-            3)	Výběr způsobu dodání a platby.
-            4)	Rekapitulace objednávky a souhlas s podmínkami. Odeslání objednávky k ručnímu zpracování. Zároveň je objednávajícímu zaslán email s informacemi o jeho objednávce.
+   - Vložení položky do košíku.
+   - Ostranění položky z košíku.
+        - Průběh objednávky po nashromáždění všech zakupovaných položek v košíku (popis jednotlivých kroků):
+            1) Rekapitulace zboží – možnost změny počtu kusů u dané položky, možnost odstranění položky.
+            2) Vyplnění požadovaných osobních údajů, tj. jméno, příjmení, adresa, email, telefon.
+            3) Výběr způsobu dodání a platby.
+            4) Rekapitulace objednávky a souhlas s podmínkami. Odeslání objednávky k ručnímu zpracování. Zároveň je objednávajícímu zaslán email s informacemi o jeho objednávce.
     
 
    Administrátoři mají možnost úpravy této sekce pomocí následujících funkcionalit: 
-   -	Skrytí položky – položka je vidět ze strany administrátora, avšak není možné, aby byla zobrazena/objednána jiným typem uživatele. Z důvodu jednoduchosti není u jednotlivých položek vidět počet kusů skladem – právě zde lze využít skrytí položky (zároveň objednávka s velkým počtem kusů nějakého zboží není předpokládána).
-   -	Přidání položky do nabídky, vč. následujících atributů (výchozí jako skrytá položka):
-        -	název,
-        -	popis,
-        -	cena,
-        -	ilustrační obrázek.
-   -	Úprava položky z nabídky, tzn. úprava již dříve zmíněných atributů u dané položky.
-   -	Odstranění položky z nabídky.
-   -	Zobrazení seznamu všech aktivních a skrytých položek, řazeno abecedně podle jména.
-   -	Zobrazení seznamu samotných objednávek, které jsou dále vyřizovány ručně. Po vyřízení objednávky je možné označit tuto objednávku jako „vyřízená“ a je tedy možné zpětně sledovat historii objednávek.
+   - Skrytí položky – položka je vidět ze strany administrátora, avšak není možné, aby byla zobrazena/objednána jiným typem uživatele. Z důvodu jednoduchosti není u jednotlivých položek vidět počet kusů skladem – právě zde lze využít skrytí položky (zároveň objednávka s velkým počtem kusů nějakého zboží není předpokládána).
+   - Přidání položky do nabídky, vč. následujících atributů (výchozí jako skrytá položka):
+        - název,
+        - popis,
+        - cena,
+        - ilustrační obrázek.
+   - Úprava položky z nabídky, tzn. úprava již dříve zmíněných atributů u dané položky.
+   - Odstranění položky z nabídky.
+   - Zobrazení seznamu všech aktivních a skrytých položek, řazeno abecedně podle jména.
+   - Zobrazení seznamu samotných objednávek, které jsou dále vyřizovány ručně. Po vyřízení objednávky je možné označit tuto objednávku jako „vyřízená“ a je tedy možné zpětně sledovat historii objednávek.
     
 
    Případné reklamace jsou řešeny individuálně prostřednictvím emailu nebo po telefonu.
 
-   Ostatní:
+   **Ostatní:**
    - při pomalém načítání na jakékoliv stránce se objeví animace pomalého načítání (točící se kolečko)
 
-6. Nefunkční požadavky
+6. NEFUNKČNÍ POŽADAVKY
 
     Responzivita:
     - Podpora počítačových rozlišení (1280x720, 1920x1080, 3840×2160)
