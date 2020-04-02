@@ -138,24 +138,6 @@ Obsah
 
   ![](pictures/index.png)
 
-   **Komentáře:**
-   - úvodní stránka zobrazuje aktuální (nejnovější) články
-   - v sekci na pravé straně stránky je možné vybírat ze seznamu článků
-
-   - funkcionality pro administrátora
-        - vyvoření článku
-        - smazání článku
-        - úprava článku
-        - přidání komentáře
-        - smazání komentáře
-
-   - funkcionality pro běžného uživatele
-        - zobrazování článků
-        - přidání komentáře
-
-   - funkcionality pro neregistrované uživatele
-        - zobrazování článků
-
    **Komentáře a fórum**:
    - TODO formátování?, budou správci fóra? (!= administrátor)
    - Autorizovaní uživatelé budou moci přidávat vlastní obsah na stránku jednak jako komentáře pod články a také jako komentáře v uživatelském fóru.
