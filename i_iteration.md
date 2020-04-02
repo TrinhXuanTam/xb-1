@@ -156,10 +156,10 @@ Obsah
    - funkcionality pro neregistrované uživatele
         - zobrazování článků
 
-    **Komentáře a fórum**:
-    - TODO formátování?, budou správci fóra? (!= administrátor)
-    - Autorizovaní uživatelé budou moci přidávat vlastní obsah na stránku jednak jako komentáře pod články a také jako komentáře v uživatelském fóru.
-    - Komentáře pod články:
+   **Komentáře a fórum**:
+   - TODO formátování?, budou správci fóra? (!= administrátor)
+   - Autorizovaní uživatelé budou moci přidávat vlastní obsah na stránku jednak jako komentáře pod články a také jako komentáře v uživatelském fóru.
+   - Komentáře pod články:
         - Pod koncem článku bude sekce komentářů, ve které budou autorizovaní uživatelé moci diskutovat na téma článku.
         - Každý n-tý komentář se uživateli zobrazí Captcha, aby se zabránilo spam botům.
         - Uživatel bude moci reagovat na jakýkoli z komentářů.
@@ -193,7 +193,7 @@ Obsah
             - reagovat komentářem na jiný komentář
             - ohodnotit komentář
 
-    - Uživatelské fórum
+   - Uživatelské fórum
         - Uživatelské fórum bude stejná komponenta jako komentáře
         - Sekce bude vypadat a fungovat téměř stejně jako komentáře pod články
         - rozdíly oproti komentářům pod články:
