@@ -45,7 +45,8 @@ Obsah
     Zároveň s tím musí být zajištěna dostatečná originalita nového vzhledu webové aplikace, aby nebyla porušena autorská práva.
     Ze slov zadavatele vyplývá, že je autorem/má povolení použít již dodané logo původní aplikace avšak nemá právo použít původní design a pozadí.
     Autorský zákon chránící díla včetně webového design, který je jako originální uspořádání a upravení již implementovaných komponent také předmětem autorského zákona.
-    Zároveň však zmiňuje že design webových stránek, který je často z mnoha různých důvodů podřizován velkému množství konvencí, včetně používání veřejně dostupných frameworků, může vykazovat určité rysové podobnosti s dílem jiného autora, protože tato podobnost neplyne z tvořivé činnosti autorů, ale ze základních prvků používaného framworku.
+    Zároveň však zmiňuje že design webových stránek, který je často z mnoha různých důvodů podřizován velkému množství konvencí, včetně používání veřejně dostupných frameworků, může vykazovat určité rysové podobnosti s dílem jiného autora, protože tato podobnost neplyne z tvořivé činnosti autorů, ale ze základních prvků používaného framworku.  
+    Zdroj: [Diplomová práce z UK](https://is.cuni.cz/webapps/zzp/download/120281658)
 
 4. ANALÝZA KONKURENČNÍCH STRÁNEK
 
@@ -158,7 +159,6 @@ Obsah
   ![](pictures/index.png)
 
    **Komentáře a fórum**:
-   - TODO formátování?, budou správci fóra? (!= administrátor)
    - Autorizovaní uživatelé budou moci přidávat vlastní obsah na stránku jednak jako komentáře pod články a také jako komentáře v uživatelském fóru.
    - Komentáře pod články:
         - Pod koncem článku bude sekce komentářů, ve které budou autorizovaní uživatelé moci diskutovat na téma článku.
@@ -176,7 +176,8 @@ Obsah
             - tělo komentáře:
                 - pokud se jedná o reakci, bude před komentářem zobrazen nick uživatele, na kterého reaguje (@nick)
                 - samotný text komentáře
-                - text komentáře bude moci být formátován (jen omezeně TODO fotky?)
+                - text komentáře bude moci být formátován
+                - uživatel bude moci použít jen omezené množství formátvacích tagů
             - zápatí komentáře
                 - odkaz na reakci na komentář ("Odpovědět")
                 - tlačítka up/down pro ohodnocení komentáře
@@ -220,7 +221,10 @@ Obsah
             - Jestliže téma fóra je duplicitní, může být administrátorem uzavřeno pro vkládání dalších komentářů.
 
    **Live Chat:**
-   - real-time chatování pro registrované uživatele
+   - Autorizovaní uživatelé budou mít možnost komunikace v online chatu.
+   - V hlavičce chatu bude vidět počet aktuálně aktivních uživatelů (přihlášených na stránce)
+   - Chat se bude aktualizovat pomocí frontendu (nebude nutné aktualizovat stránku pro zobrazení změn)
+   - Pokud se bude uživatel chovat nevhodně v online chatu, administrátor bude mít právo uživateli zamezit přístup do online chatu.
 
    **Objednávky:**
 
