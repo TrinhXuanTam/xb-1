@@ -29,6 +29,7 @@ urlpatterns = [
     url(r"^articles/", include("xb1.articles.urls")),
     url(r"^core/", include("xb1.core.urls")),
     url(r"^contact/", include("xb1.contact.urls")),
+    url(r"^eshop/", include("xb1.eshop.urls")),
 
     url(r"^sent/", views.ActivationSentView.as_view(), name="activation_sent"),
     path('activate/<slug:uidb64>/<slug:token>/', activate, name='activate'),

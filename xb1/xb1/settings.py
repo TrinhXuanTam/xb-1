@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'xb1.articles',
     'xb1.core',
     'xb1.contact',
+    'xb1.eshop',
 ]
 
 
@@ -68,6 +69,7 @@ TEMPLATES = [
             BASE_DIR + "/templates/",
             BASE_DIR + "/articles/templates/",
             BASE_DIR + "/core/templates/"
+            BASE_DIR + "/eshop/templates/",
         ],
         'APP_DIRS': False,
         'OPTIONS': {
