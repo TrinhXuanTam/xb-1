@@ -11,14 +11,15 @@ from django.shortcuts import render
 
 from .forms import AnimalForm
 from .models import Animal, Article
+from ..core.views import LoginMixinView
 
 
-class ArticleListView(ListView):
+class ArticleListView(LoginMixinView, ListView):
     model = Article
     template_name = "articles.html"
 
 
-class ArticleCreateView(LoginRequiredMixin, CreateView):
+class ArticleCreateView(LoginMixinView, LoginRequiredMixin, CreateView):
     model = Article
     template_name = "articles_form.html"
     fields = ["title", "text"]
@@ -29,7 +30,7 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
         return super(ArticleCreateView, self).form_valid(form)
 
 
-class ArticleUpdateView(LoginRequiredMixin, UpdateView):
+class ArticleUpdateView(LoginMixinView, LoginRequiredMixin, UpdateView):
     model = Article
     template_name = "articles_form.html"
     fields = ["title", "text"]

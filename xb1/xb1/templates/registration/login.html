@@ -1,29 +1,22 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-{%block content %}
 
-    <div >
+{%block content %}
+  <div class="modal2">
+      <div class="modal_content">
+
+
+        <h1>Login</h1>
+
         <form method = "POST">
             {% csrf_token %}
-                <h1>Log In</h1>
+            {{ login_form.username }}
+            {{ login_form.password }}
             <br>
-                {{ form.as_p }}
-            <div>
-                <br>
-                <button type = "submit">Login</button>
-            </div>
-        </form>
-        <div>
-                <small>Need an Account? <a href = "{% url 'register' %}">Sign Up</a></small>
-        </div>
-    </div>
-{%endblock content %}
+            <br>
 
-</body>
-</html>
+            <button type = "submit">Login</button>
+            <a id="sign_up" href = "{% url 'register' %}">Sign Up</a>
+        </form>
+      </div>
+    </div>
+{% endblock %}

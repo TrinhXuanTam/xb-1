@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 
+{% block include %}
+<link rel="stylesheet" href="{% static 'css/layout2.css' %}" >
+{% endblock %}
 
         {% block content %}
         <div class="main">
@@ -26,7 +30,11 @@
 </ul>
 
 <br>
-<a href="{% url 'articles:article_create' %}">Create new article</a>
+            {%if user.is_authenticated%}
+                <a href="{% url 'articles:article_create' %}">Create new article</a>
+            {%else%}
+                <a id="login_trigger" onclick="openDialog()"><i class="fas fa-user"></i> Login to create an article </a>
+            {%endif%}
 <br>
                                     </div>
         {% endblock %}
