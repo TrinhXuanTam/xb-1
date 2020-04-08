@@ -68,7 +68,7 @@ TEMPLATES = [
         'DIRS': [
             BASE_DIR + "/templates/",
             BASE_DIR + "/articles/templates/",
-            BASE_DIR + "/core/templates/"
+            BASE_DIR + "/core/templates/",
             BASE_DIR + "/eshop/templates/",
         ],
         'APP_DIRS': False,
