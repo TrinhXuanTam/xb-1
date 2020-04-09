@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Animal, Article, Category, Tag
+from .models import Animal, Article, Category, Tag, Comment, Forum, ForumCategory
 
 
 @admin.register(Animal)
@@ -25,3 +25,21 @@ class CategoryAdmin(admin.ModelAdmin):
 class TagAdmin(admin.ModelAdmin):
 
     list_display = ["name"]
+
+
+@admin.register(Forum)
+class ForumAdmin(admin.ModelAdmin):
+
+    list_display = ("title", "description", "author", "is_closed", "category")
+
+
+@admin.register(ForumCategory)
+class ForumAdmin(admin.ModelAdmin):
+
+    list_display = ("title", "is_open")
+
+
+@admin.register(Comment)
+class ForumAdmin(admin.ModelAdmin):
+
+    list_display = ("article", "forum", "reaction_to", "author", "text", "is_censured")
