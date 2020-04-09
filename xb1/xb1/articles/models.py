@@ -30,20 +30,34 @@ class Animal(models.Model):
 
 
 class Category(models.Model):
+
     name = models.CharField("Name", max_length=100)
+
+    def __str__(self):
+        return self.name
 
 
 class Tag(models.Model):
+
     name = models.CharField("Name", max_length=100)
+
+    def __str__(self):
+        return self.name
 
 
 # TimeStampedModel - An abstract base class model that provides self-updating "created" and "modified" fields.
 class Article(TimeStampedModel):
-    '''
-        TODO: Update: text field formatting
-              Create: thumbnail field
-    '''
-    STATES         = [('H', 'Hidden'), ('P', 'Published')]
+    """
+    TODO: Update: text field formatting
+    Create: thumbnail fields
+    """
+
+    HIDDEN = 0
+    PUBLISHED = 1
+    STATE_CHOICES = (
+        (HIDDEN, "Hidden"),
+        (PUBLISHED, "Published")
+    )
 
     title          = models.CharField("Title", max_length=100)
     author         = models.ForeignKey(User, verbose_name="Author", on_delete=models.SET_NULL, blank=True, null=True)
@@ -55,4 +69,4 @@ class Article(TimeStampedModel):
     published_to   = models.DateTimeField(verbose_name="Published to", null=True, blank=True)
     text           = models.TextField("Text", blank=True, null=True)
     sources        = models.TextField("Sources", blank=True, null=True)
-    article_state  = models.CharField("State", max_length=2, choices=STATES, default="H")
+    article_state  = models.PositiveSmallIntegerField("State", choices=STATE_CHOICES, default=HIDDEN)
