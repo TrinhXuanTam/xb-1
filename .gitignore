@@ -17,3 +17,6 @@ staticRoot
 # IDE settings
 .vscode
 .idea
+
+# Password settings files
+passwords.py
