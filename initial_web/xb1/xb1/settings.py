@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from passwords import EMAIL_PASSWORD
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -55,7 +56,7 @@ EMAIL_PORT = 587
 
 # Email from which emails will be sent.
 EMAIL_HOST_USER = "xb1.feedback@gmail.com"
-EMAIL_HOST_PASSWORD = "fitwiki1"
+EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
 
 # Email where feedback emails will be sent.
 FEEDBACK_EMAIL = "xb1.feedback@gmail.com"
