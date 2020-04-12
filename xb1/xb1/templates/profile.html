@@ -1,5 +1,34 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block include %}
+{% endblock %}
 {%block content %}
+<br>
+    <img style = "display: block; margin-left: auto; margin-right: auto;" src = "{{ user.profile.image.url }}">
+                    <h1>Account Info</h1>
 
-    <h1>{{ user.username }}</h1>
+    <h3>{{ user.username }}</h3>
+    <p>{{ user.email }}</p>
+<form>
+         <input type="button" onclick="#" value="Change Username"/>
+      </form>
+<form>
+         <input type="button" onclick="#" value="Change Password"/>
+      </form>
+<form>
+         <input type="button" onclick="#" value="Change Email"/>
+      </form>
+
+            <div class="registration_form">
+                <form method = "POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h1>Profile Info</h1>
+                    {{ p_form|crispy }}
+                    <div>
+                        <button type = "submit">Update</button>
+                    </div>
+                </form>
+            </div>
+
 {% endblock %}
