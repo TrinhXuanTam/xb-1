@@ -22,7 +22,7 @@ class ArticleListView(LoginMixinView, ListView):
 class ArticleCreateView(LoginMixinView, LoginRequiredMixin, CreateView):
     model = Article
     template_name = "articles_form.html"
-    fields = ["title", "text",
+    fields = ["title", "thumbnail", "text",
               "slug", "category", "tags",
               "allow_comments", "published_from",
               "published_to", "sources", "article_state"]
@@ -36,7 +36,7 @@ class ArticleCreateView(LoginMixinView, LoginRequiredMixin, CreateView):
 class ArticleUpdateView(LoginMixinView, LoginRequiredMixin, UpdateView):
     model = Article
     template_name = "articles_form.html"
-    fields = ["title", "text",
+    fields = ["title", "thumbnail", "text",
               "slug", "category", "tags",
               "allow_comments", "published_from",
               "published_to", "sources", "article_state"]

@@ -1,0 +1,65 @@
+form {
+    margin-top: 20px;
+    text-align: center;
+}
+
+table {
+    padding: 20px;
+    width: 80%;
+    display: inline-block;
+    border-radius: 2rem;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 10px 0px 55px 1px rgba(0,0,0,0.75);
+    border-collapse: separate;
+    border-spacing: 0 1em;
+}
+
+tbody {
+    display: block;
+}
+
+form input[type=submit], 
+.back {
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+    background: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    padding: 10px 30px;
+    border: 1px solid white;
+    border-radius: 1rem;
+    transition: 0.2s;
+}
+
+form input[type=submit]:hover,
+.back:hover {
+    color: black;
+    background: white;
+    cursor: pointer;
+}
+
+th {
+    text-align: left;
+    white-space: nowrap;
+    display: block;
+}
+
+td {
+    text-align: left;
+    padding-left: 15%;
+    width: 100%;
+}
+
+td textarea,
+td input[type=text],
+td select {
+    width: 80%;
+}
+
+tr {
+    width: 100%;
+    margin: 10px;
+}
+

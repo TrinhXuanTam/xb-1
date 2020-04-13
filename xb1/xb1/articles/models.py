@@ -60,6 +60,7 @@ class Article(TimeStampedModel):
     )
 
     title          = models.CharField(verbose_name="Title", max_length=100)
+    thumbnail      = models.ImageField(verbose_name="Thumbnail", null=True, blank=True, upload_to='thumbnails')
     author         = models.ForeignKey(User, verbose_name="Author", on_delete=models.SET_NULL, blank=True, null=True)
     slug           = models.SlugField(verbose_name="Slug", unique=True, max_length=100, blank=True, null=True)
     category       = models.ManyToManyField(Category, blank=True)
