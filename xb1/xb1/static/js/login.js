@@ -11,7 +11,7 @@ span.onclick = function() {
   modal.style.visibility = "hidden";
 };
 
-window.onclick = function(event) {
+wrapper.onclick = function(event) {
   if (event.target == modal) {
     wrapper.style.filter = "blur(0)";
     modal.style.transition = "1s";

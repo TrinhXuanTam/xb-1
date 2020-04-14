@@ -16,10 +16,11 @@ from django.views.generic.edit import FormView
 
 
 from .articles.models import Animal, Article
-from .core.forms import UserRegistrationForm, UserLoginForm
-from .core.models import User
+from .core.forms import UserRegistrationForm, UserLoginForm, ProfileUpdateForm, UserUpdateForm
+from .core.models import User, Profile
 from django.contrib.auth.forms import UserCreationForm
 
+from django.http import JsonResponse
 
 def show_logout_message(sender, user, request, **kwargs):
     messages.info(request, 'You have been logged out.')
@@ -43,6 +44,17 @@ class LoginView(LoginMixinView, BaseLoginView):
     template_name = "registration/login.html"
     form_class = UserLoginForm
 
+    def form_valid(self, form):
+        login(self.request, form.get_user())
+        response = JsonResponse({"ok": "login success"})
+        response.status_code = 200
+        return response
+
+    def form_invalid(self, form):
+        response = JsonResponse({"error": "login failed"})
+        response.status_code = 401
+        return response
+
 
 class LogoutView(BaseLogoutView):
     pass
@@ -51,6 +63,24 @@ class LogoutView(BaseLogoutView):
 class ProfileView(LoginMixinView, ListView):
     model = User
     template_name = "profile.html"
+    form_class = ProfileUpdateForm
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProfileView, self).get_context_data(*args, **kwargs)
+        context["p_form"] = ProfileUpdateForm(instance=self.request.user.profile)
+        return context
+
+    def post(self, request, **kwargs):
+        p_form = ProfileUpdateForm(self.request.POST, self.request.FILES, instance=self.request.user.profile)
+
+        if p_form.is_valid():
+            p_form.save()
+            messages.success(self.request, f'Your account has been updated!')
+            return redirect('profile')
+        # username = form.cleaned_data.get('username')
+        # messages.success(self.request, f'Account created for {username}! You can now log in.')
+        # return redirect('login')
+
 
 
 class ActivationSentView(LoginMixinView, ListView):
@@ -71,6 +101,8 @@ def activate(request, uidb64, token):
         # set signup_confirmation true
         user.signup_confirmation = True
         user.save()
+        profile = Profile(user=user)
+        profile.save()
         login(request, user)
         return redirect('index')
     else:

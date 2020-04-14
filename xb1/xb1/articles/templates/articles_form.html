@@ -1,10 +1,12 @@
-
 {% extends 'base.html' %}
+{% load static %}
+{%block include%}
+  <link rel="stylesheet" href="{% static 'css/article_form.css' %}" />
+{% endblock %}
+
 {%block content%}
-    <div style="width:800px; padding-top: 50px ; margin:0 auto;">
-
-<form method="post">{% csrf_token %}
-
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+  <table>
     {% for field in form.visible_fields %}
       <tr>
         <th>{{ field.label_tag }}</th>
@@ -15,9 +17,10 @@
         </td>
       </tr>
     {% endfor %}
-    <input type="submit" value="Submit">
+  </table>
+  <input type="submit" value="Submit">
 </form>
 
-<a href="{% url 'articles:article_list' %}">Back</a> <br>
+<a class = "back" href="{% url 'articles:article_list' %}">Back</a> <br>
     </div>
 {% endblock %}
