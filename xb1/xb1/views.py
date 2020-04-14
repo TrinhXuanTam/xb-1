@@ -20,6 +20,7 @@ from .core.forms import UserRegistrationForm, UserLoginForm, ProfileUpdateForm, 
 from .core.models import User, Profile
 from django.contrib.auth.forms import UserCreationForm
 
+from django.http import JsonResponse
 
 def show_logout_message(sender, user, request, **kwargs):
     messages.info(request, 'You have been logged out.')
@@ -42,6 +43,17 @@ class IndexView(LoginMixinView, ListView):
 class LoginView(LoginMixinView, BaseLoginView):
     template_name = "registration/login.html"
     form_class = UserLoginForm
+
+    def form_valid(self, form):
+        login(self.request, form.get_user())
+        response = JsonResponse({"ok": "login success"})
+        response.status_code = 200
+        return response
+
+    def form_invalid(self, form):
+        response = JsonResponse({"error": "login failed"})
+        response.status_code = 401
+        return response
 
 
 class LogoutView(BaseLogoutView):

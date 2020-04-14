@@ -120,3 +120,11 @@
     margin-top: 30px;
     font-size: 3em;
 }
+
+#login_warning {
+    color:rgb(200, 0, 0);
+    margin-top: 20px;
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 1s;
+}

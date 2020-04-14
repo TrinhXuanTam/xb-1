@@ -4,6 +4,7 @@
 
 
   <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="{% static 'js/loading.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/loading.css' %}" />
@@ -32,7 +33,7 @@
 
         <h1>Login</h1>
 
-        <form method = "POST" action = "{% url 'login' %}?next={{ request.path }}">
+        <form id="login_form" method = "POST">
             {% csrf_token %}
             {{ login_form.username }}
             {{ login_form.password }}
@@ -42,6 +43,7 @@
             <button type = "submit">Login</button>
             <a id="sign_up" href = "{% url 'register' %}">Sign Up</a>
         </form>
+        <div id="login_warning">The username or password is incorrect</div>
       </div>
     </div>
 
@@ -149,8 +151,34 @@
 
 
       <!-- Scripts -->
-      <script src="{% static 'js/login.js' %}"></script>
 
+      <!-- Display warning if user fails to authenticate -->
+      <script>
+          document.getElementById("login_form").onsubmit = function(event) {
+              event.preventDefault();
+              $.ajax({
+                  type:'POST',
+                  async: true,
+                  cache: false,
+                  url:'{% url "login" %}',
+                  dataType: "json",
+                  data: {
+                      csrfmiddlewaretoken: $("#login_form input[type='hidden']").val(),
+                      username: $("#login_form input[type='text']").val(),
+                      password: $("#login_form input[type='password']").val()
+                    },
+                    // refresh on success
+                    success: function(data) {
+                        location.reload(true);
+                    },
+                    // display warning message
+                    error: function() {
+                        $("#login_warning").css("opacity", 1);
+                    }
+                });
+            }
+        </script>
+        <script src="{% static 'js/login.js' %}"></script>
     </div>
   </body>
 </html>
