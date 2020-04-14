@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block include %}
+<link rel="stylesheet" href="{% static 'css/layout_shopIndex.css' %}" >
+{% endblock %}
+
+{%block content %}
+<div class="shopOrderBox">
+
+</div>
+
+<div class="shopItemBox">
+<ul>
+    <li>
+		<div class="shopSpecialItem shopSpecialNew">Novinka</div>
+		<div class="shopOfferItem">	
+			<div class="shopOfferImage"></div>
+			<div class="shopOfferText">
+				<span class="shopOfferName">PICOVINA</span>
+			</div>
+			<span class="shopOfferOrder">OBJEDNAT</span>
+		</div>
+	</li>
+    <li>
+</ul>
+</div>
+{% endblock %}
