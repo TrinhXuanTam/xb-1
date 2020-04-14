@@ -51,11 +51,11 @@
 	z-index: 1;
 }
 
-.shopSpecialNew{
+.shopSpecial3{
 	background-color: #481620;
 }
 
-.shopSpecialTop{
+.shopSpecial0{
 	background-color: #EAC435;
 }
 
@@ -93,6 +93,11 @@
 	border-radius: 0px 0px 6px 6px;
 	transition-property: top, height;
 	transition-duration: 1s;
+}
+
+.shopOfferDesc{
+	margin-top: 15px;
+	text-align: left;
 }
 
 .shopOfferText:hover{

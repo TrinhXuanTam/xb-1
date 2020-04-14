@@ -17,3 +17,5 @@ class ShopItemCreateView(LoginMixinView, LoginRequiredMixin, CreateView):
 class ShopIndex(LoginMixinView, ListView):
 	model = ShopItem
 	template_name = "eshop.html"
+	
+# class 

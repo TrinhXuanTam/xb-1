@@ -6,23 +6,25 @@
 {% endblock %}
 
 {%block content %}
-<div class="shopOrderBox">
-
-</div>
+<div class="shopOrderBox"></div>
 
 <div class="shopItemBox">
 <ul>
+	{% for shopItem in object_list %}
     <li>
-		<div class="shopSpecialItem shopSpecialNew">Novinka</div>
+		{%if shopItem.itemType != 2 %}
+		<div class="shopSpecialItem shopSpecial{{ shopItem.itemType }}">{{ shopItem.get_itemType_display }}</div>
+		{% endif %}
 		<div class="shopOfferItem">	
 			<div class="shopOfferImage"></div>
 			<div class="shopOfferText">
-				<span class="shopOfferName">PICOVINA</span>
+				<span class="shopOfferName">{{ shopItem.itemName }}</span>
+				<div class="shopOfferDesc">{{ shopItem.itemDesc }}</div>
 			</div>
-			<span class="shopOfferOrder">OBJEDNAT</span>
+			<span class="shopOfferOrder">Objednat</span>
 		</div>
 	</li>
-    <li>
+    {% endfor %}
 </ul>
 </div>
 {% endblock %}
