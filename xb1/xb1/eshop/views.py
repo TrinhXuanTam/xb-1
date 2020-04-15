@@ -22,22 +22,52 @@ class ShopIndex(LoginMixinView, ListView):
 		context = super(ShopIndex, self).get_context_data(**kwargs)
 		if self.request.session.get('orderList', None) == None:
 			return context
-			
+		
+		totalPrice = 0;
 		context['orderItems'] = [];	
 		for shopItem in self.object_list:
 			for orderItem in self.request.session['orderList']:
 				if shopItem.pk == int(orderItem):
 					context['orderItems'].append((shopItem, self.request.session['orderList'][orderItem]));
+					totalPrice += self.request.session['orderList'][orderItem] * shopItem.itemPrice;
 					
+		context['totalPrice'] = totalPrice;
+		
 		return context
 	
-class ShopItemRemoveAllView(RedirectView):
+class OrderItemRemoveAllView(RedirectView):
 	permanent = False
 	def get_redirect_url(self, *args, **kwargs):
-		self.request.session['orderList'] = None;
+		requestID = self.request.GET.get('id', '')
+		if requestID == '':
+			self.request.session['orderList'] = None;
+			self.request.session.modified = True
+			return reverse_lazy("eshop:shopIndex")
+		
+		if self.request.session['orderList'] != None :
+			self.request.session['orderList'].pop(requestID, None)
+			self.request.session.modified = True
+			
 		return reverse_lazy("eshop:shopIndex")
 	
-class ShopItemAddView(RedirectView):
+class OrderItemRemoveView(RedirectView):
+	permanent = False;
+	def get_redirect_url(self, *args, **kwargs):
+		requestID = self.request.GET.get('id', '')
+		if requestID == '':
+			return reverse_lazy("eshop:shopIndex")
+		
+		if self.request.session['orderList'] != None :
+			if self.request.session['orderList'].get(requestID, 0) - 1 < 1:
+				self.request.session['orderList'].pop(requestID, None)
+			else:
+				self.request.session['orderList'][requestID] = self.request.session['orderList'].get(requestID, 0) - 1 
+				
+			self.request.session.modified = True
+			
+		return reverse_lazy("eshop:shopIndex")	
+	
+class OrderItemAddView(RedirectView):
 	permanent = False
 	def get_redirect_url(self, *args, **kwargs):
 		requestID = self.request.GET.get('id', '')
