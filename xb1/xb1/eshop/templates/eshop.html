@@ -10,7 +10,9 @@
 	{% if request.session.orderList == None %}
 		Košík je prázdný
 	{% else %}
-		{{ request.session.orderList }}
+		{% for orderItem in orderItems %}
+			{{ orderItem.0.itemName }} {{ orderItem.1 }}
+		{% endfor %}
 	{% endif %}
 </div>
 

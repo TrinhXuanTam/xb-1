@@ -18,11 +18,22 @@ class ShopItemCreateView(LoginMixinView, LoginRequiredMixin, CreateView):
 class ShopIndex(LoginMixinView, ListView):
 	model = ShopItem
 	template_name = "eshop.html"
+	def get_context_data(self, **kwargs):
+		context = super(ShopIndex, self).get_context_data(**kwargs)
+		if self.request.session.get('orderList', None) == None:
+			return context
+			
+		context['orderItems'] = [];	
+		for shopItem in self.object_list:
+			for orderItem in self.request.session['orderList']:
+				if shopItem.pk == int(orderItem):
+					context['orderItems'].append((shopItem, self.request.session['orderList'][orderItem]));
+					
+		return context
 	
 class ShopItemRemoveAllView(RedirectView):
 	permanent = False
 	def get_redirect_url(self, *args, **kwargs):
-		print("REMOVE")
 		self.request.session['orderList'] = None;
 		return reverse_lazy("eshop:shopIndex")
 	
@@ -39,7 +50,11 @@ class ShopItemAddView(RedirectView):
 		
 		if resultObject.itemActive == False:
 			return reverse_lazy("eshop:shopIndex")
-		print("SET")				
-		self.request.session['orderList'] = "TEST"
+				
+		if self.request.session['orderList'] == None :		
+			self.request.session['orderList'] = {requestID: 1}
+		else:
+			self.request.session['orderList'][requestID] = self.request.session['orderList'].get(requestID, 0) + 1 
+			self.request.session.modified = True
 			
 		return reverse_lazy("eshop:shopIndex")
