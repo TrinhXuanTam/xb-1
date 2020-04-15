@@ -6,11 +6,18 @@
 {% endblock %}
 
 {%block content %}
-<div class="shopOrderBox"></div>
+<div class="shopOrderBox">
+	{% if request.session.orderList == None %}
+		Košík je prázdný
+	{% else %}
+		{{ request.session.orderList }}
+	{% endif %}
+</div>
 
 <div class="shopItemBox">
 <ul>
 	{% for shopItem in object_list %}
+	{% if shopItem.itemActive == True %}
     <li>
 		{%if shopItem.itemType != 2 %}
 		<div class="shopSpecialItem shopSpecial{{ shopItem.itemType }}">{{ shopItem.get_itemType_display }}</div>
@@ -21,9 +28,13 @@
 				<span class="shopOfferName">{{ shopItem.itemName }}</span>
 				<div class="shopOfferDesc">{{ shopItem.itemDesc }}</div>
 			</div>
-			<span class="shopOfferOrder">Objednat</span>
+			<div class="shopOfferControl">
+				<div>{{ shopItem.itemPrice }}</div>
+				<div><a href="./add?id={{ shopItem.pk }}">Objednat</a></div>
+			</div>
 		</div>
 	</li>
+	{% endif %}
     {% endfor %}
 </ul>
 </div>

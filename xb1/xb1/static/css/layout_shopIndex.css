@@ -52,11 +52,11 @@
 }
 
 .shopSpecial3{
-	background-color: #481620;
+	background-color: #c0392b;
 }
 
 .shopSpecial0{
-	background-color: #EAC435;
+	background-color: #f39c12;
 }
 
 .shopOfferImage{
@@ -71,17 +71,29 @@
 	left: 0px;
 	top: -15px;
 	padding: 6px;
-	background-color: rgba(42, 80, 60, 1);
+	background-color: #34495e;
 	border-radius: 6px 6px 6px 0px;
 }
 
-.shopOfferOrder{
+.shopOfferControl{
 	position: absolute;
 	bottom: 0px;
 	right: 0px;
+	overflow: hidden;
+	border-radius: 6px 0px 6px 0px;
+}
+
+.shopOfferControl > :first-child{
+	background-color: #e74c3c;
+}
+
+.shopOfferControl > :last-child{
+	background-color: #c0392b;
+}
+
+.shopOfferControl > *{
 	padding: 6px;
-	background-color: rgba(42, 80, 60, 1);
-	border-radius: 6px;
+	display: inline-block;
 }
 
 .shopOfferText{
@@ -103,4 +115,9 @@
 .shopOfferText:hover{
 	top: 0px;
 	height: 100%;
+}
+
+a{
+	text-decoration: none;
+	color: white;
 }
