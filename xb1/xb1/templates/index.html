@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block include %}
@@ -15,13 +16,13 @@
           <img src="{% static 'img/universe.jpg' %}">
           <div class="preview-content">
             {{ article.text|slice:":100" }}<br>
-            <a href = "#">Read More</a>
+            <a href = "#">{% trans "Read more" %}</a>
           </div>
           </div>
         </li>
 
           {% empty %}
-          <li>No articles created.</li>
+          <li>{% trans "No articles created." %}</li>
         {% endfor %}
     </ul>
   </div>
@@ -34,11 +35,11 @@
         <h1>{{ article.title }}</h1><br>
         <img src="{% static 'img/universe.jpg' %}">
         <p>{{ article.text }}</p><br>
-        <h3>Autor: {{ article.author }}</h3>
+        <h3>{{ article.author.label }} {{ article.author }}</h3>
       {% endif %}
 
         {% empty %}
-        <h1>No articles created.</h1>
+        <h1>{% trans "No articles created." %}</h1>
     {% endfor %}
   </div>
 {% endblock %}

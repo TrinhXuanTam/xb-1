@@ -15,7 +15,7 @@ from .core.views import LoginMixinView
 from django.views.generic.edit import FormView
 
 
-from .articles.models import Animal, Article
+from .articles.models import Article
 from .core.forms import UserRegistrationForm, UserLoginForm, ProfileUpdateForm, UserUpdateForm
 from .core.models import User, Profile
 from django.contrib.auth.forms import UserCreationForm

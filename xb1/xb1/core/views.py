@@ -12,12 +12,3 @@ class LoginMixinView(View):
         context["login_form"] = UserLoginForm
 
         return context
-
-
-#   <form method = "POST" action = "{% url 'login' %}?next={{ request.path }}">
-#     {% csrf_token %}
-#     <h1>{{ login_form.username }}</h1>
-#     <h1>{{ login_form.password }}</h1>
-#     <br>
-#     <button type = "submit">Login</button>
-#   </form>
