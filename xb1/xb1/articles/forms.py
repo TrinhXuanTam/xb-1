@@ -1,5 +1,7 @@
 from django import forms
 
+import django.utils.formats
+
 from .models import Animal, Article
 from ..core.widgets import DateTimePickerInput
 
@@ -38,7 +40,15 @@ class ArticleForm(forms.ModelForm):
         super(ArticleForm, self).__init__(*args, **kwargs)
 
         self.fields["published_from"].widget = DateTimePickerInput()
-        self.fields["published_from"].widget.attrs["input_formats"] = ['%d/%m/%Y %H:%M']
+        self.fields["published_from"].widget.attrs["autocomplete"] = "off"
 
         self.fields["published_to"].widget = DateTimePickerInput()
-        self.fields["published_to"].widget.attrs["input_formats"] = ['%d/%m/%Y %H:%M']
+        self.fields["published_to"].widget.attrs["autocomplete"] = "off"
+
+    def clean(self):
+
+        cleaned_data = super(ArticleForm, self ).clean()
+
+        print(cleaned_data)
+
+        return cleaned_data
