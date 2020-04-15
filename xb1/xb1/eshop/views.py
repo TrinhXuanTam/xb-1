@@ -41,11 +41,11 @@ class OrderItemRemoveAllView(RedirectView):
 	def get_redirect_url(self, *args, **kwargs):
 		requestID = self.request.GET.get('id', '')
 		if requestID == '':
-			self.request.session['orderList'] = None;
+			self.request.session['orderList'] = None
 			self.request.session.modified = True
 			return reverse_lazy("eshop:shopIndex")
 		
-		if self.request.session['orderList'] != None :
+		if self.request.session.get('orderList', None) != None :
 			self.request.session['orderList'].pop(requestID, None)
 			self.request.session.modified = True
 			if len(self.request.session['orderList']) == 0:
@@ -61,7 +61,7 @@ class OrderItemRemoveView(RedirectView):
 		if requestID == '':
 			return reverse_lazy("eshop:shopIndex")
 		
-		if self.request.session['orderList'] != None :
+		if self.request.session.get('orderList', None) != None:
 			if self.request.session['orderList'].get(requestID, 0) - 1 < 1:
 				self.request.session['orderList'].pop(requestID, None)
 				if len(self.request.session['orderList']) == 0:
@@ -86,11 +86,11 @@ class OrderItemAddView(RedirectView):
 		
 		if resultObject.itemActive == False:
 			return reverse_lazy("eshop:shopIndex")
-				
-		if self.request.session['orderList'] == None :		
+		
+		if self.request.session.get('orderList', None) == None :		
 			self.request.session['orderList'] = {requestID: 1}
 		else:
 			self.request.session['orderList'][requestID] = self.request.session['orderList'].get(requestID, 0) + 1 
-			self.request.session.modified = True
-			
+		
+		self.request.session.modified = True	
 		return reverse_lazy("eshop:shopIndex")
