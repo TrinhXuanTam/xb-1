@@ -1,9 +1,9 @@
-form {
+#article_form form {
     margin-top: 20px;
     text-align: center;
 }
 
-table {
+#article_form table {
     padding: 20px;
     width: 80%;
     display: inline-block;
@@ -14,11 +14,11 @@ table {
     border-spacing: 0 1em;
 }
 
-tbody {
+#article_form tbody {
     display: block;
 }
 
-form input[type=submit], 
+#article_form input[type=submit], 
 .back {
     display: block;
     margin: 0 auto;
@@ -33,32 +33,32 @@ form input[type=submit],
     transition: 0.2s;
 }
 
-form input[type=submit]:hover,
+#article_form input[type=submit]:hover,
 .back:hover {
     color: black;
     background: white;
     cursor: pointer;
 }
 
-th {
+#article_form th {
     text-align: left;
     white-space: nowrap;
     display: block;
 }
 
-td {
+#article_form td {
     text-align: left;
     padding-left: 15%;
     width: 100%;
 }
 
-td textarea,
-td input[type=text],
-td select {
+#article_form td textarea,
+#article_form td input[type=text],
+#article_form td select {
     width: 80%;
 }
 
-tr {
+#article_form tr {
     width: 100%;
     margin: 10px;
 }
