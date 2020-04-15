@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from django.utils.translation import ugettext_lazy as _
 
 try:
     from passwords import EMAIL_PASSWORD
@@ -57,6 +58,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -138,19 +140,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
-# https://docs.djangoproject.com/en/3.0/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
@@ -177,15 +166,27 @@ LOGOUT_URL = "logout"
 
 PASSWORD_RESET_TIMEOUT_DAYS = 1
 
-FORMAT_MODULE_PATH = [
-    'formats',
-]
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 # https://github.com/mrts/foodbank-campaign/tree/master/src/foodbank
 
+
+FORMAT_MODULE_PATH = [
+    'formats',
+]
+
+# Provide a lists of languages which your site supports.
+LANGUAGES = (
+    ('cs', _('Czech')),
+)
+
+# Default language
 LANGUAGE_CODE = 'cs'
+
+# Tell Django where the project's translation files should be.
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 TIME_ZONE = 'Europe/Prague'
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load i18n %}
 <html>
 
 
@@ -33,7 +34,7 @@
         <span class="close">&times;</span>
 
 
-        <h1>Login</h1>
+        <h1>{% trans "Login" %}</h1>
 
         <form id="login_form" method = "POST">
             {% csrf_token %}
@@ -42,8 +43,8 @@
             <br>
             <br>
 
-            <button type = "submit">Login</button>
-            <a id="sign_up" href = "{% url 'register' %}">Sign Up</a>
+            <button type = "submit">{% trans "Login" %}</button>
+            <a id="sign_up" href = "{% url 'register' %}">{% trans "Sign Up" %}</a>
         </form>
         <div id="login_warning">The username or password is incorrect</div>
       </div>
@@ -65,45 +66,45 @@
             <ul class="sidebar-options">
                 {% if user.is_authenticated %}
                 <li>
-                    <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profil</a>
+                    <a href="{% url 'profile' %}"><i class="fas fa-user"></i> {% trans "Profile" %}</a>
                 </li>
                 {% else %}
                 <li>
-                    <a class="login_trigger" onclick="openDialog()"><i class="fas fa-user"></i> Login</a>
+                    <a class="login_trigger" onclick="openDialog()"><i class="fas fa-user"></i> {% trans "Login" %}</a>
                 </li>
                 {% endif %}
 
                 {% if user.is_authenticated %}
                 <li>
-                    <a href="{% url 'contact:contact' %}"><i class="fas fa-envelope"></i> Kontakt</a>
+                    <a href="{% url 'contact:contact' %}"><i class="fas fa-envelope"></i> {% trans "Contact" %}</a>
                 </li>
                 {% else %}
                 <li>
-                    <a class="login_trigger" onclick="openDialog()"><i class="fas fa-envelope"></i> Kontakt</a>
+                    <a class="login_trigger" onclick="openDialog()"><i class="fas fa-envelope"></i> {% trans "Contact" %}</a>
                 </li>
                 {% endif %}
 
                 <li>
-                    <a href="#"><i class="fas fa-calendar-week"></i> Odkaz</a>
+                    <a href="#"><i class="fas fa-calendar-week"></i> {% trans "Link" %}</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fas fa-link"></i> Odkaz</a>
+                    <a href="#"><i class="fas fa-link"></i> {% trans "Link" %}</a>
                 </li>
             </ul>
 
             <!-- Bottom sidebar options -->
             <ul class="sidebar-options bottom">
                 <li>
-                    <a href="#"><i class="fas fa-circle color"></i> Barva</a>
+                    <a href="#"><i class="fas fa-circle color"></i> {% trans "Color" %}</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fas fa-question-circle"></i> Odkaz</a>
+                    <a href="#"><i class="fas fa-question-circle"></i> {% trans "Link" %}</a>
                 </li>
 
                 {% if user.is_authenticated %}
                 <li>
                     <a href="{% url 'logout' %}"
-                    ><i class="fas fa-power-off"></i> Logout
+                    ><i class="fas fa-power-off"></i> {% trans "Logout" %}
                 </a>
             </li>
             {% endif %}
@@ -117,18 +118,18 @@
           <!-- Options -->
           <ul>
               {% if not user.is_authenticated %}
-              <li><a class="login_trigger" onclick="openDialog()">Přihlášení</a></li>
+              <li><a class="login_trigger" onclick="openDialog()">{% trans "Log in" %}</a></li>
               {% endif %}
 
               {% if user.is_authenticated %}
-                  <li><a href="{% url 'contact:contact' %}">Kontakt</a></li>
+                  <li><a href="{% url 'contact:contact' %}">{% trans "Contact" %}</a></li>
               {% else %}
-                  <li><a class="login_trigger" onclick="openDialog()">Kontakt</a></li>
+                  <li><a class="login_trigger" onclick="openDialog()">{% trans "Contact" %}</a></li>
               {% endif %}
 
-              <li><a href="#">Shop</a></li>
-              <li><a href="{% url 'articles:article_list' %}">Blog</a></li>
-              <li><a href="#">O nás</a></li>
+              <li><a href="#">{% trans "Eshop" %}</a></li>
+              <li><a href="{% url 'articles:article_list' %}">{% trans "Articles" %}</a></li>
+              <li><a href="#">{% trans "About us" %}</a></li>
           </ul>
 
           {% if messages %} {% for message in messages %}

@@ -2,26 +2,8 @@ from django import forms
 
 import django.utils.formats
 
-from .models import Animal, Article
+from .models import Article
 from ..core.widgets import DateTimePickerInput
-
-
-class AnimalForm(forms.ModelForm):
-    """
-    TODO - just for testing -will be deleted
-    """
-
-    class Meta:
-        model = Animal
-        fields = ("name", "type", "can_swim", "note")
-
-    def clean(self):
-
-        cleaned_data = super(AnimalForm, self).clean()
-        if cleaned_data.get("name") == "dog":
-            self.add_error("name", "Name cannot be dog.")
-
-        return cleaned_data
 
 
 class ArticleForm(forms.ModelForm):

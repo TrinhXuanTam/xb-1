@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 {% load crispy_forms_tags %}
 {% block include %}
@@ -6,7 +7,7 @@
 {%block content %}
 <br>
     <img style = "display: block; margin-left: auto; margin-right: auto;" src = "{{ user.profile.image.url }}">
-                    <h1>Account Info</h1>
+                    <h1>{% trans "Account info" %}</h1>
 
     <h3>{{ user.username }}</h3>
     <p>{{ user.email }}</p>
@@ -23,10 +24,10 @@
             <div class="registration_form">
                 <form method = "POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <h1>Profile Info</h1>
+                    <h1>{% trans "Profile info" %}</h1>
                     {{ p_form|crispy }}
                     <div>
-                        <button type = "submit">Update</button>
+                        <button type = "submit">{% trans "Update" %}</button>
                     </div>
                 </form>
             </div>
