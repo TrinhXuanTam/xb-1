@@ -20,3 +20,7 @@ staticRoot
 
 # Password settings files
 passwords.py
+
+# Images
+profile_image/
+thumbnails/
