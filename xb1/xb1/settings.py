@@ -177,3 +177,20 @@ LOGOUT_URL = "logout"
 
 PASSWORD_RESET_TIMEOUT_DAYS = 1
 
+FORMAT_MODULE_PATH = [
+    'formats',
+]
+
+# Internationalization
+# https://docs.djangoproject.com/en/2.0/topics/i18n/
+# https://github.com/mrts/foodbank-campaign/tree/master/src/foodbank
+
+LANGUAGE_CODE = 'cs'
+
+TIME_ZONE = 'Europe/Prague'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
