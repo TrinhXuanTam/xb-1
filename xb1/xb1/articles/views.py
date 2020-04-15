@@ -9,7 +9,7 @@ from django.views.generic.edit import FormView, CreateView, UpdateView
 from django.contrib.auth.forms import UserChangeForm
 from django.shortcuts import render
 
-from .forms import AnimalForm
+from .forms import AnimalForm, ArticleForm
 from .models import Animal, Article
 from ..core.views import LoginMixinView
 
@@ -20,12 +20,9 @@ class ArticleListView(LoginMixinView, ListView):
 
 
 class ArticleCreateView(LoginMixinView, LoginRequiredMixin, CreateView):
-    model = Article
+
     template_name = "articles_form.html"
-    fields = ["title", "thumbnail", "text",
-              "slug", "category", "tags",
-              "allow_comments", "published_from",
-              "published_to", "sources", "article_state"]
+    form_class = ArticleForm
     success_url = reverse_lazy("articles:article_list")
 
     def form_valid(self, form):
@@ -34,12 +31,10 @@ class ArticleCreateView(LoginMixinView, LoginRequiredMixin, CreateView):
 
 
 class ArticleUpdateView(LoginMixinView, LoginRequiredMixin, UpdateView):
+
     model = Article
     template_name = "articles_form.html"
-    fields = ["title", "thumbnail", "text",
-              "slug", "category", "tags",
-              "allow_comments", "published_from",
-              "published_to", "sources", "article_state"]
+    form_class = ArticleForm
     success_url = reverse_lazy("articles:article_list")
 
     def form_valid(self, form):
