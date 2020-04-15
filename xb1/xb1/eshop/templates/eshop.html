@@ -11,10 +11,16 @@
 		Košík je prázdný
 	{% else %}
 		{% for orderItem in orderItems %}
-			{{ orderItem.0.itemName }} {{ orderItem.1 }}
+			Jméno: {{ orderItem.0.itemName }} Počet: {{ orderItem.1 }} Cena za kus: {{ orderItem.0.itemPrice }} 
+			<a href="./add?id={{ orderItem.0.pk }}">Přidat</a>
+			<a href="./remove?id={{ orderItem.0.pk }}">Odebrat</a>
+			<a href="./removeall?id={{ orderItem.0.pk }}">Smazat</a>
 		{% endfor %}
-	{% endif %}
+	<a href="./removeall/">Smazat vše</a>	
+	
 	Celková cena: {{ totalPrice }}
+	{% endif %}
+	
 </div>
 
 <div class="shopItemBox">

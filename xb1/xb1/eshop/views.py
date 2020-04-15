@@ -21,6 +21,7 @@ class ShopIndex(LoginMixinView, ListView):
 	def get_context_data(self, **kwargs):
 		context = super(ShopIndex, self).get_context_data(**kwargs)
 		if self.request.session.get('orderList', None) == None:
+			context['totalPrice'] = 0;
 			return context
 		
 		totalPrice = 0;
@@ -47,6 +48,9 @@ class OrderItemRemoveAllView(RedirectView):
 		if self.request.session['orderList'] != None :
 			self.request.session['orderList'].pop(requestID, None)
 			self.request.session.modified = True
+			if len(self.request.session['orderList']) == 0:
+				self.request.session['orderList'] = None
+			
 			
 		return reverse_lazy("eshop:shopIndex")
 	
@@ -60,6 +64,8 @@ class OrderItemRemoveView(RedirectView):
 		if self.request.session['orderList'] != None :
 			if self.request.session['orderList'].get(requestID, 0) - 1 < 1:
 				self.request.session['orderList'].pop(requestID, None)
+				if len(self.request.session['orderList']) == 0:
+					self.request.session['orderList'] = None
 			else:
 				self.request.session['orderList'][requestID] = self.request.session['orderList'].get(requestID, 0) - 1 
 				
