@@ -14,7 +14,7 @@ import os
 from django.utils.translation import ugettext_lazy as _
 
 try:
-    from passwords import EMAIL_PASSWORD
+    from .passwords import EMAIL_PASSWORD
 except ModuleNotFoundError:
     EMAIL_PASSWORD = ""
 
