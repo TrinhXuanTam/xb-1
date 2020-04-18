@@ -8,6 +8,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import FormView, CreateView, UpdateView
 from django.contrib.auth.forms import UserChangeForm
 from django.shortcuts import render
+from django.http import HttpResponse
 
 from .forms import ArticleForm
 from .models import Article
@@ -40,3 +41,8 @@ class ArticleUpdateView(LoginMixinView, LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super(ArticleUpdateView, self).form_valid(form)
+        
+def article_detail(request, slug):
+    article = Article.objects.get(slug=slug)
+    return render(request, 'articles_detail.html', {'article': article})
+
