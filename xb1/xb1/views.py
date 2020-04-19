@@ -1,6 +1,7 @@
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView as BaseLoginView, LogoutView as BaseLogoutView
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -14,13 +15,18 @@ from .core.tokens import account_activation_token
 from .core.views import LoginMixinView
 from django.views.generic.edit import FormView
 
+from django.contrib.auth.views import PasswordChangeView as AuthPasswordChangeView
+
 
 from .articles.models import Animal, Article
-from .core.forms import UserRegistrationForm, UserLoginForm, ProfileUpdateForm, UserUpdateForm
+from .core.forms import UserRegistrationForm, UserLoginForm, ProfileUpdateForm, UserChangeEmailForm, ChangePasswordForm
 from .core.models import User, Profile
 from django.contrib.auth.forms import UserCreationForm
 
 from django.http import JsonResponse
+
+from .settings import EMAIL_HOST_USER
+
 
 def show_logout_message(sender, user, request, **kwargs):
     messages.info(request, 'You have been logged out.')
@@ -82,13 +88,36 @@ class ProfileView(LoginMixinView, ListView):
         # return redirect('login')
 
 
-
 class ActivationSentView(LoginMixinView, ListView):
     model = User
     template_name = "registration/activation_sent.html"
 
 
-def activate(request, uidb64, token):
+class PasswordChangeView(LoginMixinView, AuthPasswordChangeView):
+    form_class = ChangePasswordForm
+    success_url = '/profile/'
+    template_name = "registration/password_change_form.html"
+
+
+def activate_email(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    # checking if the user exists, if the token is valid.
+    if user is not None and account_activation_token.check_token(user, token):
+        # if valid set active true
+        user.email = user.temp_email
+        user.temp_email = None
+        user.save()
+        login(request, user)
+        return redirect('index')
+    else:
+        return render(request, 'registration/activation_invalid.html')
+
+
+def activate_registration(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
@@ -102,11 +131,36 @@ def activate(request, uidb64, token):
         user.signup_confirmation = True
         user.save()
         profile = Profile(user=user)
+        profile.nickname = user.username
         profile.save()
         login(request, user)
         return redirect('index')
     else:
         return render(request, 'registration/activation_invalid.html')
+
+
+class EmailChangeView(LoginMixinView, FormView):
+    template_name = 'registration/email_change.html'
+    form_class = UserChangeEmailForm
+
+    def form_valid(self, form):
+        form = self.form_class(self.request.POST, instance=self.request.user)
+        form.save()
+        self.request.user.temp_email = form.cleaned_data['temp_email']
+        self.request.user.save()
+        current_site = get_current_site(self.request)
+        subject = 'Please confirm your new email'
+        # load a template like get_template()
+        # and calls its render() method immediately.
+        message = render_to_string('registration/activation_request_email.html', {
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(self.request.user.pk)),
+            # method will generate a hash value with user related data
+            'token': account_activation_token.make_token(self.request.user),
+        })
+        # self.request.user.email_user(subject, message)
+        send_mail(subject, message, EMAIL_HOST_USER, [str(self.request.user.temp_email)], fail_silently=False)
+        return redirect('activation_sent')
 
 
 class Register(LoginMixinView, FormView):
@@ -123,7 +177,7 @@ class Register(LoginMixinView, FormView):
         user.save()
         # load a template like get_template()
         # and calls its render() method immediately.
-        message = render_to_string('registration/activation_request.html', {
+        message = render_to_string('registration/activation_request_register.html', {
             'domain': current_site.domain,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
             # method will generate a hash value with user related data
