@@ -33,7 +33,9 @@
 		<div class="shopSpecialItem shopSpecial{{ shopItem.itemType }}">{{ shopItem.get_itemType_display }}</div>
 		{% endif %}
 		<div class="shopOfferItem">	
-			<div class="shopOfferImage"></div>
+			<div class="shopOfferImage">
+				{{ shopItem.itemImg.url }}
+			</div>
 			<div class="shopOfferText">
 				<span class="shopOfferName">{{ shopItem.itemName }}</span>
 				<div class="shopOfferDesc">{{ shopItem.itemDesc }}</div>
