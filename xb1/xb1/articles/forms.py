@@ -1,21 +1,36 @@
 from django import forms
 
-from .models import Animal
+import django.utils.formats
+
+from .models import Article
+from ..core.widgets import DateTimePickerInput
 
 
-class AnimalForm(forms.ModelForm):
-    """
-    TODO - just for testing -will be deleted
-    """
+class ArticleForm(forms.ModelForm):
 
     class Meta:
-        model = Animal
-        fields = ("name", "type", "can_swim", "note")
+        forms.DateTimeField
+        model = Article
+        fields = [
+            "title", "thumbnail", "text", "slug", "category", "tags",
+            "allow_comments", "sources", "article_state", "published_from",
+            "published_to"
+        ]
+    
+    def __init__(self, *args, **kwargs):
+
+        super(ArticleForm, self).__init__(*args, **kwargs)
+
+        self.fields["published_from"].widget = DateTimePickerInput()
+        self.fields["published_from"].widget.attrs["autocomplete"] = "off"
+
+        self.fields["published_to"].widget = DateTimePickerInput()
+        self.fields["published_to"].widget.attrs["autocomplete"] = "off"
 
     def clean(self):
 
-        cleaned_data = super(AnimalForm, self).clean()
-        if cleaned_data.get("name") == "dog":
-            self.add_error("name", "Name cannot be dog.")
+        cleaned_data = super(ArticleForm, self ).clean()
+
+        print(cleaned_data)
 
         return cleaned_data

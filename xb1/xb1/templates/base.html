@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 {% load static %}
+{% load i18n %}
 <html>
 
 
   <head>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="{% static 'js/loading.js' %}"></script>
+    <script src="{% static 'js/fontawesome.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/loading.css' %}" />
     <link rel="stylesheet" href="{% static 'css/login.css' %}" />
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
@@ -13,9 +15,11 @@
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
     <link rel="stylesheet" href="{% static 'css/chat.css' %}" />
     <link rel="stylesheet" href="{% static 'css/logo.css' %}" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
     {% block include %}{% endblock %}
   </head>
-
 
   <body>
 
@@ -30,18 +34,19 @@
         <span class="close">&times;</span>
 
 
-        <h1>Login</h1>
+        <h1>{% trans "Login" %}</h1>
 
-        <form method = "POST" action = "{% url 'login' %}?next={{ request.path }}">
+        <form id="login_form" method = "POST">
             {% csrf_token %}
             {{ login_form.username }}
             {{ login_form.password }}
             <br>
             <br>
 
-            <button type = "submit">Login</button>
-            <a id="sign_up" href = "{% url 'register' %}">Sign Up</a>
+            <button type = "submit">{% trans "Login" %}</button>
+            <a id="sign_up" href = "{% url 'register' %}">{% trans "Sign Up" %}</a>
         </form>
+        <div id="login_warning">The username or password is incorrect</div>
       </div>
     </div>
 
@@ -61,45 +66,45 @@
             <ul class="sidebar-options">
                 {% if user.is_authenticated %}
                 <li>
-                    <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profil</a>
+                    <a href="{% url 'profile' %}"><i class="fas fa-user"></i> {% trans "Profile" %}</a>
                 </li>
                 {% else %}
                 <li>
-                    <a class="login_trigger" onclick="openDialog()"><i class="fas fa-user"></i> Login</a>
+                    <a class="login_trigger" onclick="openDialog()"><i class="fas fa-user"></i> {% trans "Login" %}</a>
                 </li>
                 {% endif %}
 
                 {% if user.is_authenticated %}
                 <li>
-                    <a href="{% url 'contact:contact' %}"><i class="fas fa-envelope"></i> Kontakt</a>
+                    <a href="{% url 'contact:contact' %}"><i class="fas fa-envelope"></i> {% trans "Contact" %}</a>
                 </li>
                 {% else %}
                 <li>
-                    <a class="login_trigger" onclick="openDialog()"><i class="fas fa-envelope"></i> Kontakt</a>
+                    <a class="login_trigger" onclick="openDialog()"><i class="fas fa-envelope"></i> {% trans "Contact" %}</a>
                 </li>
                 {% endif %}
 
                 <li>
-                    <a href="#"><i class="fas fa-calendar-week"></i> Odkaz</a>
+                    <a href="#"><i class="fas fa-calendar-week"></i> {% trans "Link" %}</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fas fa-link"></i> Odkaz</a>
+                    <a href="#"><i class="fas fa-link"></i> {% trans "Link" %}</a>
                 </li>
             </ul>
 
             <!-- Bottom sidebar options -->
             <ul class="sidebar-options bottom">
                 <li>
-                    <a href="#"><i class="fas fa-circle color"></i> Barva</a>
+                    <a href="#"><i class="fas fa-circle color"></i> {% trans "Color" %}</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fas fa-question-circle"></i> Odkaz</a>
+                    <a href="#"><i class="fas fa-question-circle"></i> {% trans "Link" %}</a>
                 </li>
 
                 {% if user.is_authenticated %}
                 <li>
                     <a href="{% url 'logout' %}"
-                    ><i class="fas fa-power-off"></i> Logout
+                    ><i class="fas fa-power-off"></i> {% trans "Logout" %}
                 </a>
             </li>
             {% endif %}
@@ -113,18 +118,18 @@
           <!-- Options -->
           <ul>
               {% if not user.is_authenticated %}
-              <li><a class="login_trigger" onclick="openDialog()">Přihlášení</a></li>
+              <li><a class="login_trigger" onclick="openDialog()">{% trans "Log in" %}</a></li>
               {% endif %}
 
               {% if user.is_authenticated %}
-                  <li><a href="{% url 'contact:contact' %}">Kontakt</a></li>
+                  <li><a href="{% url 'contact:contact' %}">{% trans "Contact" %}</a></li>
               {% else %}
-                  <li><a class="login_trigger" onclick="openDialog()">Kontakt</a></li>
+                  <li><a class="login_trigger" onclick="openDialog()">{% trans "Contact" %}</a></li>
               {% endif %}
 
-              <li><a href="#">Shop</a></li>
-              <li><a href="{% url 'articles:article_list' %}">Blog</a></li>
-              <li><a href="#">O nás</a></li>
+              <li><a href="#">{% trans "Eshop" %}</a></li>
+              <li><a href="{% url 'articles:article_list' %}">{% trans "Articles" %}</a></li>
+              <li><a href="#">{% trans "About us" %}</a></li>
           </ul>
 
           {% if messages %} {% for message in messages %}
@@ -149,8 +154,34 @@
 
 
       <!-- Scripts -->
-      <script src="{% static 'js/login.js' %}"></script>
 
+      <!-- Display warning if user fails to authenticate -->
+      <script>
+          document.getElementById("login_form").onsubmit = function(event) {
+              event.preventDefault();
+              $.ajax({
+                  type:'POST',
+                  async: true,
+                  cache: false,
+                  url:'{% url "login" %}',
+                  dataType: "json",
+                  data: {
+                      csrfmiddlewaretoken: $("#login_form input[type='hidden']").val(),
+                      username: $("#login_form input[type='text']").val(),
+                      password: $("#login_form input[type='password']").val()
+                    },
+                    // refresh on success
+                    success: function(data) {
+                        location.reload(true);
+                    },
+                    // display warning message
+                    error: function() {
+                        $("#login_warning").css("opacity", 1);
+                    }
+                });
+            }
+        </script>
+        <script src="{% static 'js/login.js' %}"></script>
     </div>
   </body>
 </html>

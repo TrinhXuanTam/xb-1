@@ -17,3 +17,10 @@ staticRoot
 # IDE settings
 .vscode
 .idea
+
+# Password settings files
+passwords.py
+
+# Images
+profile_image/
+thumbnails/

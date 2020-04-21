@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
-from .models import User
+from .models import User, Profile
 
 
 # custom login form
@@ -22,7 +22,6 @@ class UserLoginForm(AuthenticationForm):
                 "This account is inactive.",
                 code='inactive',
             )
-
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -50,8 +49,29 @@ class UserRegistrationForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 
 
-class CustomUserChangeForm(UserChangeForm):
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
 
     class Meta:
         model = User
-        fields = UserChangeForm.Meta.fields
+        fields = ['username', 'email']
+        help_texts = {
+            'username': None,
+            'email': None,
+        }
+
+
+class ProfileUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = ['image', 'name', 'surname', 'city', 'postalCode', 'address', 'phone']
+        help_texts = {
+            'image': None,
+            'name': None,
+            'surname': None,
+            'city': None,
+            'postalCode': None,
+            'address': None,
+            'phone': None
+        }
