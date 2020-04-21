@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'xb1.core',
     'xb1.contact',
     'django_cleanup',
-    'ckeditor'
+    'ckeditor',
+    'ckeditor_uploader'
 ]
 
 
@@ -200,7 +201,7 @@ USE_TZ = True
 # CKEDITOR settings 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
-CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_UPLOAD_PATH = 'article_content_images/'
 
 CKEDITOR_IMAGE_BACKEND = "pillow"
 

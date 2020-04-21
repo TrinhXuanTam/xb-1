@@ -34,6 +34,9 @@ urlpatterns = [
     url(r"^sent/", views.ActivationSentView.as_view(), name="activation_sent"),
     path('activate/<slug:uidb64>/<slug:token>/', activate, name='activate'),
 
+    # CKEDITOR
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+
 ]
 
 if settings.DEBUG:

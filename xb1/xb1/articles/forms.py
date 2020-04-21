@@ -4,6 +4,7 @@ import django.utils.formats
 
 from .models import Article
 from ..core.widgets import DateTimePickerInput
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 
 class ArticleForm(forms.ModelForm):
@@ -26,6 +27,8 @@ class ArticleForm(forms.ModelForm):
 
         self.fields["published_to"].widget = DateTimePickerInput()
         self.fields["published_to"].widget.attrs["autocomplete"] = "off"
+        
+        self.fields["text"].widget = CKEditorUploadingWidget()
 
     def clean(self):
 
