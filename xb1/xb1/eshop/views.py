@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect
 
 from .models import ShopItem
+from .models import ShopOrderItem
 
 from .forms import OrderForm
 
@@ -52,25 +53,29 @@ class OrderCreateView(LoginMixinView, FormView):
 	def form_valid(self, form):
 		if self.request.session.get('orderList', None) == None :
 			return redirect('eshop:shopIndex')
-		
-		
-#		confirmedItems = []
-#		for orderItemID in self.request.session['orderList']:
-#			resultObject = ShopItem.objects.filter(pk=int(orderItemID)).first()
-#			if resultObject == None:
-#				return redirect('eshop:shopIndex')
-#				
-#			if resultObject.itemActive == False:	
-#				return redirect('eshop:shopIndex')
-#				
-#			confirmedItems.append(resultObject)
-#		form.instance.save()
-#		for orderItem in confirmedItems:
-#			form.instance.orderItems.add(orderItem)
+
+		confirmedItems = []
+		for orderItemID in self.request.session['orderList']:
+			resultObject = ShopItem.objects.filter(pk=int(orderItemID)).first()
+			if resultObject == None:
+				return redirect('eshop:shopIndex')
+				
+			if resultObject.itemActive == False:	
+				return redirect('eshop:shopIndex')
+
+			confirmedItems.append((resultObject, self.request.session['orderList'][orderItemID]))
 			
 		form.instance.save()
-		self.request.session['orderList'] = None
 		
+		for confirmedItem in confirmedItems:
+			item = ShopOrderItem()
+			item.shopItem = confirmedItem[0]
+			item.shopOrder = form.instance
+			item.shopItemCount = confirmedItem[1]
+			item.save()
+
+		self.request.session['orderList'] = None
+	
 		return super(OrderCreateView, self).form_valid(form)
 	
 class OrderItemRemoveAllView(RedirectView):

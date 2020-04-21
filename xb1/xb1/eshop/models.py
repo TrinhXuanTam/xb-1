@@ -29,4 +29,9 @@ class ShopOrder(models.Model):
 	orderAddressStreet = models.CharField("Street", max_length = 20)
 	orderAddressStreetNumber = models.DecimalField("StreetNumber", decimal_places=0, max_digits=5)
 	orderAddressPostNumber = models.DecimalField("PostNumber", decimal_places=0, max_digits=5)
-	orderItems = models.ManyToManyField(ShopItem, verbose_name="OrderItems", blank=True)
+	
+class ShopOrderItem(models.Model):
+	shopItem = models.ForeignKey(ShopItem, verbose_name="ShopItem", on_delete = models.PROTECT, blank=True, null=True)
+	shopOrder = models.ForeignKey(ShopOrder, verbose_name="ShopOrder", on_delete = models.CASCADE, blank=True, null=True)
+	shopItemCount = models.DecimalField("ItemCount", decimal_places=0, max_digits=10)
+	
