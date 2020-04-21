@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import FormView
 from django.views.generic.base import RedirectView
+from django.views.generic import View
 from django.views.generic import ListView
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
@@ -11,15 +12,15 @@ from .models import ShopItem
 from .models import ShopOrderItem
 
 from .forms import OrderForm
+from .forms import ShopItemForm
 
 from ..core.views import LoginMixinView
 
-class ShopItemCreateView(LoginMixinView, LoginRequiredMixin, CreateView):
-	model = ShopItem
+class ShopItemCreateView(LoginMixinView, LoginRequiredMixin, View):
+	form_class = ShopItemForm
 	template_name = "eshopAddItem.html"
 	success_url = reverse_lazy("eshop:shopItemCreate")
-	fields = ["itemName", "itemPrice", "itemDesc", "itemType", "itemActive"]
-	
+		
 class ShopIndex(LoginMixinView, ListView):
 	model = ShopItem
 	template_name = "eshop.html"

@@ -6,7 +6,7 @@ from .models import ShopOrderItem
 
 @admin.register(ShopItem)
 class ShopItemAdmin(admin.ModelAdmin):
-	list_display = ("itemName", "itemPrice", "itemDesc", "itemType", "itemActive")
+	list_display = ("itemName", "itemPrice", "itemImg", "itemDesc", "itemType", "itemActive")
 	
 @admin.register(ShopOrder)
 class ShopOrderAdmin(admin.ModelAdmin):
