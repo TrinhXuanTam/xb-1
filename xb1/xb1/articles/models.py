@@ -2,6 +2,9 @@ from django.db import models
 from model_utils.models import TimeStampedModel
 from datetime import datetime
 from django.utils.translation import ugettext_lazy as _
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
+
 
 from ..core.models import User
 
@@ -45,7 +48,7 @@ class Article(TimeStampedModel):
     allow_comments = models.BooleanField(verbose_name=_("Comments allowed"), default=False)
     published_from = models.DateTimeField(verbose_name=_("Published from"), default=datetime.now, null=True, blank=True)
     published_to   = models.DateTimeField(verbose_name=_("Published to"), null=True, blank=True)
-    text           = models.TextField(verbose_name=_("Text"), blank=True, null=True)
+    text           = RichTextField(verbose_name=_("Text"), blank=True, null=True)
     sources        = models.TextField(verbose_name=_("Sources"), blank=True, null=True)
     article_state  = models.PositiveSmallIntegerField(verbose_name=_("State"), choices=STATE_CHOICES, default=HIDDEN)
 
