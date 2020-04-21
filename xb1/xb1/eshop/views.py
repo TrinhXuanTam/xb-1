@@ -1,11 +1,15 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
+from django.views.generic.edit import FormView
 from django.views.generic.base import RedirectView
 from django.views.generic import ListView
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
 
 from .models import ShopItem
+
+from .forms import OrderForm
 
 from ..core.views import LoginMixinView
 
@@ -35,6 +39,39 @@ class ShopIndex(LoginMixinView, ListView):
 		context['totalPrice'] = totalPrice;
 		
 		return context
+
+class OrderCreateView(LoginMixinView, FormView):
+	template_name = "eshopOrder.html"
+	form_class = OrderForm
+	success_url = reverse_lazy("eshop:shopIndex")
+	def render_to_response(self, context):
+		if self.request.session.get('orderList', None) == None :
+			return redirect('eshop:shopIndex')
+		return super(OrderCreateView, self).render_to_response(context)
+		
+	def form_valid(self, form):
+		if self.request.session.get('orderList', None) == None :
+			return redirect('eshop:shopIndex')
+		
+		
+#		confirmedItems = []
+#		for orderItemID in self.request.session['orderList']:
+#			resultObject = ShopItem.objects.filter(pk=int(orderItemID)).first()
+#			if resultObject == None:
+#				return redirect('eshop:shopIndex')
+#				
+#			if resultObject.itemActive == False:	
+#				return redirect('eshop:shopIndex')
+#				
+#			confirmedItems.append(resultObject)
+#		form.instance.save()
+#		for orderItem in confirmedItems:
+#			form.instance.orderItems.add(orderItem)
+			
+		form.instance.save()
+		self.request.session['orderList'] = None
+		
+		return super(OrderCreateView, self).form_valid(form)
 	
 class OrderItemRemoveAllView(RedirectView):
 	permanent = False
