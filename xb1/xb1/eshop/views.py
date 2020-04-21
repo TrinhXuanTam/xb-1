@@ -66,7 +66,7 @@ class OrderCreateView(LoginMixinView, FormView):
 			confirmedItems.append((resultObject, self.request.session['orderList'][orderItemID]))
 			
 		form.instance.save()
-		
+
 		for confirmedItem in confirmedItems:
 			item = ShopOrderItem()
 			item.shopItem = confirmedItem[0]
