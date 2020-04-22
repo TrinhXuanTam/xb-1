@@ -7,4 +7,4 @@ Realizovatelné funkce:
         - Stránkování seznamu účtů
     - Filtrování administrátorských funkcí
         - Výběr ovládání podle zadaného filtru
-    - Přístup ke sledování objedvnáky přes odkaz
+    - Přístup ke sledování objednávky přes odkaz
