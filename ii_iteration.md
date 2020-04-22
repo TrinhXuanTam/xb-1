@@ -8,3 +8,4 @@ Realizovatelné funkce:
     - Filtrování administrátorských funkcí
         - Výběr ovládání podle zadaného filtru
     - Přístup ke sledování objednávky přes odkaz
+    - Online chat
