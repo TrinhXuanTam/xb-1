@@ -12,5 +12,8 @@ urlpatterns = [
 	url(r'^remove/$', views.OrderItemRemoveView.as_view(), name="orderItemRemove"),
 	url(r'^removeall/$', views.OrderItemRemoveAllView.as_view(), name="orderItemRemoveAll"),
 	
-	url(r'^manage/add/$', views.ShopItemCreateView.as_view(), name="shopItemCreate")
+	url(r'^manage/shop/list/$', views.ShopItemListView.as_view(), name="manageShopList"),
+	url(r'^manage/shop/add/$', views.ShopItemCreateView.as_view(), name="shopItemCreate"),
+	url(r'^manage/shop/update/(?P<pk>[0-9]+)$', views.ShopItemUpdateView.as_view(), name = "manageShopUpdate"),
+	
 ]

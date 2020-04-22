@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import FormView
+from django.views.generic.edit import UpdateView
 from django.views.generic.base import RedirectView
 from django.views.generic import View
 from django.views.generic import ListView
@@ -16,10 +17,25 @@ from .forms import ShopItemForm
 
 from ..core.views import LoginMixinView
 
-class ShopItemCreateView(LoginMixinView, LoginRequiredMixin, View):
+class ShopItemCreateView(LoginMixinView, LoginRequiredMixin, CreateView):
 	form_class = ShopItemForm
-	template_name = "eshopAddItem.html"
-	success_url = reverse_lazy("eshop:shopItemCreate")
+	template_name = "manageShopAdd.html"
+	success_url = reverse_lazy("eshop:manageShopList")
+		
+class ShopItemListView(LoginMixinView, LoginRequiredMixin, ListView):
+	model = ShopItem
+	template_name = "manageShopList.html"
+	
+class ShopItemUpdateView(LoginMixinView, LoginRequiredMixin, UpdateView):
+	model = ShopItem
+	form_class = ShopItemForm
+	template_name = "manageShopAdd.html"
+	success_url = reverse_lazy("eshop:manageShopList")
+	def form_valid(self, form):
+	
+		# NEED REWORK & BETTER TEMPLATE
+		
+		return super(ShopItemUpdateView, self).form_valid(form)
 		
 class ShopIndex(LoginMixinView, ListView):
 	model = ShopItem
