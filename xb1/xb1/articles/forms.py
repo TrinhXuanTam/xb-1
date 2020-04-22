@@ -13,8 +13,8 @@ class ArticleForm(forms.ModelForm):
         forms.DateTimeField
         model = Article
         fields = [
-            "title", "thumbnail", "text", "slug", "category", "tags",
-            "allow_comments", "sources", "article_state", "published_from",
+            "title", "thumbnail","preview_text" , "text", "slug", "category", 
+            "tags", "allow_comments", "sources", "article_state", "published_from",
             "published_to"
         ]
     

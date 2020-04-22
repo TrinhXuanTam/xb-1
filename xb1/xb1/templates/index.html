@@ -15,7 +15,7 @@
           <div class="preview-thumb">
           <img src="{% static 'img/universe.jpg' %}">
           <div class="preview-content">
-            {{ article.text|slice:":100" }}<br>
+            {{ article.preview_text | safe | default_if_none:"" }}<br>
             <a href = "#">{% trans "Read more" %}</a>
           </div>
           </div>
@@ -34,7 +34,7 @@
       {%if forloop.last %}
         <h1>{{ article.title }}</h1><br>
         <img src="{% static 'img/universe.jpg' %}">
-        <p>{{ article.text }}</p><br>
+        <p>{{ article.text | safe}}</p><br>
         <h3>{{ article.author.label }} {{ article.author }}</h3>
       {% endif %}
 
