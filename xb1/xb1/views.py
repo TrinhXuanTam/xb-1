@@ -165,7 +165,6 @@ def ckeditor_upload_wrapper(request, *args, **kwargs):
         print(response.content)
         location = json.loads(response.content)
         path = os.path.relpath(location['url'], '/media')
-        print(path)
         UploadedFile(uploaded_file=path).save()
     return response
 
@@ -197,8 +196,8 @@ def browse(request):
     return render(request, 'ckeditor_browse.html', context)
 
 def ckeditor_delete(request):
-    url = request.POST.get('DeleteButton')
-    for x in UploadedFile.objects.all():
-        print(x)
+    src = request.POST.get('DeleteButton')
+    res = UploadedFile.objects.filter(uploaded_file=os.path.relpath(src, '/media'))
+    for x in res:
         x.delete()
     return HttpResponseRedirect("/ckeditor/browse")
