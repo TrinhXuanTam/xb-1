@@ -16,7 +16,7 @@
           <img src="{% static 'img/universe.jpg' %}">
           <div class="preview-content">
             {{ article.text|slice:":100" }}<br>
-            <a href = "#">{% trans "Read more" %}</a>
+            <a href = "{% url 'articles:detail' slug=article.slug %}">{% trans "Read more" %}</a>
           </div>
           </div>
         </li>
