@@ -8,9 +8,10 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import FormView, CreateView, UpdateView
 from django.contrib.auth.forms import UserChangeForm
 from django.shortcuts import render
+from django.http import HttpResponse
 
-from .forms import AnimalForm, ArticleForm
-from .models import Animal, Article
+from .forms import ArticleForm
+from .models import Article
 from ..core.views import LoginMixinView
 
 
@@ -40,32 +41,8 @@ class ArticleUpdateView(LoginMixinView, LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super(ArticleUpdateView, self).form_valid(form)
+        
+def article_detail(request, slug):
+    article = Article.objects.get(slug=slug)
+    return render(request, 'articles_detail.html', {'article': article})
 
-
-class AnimalListView(ListView):
-    """
-    TODO - just for testing -will be deleted
-    """
-
-    model = Animal
-    template_name = "animals.html"
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(AnimalListView, self).get_context_data(*args, **kwargs)
-
-        context["now"] = timezone.now()
-        return context
-
-
-class AnimalCreateView(LoginRequiredMixin, FormView):
-    """
-    TODO - just for testing -will be deleted
-    """
-
-    template_name = "animals_form.html"
-    form_class = AnimalForm
-    success_url = reverse_lazy("articles:animal_list")
-
-    def form_valid(self, form):
-        form.instance.save()
-        return super(AnimalCreateView, self).form_valid(form)

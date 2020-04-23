@@ -17,7 +17,7 @@ class ContactFormView(FormView):
 
     def form_valid(self, form):
 
-        message = form.cleaned_data["message"] + "\n\nFrom: " + form.cleaned_data["name"]
+        message = form.cleaned_data["message"]
         topic = form.cleaned_data["topic"]
         send_mail(topic, message, EMAIL_HOST_USER, [FEEDBACK_EMAIL], fail_silently=False)
 

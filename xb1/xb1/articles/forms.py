@@ -2,26 +2,9 @@ from django import forms
 
 import django.utils.formats
 
-from .models import Animal, Article
+from .models import Article
 from ..core.widgets import DateTimePickerInput
-
-
-class AnimalForm(forms.ModelForm):
-    """
-    TODO - just for testing -will be deleted
-    """
-
-    class Meta:
-        model = Animal
-        fields = ("name", "type", "can_swim", "note")
-
-    def clean(self):
-
-        cleaned_data = super(AnimalForm, self).clean()
-        if cleaned_data.get("name") == "dog":
-            self.add_error("name", "Name cannot be dog.")
-
-        return cleaned_data
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 
 class ArticleForm(forms.ModelForm):
@@ -30,8 +13,8 @@ class ArticleForm(forms.ModelForm):
         forms.DateTimeField
         model = Article
         fields = [
-            "title", "thumbnail", "text", "slug", "category", "tags",
-            "allow_comments", "sources", "article_state", "published_from",
+            "title", "thumbnail","preview_text" , "text", "slug", "category", 
+            "tags", "allow_comments", "sources", "article_state", "published_from",
             "published_to"
         ]
     
@@ -44,6 +27,8 @@ class ArticleForm(forms.ModelForm):
 
         self.fields["published_to"].widget = DateTimePickerInput()
         self.fields["published_to"].widget.attrs["autocomplete"] = "off"
+        
+        self.fields["text"].widget = CKEditorUploadingWidget()
 
     def clean(self):
 

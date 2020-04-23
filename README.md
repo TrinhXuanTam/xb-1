@@ -58,6 +58,12 @@ vytvoreni superusera
 --------------------
 `python3 manage.py createsuperuser`
 
+tvorba prekladu
+---------------
+pred prvnim spustenim stahnete gettext (linux) `sudo apt-get install gettext`
+ 1. `python manage.py makemessages  -l 'cs'` - vytvori seznam prekladu
+ 2. `python manage.py compilemessages` - zkompiluje sepsane preklady
+
 
 Code of conduct
 ===============

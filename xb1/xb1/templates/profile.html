@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 {% block include %}
         <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
@@ -12,7 +13,7 @@
                                 <form method = "POST" enctype="multipart/form-data">
 
 
-                    <h1>Account Info</h1>
+                    <h1>{% trans "Account info" %}</h1>
 
     <h3>{{ user.username }}</h3>
     <p>{{ user.email }}</p>
@@ -25,7 +26,7 @@
          <input class="profile_btn" type="button" onclick="location.href='{% url 'change_email' %}'" value="Change Email"/>
         </form>
                     {% csrf_token %}
-                    <h1>Profil</h1>
+                <h1>{% trans "Profile info" %}</h1>
                 {%if user.profile.image%}
                 <img style = "display: block; margin-left: auto; margin-right: auto;" src = "{{ user.profile.image.url }}">
                 {%else%}
@@ -34,7 +35,7 @@
                     {{ p_form.as_p }}
 
                     <div>
-                        <button type = "submit">Update</button>
+                        <button type = "submit">{% trans "Update" %}</button>
                     </div>
                 </form>
 

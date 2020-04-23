@@ -1,2 +1,229 @@
-msgid "TODO"
-msgstr "Test"
+msgid ""
+msgstr ""
+"Project-Id-Version: django\n"
+"cz/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cz\n"
+
+#: xb1/articles/models.py:11 xb1/articles/models.py:19 xb1/core/models.py:19
+msgid "Name"
+msgstr "Jméno"
+
+#: xb1/articles/models.py:35
+msgid "Hidden"
+msgstr "Skrytý"
+
+#: xb1/articles/models.py:36
+msgid "Published"
+msgstr "Zveřejněný"
+
+#: xb1/articles/models.py:39 xb1/articles/models.py:55
+#: xb1/articles/models.py:64
+msgid "Title"
+msgstr "Nadpis"
+
+#: xb1/articles/models.py:40
+msgid "Thumbnail"
+msgstr "Ikona"
+
+#: xb1/articles/models.py:44
+msgid "Preview text"
+msgstr "Popisek"
+
+#: xb1/articles/models.py:41 xb1/articles/models.py:66
+#: xb1/articles/models.py:76
+msgid "Author"
+msgstr "Autor"
+
+#: xb1/articles/models.py:42
+msgid "Slug"
+msgstr "Slug"
+
+#: xb1/articles/models.py:45
+msgid "Comments allowed"
+msgstr "Komentáře povoleny"
+
+#: xb1/articles/models.py:46
+msgid "Published from"
+msgstr "Zveřejněno od"
+
+#: xb1/articles/models.py:47
+msgid "Published to"
+msgstr "Zveřejněné do"
+
+#: xb1/articles/models.py:48 xb1/articles/models.py:77
+msgid "Text"
+msgstr "Text"
+
+#: xb1/articles/models.py:49
+msgid "Sources"
+msgstr "Zdroje"
+
+#: xb1/articles/models.py:50
+msgid "State"
+msgstr "Stav"
+
+#: xb1/articles/models.py:56
+msgid "Is public"
+msgstr "Je veřejný"
+
+#: xb1/articles/models.py:65
+msgid "Forum description"
+msgstr "Popis fóra"
+
+#: xb1/articles/models.py:67
+msgid "Is closed"
+msgstr "Uzavřené"
+
+#: xb1/articles/models.py:68
+msgid "Category"
+msgstr "Kategorie"
+
+#: xb1/articles/models.py:73
+msgid "Article"
+msgstr "Článek"
+
+#: xb1/articles/models.py:74
+msgid "Forum"
+msgstr "Fórum"
+
+#: xb1/articles/models.py:75
+msgid "Reacts to"
+msgstr "Reaguje na"
+
+#: xb1/articles/models.py:78
+msgid "Is censured"
+msgstr "Je cenzurován"
+
+#: xb1/core/models.py:14
+msgid "User"
+msgstr "Uživatel"
+
+#: xb1/core/models.py:15
+msgid "Image"
+msgstr "Obrázek"
+
+#: xb1/core/models.py:16
+msgid "City"
+msgstr "Město"
+
+#: xb1/core/models.py:17
+msgid "PostalCode"
+msgstr "PSČ"
+
+#: xb1/core/models.py:18
+msgid "Address"
+msgstr "Adresa"
+
+#: xb1/core/models.py:20
+msgid "Surname"
+msgstr "Příjmení"
+
+#: xb1/core/models.py:21
+msgid "Phone"
+msgstr "Telefon"
+
+#: xb1/settings.py:180
+msgid "Czech"
+msgstr "Čeština"
+
+#: xb1/templates/base.html:37 xb1/templates/base.html:46
+#: xb1/templates/base.html:73 xb1/templates/contact.html:44
+msgid "Login"
+msgstr "Přihlásit se"
+
+#: xb1/templates/base.html:47
+msgid "Sign Up"
+msgstr "Registrovat se"
+
+#: xb1/templates/base.html:69
+msgid "Profile"
+msgstr "Profil"
+
+#: xb1/templates/base.html:79 xb1/templates/base.html:83
+#: xb1/templates/base.html:125 xb1/templates/base.html:127
+#: xb1/templates/contact.html:8
+msgid "Contact"
+msgstr "Kontakt"
+
+#: xb1/templates/base.html:88 xb1/templates/base.html:91
+#: xb1/templates/base.html:101
+msgid "Link"
+msgstr "Odkaz"
+
+#: xb1/templates/base.html:98
+msgid "Color"
+msgstr "Barva"
+
+#: xb1/templates/base.html:107
+msgid "Logout"
+msgstr "Odhlásit se"
+
+#: xb1/templates/base.html:121
+msgid "Log in"
+msgstr "Přihlásit se"
+
+#: xb1/templates/base.html:130
+msgid "Eshop"
+msgstr "Obchod"
+
+#: xb1/templates/base.html:131
+msgid "Articles"
+msgstr "Články"
+
+#: xb1/templates/base.html:132
+msgid "About us"
+msgstr "O nás"
+
+#: xb1/templates/contact.html:25
+msgid "Send"
+msgstr "Odeslat"
+
+#: xb1/templates/contact.html:37
+msgid "User name"
+msgstr "Uživatelské jméno"
+
+#: xb1/templates/contact.html:39
+msgid "Password"
+msgstr "Heslo"
+
+#: xb1/templates/contact.html:47
+msgid "Need an Account?"
+msgstr "Potřebujete účet?"
+
+#: xb1/templates/contact.html:47
+msgid "Sign up"
+msgstr "Registrovat se"
+
+#: xb1/templates/index.html:19
+msgid "Read more"
+msgstr "Zobrazit více"
+
+#: xb1/templates/index.html:25 xb1/templates/index.html:42
+msgid "No articles created."
+msgstr "Žádné články nejsou dostupné"
+
+#: xb1/templates/profile.html:10
+msgid "Account info"
+msgstr "Informace o účtu"
+
+#: xb1/templates/profile.html:27
+msgid "Informace o profilu"
+msgstr ""
+
+#: xb1/templates/profile.html:30
+msgid "Update"
+msgstr "Aktualizovat"
+
+#: xb1/templates/templates/articles_form.html:23
+msgid "Submit"
+msgstr "Uložit"
+
+#: xb1/templates/templates/articles_form.html:26
+msgid "Back"
+msgstr "Zpět"
+
+#~ msgid "TODO"
+#~ msgstr "TODO"

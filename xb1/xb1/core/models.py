@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.translation import ugettext_lazy as _
 from PIL import Image
 
 
@@ -13,14 +14,14 @@ class User(AbstractUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField("Image", default='default.jpg', blank=True, null=True, upload_to='profile_image')
-    nickname = models.CharField('Nickname', unique=True, max_length=30, null=True, blank=True)
-    city = models.CharField("City", max_length=100, null=True, blank=True)
-    postalCode = models.CharField("Postal Code", max_length=10, null=True, blank=True)
-    address = models.CharField("Address", max_length=100, null=True, blank=True)
-    name = models.CharField("Name", max_length=100, null=True, blank=True)
-    surname = models.CharField("Surname", max_length=100, null=True, blank=True)
-    phone = models.CharField("Phone", max_length=20, null=True, blank=True)
+    image = models.ImageField(_("Image"), default='default.jpg', blank=True, null=True, upload_to='profile_image')
+    nickname = models.CharField(_('Nickname'), unique=True, max_length=30, null=True, blank=True)
+    city = models.CharField(_("City"), max_length=100, null=True, blank=True)
+    postalCode = models.CharField(_("Postal Code"), max_length=10, null=True, blank=True)
+    address = models.CharField(_("Address"), max_length=100, null=True, blank=True)
+    name = models.CharField(_("Name"), max_length=100, null=True, blank=True)
+    surname = models.CharField(_("Surname"), max_length=100, null=True, blank=True)
+    phone = models.CharField(_("Phone"), max_length=20, null=True, blank=True)
 
     def __str__(self):
         return f'{self.user}\'s profile'

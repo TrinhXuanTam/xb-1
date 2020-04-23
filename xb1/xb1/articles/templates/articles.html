@@ -17,7 +17,7 @@
         {%if article.thumbnail%}
         <img style = "display: block; margin-left: auto; margin-right: auto;" src = "{{article.thumbnail.url}}">
         {%endif%}
-        {{ article.text }}
+        <div class="article_content">{{ article.text | safe }}</div>
         <br>
                 <h3>Autor: {{ article.author }}</h3>
                 {%if article.author.profile.image%}
