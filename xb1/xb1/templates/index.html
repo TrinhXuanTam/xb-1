@@ -12,13 +12,14 @@
         {% for article in object_list %}
         <li>
           <h1>{{ article.title }}</h1>
-          <div class="preview-thumb">
-          <img src="{% static 'img/universe.jpg' %}">
-          <div class="preview-content">
-            {{ article.preview_text | safe | default_if_none:"" }}<br>
-            <a href = "#">{% trans "Read more" %}</a>
-          </div>
-          </div>
+          <a href = "{% url 'articles:detail' slug=article.slug %}">
+            <div class="preview-thumb">
+              <img src="{% static 'img/universe.jpg' %}">
+              <div class="preview-content">
+                {{ article.preview_text | safe | default_if_none:"" }}<br>
+              </div>
+            </div>
+          </a>
         </li>
 
           {% empty %}
