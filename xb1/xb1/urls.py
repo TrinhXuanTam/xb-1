@@ -4,7 +4,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from .views import activate
+from .views import activate, browse, ckeditor_upload_wrapper, ckeditor_delete
 
 admin.autodiscover()
 
@@ -35,7 +35,10 @@ urlpatterns = [
     path('activate/<slug:uidb64>/<slug:token>/', activate, name='activate'),
 
     # CKEDITOR
-    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    # url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^ckeditor/upload/', ckeditor_upload_wrapper, name='ckeditor_upload'),
+    url(r'^ckeditor/browse/', browse, name='ckeditor_browse'),
+    url(r'^ckeditor/delete/', ckeditor_delete, name='ckeditor_delete')
 
 ]
 

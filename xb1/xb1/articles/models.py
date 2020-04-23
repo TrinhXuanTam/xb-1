@@ -4,6 +4,7 @@ from datetime import datetime
 from django.utils.translation import ugettext_lazy as _
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
+from os.path import basename
 
 
 from ..core.models import User
@@ -24,6 +25,21 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+
+class UploadedFile(models.Model):
+    uploaded_file = models.FileField(upload_to=u"article_content_images/")
+    uploaded_at = models.DateField(editable=False, auto_now_add=True)
+
+    def __str__(self):
+        return basename(self.uploaded_file.path)
+
+    def url(self):
+        return self.uploaded_file.url
+
+    def delete(self, *args, **kwargs):
+        file_storage, file_path = self.uploaded_file.storage, self.uploaded_file.path
+        super(UploadedFile, self).delete(*args, **kwargs)
+        file_storage.delete(file_path)
 
 # TimeStampedModel - An abstract base class model that provides self-updating "created" and "modified" fields.
 class Article(TimeStampedModel):

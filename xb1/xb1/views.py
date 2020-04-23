@@ -15,12 +15,21 @@ from .core.views import LoginMixinView
 from django.views.generic.edit import FormView
 
 
-from .articles.models import Article
+from .articles.models import Article, UploadedFile
 from .core.forms import UserRegistrationForm, UserLoginForm, ProfileUpdateForm, UserUpdateForm
 from .core.models import User, Profile
 from django.contrib.auth.forms import UserCreationForm
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
+
+#CKEDITOR
+from ckeditor_uploader.views import browse, upload, get_files_browse_urls
+from ckeditor_uploader.forms import SearchForm
+from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
+from .articles.models import UploadedFile
+import json
+import os
 
 def show_logout_message(sender, user, request, **kwargs):
     messages.info(request, 'You have been logged out.')
@@ -147,3 +156,46 @@ class Register(LoginMixinView, FormView):
 #    else:
 #        form = UserRegistrationForm()
 #    return render(request, 'registration/register.html', {'form': form})
+
+@csrf_exempt
+def ckeditor_upload_wrapper(request, *args, **kwargs):
+    response = upload(request, *args, **kwargs)
+    if b"Invalid" not in response.content:
+        location = json.loads(response.content)
+        UploadedFile(uploaded_file=location['fileName']).save()
+    return response
+
+@csrf_exempt
+def browse(request):
+    files = get_files_browse_urls(request.user)
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data.get('q', '').lower()
+            files = list(filter(lambda d: query in d[
+                'visible_filename'].lower(), files))
+    else:
+        form = SearchForm()
+
+    show_dirs = getattr(settings, 'CKEDITOR_BROWSE_SHOW_DIRS', False)
+    dir_list = sorted(set(os.path.dirname(f['src'])
+                          for f in files), reverse=True)
+
+    # Ensures there are no objects created from Thumbs.db files - ran across
+    # this problem while developing on Windows
+    if os.name == 'nt':
+        files = [f for f in files if os.path.basename(f['src']) != 'Thumbs.db']
+
+    context = {
+        'show_dirs': show_dirs,
+        'dirs': dir_list,
+        'files': files,
+        'form': form
+    }
+    return render(request, 'ckeditor_browse.html', context)
+
+def ckeditor_delete(request):
+    url = request.POST.get('DeleteButton')
+    for x in UploadedFile.objects.all():
+        x.delete()
+    return HttpResponseRedirect("/ckeditor/browse")
