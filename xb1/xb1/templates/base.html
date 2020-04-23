@@ -127,7 +127,7 @@
                   <li><a class="login_trigger" onclick="openDialog()">{% trans "Contact" %}</a></li>
               {% endif %}
 
-              <li><a href="#">{% trans "Eshop" %}</a></li>
+              <li><a href="{% url 'eshop:shopIndex' %}">{% trans "Eshop" %}</a></li>
               <li><a href="{% url 'articles:article_list' %}">{% trans "Articles" %}</a></li>
               <li><a href="#">{% trans "About us" %}</a></li>
           </ul>
