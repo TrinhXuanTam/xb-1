@@ -34,7 +34,6 @@
     {% for article in object_list %}
       {%if forloop.last %}
         <h1>{{ article.title }}</h1><br>
-        <img src="{% static 'img/universe.jpg' %}">
         <p>{{ article.text | safe}}</p><br>
         <h3>{{ article.author.label }} {{ article.author }}</h3>
       {% endif %}

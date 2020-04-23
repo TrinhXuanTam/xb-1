@@ -14,7 +14,7 @@
 {% for article in object_list %}
     <li>
         <h2>{{ article.title }}</h2>
-        {{ article.text | safe }}
+        <div class="article_content">{{ article.text | safe }}</div>
         <br>
                 <h3>Autor: {{ article.author }}</h3>
                 <img src="{{article.author.profile.image.url}}">

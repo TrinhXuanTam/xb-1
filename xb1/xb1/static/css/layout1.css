@@ -66,6 +66,7 @@
     transition-property: background, box-shadow;
     transition-duration: 4s;
     animation: 2s ease-out 0s 1 slideInFromLeft;
+    text-align: left;
 }
 
 .left:hover{
