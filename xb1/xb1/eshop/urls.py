@@ -18,6 +18,7 @@ urlpatterns = [
 	url(r'^manage/shop/update/(?P<pk>[0-9]+)$', views.ShopItemUpdateView.as_view(), name = "manageShopUpdate"),
 	
 	url(r'^manage/order/list/$', views.OrderListView.as_view(), name="manageOrderList"),
-	url(r'^manage/order/remove/(?P<pk>[0-9]+)$', views.OrderRemoveView.as_view(), name="manageOrderRemove")
+	url(r'^manage/order/remove/(?P<pk>[0-9]+)$', views.OrderRemoveView.as_view(), name="manageOrderRemove"),
+	url(r'^manage/order/pay/(?P<pk>[0-9]+)$', views.OrderPayView.as_view(), name="manageOrderPay"),
 	
 ]

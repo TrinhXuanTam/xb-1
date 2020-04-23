@@ -13,11 +13,14 @@ from django.shortcuts import redirect
 from .models import ShopItem
 from .models import ShopOrder
 from .models import ShopOrderItem
+from .models import ShopPayment
 
 from .forms import OrderForm
 from .forms import ShopItemForm
 
 from ..core.views import LoginMixinView
+
+import random
 
 class ShopItemCreateView(LoginMixinView, LoginRequiredMixin, CreateView):
 	form_class = ShopItemForm
@@ -56,6 +59,31 @@ class OrderRemoveView(LoginMixinView, LoginRequiredMixin, DeleteView):
 	template_name = "manageOrderRemove.html"
 	success_url = reverse_lazy("eshop:manageOrderList")
 	
+class OrderPayView(LoginMixinView, LoginRequiredMixin, RedirectView):
+	permanent = False
+	def get_redirect_url(self, *args, **kwargs):
+		if kwargs.get('pk', None) == None:
+			return reverse_lazy('eshop:manageOrderList')
+		
+		id = -1
+		try:
+			id = int(kwargs.get('pk', None))
+		except ValueError:
+			return reverse_lazy('eshop:manageOrderList')
+			
+		order = ShopOrder.objects.filter(pk = id).first()
+		if order == None:
+			return reverse_lazy('eshop:manageOrderList')
+		
+		payment = ShopPayment.objects.filter(paymentOrder = order).first()
+		if payment == None:
+			return reverse_lazy('eshop:manageOrderList')
+		
+		payment.paymentReceived = True
+		payment.save()
+		
+		return reverse_lazy('eshop:manageOrderList')
+		
 class ShopIndex(LoginMixinView, ListView):
 	model = ShopItem
 	template_name = "eshop.html"
@@ -90,6 +118,7 @@ class OrderCreateView(LoginMixinView, FormView):
 		if self.request.session.get('orderList', None) == None :
 			return redirect('eshop:shopIndex')
 
+		totalPrice = 0
 		confirmedItems = []
 		for orderItemID in self.request.session['orderList']:
 			resultObject = ShopItem.objects.filter(pk=int(orderItemID)).first()
@@ -99,6 +128,7 @@ class OrderCreateView(LoginMixinView, FormView):
 			if resultObject.itemActive == False:	
 				return redirect('eshop:shopIndex')
 
+			totalPrice += self.request.session['orderList'][orderItemID] * resultObject.itemPrice;
 			confirmedItems.append((resultObject, self.request.session['orderList'][orderItemID]))
 			
 		form.instance.save()
@@ -110,6 +140,14 @@ class OrderCreateView(LoginMixinView, FormView):
 			item.shopItemCount = confirmedItem[1]
 			item.save()
 
+		payment = ShopPayment()	
+		payment.paymentOrder = form.instance
+		payment.paymentReceived = False
+		payment.paymentPrice = totalPrice
+		payment.paymentVariableSymbol = form.instance.pk % 9999999999
+		payment.paymentSpecificSymbol = random.randint(0, 9999999999)
+		payment.save()
+		
 		self.request.session['orderList'] = None
 	
 		return super(OrderCreateView, self).form_valid(form)

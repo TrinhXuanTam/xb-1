@@ -82,7 +82,7 @@ div.blueTable {
 			<div class="divTableCell">{{ order.orderAddressStreetNumber }}</div>
 			<div class="divTableCell">{{ order.orderAddressPostNumber }}</div>
 			<div class="divTableCell">{{ order.isPaid }}</div>
-			<div class="divTableCell"><a href="">Upravit</a></div>
+			<div class="divTableCell"><a href="{% url 'eshop:manageOrderPay' pk=order.pk %}">Zaplatit</a></div>
 			<div class="divTableCell"><a href="{% url 'eshop:manageOrderRemove' pk=order.pk %}">Smazat</a></div>
 		</div>
 		{% endfor %}
