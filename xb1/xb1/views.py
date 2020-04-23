@@ -162,7 +162,6 @@ class Register(LoginMixinView, FormView):
 def ckeditor_upload(request, *args, **kwargs):
     response = upload(request, *args, **kwargs)
     if b"Invalid" not in response.content:
-        print(response.content)
         location = json.loads(response.content)
         path = os.path.relpath(location['url'], '/media')
         UploadedFile(uploaded_file=path).save()
