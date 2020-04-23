@@ -159,7 +159,7 @@ class Register(LoginMixinView, FormView):
 
 #CKEDITOR
 @csrf_exempt
-def ckeditor_upload_wrapper(request, *args, **kwargs):
+def ckeditor_upload(request, *args, **kwargs):
     response = upload(request, *args, **kwargs)
     if b"Invalid" not in response.content:
         print(response.content)
@@ -169,7 +169,7 @@ def ckeditor_upload_wrapper(request, *args, **kwargs):
     return response
 
 @csrf_exempt
-def browse(request):
+def ckeditor_browse(request):
     files = get_files_browse_urls(request.user)
     if request.method == 'POST':
         form = SearchForm(request.POST)
