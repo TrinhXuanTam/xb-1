@@ -1,46 +1,45 @@
 {% extends 'base.html' %}
-{% load i18n %}
 {% load static %}
 {% block include %}
-        <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+{% load i18n %}
+
+
+<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
 {% endblock %}
+
 {%block content %}
 
-        <div class="profile_content">
-
-            <!-- Registration form -->
-            <div class="profile_form">
-                                <form method = "POST" enctype="multipart/form-data">
+<div class="profile_content">
 
 
-                    <h1>{% trans "Account info" %}</h1>
+    {%if user.profile.image%}
+        <img class="profile_image" src="{{ user.profile.image.url }}"> 
+        {%else%}
+        <img class="profile_image" src="{% get_media_prefix %}default.jpg"> 
+        {%endif%}
 
-    <h3>{{ user.username }}</h3>
-    <p>{{ user.email }}</p>
+    <div class="profile_main">
 
-        <form>
-         <input class="profile_btn" type="button" onclick="location.href='{% url 'change_password' %}'" value="Change Password"/>
-        </form>
+        <h1>{% trans "Account info" %}</h1>
+        <h3>{{ user.username }}</h3>
+        <p>{{ user.email }}</p>
 
-        <form>
-         <input class="profile_btn" type="button" onclick="location.href='{% url 'change_email' %}'" value="Change Email"/>
-        </form>
-                    {% csrf_token %}
-                <h1>{% trans "Profile info" %}</h1>
-                {%if user.profile.image%}
-                <img style = "display: block; margin-left: auto; margin-right: auto;" src = "{{ user.profile.image.url }}">
-                {%else%}
-                <img style = "display: block; margin-left: auto; margin-right: auto;" src = "{% get_media_prefix %}default.jpg">
-                {%endif%}
-                    {{ p_form.as_p }}
+            <input class="profile_btn" type="button" onclick="location.href='{% url 'change_password' %}'" value="Change Password" />
 
-                    <div>
-                        <button type = "submit">{% trans "Update" %}</button>
-                    </div>
-                </form>
+            <input class="profile_btn" type="button" onclick="location.href='{% url 'change_email' %}'" value="Change Email" />
 
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h1>{% trans "Informace o uživateli" %}</h1>
+            {{ p_form.as_p }}
+
+            <div>
+                <button class="profile_btn" type="submit">Update</button>
             </div>
-    </div>
+        </form>
 
+    </div>
+</div>
 
 {% endblock %}
