@@ -29,6 +29,20 @@ class ShopOrder(models.Model):
 	orderAddressStreet = models.CharField("Street", max_length = 20)
 	orderAddressStreetNumber = models.DecimalField("StreetNumber", decimal_places=0, max_digits=5)
 	orderAddressPostNumber = models.DecimalField("PostNumber", decimal_places=0, max_digits=5)
+
+	@property
+	def isPaid(self):
+		resultObject = ShopPayment.objects.filter(paymentOrder=self).first()
+		if resultObject == None:
+			return False
+		return resultObject.paymentReceived
+	
+class ShopPayment(models.Model):
+	paymentPrice = models.DecimalField("TotalPrice", decimal_places=2, max_digits=12)
+	paymentReceived = models.BooleanField("Received", default = False)
+	paymentVariableSymbol = models.DecimalField("VariableSymbol", decimal_places = 0, max_digits = 10)
+	paymentSpecificSymbol = models.DecimalField("SpecificSymbol", decimal_places = 0, max_digits = 10)
+	paymentOrder = models.ForeignKey(ShopOrder, verbose_name="ShopOrder", on_delete = models.CASCADE, blank = True, null = True)
 	
 class ShopOrderItem(models.Model):
 	shopItem = models.ForeignKey(ShopItem, verbose_name="ShopItem", on_delete = models.PROTECT, blank=True, null=True)

@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import FormView
 from django.views.generic.edit import UpdateView
+from django.views.generic.edit import DeleteView 
 from django.views.generic.base import RedirectView
 from django.views.generic import View
 from django.views.generic import ListView
@@ -10,6 +11,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect
 
 from .models import ShopItem
+from .models import ShopOrder
 from .models import ShopOrderItem
 
 from .forms import OrderForm
@@ -32,11 +34,28 @@ class ShopItemUpdateView(LoginMixinView, LoginRequiredMixin, UpdateView):
 	template_name = "manageShopAdd.html"
 	success_url = reverse_lazy("eshop:manageShopList")
 	def form_valid(self, form):
+		resultObject = ShopOrderItem.objects.filter(shopItem=form.instance).first()
+		if resultObject == None:
+			return super(ShopItemUpdateView, self).form_valid(form)
+			
+		resultObject = ShopItem.objects.filter(pk=form.instance.pk).first()
+		resultObject.itemActive = False
+		resultObject.save()
+		
+		form.instance.pk = None
+		form.instance.save()
+		
+		return redirect('eshop:manageShopList')
+		
+class OrderListView(LoginMixinView, LoginRequiredMixin, ListView):
+	model = ShopOrder
+	template_name = "manageOrderList.html"
 	
-		# NEED REWORK & BETTER TEMPLATE
-		
-		return super(ShopItemUpdateView, self).form_valid(form)
-		
+class OrderRemoveView(LoginMixinView, LoginRequiredMixin, DeleteView):
+	model = ShopOrder
+	template_name = "manageOrderRemove.html"
+	success_url = reverse_lazy("eshop:manageOrderList")
+	
 class ShopIndex(LoginMixinView, ListView):
 	model = ShopItem
 	template_name = "eshop.html"
@@ -109,7 +128,6 @@ class OrderItemRemoveAllView(RedirectView):
 			self.request.session.modified = True
 			if len(self.request.session['orderList']) == 0:
 				self.request.session['orderList'] = None
-			
 			
 		return reverse_lazy("eshop:shopIndex")
 	
