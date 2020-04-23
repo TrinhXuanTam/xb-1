@@ -28,6 +28,10 @@ msgstr "Nadpis"
 msgid "Thumbnail"
 msgstr "Ikona"
 
+#: xb1/articles/models.py:44
+msgid "Preview text"
+msgstr "Popisek"
+
 #: xb1/articles/models.py:41 xb1/articles/models.py:66
 #: xb1/articles/models.py:76
 msgid "Author"
@@ -212,6 +216,14 @@ msgstr ""
 #: xb1/templates/profile.html:30
 msgid "Update"
 msgstr "Aktualizovat"
+
+#: xb1/templates/templates/articles_form.html:23
+msgid "Submit"
+msgstr "Uložit"
+
+#: xb1/templates/templates/articles_form.html:26
+msgid "Back"
+msgstr "Zpět"
 
 #~ msgid "TODO"
 #~ msgstr "TODO"

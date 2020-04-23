@@ -4,7 +4,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from .views import activate
+from .views import activate, ckeditor_browse, ckeditor_upload, ckeditor_delete
 
 admin.autodiscover()
 
@@ -33,6 +33,12 @@ urlpatterns = [
 
     url(r"^sent/", views.ActivationSentView.as_view(), name="activation_sent"),
     path('activate/<slug:uidb64>/<slug:token>/', activate, name='activate'),
+
+    # CKEDITOR
+    # url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^ckeditor/upload/', ckeditor_upload, name='ckeditor_upload'),
+    url(r'^ckeditor/browse/', ckeditor_browse, name='ckeditor_browse'),
+    url(r'^ckeditor/delete/', ckeditor_delete, name='ckeditor_delete')
 
 ]
 

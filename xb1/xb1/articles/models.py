@@ -2,7 +2,11 @@ from django.db import models
 from model_utils.models import TimeStampedModel
 from datetime import datetime
 from django.utils.translation import ugettext_lazy as _
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
+from os.path import basename, splitext
 from django.utils.text import slugify
+
 
 from ..core.models import User
 
@@ -25,6 +29,23 @@ class Tag(models.Model):
         return self.name
 
 
+class UploadedFile(models.Model):
+    uploaded_file = models.FileField(upload_to=u"article_content_images/")
+    uploaded_at = models.DateField(editable=False, auto_now_add=True)
+
+    def __str__(self):
+        return basename(self.uploaded_file.path)
+
+    def url(self):
+        return self.uploaded_file.url
+
+    def delete(self, *args, **kwargs):
+        file_storage, file_path = self.uploaded_file.storage, self.uploaded_file.path
+        super(UploadedFile, self).delete(*args, **kwargs)
+        name, ext = splitext(file_path)
+        file_storage.delete(file_path)
+        file_storage.delete(name + "_thumb" + ext)
+
 # TimeStampedModel - An abstract base class model that provides self-updating "created" and "modified" fields.
 class Article(TimeStampedModel):
     """
@@ -41,6 +62,7 @@ class Article(TimeStampedModel):
 
     title          = models.CharField(verbose_name=_("Title"), max_length=100)
     thumbnail      = models.ImageField(verbose_name=_("Thumbnail"), null=True, blank=True, upload_to='thumbnails')
+    preview_text   = models.TextField(verbose_name=_("Preview text"), blank=True, null=True, default="")
     author         = models.ForeignKey(User, verbose_name=_("Author"), on_delete=models.SET_NULL, blank=True, null=True)
     slug           = models.SlugField(verbose_name=_("Slug"), unique=True, max_length=100, blank=True, null=True)
     category       = models.ManyToManyField(Category, verbose_name=_("Category"), blank=True)
@@ -48,7 +70,7 @@ class Article(TimeStampedModel):
     allow_comments = models.BooleanField(verbose_name=_("Comments allowed"), default=False)
     published_from = models.DateTimeField(verbose_name=_("Published from"), default=datetime.now, null=True, blank=True)
     published_to   = models.DateTimeField(verbose_name=_("Published to"), null=True, blank=True)
-    text           = models.TextField(verbose_name=_("Text"), blank=True, null=True)
+    text           = RichTextField(verbose_name=_("Text"), blank=True, null=True)
     sources        = models.TextField(verbose_name=_("Sources"), blank=True, null=True)
     article_state  = models.PositiveSmallIntegerField(verbose_name=_("State"), choices=STATE_CHOICES, default=HIDDEN)
 
