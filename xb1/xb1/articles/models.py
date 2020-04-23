@@ -4,7 +4,7 @@ from datetime import datetime
 from django.utils.translation import ugettext_lazy as _
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
-from os.path import basename
+from os.path import basename, splitext
 
 
 from ..core.models import User
@@ -39,7 +39,9 @@ class UploadedFile(models.Model):
     def delete(self, *args, **kwargs):
         file_storage, file_path = self.uploaded_file.storage, self.uploaded_file.path
         super(UploadedFile, self).delete(*args, **kwargs)
+        name, ext = splitext(file_path)
         file_storage.delete(file_path)
+        file_storage.delete(name + "_thumb" + ext)
 
 # TimeStampedModel - An abstract base class model that provides self-updating "created" and "modified" fields.
 class Article(TimeStampedModel):

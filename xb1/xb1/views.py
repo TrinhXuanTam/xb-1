@@ -157,12 +157,16 @@ class Register(LoginMixinView, FormView):
 #        form = UserRegistrationForm()
 #    return render(request, 'registration/register.html', {'form': form})
 
+#CKEDITOR
 @csrf_exempt
 def ckeditor_upload_wrapper(request, *args, **kwargs):
     response = upload(request, *args, **kwargs)
     if b"Invalid" not in response.content:
+        print(response.content)
         location = json.loads(response.content)
-        UploadedFile(uploaded_file=location['fileName']).save()
+        path = os.path.relpath(location['url'], '/media')
+        print(path)
+        UploadedFile(uploaded_file=path).save()
     return response
 
 @csrf_exempt
@@ -181,8 +185,6 @@ def browse(request):
     dir_list = sorted(set(os.path.dirname(f['src'])
                           for f in files), reverse=True)
 
-    # Ensures there are no objects created from Thumbs.db files - ran across
-    # this problem while developing on Windows
     if os.name == 'nt':
         files = [f for f in files if os.path.basename(f['src']) != 'Thumbs.db']
 
@@ -197,5 +199,6 @@ def browse(request):
 def ckeditor_delete(request):
     url = request.POST.get('DeleteButton')
     for x in UploadedFile.objects.all():
+        print(x)
         x.delete()
     return HttpResponseRedirect("/ckeditor/browse")
