@@ -2,8 +2,11 @@ from django.db import models
 from model_utils.models import TimeStampedModel
 from datetime import datetime
 from django.utils.translation import ugettext_lazy as _
+from django.utils.text import slugify
 
 from ..core.models import User
+
+import random
 
 
 class Category(models.Model):
@@ -48,6 +51,22 @@ class Article(TimeStampedModel):
     text           = models.TextField(verbose_name=_("Text"), blank=True, null=True)
     sources        = models.TextField(verbose_name=_("Sources"), blank=True, null=True)
     article_state  = models.PositiveSmallIntegerField(verbose_name=_("State"), choices=STATE_CHOICES, default=HIDDEN)
+
+    def save(self, *args, **kwargs):
+        if self.slug is None:
+            self._generate_slug()
+
+        super().save(*args, **kwargs)
+
+    def _generate_slug(self):
+
+        slg = slugify(self.title)
+
+        # Test if slug exists
+        while Article.objects.filter(slug=slg).exists():
+            slg = slg + "_" + str(random.randint(0, 1000))
+
+        self.slug = slg
 
 
 class ForumCategory(models.Model):
