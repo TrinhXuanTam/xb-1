@@ -19,9 +19,9 @@
                 <h3>Autor: {{ article.author }}</h3>
                 <img src="{{article.author.profile.image.url}}">
                 <br>
-                {%if article.author == user%}
+                {%if perms.articles.change_article %}
                   <a href="{% url 'articles:article_update' pk=article.pk %}">Edit article</a>
-                  {%endif%}
+                {%endif%}
                 <br>
                 <br>
 
@@ -32,10 +32,10 @@
 </ul>
 
 <br>
-            {%if user.is_authenticated%}
+            {%if perms.articles.add_article %}
                 <a href="{% url 'articles:article_create' %}">Create new article</a>
             {%else%}
-                <a id="login_trigger" onclick="openDialog()"><i class="fas fa-user"></i> Login to create an article </a>
+                <a id="login_trigger" onclick="openDialog()"><i class="fas fa-user"></i> Login as admin to create an article </a>
             {%endif%}
 <br>
                                     </div>
