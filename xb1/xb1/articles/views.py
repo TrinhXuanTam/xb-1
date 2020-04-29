@@ -11,7 +11,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from .forms import ArticleForm
-from .models import Article
+from .models import Article, Comment
+from ..core.models import Profile
 from ..core.views import LoginMixinView
 
 
@@ -46,5 +47,14 @@ class ArticleUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMi
         
 def article_detail(request, slug):
     article = Article.objects.get(slug=slug)
-    return render(request, 'articles_detail.html', {'article': article})
+    comments = None
+    
+    if article.allow_comments:
+        comments = Comment.objects.filter(article=article.id)
+        for comment in comments:
+            comment.user = Profile.objects.get(user_id=comment.author_id)
+
+    context = {'article': article, 'comments' : comments}
+
+    return render(request, 'articles_detail.html', context)
 

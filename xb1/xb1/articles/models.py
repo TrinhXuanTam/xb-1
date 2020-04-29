@@ -48,10 +48,6 @@ class UploadedFile(models.Model):
 
 # TimeStampedModel - An abstract base class model that provides self-updating "created" and "modified" fields.
 class Article(TimeStampedModel):
-    """
-    TODO: Update: text field formatting
-    Create: thumbnail fields
-    """
 
     HIDDEN = 0
     PUBLISHED = 1
@@ -117,4 +113,6 @@ class Comment(TimeStampedModel):
     author = models.ForeignKey(User, verbose_name=_("Author"), on_delete=models.SET_NULL, blank=True, null=True)
     text = models.TextField(verbose_name=_("Text"), blank=True, null=True)
     is_censured = models.BooleanField(verbose_name=_("Is censured"), default=False)
+    date = models.DateTimeField(verbose_name=_("Posted on"), default=datetime.now, null=False, blank=False, editable=False)
+
 

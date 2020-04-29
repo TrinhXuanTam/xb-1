@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load static %}
+
+{%block include%}
+<link rel="stylesheet" href="{% static 'css/article_detail.css' %}" >
+{%endblock%}
 
 {%block content%}
 <div class="article-detail">
@@ -7,5 +12,18 @@
 		<h2>{% trans "Title:" %} {{ article.title }}</h2><br>
 		<p>{{ article.text | safe }}</p>
 	</div>
+
+{% if article.allow_comments %}
+	<div class="comment_section">
+		{% for comment in comments %}
+			<div class="comment">
+				<img class=comment_profile_pic src="{{comment.user.image.url}}">
+				<div class="comment_nickname">{{comment.user.nickname}}</div>
+				<div class="comment_date">{{comment.date}}</div>
+				<div class="comment_text">{{comment.text}}</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endif %}
 </div>
 {% endblock %}
