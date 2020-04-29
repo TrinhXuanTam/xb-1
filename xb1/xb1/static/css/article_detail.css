@@ -75,7 +75,7 @@
     cursor: pointer;
 }
 
-.comment_post_form textarea {
+#comment_post_form textarea {
     margin-top: 50px;
     color: white;
     outline: none;
@@ -93,6 +93,6 @@
     padding: 20px;
 }
 
-.comment_post_form textarea:hover {
+#comment_post_form textarea:hover {
     border: 1px solid white;
 }

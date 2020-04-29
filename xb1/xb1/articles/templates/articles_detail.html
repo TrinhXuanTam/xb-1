@@ -48,10 +48,33 @@
 	</div>
 	{% endfor %}
 	{% if user.is_authenticated %}
-		<form class="comment_post_form" method="POST">
-			<textarea rows=1 placeholder="Add a comment"></textarea>
+		<form id="comment_post_form" method="POST">
+			{% csrf_token %}
+			<textarea required rows=1 placeholder="Add a comment"></textarea>
 			<button class="comment_section_button">Post</button>
 		</form>
+
+		<!-- Post a new comment and display it -->
+		<script>
+			document.getElementById("comment_post_form").onsubmit = function(event) {
+				event.preventDefault();
+				$.ajax({
+					type:'POST',
+					async: true,
+					cache: false,
+					url:'{% url "articles:post_comment" %}',
+					dataType: "json",
+					data: {
+						csrfmiddlewaretoken: $("#comment_post_form input[type='hidden']").val(),
+						article: "{{ article.id }}",
+						text: $("#comment_post_form textarea").val(),
+					  },
+					  success: function(data) {
+						alert("ok")
+					  }
+				  });
+			  }
+		  </script>
 		<script src="{% static 'js/articles_detail.js' %}"></script>
 	{% endif %}
 </div>
