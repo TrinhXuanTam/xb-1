@@ -12,37 +12,48 @@
 		<h2>{% trans "Title:" %} {{ article.title }}</h2><br>
 		<p>{{ article.text | safe }}</p>
 	</div>
+</div>
 
 {% if article.allow_comments %}
-	<div class="comment_section">
-		{% for comment in comments %}
+<div class="comment_section">
+	{% for comment in comments %}
+	<div class="comment_wrapper">
+		<div class="comment">
+			<img class=comment_profile_pic src="{{comment.user.image.url}}">
+			<div class="comment_content">	
+				<div class= "comment_header">	
+					<div class="comment_nickname">{{comment.user.nickname}}</div>
+					<div class="comment_date">{{comment.date}}</div>
+				</div>
+				<div class="comment_text">{{comment.text}}</div>
+				{% if user.is_authenticated %}
+				<button class="comment_section_button">Reply</button>
+				{% endif %}
+			</div>
+		</div>
+		<div class="comment_reply">
+			{%for reply in comment.replies %}
 			<div class="comment">
-				<img class=comment_profile_pic src="{{comment.user.image.url}}">
-				<div class="comment_content">	
+				<img class=comment_profile_pic src="{{reply.user.image.url}}">
+				<div class="comment_content">
 					<div class= "comment_header">	
-						<div class="comment_nickname">{{comment.user.nickname}}</div>
-						<div class="comment_date">{{comment.date}}</div>
+						<div class="comment_nickname">{{reply.user.nickname}}</div>
+						<div class="comment_date">{{reply.date}}</div>
 					</div>
-					<div class="comment_text">{{comment.text}}</div>
-					<button class="reply_button">Reply</button>
+					<div class="comment_text">{{reply.text}}</div>
 				</div>
 			</div>
-			<div class="comment_reply">
-				{%for reply in comment.replies %}
-				<div class="comment">
-					<img class=comment_profile_pic src="{{reply.user.image.url}}">
-					<div class="comment_content">
-						<div class= "comment_header">	
-							<div class="comment_nickname">{{reply.user.nickname}}</div>
-							<div class="comment_date">{{reply.date}}</div>
-						</div>
-						<div class="comment_text">{{reply.text}}</div>
-					</div>
-				</div>
-				{% endfor %}
-			</div>
-		{% endfor %}
+			{% endfor %}
+		</div>
 	</div>
-{% endif %}
+	{% endfor %}
+	{% if user.is_authenticated %}
+		<form class="comment_post_form" method="POST">
+			<textarea rows=1 placeholder="Add a comment"></textarea>
+			<button class="comment_section_button">Post</button>
+		</form>
+		<script src="{% static 'js/articles_detail.js' %}"></script>
+	{% endif %}
 </div>
+{% endif %}
 {% endblock %}

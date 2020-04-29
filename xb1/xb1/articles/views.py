@@ -6,6 +6,8 @@ from django.utils import timezone
 from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.edit import FormView, CreateView, UpdateView
+from django.views.generic.detail import DetailView
+from django.views import View
 from django.contrib.auth.forms import UserChangeForm
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -44,22 +46,29 @@ class ArticleUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMi
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super(ArticleUpdateView, self).form_valid(form)
-        
-def article_detail(request, slug):
-    article = Article.objects.get(slug=slug)
-    comments = None
-    
-    if article.allow_comments:
-        comments = Comment.objects.filter(article=article.id, reaction_to_id=None)
-        # Get comments with user data
-        for comment in comments:
-            comment.user = Profile.objects.get(user_id=comment.author_id)
-            # Get replies to given comment
-            comment.replies = Comment.objects.filter(reaction_to_id=comment.id)
-            for reply in comment.replies:
-                reply.user = Profile.objects.get(user_id=reply.author_id)
 
-    context = {'article': article, 'comments' : comments}
+class ArticleDetailView(LoginMixinView, DetailView):
+    model = Article
+    template_name = "articles_detail.html"
 
-    return render(request, 'articles_detail.html', context)
+    def get_context_data(self, *args, **kwargs):
+        context = super(ArticleDetailView, self).get_context_data(*args, **kwargs)
+        article = Article.objects.get(slug=kwargs['slug'])
+        comments = None
+        if article.allow_comments:
+            comments = Comment.objects.filter(article=article.id, reaction_to_id=None)
+            # Get comments with user data
+            for comment in comments:
+                comment.user = Profile.objects.get(user_id=comment.author_id)
+                # Get replies to given comment
+                comment.replies = Comment.objects.filter(reaction_to_id=comment.id)
+                for reply in comment.replies:
+                    reply.user = Profile.objects.get(user_id=reply.author_id)
+        context['article'] = article
+        context['comments'] = comments
+        return context
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return render(request, 'articles_detail.html', self.get_context_data(*args, **kwargs))
 
