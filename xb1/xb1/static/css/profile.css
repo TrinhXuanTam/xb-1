@@ -58,6 +58,8 @@
     position: relative;
     top: -100px;
     width: 15em;
+    height: 15em;
+    object-fit: fill;
     background: white;
     box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
 }
