@@ -21,6 +21,14 @@
 				<div class="comment_nickname">{{comment.user.nickname}}</div>
 				<div class="comment_date">{{comment.date}}</div>
 				<div class="comment_text">{{comment.text}}</div>
+				{%for response in comment.responses %}
+				<div class="comment_response">
+					<img class=comment_profile_pic src="{{response.user.image.url}}">
+					<div class="comment_nickname">{{response.user.nickname}}</div>
+					<div class="comment_date">{{response.date}}</div>
+					<div class="comment_text">{{response.text}}</div>
+				</div>
+				{% endfor %}
 			</div>
 		{% endfor %}
 	</div>

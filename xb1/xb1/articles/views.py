@@ -50,9 +50,14 @@ def article_detail(request, slug):
     comments = None
     
     if article.allow_comments:
-        comments = Comment.objects.filter(article=article.id)
+        comments = Comment.objects.filter(article=article.id, reaction_to_id=None)
+        # Get comments with user data
         for comment in comments:
             comment.user = Profile.objects.get(user_id=comment.author_id)
+            # Get responses to given comment
+            comment.responses = Comment.objects.filter(reaction_to_id=comment.id)
+            for response in comment.responses:
+                response.user = Profile.objects.get(user_id=response.author_id)
 
     context = {'article': article, 'comments' : comments}
 
