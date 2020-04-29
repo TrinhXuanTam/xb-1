@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'xb1.contact',
     'xb1.eshop',
     'django_cleanup',
+    'ckeditor',
+    'ckeditor_uploader'
 ]
 
 
@@ -197,3 +199,17 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# CKEDITOR settings 
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+
+CKEDITOR_UPLOAD_PATH = 'article_content_images/'
+
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Standard',
+        'width': '85%'
+    },
+}

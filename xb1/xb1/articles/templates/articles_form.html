@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {%block include%}
   <link rel="stylesheet" href="{% static 'css/article_form.css' %}" />
+  <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 {% endblock %}
 
 {%block content%}
@@ -18,9 +21,9 @@
       </tr>
     {% endfor %}
   </table>
-  <input type="submit" value="Submit">
+  <input type="submit" value="{% trans "Submit" %}">
 </form>
 
-<a class = "back" href="{% url 'articles:article_list' %}">Back</a> <br>
+<a class = "back" href="{% url 'articles:article_list' %}">{% trans "Back" %}</a> <br>
     </div>
 {% endblock %}

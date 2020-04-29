@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{%block content%}
+<div class="article-detail">
+	<div class="article">
+		<h2>{% trans "Title:" %} {{ article.title }}</h2><br>
+		<p>{{ article.text | safe }}</p>
+	</div>
+</div>
+{% endblock %}

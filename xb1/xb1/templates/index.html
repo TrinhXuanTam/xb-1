@@ -12,13 +12,14 @@
         {% for article in object_list %}
         <li>
           <h1>{{ article.title }}</h1>
-          <div class="preview-thumb">
-          <img src="{% static 'img/universe.jpg' %}">
-          <div class="preview-content">
-            {{ article.text|slice:":100" }}<br>
-            <a href = "#">{% trans "Read more" %}</a>
-          </div>
-          </div>
+          <a href = "{% url 'articles:detail' slug=article.slug %}">
+            <div class="preview-thumb">
+              <img src="{% static 'img/universe.jpg' %}">
+              <div class="preview-content">
+                {{ article.preview_text | safe | default_if_none:"" }}<br>
+              </div>
+            </div>
+          </a>
         </li>
 
           {% empty %}
@@ -33,8 +34,7 @@
     {% for article in object_list %}
       {%if forloop.last %}
         <h1>{{ article.title }}</h1><br>
-        <img src="{% static 'img/universe.jpg' %}">
-        <p>{{ article.text }}</p><br>
+        <p>{{ article.text | safe}}</p><br>
         <h3>{{ article.author.label }} {{ article.author }}</h3>
       {% endif %}
 

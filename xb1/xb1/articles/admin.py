@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Article, Category, Tag, Comment, Forum, ForumCategory
+from .models import Article, Category, Tag, Comment, Forum, ForumCategory, UploadedFile
 
 
 @admin.register(Article)
@@ -37,3 +37,7 @@ class ForumAdmin(admin.ModelAdmin):
 class ForumAdmin(admin.ModelAdmin):
 
     list_display = ("article", "forum", "reaction_to", "author", "text", "is_censured")
+
+@admin.register(UploadedFile)
+class UploadedfileAdmin(admin.ModelAdmin):
+    pass

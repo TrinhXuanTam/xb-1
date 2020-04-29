@@ -60,9 +60,44 @@ vytvoreni superusera
 
 tvorba prekladu
 ---------------
+preklad v templatu:  
+ 1. v hlavicce templatu `{% load i18n %}`
+ 2. preklad: `{% trans "What I want to translate." %}`
+
+preklad v py souborech:  
+ 1. `from django.utils.translation import ugettext_lazy as _`
+ 2. preklad: `_("What I want to translate.")`
+
 pred prvnim spustenim stahnete gettext (linux) `sudo apt-get install gettext`
  1. `python manage.py makemessages  -l 'cs'` - vytvori seznam prekladu
  2. `python manage.py compilemessages` - zkompiluje sepsane preklady
+
+
+nahrani uzivatelskych skupin do db
+----------------------------------
+`python3 manage.py loaddata groups.json`
+
+export uzivatelskych skupin do json
+-----------------------------------
+`python manage.py dumpdata --indent 1 auth.group > groups.json`
+
+typy uzivatelskych prav
+-----------------------
+Kazdy model automaticky generuje tyto 4 druhy prav:  
+`add_modelname`, `change_modelname`, `delete_modelname`, `view_modelname`  
+(modelname odpovida nazvu modelu v lower case)
+
+K pravum se pristupuje skrze nazev aplikace: `articles.add_article`
+
+Jestlize chci zabranit aby uzivatel mohl vstoupit na stranku:  
+1. V templatu, co obsahuje odkaz na stranku musi byt odkaz podminen pravem:  
+    - pr.: `{%if perms.articles.change_article %} <a href="{% url 'articles:article_update' pk=article.pk %}">Edit article</a> {%endif%}`
+    - Odkaz na editaci clanku se zobrazi jen uzivateli co ma prislusna opravneni
+2. Opravneni musi byt osetrene i na samotnem view (nestaci jen skryt tlacitko, uzivatel si muze domyslet jaka je url)
+    - `from django.contrib.auth.mixins import PermissionRequiredMixin`
+    - kazde view, ktere ma omezeni pristupu musi dedit tuto tridu
+    - je nutne specifikovat, jake je nutne opravneni: `permission_required = "articles.add_article"`
+    - viz articles.views.ArticleCreateView
 
 
 Code of conduct
