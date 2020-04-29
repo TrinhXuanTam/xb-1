@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block include %}
+<link rel="stylesheet" href="{% static 'css/layout2.css' %}" >
+{% endblock %}
+
+{% block content %}
+<div class="main">
+
+    <h1>{{ object.title }}</h1>
+    <h2>{{ object.description }}</h2>
+    <br>
+
+</div>
+{% endblock %}

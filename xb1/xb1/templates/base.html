@@ -130,6 +130,7 @@
               <li><a href="#">{% trans "Eshop" %}</a></li>
               <li><a href="{% url 'articles:article_list' %}">{% trans "Articles" %}</a></li>
               <li><a href="#">{% trans "About us" %}</a></li>
+              <li><a href="{% url 'forum:index' %}">{% trans "Forum" %}</a></li>
           </ul>
 
           {% if messages %} {% for message in messages %}

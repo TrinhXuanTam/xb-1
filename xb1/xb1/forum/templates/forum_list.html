@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block include %}
+<link rel="stylesheet" href="{% static 'css/layout2.css' %}" >
+{% endblock %}
+
+{% block content %}
+<div class="main">
+
+    <h1>{{ title }}</h1>
+    <br>
+    
+    {% if category_pk %}
+        {% if is_open or perms.articles.add_forum %}
+            <a href="{% url 'forum:create_forum' pk=category_pk %}" >{% trans "Create new forum" %}</a>
+
+            <br>
+            <br>
+        {% endif %}
+    {% endif %}
+
+    {% for forum in forums %}
+        <a href="{% url 'forum:forum_detail' pk=forum.pk %}">
+            <h3> {{ forum.title }} </h3>
+        </a>
+        <p> {{ forum.description }} </p>
+        <br>
+    {% endfor %}
+
+</div>
+{% endblock %}

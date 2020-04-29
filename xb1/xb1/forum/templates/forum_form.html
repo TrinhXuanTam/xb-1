@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block include %}
+<link rel="stylesheet" href="{% static 'css/layout2.css' %}" >
+{% endblock %}
+
+{% block content %}
+<form id ="article_form" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <table>
+        {% for field in form.visible_fields %}
+        <tr>
+            <th>{{ field.label_tag }}</th>
+            <td>
+            {{ field.errors }}
+            {{ field }}
+            {{ field.help_text }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <input type="submit" value="{% trans 'Submit' %}">
+</form>
+
+<a class = "back" >{% trans "Back TODO" %}</a> <br>
+{% endblock %}
