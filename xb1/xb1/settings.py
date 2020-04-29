@@ -109,7 +109,7 @@ EMAIL_PORT = 587
 
 # Email from which emails will be sent.
 EMAIL_HOST_USER = "xb1.feedback@gmail.com"
-EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
+EMAIL_HOST_PASSWORD = 'fitwiki1'
 
 # Email where feedback emails will be sent.
 FEEDBACK_EMAIL = "xb1.feedback@gmail.com"

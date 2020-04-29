@@ -1,6 +1,7 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm, PasswordChangeForm
 from .models import User, Profile
+from django.forms import Textarea
 
 
 # custom login form
@@ -61,17 +62,58 @@ class UserUpdateForm(forms.ModelForm):
         }
 
 
+class ChangePasswordForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super(ChangePasswordForm, self).__init__(*args, **kwargs)
+        for field_name in ('old_password', 'new_password1', 'new_password2'):
+            # remove helper text
+            self.fields[field_name].help_text = None
+            # remove labels
+            self.fields[field_name].label = False
+
+            self.fields[field_name].widget.attrs['class'] = 'registration_input'
+
+        self.fields['old_password'].widget.attrs['placeholder'] = 'Současné heslo'
+        self.fields['new_password1'].widget.attrs['placeholder'] = 'Nové heslo'
+        self.fields['new_password2'].widget.attrs['placeholder'] = 'Potvrdit heslo'
+
+
+    class Meta:
+        model = User
+        fields = ['old_password', 'new_password1', 'new_password2']
+
+
 class ProfileUpdateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name in ('image', 'nickname', 'name', 'surname', 'city', 'postalCode', 'address', 'phone'):
+            # remove helper text
+            self.fields[field_name].help_text = None
+
+            self.fields[field_name].widget.attrs['class'] = 'profile_input'
+
+        self.fields['image'].label = 'Obrázek'
+        self.fields['nickname'].label = 'Přezdívka'
+        self.fields['name'].label = 'Jméno'
+        self.fields['surname'].label = 'Příjmení'
+        self.fields['city'].label = 'Město'
+        self.fields['postalCode'].label = 'PSČ'
+        self.fields['address'].label = 'Adresa'
+        self.fields['phone'].label = 'Telefonní číslo'
 
     class Meta:
         model = Profile
-        fields = ['image', 'name', 'surname', 'city', 'postalCode', 'address', 'phone']
-        help_texts = {
-            'image': None,
-            'name': None,
-            'surname': None,
-            'city': None,
-            'postalCode': None,
-            'address': None,
-            'phone': None
-        }
+        fields = ['image', 'nickname', 'name', 'surname', 'city', 'postalCode', 'address', 'phone']
+
+
+class UserChangeEmailForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['temp_email'].widget.attrs['placeholder'] = 'Nový email'
+        self.fields['temp_email'].label = False
+        self.fields['temp_email'].widget.attrs['class'] = 'registration_input'
+
+    class Meta:
+        model = User
+        fields = ['temp_email']
