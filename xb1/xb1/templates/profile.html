@@ -23,9 +23,9 @@
         <h3>{{ user.username }}</h3>
         <p>{{ user.email }}</p>
 
-            <input class="profile_btn" type="button" onclick="location.href='{% url 'change_password' %}'" value="Change Password" />
+            <input class="profile_btn" type="button" onclick="location.href='{% url 'change_password' %}'" value="Změna hesla" />
 
-            <input class="profile_btn" type="button" onclick="location.href='{% url 'change_email' %}'" value="Change Email" />
+            <input class="profile_btn" type="button" onclick="location.href='{% url 'change_email' %}'" value="Změna emailu" />
 
             {% csrf_token %}
             <h1>{% trans "Informace o uživateli" %}</h1>
@@ -40,9 +40,8 @@
                 {{p_form.image.label}}:{{ p_form.image }}
             </div>
             <button class="profile_btn" type="submit">Aktualizovat</button>
+        </div>
         </form>
-
-    </div>
 </div>
 
 {% endblock %}
