@@ -24,3 +24,12 @@ Realizovatelné funkce:
 ## Frontend
 - Je nutné pořešit responzivitu pro různá zařízená
 - Pokud bude čas možná bude dobré i řešit cross-browser kompatibilitu
+
+# Adam - stav práce
+## Profilová sekce
+### Hotové
+- Zatím je hotové updatování profilu uživatele, změna hesla a emailu s jeho ověřením
+- Frontent je také hotový (David)
+### TODO
+### Co by se mohlo dodělat
+- Přizpůsobení designu, aby seděl s celou stránkou
