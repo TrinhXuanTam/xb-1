@@ -4,7 +4,9 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from .views import activate, ckeditor_browse, ckeditor_upload, ckeditor_delete
+from .views import activate_registration, PasswordChangeView, EmailChangeView, activate_email, ckeditor_browse, ckeditor_upload, ckeditor_delete
+from django.contrib.auth import views as auth_views
+
 
 admin.autodiscover()
 
@@ -33,7 +35,11 @@ urlpatterns = [
     url(r"^eshop/", include("xb1.eshop.urls")),
 
     url(r"^sent/", views.ActivationSentView.as_view(), name="activation_sent"),
-    path('activate/<slug:uidb64>/<slug:token>/', activate, name='activate'),
+    path('activate_registration/<slug:uidb64>/<slug:token>/', activate_registration, name='activate_registration'),
+
+    url(r'^profile/change_password/', PasswordChangeView.as_view(), name='change_password'),
+    url(r'^profile/change_email/', EmailChangeView.as_view(), name='change_email'),
+    path('activate_email/<slug:uidb64>/<slug:token>/', activate_email, name='activate_email'),
 
     # CKEDITOR
     # url(r'^ckeditor/', include('ckeditor_uploader.urls')),
