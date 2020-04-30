@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block include %}
+<style>
+div.blueTable {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+.divTable.blueTable .divTableCell, .divTable.blueTable .divTableHead {
+  border: 1px solid #AAAAAA;
+  padding: 3px 2px;
+}
+.divTable.blueTable .divTableBody .divTableCell {
+  font-size: 13px;
+}
+.divTable.blueTable .divTableHeading {
+  background: #1C6EA4;
+}
+.divTable.blueTable .divTableHeading .divTableHead {
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-align: center;
+}
+.blueTable .tableFootStyle {
+  font-size: 14px;
+}
+.blueTable .tableFootStyle .links {
+	 text-align: right;
+}
+.blueTable .tableFootStyle .links a{
+  display: inline-block;
+  background: #1C6EA4;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+.blueTable.outerTableFooter {
+  border-top: none;
+}
+.blueTable.outerTableFooter .tableFootStyle {
+  padding: 3px 5px; 
+}
+.divTable{ display: table; }
+.divTableRow { display: table-row; }
+.divTableHeading { display: table-header-group;}
+.divTableCell, .divTableHead { display: table-cell;}
+.divTableHeading { display: table-header-group;}
+.divTableFoot { display: table-footer-group;}
+.divTableBody { display: table-row-group;}
+</style>
+{% endblock %}
+
+{%block content %}
+{% if object_list %}
+<div class="divTable blueTable">
+	<div class="divTableHeading">
+		<div class="divTableRow">
+			<div class="divTableHead">Name</div>
+			<div class="divTableHead">Price</div>
+			<div class="divTableHead">Image</div>
+			<div class="divTableHead">Description</div>
+			<div class="divTableHead">Type</div>
+			<div class="divTableHead">Active</div>
+			<div class="divTableHead"></div>
+		</div>
+	</div>
+	<div class="divTableBody">
+		{% for shopItem in object_list %}
+		<div class="divTableRow">
+			<div class="divTableCell">{{ shopItem.itemName }}</div>
+			<div class="divTableCell">{{ shopItem.itemPrice }}</div>
+			<div class="divTableCell"><a href="{{ shopItem.itemImg.url }}">Obrázek</a></div>
+			<div class="divTableCell">{{ shopItem.itemDesc }}</div>
+			<div class="divTableCell">{{ shopItem.get_itemType_display }}</div>
+			<div class="divTableCell">{{ shopItem.itemActive }}</div>
+			<div class="divTableCell"><a href="{% url 'eshop:manageShopUpdate' pk=shopItem.pk %}">Upravit</a></div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endif %}
+{% endblock %}
