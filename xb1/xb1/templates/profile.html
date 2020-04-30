@@ -17,9 +17,7 @@
         {%else%}
         <img class="profile_image" src="{% get_media_prefix %}default.jpg">
         {%endif%}
-            <form method="POST" enctype="multipart/form-data">
-                {{p_form.image.label}}:
-                {{ p_form.image }}
+        <form method="POST" enctype="multipart/form-data">
         <div class="profile_main">
         <h1>{% trans "Account info" %}</h1>
         <h3>{{ user.username }}</h3>
@@ -38,9 +36,10 @@
             {% endif %}
             {% endfor %}
 
-            <div>
-                <button class="profile_btn" type="submit">Aktualizovat</button>
+            <div class=profile_image_form>
+                {{p_form.image.label}}:{{ p_form.image }}
             </div>
+            <button class="profile_btn" type="submit">Aktualizovat</button>
         </form>
 
     </div>
