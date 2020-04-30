@@ -27,10 +27,10 @@
 				</div>
 				<div class="comment_text">{{comment.text}}</div>
 				{% if user.is_authenticated %}
-				<form id="reply_form_{{comment.id}}" class="comment_reply_form" method="POST">
+				<form id="{{comment.id}}" class="comment_reply_form" method="POST">
 					{% csrf_token %}
 					<textarea required rows=1 placeholder="Add a reply"></textarea>
-					<button class="comment_section_button" value="reply_form_{{comment.id}}">Reply</button>
+					<button class="comment_section_button">Reply</button>
 				</form>
 				{% endif %}
 			</div>
@@ -58,6 +58,7 @@
 			<button class="comment_section_button">Post</button>
 		</form>
 
+		<script src="{% static 'js/articles_detail.js' %}"></script>
 		<!-- Post a new comment and display it -->
 		<script>
 			document.getElementById("comment_post_form").onsubmit = function(event) {
@@ -78,8 +79,31 @@
 					  }
 				  });
 			  }
-		  </script>
-		<script src="{% static 'js/articles_detail.js' %}"></script>
+		</script>
+
+		<!-- Reply to a comment -->
+		<script>
+			$(".comment_reply_form").submit(function(event) {
+				event.preventDefault();
+				ref = $(this)
+				$.ajax({
+					type:'POST',
+					async: true,
+					cache: false,
+					url:'{% url "articles:post_reply" %}',
+					data: {
+						csrfmiddlewaretoken: $(this).find("input[type='hidden']").val(),
+						article: "{{ article.id }}",
+						text: $(this).find("textarea").val(),
+						comment_id: ref.attr('id')
+					  },
+					  success: function(data) {
+						ref.parents().eq(2).find(".comment_reply").prepend(data)
+						ref.find("textarea").val('')
+					  }
+				  });
+			})
+		</script>
 	{% endif %}
 </div>
 {% endif %}
