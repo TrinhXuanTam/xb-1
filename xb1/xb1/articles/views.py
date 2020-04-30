@@ -63,7 +63,7 @@ class ArticleDetailView(LoginMixinView, DetailView):
             for comment in comments:
                 comment.user = Profile.objects.get(user_id=comment.author_id)
                 # Get replies to given comment
-                comment.replies = Comment.objects.filter(reaction_to_id=comment.id).order_by('date').reverse()
+                comment.replies = Comment.objects.filter(reaction_to_id=comment.id).order_by('date')
                 for reply in comment.replies:
                     reply.user = Profile.objects.get(user_id=reply.author_id)
         context['article'] = article
