@@ -17,7 +17,8 @@ from .models import Article, Comment
 from ..core.models import Profile
 from ..core.views import LoginMixinView
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+from django.template.loader import render_to_string
 
 class ArticleListView(LoginMixinView, ListView):
     model = Article
@@ -78,8 +79,8 @@ class PostCommentView(LoginRequiredMixin, View):
         if request.user.is_authenticated:
             new_comment = Comment(text=request.POST.get('text'), author_id=request.user.id, article_id=int(request.POST.get('article')))
             new_comment.save()
-            response = JsonResponse({"OK": "comment created"})
-            response.status_code = 200
+            new_comment.user = Profile.objects.get(user_id=request.user.id)
+            return render(request, 'new_comment.html', {"comment":new_comment})
         else:
             response = JsonResponse({"error": "Unauthorized"})
             response.status_code = 401

@@ -63,14 +63,14 @@
 					async: true,
 					cache: false,
 					url:'{% url "articles:post_comment" %}',
-					dataType: "json",
 					data: {
 						csrfmiddlewaretoken: $("#comment_post_form input[type='hidden']").val(),
 						article: "{{ article.id }}",
 						text: $("#comment_post_form textarea").val(),
 					  },
 					  success: function(data) {
-						alert("ok")
+         				$('#comment_post_form').before(data) 
+         				$('#comment_post_form textarea').val('') 
 					  }
 				  });
 			  }
