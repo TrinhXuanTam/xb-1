@@ -1,3 +1,5 @@
+{% load static %}
+
 <div class="comment_wrapper">
     <div class="comment">
         <img class=comment_profile_pic src="{{comment.user.image.url}}">
@@ -7,7 +9,13 @@
                 <div class="comment_date">{{comment.date}}</div>
             </div>
             <div class="comment_text">{{comment.text}}</div>
-            <button class="comment_section_button">Reply</button>
+            <form id="{{comment.id}}" class="comment_reply_form" method="POST">
+                {% csrf_token %}
+                <textarea required rows=1 placeholder="Add a reply"></textarea>
+                <button id="{{comment.id}}" class="comment_section_button">Reply</button>
+            </form>
         </div>
     </div>
+    <div class="comment_reply"></div>
+    <script src="{% static 'js/articles_detail.js' %}"></script>
 </div>

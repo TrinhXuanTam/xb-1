@@ -84,4 +84,4 @@ class PostCommentView(LoginRequiredMixin, View):
         else:
             response = JsonResponse({"error": "Unauthorized"})
             response.status_code = 401
-        return response
+            return response

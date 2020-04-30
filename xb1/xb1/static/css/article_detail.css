@@ -58,7 +58,7 @@
 }
 
 .comment_section_button {
-    margin-top: 10px;
+    margin-top: 20px;
     background: transparent;
     border: none;
     color: white;
@@ -75,14 +75,14 @@
     cursor: pointer;
 }
 
-#comment_post_form textarea {
-    margin-top: 50px;
+#comment_post_form textarea,
+.comment_reply_form textarea {
+    margin-top: 20px;
     color: white;
     outline: none;
     background: transparent;
     display: block;
     box-sizing: border-box;
-    margin-bottom: 20px;
     width: 100%;
     border: 1px solid rgba(255,255,255,0.3);
     border-radius: 10px;
@@ -93,6 +93,7 @@
     padding: 20px;
 }
 
-#comment_post_form textarea:hover {
+#comment_post_form textarea:hover,
+.comment_reply_form textarea:hover {
     border: 1px solid white;
 }
