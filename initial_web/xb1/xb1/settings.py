@@ -63,7 +63,7 @@ EMAIL_HOST_USER = "xb1.feedback@gmail.com"
 EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
 
 # Email where feedback emails will be sent.
-FEEDBACK_EMAIL = "xb1.feedback@gmail.com"
+FEEDBACK_EMAIL = "predplatne@xb1fans.cz"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -84,6 +84,9 @@ class ChangePasswordForm(PasswordChangeForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
+    image = forms.ImageField(required=True, error_messages={'invalid': "Neplatný soubor."},
+                             widget=forms.FileInput)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name in ('image', 'nickname', 'name', 'surname', 'city', 'postalCode', 'address', 'phone'):

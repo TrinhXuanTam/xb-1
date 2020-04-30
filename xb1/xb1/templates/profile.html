@@ -12,34 +12,36 @@
 <div class="profile_content">
 
 
-    {%if user.profile.image%}
-        <img class="profile_image" src="{{ user.profile.image.url }}"> 
+        {%if user.profile.image%}
+        <img class="profile_image" src="{{ user.profile.image.url }}">
         {%else%}
-        <img class="profile_image" src="{% get_media_prefix %}default.jpg"> 
+        <img class="profile_image" src="{% get_media_prefix %}default.jpg">
         {%endif%}
-
-    <div class="profile_main">
-
+        <form method="POST" enctype="multipart/form-data">
+        <div class="profile_main">
         <h1>{% trans "Account info" %}</h1>
         <h3>{{ user.username }}</h3>
         <p>{{ user.email }}</p>
 
-            <input class="profile_btn" type="button" onclick="location.href='{% url 'change_password' %}'" value="Change Password" />
+            <input class="profile_btn" type="button" onclick="location.href='{% url 'change_password' %}'" value="Změna hesla" />
 
-            <input class="profile_btn" type="button" onclick="location.href='{% url 'change_email' %}'" value="Change Email" />
+            <input class="profile_btn" type="button" onclick="location.href='{% url 'change_email' %}'" value="Změna emailu" />
 
-
-        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <h1>{% trans "Informace o uživateli" %}</h1>
-            {{ p_form.as_p }}
+                {% for field in p_form %}
+            {% if field != p_form.image %}
+                {{field.label_tag }} <br>
+                {{ field }}
+            {% endif %}
+            {% endfor %}
 
-            <div>
-                <button class="profile_btn" type="submit">Update</button>
+            <div class=profile_image_form>
+                {{p_form.image.label}}:{{ p_form.image }}
             </div>
+            <button class="profile_btn" type="submit">Aktualizovat</button>
+        </div>
         </form>
-
-    </div>
 </div>
 
 {% endblock %}
