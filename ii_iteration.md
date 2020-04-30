@@ -12,10 +12,10 @@ Realizovatelné funkce:
     
 # David - stav práce
 ## Komentáře
-### Stav
+### Hotové
 - Zatím je hotové samotné přidávání komentářů a odpovídání na ně pro ověřené uživatele
 - Frontent pro komentáře je také hotový
-### Hotové
+### TODO
 - Mazání komentářů pro uživatele a správce
 - Filtrování/cenzura nevhodných příspěvků a spamu
 - Rozbalení/skrytí komentářu - např.: na stránce se zobrazí prvních 10 komentářů
