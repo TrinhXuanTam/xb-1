@@ -152,60 +152,62 @@ class OrderCreateView(LoginMixinView, FormView):
 	
 		return super(OrderCreateView, self).form_valid(form)
 	
-class OrderItemRemoveAllView(RedirectView):
+class CartItemDiscardView(RedirectView):
 	permanent = False
 	def get_redirect_url(self, *args, **kwargs):
-		requestID = self.request.GET.get('id', '')
-		if requestID == '':
+		id = kwargs.get('pk', '')
+		if id == '':
 			self.request.session['orderList'] = None
 			self.request.session.modified = True
 			return reverse_lazy("eshop:shopIndex")
 		
 		if self.request.session.get('orderList', None) != None :
-			self.request.session['orderList'].pop(requestID, None)
+			self.request.session['orderList'].pop(id, None)
 			self.request.session.modified = True
 			if len(self.request.session['orderList']) == 0:
 				self.request.session['orderList'] = None
 			
 		return reverse_lazy("eshop:shopIndex")
 	
-class OrderItemRemoveView(RedirectView):
+class CartItemRemoveView(RedirectView):
 	permanent = False;
 	def get_redirect_url(self, *args, **kwargs):
-		requestID = self.request.GET.get('id', '')
-		if requestID == '':
-			return reverse_lazy("eshop:shopIndex")
-		
+		if kwargs.get('pk', None) == None:
+			return reverse_lazy('eshop:manageOrderList')
+		id = kwargs.get('pk', None)
+
 		if self.request.session.get('orderList', None) != None:
-			if self.request.session['orderList'].get(requestID, 0) - 1 < 1:
-				self.request.session['orderList'].pop(requestID, None)
+			if self.request.session['orderList'].get(id, 0) - 1 < 1:
+				self.request.session['orderList'].pop(id, None)
 				if len(self.request.session['orderList']) == 0:
 					self.request.session['orderList'] = None
 			else:
-				self.request.session['orderList'][requestID] = self.request.session['orderList'].get(requestID, 0) - 1 
+				self.request.session['orderList'][id] = self.request.session['orderList'].get(id, 0) - 1 
 				
 			self.request.session.modified = True
 			
 		return reverse_lazy("eshop:shopIndex")	
 	
-class OrderItemAddView(RedirectView):
+class CartItemAddView(RedirectView):
 	permanent = False
 	def get_redirect_url(self, *args, **kwargs):
-		requestID = self.request.GET.get('id', '')
-		if requestID == '':
-			return reverse_lazy("eshop:shopIndex")
-		
-		resultObject = ShopItem.objects.filter(pk=requestID).first()
+		if kwargs.get('pk', None) == None:
+			return reverse_lazy('eshop:manageOrderList')
+		id = kwargs.get('pk', None)
+
+		resultObject = ShopItem.objects.filter(pk=id).first()
 		if resultObject == None:
 			return reverse_lazy("eshop:shopIndex")
 		
 		if resultObject.itemActive == False:
 			return reverse_lazy("eshop:shopIndex")
 		
+		print("X")
+		
 		if self.request.session.get('orderList', None) == None :		
-			self.request.session['orderList'] = {requestID: 1}
+			self.request.session['orderList'] = {id: 1}
 		else:
-			self.request.session['orderList'][requestID] = self.request.session['orderList'].get(requestID, 0) + 1 
+			self.request.session['orderList'][id] = self.request.session['orderList'].get(id, 0) + 1 
 		
 		self.request.session.modified = True	
 		return reverse_lazy("eshop:shopIndex")

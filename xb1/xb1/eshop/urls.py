@@ -9,9 +9,10 @@ urlpatterns = [
 	
 	url(r'^order/$', views.OrderCreateView.as_view(), name = "orderCreate"),
 	
-	url(r'^add/$', views.OrderItemAddView.as_view(), name="orderItemAdd"),
-	url(r'^remove/$', views.OrderItemRemoveView.as_view(), name="orderItemRemove"),
-	url(r'^removeall/$', views.OrderItemRemoveAllView.as_view(), name="orderItemRemoveAll"),
+	url(r'^manage/cart/add/(?P<pk>[0-9]+)$', views.CartItemAddView.as_view(), name="cartItemAdd"),
+	url(r'^manage/cart/remove/(?P<pk>[0-9]+)$', views.CartItemRemoveView.as_view(), name="cartItemRemove"),
+	url(r'^manage/cart/discard/$', views.CartItemDiscardView.as_view(), name="cartItemsDiscard"),
+	url(r'^manage/cart/discard/(?P<pk>[0-9]+)$', views.CartItemDiscardView.as_view(), name="cartItemDiscard"),
 	
 	url(r'^manage/shop/list/$', views.ShopItemListView.as_view(), name="manageShopList"),
 	url(r'^manage/shop/add/$', views.ShopItemCreateView.as_view(), name="manageShopCreate"),
