@@ -22,8 +22,8 @@ urlpatterns = [
 	url(r'^manage/order/remove/(?P<pk>[0-9]+)$', views.OrderRemoveView.as_view(), name="manageOrderRemove"),
 	url(r'^manage/order/pay/(?P<pk>[0-9]+)$', views.OrderPayView.as_view(), name="manageOrderPay"),
 	url(r'^manage/order/pay/failure/(?P<id>[0-9]+)$', views.OrderPayFailureView.as_view(), name="manageOrderPayFailure"),
-	
 	url(r'^manage/order/create/$', views.OrderCreateView.as_view(), name = "manageOrderCreate"),
 	url(r'^manage/order/create/failure/(?P<id>[0-9]+)$', views.OrderCreateFailureView.as_view(), name = "manageOrderCreateFailure"),
-	
+	url(r'^manage/order/tracker/(?P<slug>[\w-]+)/$', views.OrderTrackerView.as_view(), name = "manageOrderTracker"),
+	url(r'^manage/order/tracker/failure/(?P<id>[0-9]+)$', views.OrderTrackerFailureView.as_view(), name = "manageOrderFailureTracker"),
 ]

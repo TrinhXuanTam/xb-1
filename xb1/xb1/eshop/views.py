@@ -260,3 +260,22 @@ class OrderCreateFailureView(DelayRedirectView):
 	def __init__(self):
 		super(OrderCreateFailureView, self).__init__(5000, "eshop:shopIndex", None,
 			["Something bad happened", "Empty cart can not be ordered", "Item in your cart doesn't exist, reset cart", "Item in your cart is no longer available, reset cart"])		
+
+class OrderTrackerView(LoginMixinView, TemplateView):
+	template_name = "manageOrderTracker.html"
+	def dispatch(self, request, *args, **kwargs):
+		result = ShopOrder.objects.filter(orderSlug = kwargs['slug']).first()
+		if result is None:
+			return redirect(reverse('eshop:manageOrderFailureTracker', kwargs={'id': 1}))
+		return super(OrderTrackerView, self).dispatch(request, *args, **kwargs)
+	
+	def get_context_data(self, **kwargs):
+		context = super(OrderTrackerView, self).get_context_data(**kwargs)
+		context['result'] = ShopOrder.objects.filter(orderSlug = kwargs['slug']).first()
+		
+		return context
+		
+class OrderTrackerFailureView(DelayRedirectView):
+	def __init__(self):
+		super(OrderTrackerFailureView, self).__init__(5000, "eshop:shopIndex", None,
+			["Something bad happened", "Order related with this tracker doesn't exists"])

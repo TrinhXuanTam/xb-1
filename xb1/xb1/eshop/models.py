@@ -1,4 +1,7 @@
 from django.db import models
+from django.utils.text import slugify
+
+import random
 
 class ShopItem(models.Model):
 
@@ -29,13 +32,24 @@ class ShopOrder(models.Model):
 	orderAddressStreet = models.CharField("Street", max_length = 20)
 	orderAddressStreetNumber = models.DecimalField("StreetNumber", decimal_places=0, max_digits=5)
 	orderAddressPostNumber = models.DecimalField("PostNumber", decimal_places=0, max_digits=5)
-
+	orderSlug = models.SlugField(verbose_name="Slug", unique=True, max_length=100, blank=True, null=True)
 	@property
 	def isPaid(self):
 		resultObject = ShopPayment.objects.filter(paymentOrder=self).first()
 		if resultObject == None:
 			return False
 		return resultObject.paymentReceived
+		
+	def save(self, *args, **kwargs):
+		if self.orderSlug is None:
+			self.generate_slug()
+		super().save(*args, **kwargs)
+
+	def generate_slug(self):
+		slg = random.randint(100, 5000)
+		while ShopOrder.objects.filter(orderSlug=slg).exists():
+			orderSlug = orderSlug + "_" + str(random.randint(0, 1000))
+		self.orderSlug = slg
 	
 class ShopPayment(models.Model):
 	paymentPrice = models.DecimalField("TotalPrice", decimal_places=2, max_digits=12)
