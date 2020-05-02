@@ -139,17 +139,20 @@ class CartItemDiscardView(RedirectView):
 class ShopItemListView(LoginMixinView, LoginRequiredMixin, ListView):
 	model = ShopItem
 	template_name = "manageShopList.html"
+	permission_required = "eshop.view_shopitem"
 	
 class ShopItemCreateView(LoginMixinView, LoginRequiredMixin, CreateView):
 	form_class = ShopItemForm
 	template_name = "manageShopAdd.html"
 	success_url = reverse_lazy("eshop:manageShopList")
+	permission_required = "eshop.add_shopitem"
 		
 class ShopItemUpdateView(LoginMixinView, LoginRequiredMixin, UpdateView):
 	model = ShopItem
 	form_class = ShopItemForm
 	template_name = "manageShopAdd.html"
 	success_url = reverse_lazy("eshop:manageShopList")
+	permission_required = "eshop.change_shopitem"
 	def form_valid(self, form):
 		resultObject = ShopOrderItem.objects.filter(shopItem=form.instance).first()
 		if resultObject == None:
@@ -171,14 +174,17 @@ class ShopItemUpdateView(LoginMixinView, LoginRequiredMixin, UpdateView):
 class OrderListView(LoginMixinView, LoginRequiredMixin, ListView):
 	model = ShopOrder
 	template_name = "manageOrderList.html"
+	permission_required = "eshop.view_shoporder"
 	
 class OrderRemoveView(LoginMixinView, LoginRequiredMixin, DeleteView):
 	model = ShopOrder
 	template_name = "manageOrderRemove.html"
 	success_url = reverse_lazy("eshop:manageOrderList")
+	permission_required = "eshop.delete_shoporder"
 	
 class OrderPayView(LoginMixinView, LoginRequiredMixin, RedirectView):
 	permanent = False
+	permission_required = "eshop.update_shoporder"
 	def get_redirect_url(self, *args, **kwargs):
 		try:
 			id = int(kwargs.get('pk', None))
