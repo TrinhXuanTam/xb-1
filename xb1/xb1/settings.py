@@ -100,6 +100,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'xb1.wsgi.application'
 
+# Eshop bank account
+ESHOP_BANK_ACCOUNT = "0525827/0100"
+
 # Email service backend
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

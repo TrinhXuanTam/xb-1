@@ -1,5 +1,8 @@
+from django.core.mail import send_mail
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.sites.shortcuts import get_current_site
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import FormView
 from django.views.generic.edit import UpdateView
@@ -11,6 +14,7 @@ from django.views.generic import ListView
 from django.urls import reverse_lazy
 from django.urls import reverse
 from django.shortcuts import redirect
+from django.conf import settings
 
 from .models import ShopItem
 from .models import ShopOrder
@@ -21,6 +25,8 @@ from .forms import OrderForm
 from .forms import ShopItemForm
 
 from ..core.views import LoginMixinView
+from ..settings import EMAIL_HOST_USER
+from ..settings import ESHOP_BANK_ACCOUNT
 
 import random
 
@@ -253,6 +259,19 @@ class OrderCreateView(LoginMixinView, FormView):
 		payment.save()
 		
 		self.request.session['orderList'] = None
+	
+		current_site = get_current_site(self.request)
+		subject = 'Order successfully received'
+		message = render_to_string('manageOrderEmail.html', {
+			'domain': current_site.domain,
+			'slug': form.instance.orderSlug,
+			'price': payment.paymentPrice,
+			'vs': payment.paymentVariableSymbol,
+			'ss': payment.paymentSpecificSymbol,
+			'account': "5"
+        })
+
+		send_mail(subject, message, EMAIL_HOST_USER, [str(form.instance.orderEmail)], fail_silently=False)
 	
 		return super(OrderCreateView, self).form_valid(form)
 
