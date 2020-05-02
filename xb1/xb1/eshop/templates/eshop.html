@@ -19,7 +19,7 @@
 	<a href="{% url 'eshop:cartItemsDiscard' %}">Smazat vše</a>	
 	
 	Celková cena: {{ totalPrice }}
-	<a href="./order">Objednat</a>
+	<a href="{% url 'eshop:manageOrderCreate' %}">Objednat</a>
 	{% endif %}
 	
 </div>

@@ -106,7 +106,7 @@ class ShopIndex(LoginMixinView, ListView):
 		return context
 
 class OrderCreateView(LoginMixinView, FormView):
-	template_name = "eshopOrder.html"
+	template_name = "manageOrderCreate.html"
 	form_class = OrderForm
 	success_url = reverse_lazy("eshop:shopIndex")
 	def render_to_response(self, context):
