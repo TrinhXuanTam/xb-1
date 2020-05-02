@@ -23,7 +23,7 @@
     box-shadow: 10px 0px 55px 1px rgba(255,255,255,0.75);
 }
 
-.preview{
+.article_previews{
     color: white;
     text-align: left;
     font-size: 80%;
@@ -31,24 +31,31 @@
     margin-left: 20px;
 }
 
-.preview li{
+.preview{
     margin-top: 10px;
     padding-bottom: 30px;
     overflow: hidden;
     border-bottom: 1px solid rgba(255,255,255,0.3);
 }
-.preview-thumb{
+
+.preview_thumb{
     float: left;
 }
 
 .preview img{
     width: 200px;
     height: auto;
-    float: left;
 }
 
-.preview-content{
-    margin-left: 210px;
+.preview_content {
+    display: flex;
+    flex-flow: row;
+}
+
+.preview_text {
+    flex: 1;
+    color: white;
+    padding: 0 5px;
 }
 
 .left{

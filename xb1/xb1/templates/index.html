@@ -8,24 +8,32 @@
 
 {%block content %}
   <div class="right">
-    <ul class="preview">
+    <div class="article_previews">
         {% for article in object_list %}
-        <li>
-          <h1>{{ article.title }}</h1>
+        <div class="preview">
+          <h1 class="preview_title">{{ article.title }}</h1>
+          <div class="preview_header">
+            {{article.modified}}
+          </div>
           <a href = "{% url 'articles:detail' slug=article.slug %}">
-            <div class="preview-thumb">
-              <img src="{% static 'img/universe.jpg' %}">
-              <div class="preview-content">
+            <div class="preview_content">
+              {% if article.thumbnail %}
+              <div class="preview_thumb">
+                <img src="{{article.thumbnail.url}}">
+              </div>
+              {%endif%}
+
+              <div class="preview_text">
                 {{ article.preview_text | safe | default_if_none:"" }}<br>
               </div>
             </div>
           </a>
-        </li>
+        </div>
 
-          {% empty %}
-          <li>{% trans "No articles created." %}</li>
+        {% empty %}
+          {% trans "No articles created." %}
         {% endfor %}
-    </ul>
+      </div>
   </div>
 
 
