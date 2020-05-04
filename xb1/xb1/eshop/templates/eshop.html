@@ -12,14 +12,14 @@
 	{% else %}
 		{% for orderItem in orderItems %}
 			Jméno: {{ orderItem.0.itemName }} Počet: {{ orderItem.1 }} Cena za kus: {{ orderItem.0.itemPrice }} 
-			<a href="./add?id={{ orderItem.0.pk }}">Přidat</a>
-			<a href="./remove?id={{ orderItem.0.pk }}">Odebrat</a>
-			<a href="./removeall?id={{ orderItem.0.pk }}">Smazat</a>
+			<a href="{% url 'eshop:cartItemAdd' pk=orderItem.0.pk %}">Přidat</a>
+			<a href="{% url 'eshop:cartItemRemove' pk=orderItem.0.pk %}">Odebrat</a>
+			<a href="{% url 'eshop:cartItemDiscard' pk=orderItem.0.pk %}">Smazat</a>
 		{% endfor %}
-	<a href="./removeall/">Smazat vše</a>	
+	<a href="{% url 'eshop:cartItemsDiscard' %}">Smazat vše</a>	
 	
 	Celková cena: {{ totalPrice }}
-	<a href="./order">Objednat</a>
+	<a href="{% url 'eshop:manageOrderCreate' %}">Objednat</a>
 	{% endif %}
 	
 </div>
@@ -42,7 +42,7 @@
 			</div>
 			<div class="shopOfferControl">
 				<div>{{ shopItem.itemPrice }}</div>
-				<div><a href="./add?id={{ shopItem.pk }}">Objednat</a></div>
+				<div><a href="{% url 'eshop:cartItemAdd' pk=shopItem.pk %}">Objednat</a></div>
 			</div>
 		</div>
 	</li>
