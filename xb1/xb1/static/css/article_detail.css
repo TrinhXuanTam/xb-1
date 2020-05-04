@@ -1,4 +1,4 @@
-.comment_section {
+.article_wrapper {
     width: 70%;
     height: auto;
     margin: 3rem auto;
@@ -10,6 +10,77 @@
     padding: 3rem;
 }
 
+.article h2 {
+    font-weight: bold;
+    font-size: 250%;
+    margin-bottom: 20px;
+}
+
+.article_wrapper hr {
+    margin: 8px 0 8px 0;
+    opacity: 0.3;
+}
+
+.article_date {
+    font-size: 80%;
+    margin-bottom: 1.0rem;
+    text-align: left;
+    font-style: italic;
+}
+
+.article_text {
+    text-align: left;
+    margin-bottom: 2.2rem;
+    line-height: 130%;
+}
+
+.article_footer{
+    font-size: 80%;
+    margin: 0 0 12px 0;
+    text-align: left;
+}
+
+.article_footer h1 {
+    display: inline;
+    font-size: 70%;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.article_footer p {
+    display: inline;
+    font-weight: bold;
+}
+
+.article_footer_item {
+    margin-bottom: 8px;
+}
+
+.article_footer_left {
+    display: inline-block;
+}
+
+.article_footer_right {
+    display: inline-block;
+    float: inline-end;
+}
+
+.comment_headline h1 {
+    text-align: left;
+}
+
+hr {
+    opacity: 0.3;
+    margin-bottom: 10px;
+}
+
+.comment_wrapper {
+    align-self: center;
+    margin-top: 1rem;
+    width: 70%;
+    height: auto;
+}
+
 .comment {
     margin-bottom: 10px;
     display: flex;
@@ -18,9 +89,9 @@
 }
 
 .comment_profile_pic{
-    border-radius: 50%;
-    width: 4rem;
-    height: 4rem;
+    border-radius: 20%;
+    width: 3.8rem;
+    height: 3.8rem;
     object-fit: fill;
     flex: none;
 }
@@ -40,17 +111,20 @@
 .comment_nickname {
     display: inline;
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 1.3rem;
+    opacity: 0.8;
 }
 
 .comment_date {
     display: inline;
     text-align: right;
+    font-size: 80%;
     flex: 1;
 }
 
 .comment_text {
     margin-top: 10px;
+    opacity: 0.6;
 }
 
 .comment_reply .comment_profile_pic {
@@ -63,10 +137,11 @@
     border: none;
     color: white;
     outline: none;
-    padding: 10px 30px;
+    padding: 7px 21px;
     border: 1px solid white;
-    border-radius: 1rem;
     transition: 0.2s;
+    text-transform: uppercase;
+    opacity: 0.8;
 }
 
 .comment_section_button:hover {
@@ -75,7 +150,6 @@
     cursor: pointer;
 }
 
-#comment_post_form textarea,
 .comment_reply_form textarea {
     margin-top: 20px;
     color: white;
@@ -83,7 +157,7 @@
     background: transparent;
     display: block;
     box-sizing: border-box;
-    width: 100%;
+    width: 70%;
     border: 1px solid rgba(255,255,255,0.3);
     border-radius: 10px;
     font-weight: 400;
@@ -91,6 +165,30 @@
     transition: 0.5s;
     resize: none;
     padding: 20px;
+    width: 100%;
+}
+
+#comment_post_form textarea {
+    margin-top: 20px;
+    color: white;
+    outline: none;
+    background: transparent;
+    display: block;
+    box-sizing: border-box;
+    width: 70%;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 10px;
+    font-weight: 400;
+    font-size: 15px;
+    transition: 0.5s;
+    resize: none;
+    padding: 20px;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+#comment_post_form button {
+    margin-bottom: 30px;
 }
 
 #comment_post_form textarea:hover,

@@ -7,104 +7,139 @@
 {%endblock%}
 
 {%block content%}
-<div class="article-detail">
+<div class="article_wrapper">
 	<div class="article">
-		<h2>{% trans "Title:" %} {{ article.title }}</h2><br>
-		<p>{{ article.text | safe }}</p>
+		<h2>{{ article.title }}</h2>
+		<hr>
+		<div class="article_date">
+			<p>{{ article.published_from }}</p>
+		</div>
+		<div class="article_text">
+			<p>{{ article.text | safe }}</p>
+		</div>
+		<div class="article_footer">
+			<div class="article_footer_left">
+				<div class="article_footer_item">
+					<h1>author</h1>
+					<p>{{ article.author }}</p>
+				</div>
+				{% if not article.category == Null %}
+				<div class="article_footer_item">
+					<h1>category</h1>
+					<p>{{ article.category }}</p>
+				</div>
+				{% endif %}
+			</div>
+			<div class="article_footer_right">
+				{% if not article.tags == None %}
+				<div class="article_footer_item">
+					<h1>tags</h1>
+					<p>{{ article.tags.verbose_name }} some #tags</p>
+				</div>
+				{% endif %}
+				{% if article.source == None %}
+				<div class="article_footer_item">
+					<h1>sources</h1>
+					<p>{{ article.source }} some links</p>
+				</div>
+				{% endif %}
+			</div>
+		</div>
 	</div>
 </div>
 
 {% if article.allow_comments %}
-<div class="comment_section">
-	{% for comment in comments %}
-	<div class="comment_wrapper">
-		<div class="comment">
-			<img class=comment_profile_pic src="{{comment.user.image.url}}">
-			<div class="comment_content">	
-				<div class= "comment_header">	
-					<div class="comment_nickname">{{comment.user.nickname}}</div>
-					<div class="comment_date">{{comment.date}}</div>
-				</div>
-				<div class="comment_text">{{comment.text}}</div>
-				{% if user.is_authenticated %}
-				<form id="{{comment.id}}" class="comment_reply_form" method="POST">
-					{% csrf_token %}
-					<textarea required rows=1 placeholder="Add a reply"></textarea>
-					<button class="comment_section_button">Reply</button>
-				</form>
-				{% endif %}
+<hr>
+{% for comment in comments %}
+<div class="comment_wrapper">
+	<div class="comment">
+		<img class=comment_profile_pic src="{{comment.user.image.url}}">
+		<div class="comment_content">	
+			<div class= "comment_header">	
+				<div class="comment_nickname">{{comment.user.nickname}}</div>
+				<div class="comment_date">{{comment.date}}</div>
 			</div>
-		</div>
-		<div class="comment_reply">
-			{%for reply in comment.replies %}
-			<div class="comment">
-				<img class=comment_profile_pic src="{{reply.user.image.url}}">
-				<div class="comment_content">
-					<div class= "comment_header">	
-						<div class="comment_nickname">{{reply.user.nickname}}</div>
-						<div class="comment_date">{{reply.date}}</div>
-					</div>
-					<div class="comment_text">{{reply.text}}</div>
-				</div>
-			</div>
-			{% endfor %}
+			<div class="comment_text">{{comment.text}}</div>
+			{% if user.is_authenticated %}
+			<form id="{{comment.id}}" class="comment_reply_form" method="POST">
+				{% csrf_token %}
+				<textarea required rows=1 placeholder="Add a reply"></textarea>
+				<button class="comment_section_button">Reply</button>
+			</form>
+			{% endif %}
 		</div>
 	</div>
-	{% endfor %}
-	{% if user.is_authenticated %}
-		<form id="comment_post_form" method="POST">
-			{% csrf_token %}
-			<textarea required rows=1 placeholder="Add a comment"></textarea>
-			<button class="comment_section_button">Post</button>
-		</form>
-
-		<script src="{% static 'js/articles_detail.js' %}"></script>
-		<!-- Post a new comment and display it -->
-		<script>
-			document.getElementById("comment_post_form").onsubmit = function(event) {
-				event.preventDefault();
-				$.ajax({
-					type:'POST',
-					async: true,
-					cache: false,
-					url:'{% url "articles:post_comment" %}',
-					data: {
-						csrfmiddlewaretoken: $("#comment_post_form input[type='hidden']").val(),
-						article: "{{ article.id }}",
-						text: $("#comment_post_form textarea").val(),
-					  },
-					  success: function(data) {
-         				$('#comment_post_form').before(data) 
-         				$('#comment_post_form textarea').val('') 
-					  }
-				  });
-			  }
-		</script>
-
-		<!-- Reply to a comment -->
-		<script>
-			$(".comment_reply_form").submit(function(event) {
-				event.preventDefault();
-				ref = $(this)
-				$.ajax({
-					type:'POST',
-					async: true,
-					cache: false,
-					url:'{% url "articles:post_reply" %}',
-					data: {
-						csrfmiddlewaretoken: $(this).find("input[type='hidden']").val(),
-						article: "{{ article.id }}",
-						text: $(this).find("textarea").val(),
-						comment_id: ref.attr('id')
-					  },
-					  success: function(data) {
-						ref.parents().eq(2).find(".comment_reply").prepend(data)
-						ref.find("textarea").val('')
-					  }
-				  });
-			})
-		</script>
-	{% endif %}
+	<div class="comment_reply">
+		{%for reply in comment.replies %}
+		<div class="comment">
+			<img class=comment_profile_pic src="{{reply.user.image.url}}">
+			<div class="comment_content">
+				<div class= "comment_header">	
+					<div class="comment_nickname">{{reply.user.nickname}}</div>
+					<div class="comment_date">{{reply.date}}</div>
+				</div>
+				<div class="comment_text">{{reply.text}}</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
 </div>
+{% endfor %}
+{% if user.is_authenticated %}
+	<form id="comment_post_form" method="POST">
+		{% csrf_token %}
+		<textarea required rows=1 placeholder="Add a comment"></textarea>
+		<button class="comment_section_button">Post</button>
+	</form>
+
+	<script src="{% static 'js/articles_detail.js' %}"></script>
+	<!-- Post a new comment and display it -->
+	<script>
+		document.getElementById("comment_post_form").onsubmit = function(event) {
+			event.preventDefault();
+			$.ajax({
+				type:'POST',
+				async: true,
+				cache: false,
+				url:'{% url "articles:post_comment" %}',
+				data: {
+					csrfmiddlewaretoken: $("#comment_post_form input[type='hidden']").val(),
+					article: "{{ article.id }}",
+					text: $("#comment_post_form textarea").val(),
+				},
+				success: function(data) {
+					$('#comment_post_form').before(data) 
+					$('#comment_post_form textarea').val('') 
+				}
+			});
+		}
+	</script>
+
+	<!-- Reply to a comment -->
+	<script>
+		$(".comment_reply_form").submit(function(event) {
+			event.preventDefault();
+			ref = $(this)
+			$.ajax({
+				type:'POST',
+				async: true,
+				cache: false,
+				url:'{% url "articles:post_reply" %}',
+				data: {
+					csrfmiddlewaretoken: $(this).find("input[type='hidden']").val(),
+					article: "{{ article.id }}",
+					text: $(this).find("textarea").val(),
+					comment_id: ref.attr('id')
+				},
+				success: function(data) {
+					ref.parents().eq(2).find(".comment_reply").prepend(data)
+					ref.find("textarea").val('')
+				}
+			});
+		})
+	</script>
+{% endif %}
+
+
 {% endif %}
 {% endblock %}
