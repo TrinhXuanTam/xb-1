@@ -12,7 +12,6 @@ from ..core.models import User
 
 import random
 
-
 class Category(models.Model):
 
     name = models.CharField(_("Name"), max_length=100)

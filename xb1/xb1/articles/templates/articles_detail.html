@@ -23,24 +23,28 @@
 					<h1>author</h1>
 					<p>{{ article.author }}</p>
 				</div>
-				{% if not article.category == Null %}
+				{% if not categories == None %}
 				<div class="article_footer_item">
-					<h1>category</h1>
-					<p>{{ article.category }}</p>
+					<h1>categories</h1>
+					{% for category in categories %}
+					<p>'{{ category }}'</p>
+					{% endfor %}
 				</div>
 				{% endif %}
 			</div>
 			<div class="article_footer_right">
-				{% if not article.tags == None %}
+				{% if not tags == None %}
 				<div class="article_footer_item">
 					<h1>tags</h1>
-					<p>{{ article.tags.verbose_name }} some #tags</p>
+					{% for tag in tags %}
+					<p>#{{ tag }}</p>
+					{% endfor %}
 				</div>
 				{% endif %}
-				{% if article.source == None %}
+				{% if not article.sources == None %}
 				<div class="article_footer_item">
 					<h1>sources</h1>
-					<p>{{ article.source }} some links</p>
+					<p>{{ article.sources }}</p>
 				</div>
 				{% endif %}
 			</div>
