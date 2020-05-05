@@ -1,5 +1,4 @@
 .navigation_bar {
-    list-style: none;
     display: block;
     position: fixed;
     top: 0;
@@ -9,6 +8,7 @@
 }
 
 .navigation_bar ul {
+    list-style: none;
     margin-left: 50px;
     height: 30px;
     background-color: none;
