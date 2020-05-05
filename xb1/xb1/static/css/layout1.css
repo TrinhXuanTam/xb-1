@@ -32,8 +32,8 @@
 }
 
 .preview{
-    margin-top: 10px;
-    padding-bottom: 30px;
+    margin-top: 20px;
+    padding-bottom: 10px;
     overflow: hidden;
     border-bottom: 1px solid rgba(255,255,255,0.3);
 }
@@ -55,7 +55,8 @@
 .preview_text {
     flex: 1;
     color: white;
-    padding: 0 5px;
+    padding: 0 10px;
+    text-align: justify;
 }
 
 .left{
