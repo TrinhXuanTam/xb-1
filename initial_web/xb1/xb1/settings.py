@@ -28,7 +28,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '%_2x!72rxiiwt-g4u(nz&5*$97%6rje#w6mw4ec5goa^b%d3ak'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 CSRF_COOKIE_SECURE = True
@@ -63,7 +63,7 @@ EMAIL_HOST_USER = "xb1.feedback@gmail.com"
 EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
 
 # Email where feedback emails will be sent.
-FEEDBACK_EMAIL = "xb1.feedback@gmail.com"
+FEEDBACK_EMAIL = "predplatne@xb1fans.cz"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

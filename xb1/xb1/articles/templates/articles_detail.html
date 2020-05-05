@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load static %}
+
+{%block include%}
+<link rel="stylesheet" href="{% static 'css/article_detail.css' %}" >
+{%endblock%}
 
 {%block content%}
 <div class="article-detail">
@@ -8,4 +13,98 @@
 		<p>{{ article.text | safe }}</p>
 	</div>
 </div>
+
+{% if article.allow_comments %}
+<div class="comment_section">
+	{% for comment in comments %}
+	<div class="comment_wrapper">
+		<div class="comment">
+			<img class=comment_profile_pic src="{{comment.user.image.url}}">
+			<div class="comment_content">	
+				<div class= "comment_header">	
+					<div class="comment_nickname">{{comment.user.nickname}}</div>
+					<div class="comment_date">{{comment.date}}</div>
+				</div>
+				<div class="comment_text">{{comment.text}}</div>
+				{% if user.is_authenticated %}
+				<form id="{{comment.id}}" class="comment_reply_form" method="POST">
+					{% csrf_token %}
+					<textarea required rows=1 placeholder="Add a reply"></textarea>
+					<button class="comment_section_button">Reply</button>
+				</form>
+				{% endif %}
+			</div>
+		</div>
+		<div class="comment_reply">
+			{%for reply in comment.replies %}
+			<div class="comment">
+				<img class=comment_profile_pic src="{{reply.user.image.url}}">
+				<div class="comment_content">
+					<div class= "comment_header">	
+						<div class="comment_nickname">{{reply.user.nickname}}</div>
+						<div class="comment_date">{{reply.date}}</div>
+					</div>
+					<div class="comment_text">{{reply.text}}</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	{% endfor %}
+	{% if user.is_authenticated %}
+		<form id="comment_post_form" method="POST">
+			{% csrf_token %}
+			<textarea required rows=1 placeholder="Add a comment"></textarea>
+			<button class="comment_section_button">Post</button>
+		</form>
+
+		<script src="{% static 'js/articles_detail.js' %}"></script>
+		<!-- Post a new comment and display it -->
+		<script>
+			document.getElementById("comment_post_form").onsubmit = function(event) {
+				event.preventDefault();
+				$.ajax({
+					type:'POST',
+					async: true,
+					cache: false,
+					url:'{% url "articles:post_comment" %}',
+					data: {
+						csrfmiddlewaretoken: $("#comment_post_form input[type='hidden']").val(),
+						article: "{{ article.id }}",
+						text: $("#comment_post_form textarea").val(),
+					  },
+					  success: function(data) {
+         				$('#comment_post_form').before(data) 
+         				$('#comment_post_form textarea').val('') 
+					  }
+				  });
+			  }
+		</script>
+
+		<!-- Reply to a comment -->
+		<script>
+			$(".comment_reply_form").submit(function(event) {
+				event.preventDefault();
+				ref = $(this)
+				$.ajax({
+					type:'POST',
+					async: true,
+					cache: false,
+					url:'{% url "articles:post_reply" %}',
+					data: {
+						csrfmiddlewaretoken: $(this).find("input[type='hidden']").val(),
+						article: "{{ article.id }}",
+						text: $(this).find("textarea").val(),
+						comment_id: ref.attr('id')
+					  },
+					  success: function(data) {
+						ref.parents().eq(2).find(".comment_reply").prepend(data)
+						ref.find("textarea").val('')
+					  }
+				  });
+			})
+		</script>
+	{% endif %}
+</div>
+{% endif %}
 {% endblock %}

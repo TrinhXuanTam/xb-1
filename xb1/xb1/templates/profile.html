@@ -1,35 +1,47 @@
 {% extends 'base.html' %}
-{% load i18n %}
 {% load static %}
-{% load crispy_forms_tags %}
 {% block include %}
+{% load i18n %}
+
+
+<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
 {% endblock %}
+
 {%block content %}
-<br>
-    <img style = "display: block; margin-left: auto; margin-right: auto;" src = "{{ user.profile.image.url }}">
-                    <h1>{% trans "Account info" %}</h1>
 
-    <h3>{{ user.username }}</h3>
-    <p>{{ user.email }}</p>
-<form>
-         <input type="button" onclick="#" value="Change Username"/>
-      </form>
-<form>
-         <input type="button" onclick="#" value="Change Password"/>
-      </form>
-<form>
-         <input type="button" onclick="#" value="Change Email"/>
-      </form>
+<div class="profile_content">
 
-            <div class="registration_form">
-                <form method = "POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <h1>{% trans "Profile info" %}</h1>
-                    {{ p_form|crispy }}
-                    <div>
-                        <button type = "submit">{% trans "Update" %}</button>
-                    </div>
-                </form>
+
+        {%if user.profile.image%}
+        <img class="profile_image" src="{{ user.profile.image.url }}">
+        {%else%}
+        <img class="profile_image" src="{% get_media_prefix %}default.jpg">
+        {%endif%}
+        <form method="POST" enctype="multipart/form-data">
+        <div class="profile_main">
+        <h1>{% trans "Account info" %}</h1>
+        <h3>{{ user.username }}</h3>
+        <p>{{ user.email }}</p>
+
+            <input class="profile_btn" type="button" onclick="location.href='{% url 'change_password' %}'" value="Změna hesla" />
+
+            <input class="profile_btn" type="button" onclick="location.href='{% url 'change_email' %}'" value="Změna emailu" />
+
+            {% csrf_token %}
+            <h1>{% trans "Informace o uživateli" %}</h1>
+                {% for field in p_form %}
+            {% if field != p_form.image %}
+                {{field.label_tag }} <br>
+                {{ field }}
+            {% endif %}
+            {% endfor %}
+
+            <div class=profile_image_form>
+                {{p_form.image.label}}:{{ p_form.image }}
             </div>
+            <button class="profile_btn" type="submit">Aktualizovat</button>
+        </div>
+        </form>
+</div>
 
 {% endblock %}

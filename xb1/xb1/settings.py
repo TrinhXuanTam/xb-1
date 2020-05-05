@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'xb1.core',
     'xb1.contact',
     'xb1.forum',
+    'xb1.eshop',
     'django_cleanup',
     'ckeditor',
     'ckeditor_uploader'
@@ -81,6 +82,7 @@ TEMPLATES = [
             BASE_DIR + "/articles/templates/",
             BASE_DIR + "/core/templates/",
             BASE_DIR + "/forum/templates/"
+            BASE_DIR + "/eshop/templates/",
         ],
         'APP_DIRS': False,
         'OPTIONS': {
@@ -102,6 +104,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'xb1.wsgi.application'
 
+# Eshop bank account
+ESHOP_BANK_ACCOUNT = "0525827/0100"
+
 # Email service backend
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -111,7 +116,7 @@ EMAIL_PORT = 587
 
 # Email from which emails will be sent.
 EMAIL_HOST_USER = "xb1.feedback@gmail.com"
-EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
+EMAIL_HOST_PASSWORD = 'fitwiki1'
 
 # Email where feedback emails will be sent.
 FEEDBACK_EMAIL = "xb1.feedback@gmail.com"

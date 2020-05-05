@@ -7,7 +7,7 @@
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="{% static 'js/loading.js' %}"></script>
-    <script src="{% static 'js/fontawesome.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/loading.css' %}" />
     <link rel="stylesheet" href="{% static 'css/login.css' %}" />
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
@@ -127,7 +127,7 @@
                   <li><a class="login_trigger" onclick="openDialog()">{% trans "Contact" %}</a></li>
               {% endif %}
 
-              <li><a href="#">{% trans "Eshop" %}</a></li>
+              <li><a href="{% url 'eshop:shopIndex' %}">{% trans "Eshop" %}</a></li>
               <li><a href="{% url 'articles:article_list' %}">{% trans "Articles" %}</a></li>
               <li><a href="#">{% trans "About us" %}</a></li>
               <li><a href="{% url 'forum:index' %}">{% trans "Forum" %}</a></li>
