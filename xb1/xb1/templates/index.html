@@ -13,7 +13,8 @@
         <div class="preview">
           <h1 class="preview_title">{{ article.title }}</h1>
           <div class="preview_header">
-            {{article.modified}}
+            <div class="preview_author">Author: {{article.author.profile.nickname}}</div>
+            <div class="preview_date">{{article.modified}}</div>
           </div>
           <a href = "{% url 'articles:detail' slug=article.slug %}">
             <div class="preview_content">
