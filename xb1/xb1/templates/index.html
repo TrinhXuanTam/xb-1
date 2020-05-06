@@ -11,10 +11,14 @@
     <div class="article_previews">
         {% for article in object_list %}
         <div class="preview">
-          <h1 class="preview_title">{{ article.title }}</h1>
+          <div class="preview_title">{{ article.title }}</div>
           <div class="preview_header">
-            <div class="preview_author">Author: {{article.author.profile.nickname}}</div>
-            <div class="preview_date">{{article.modified}}</div>
+            <img src="{{article.author.profile.image.url}}">
+            <div class="preview_author_info">
+              <div class="preview_author">{{article.author.profile.nickname}}</div>
+              <div class="preview_date">{{article.modified}}</div>
+            </div>
+            <a class="preview_edit_button"><button>edit</button></a>
           </div>
           <a href = "{% url 'articles:detail' slug=article.slug %}">
             <div class="preview_content">

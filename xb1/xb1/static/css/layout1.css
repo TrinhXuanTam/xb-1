@@ -38,15 +38,50 @@
     border-bottom: 1px solid rgba(255,255,255,0.3);
 }
 
+.preview_title {
+    font-size: x-large;
+    font-weight: bold;
+}
+
 .preview_header {
     display: flex;
     flex-flow: row;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
-.preview_date {
+.preview_header img {
+    border-radius: 50%;
+    width: 30px;
+    height:30px;
+}
+
+.preview_author_info {
+    margin-left: 10px;
+}
+
+.preview_edit_button {
     flex: 1;
     text-align: right;
-    padding-right: 10px;
+    margin-right: 10px;
+}
+
+.preview_edit_button button {
+    font-size: 14px;
+    background: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    padding: 5px 15px;
+    border: 1px solid white;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+.preview_edit_button button:hover {
+    color: black;
+    background: white;
+    cursor: pointer;
 }
 
 .preview_thumb{
@@ -57,7 +92,7 @@
     text-decoration: none;
 }
 
-.preview img{
+.preview_thumb img{
     width: 200px;
     height: auto;
     margin-right: 10px;
