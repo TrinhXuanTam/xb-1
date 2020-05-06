@@ -3,15 +3,23 @@
 {% load i18n %}
 
 {% block include %}
-<link rel="stylesheet" href="{% static 'css/layout2.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/article_detail.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/forum_comments.css' %}" >
 {% endblock %}
 
 {% block content %}
 <div class="main">
 
+    
     <h1>{{ object.title }}</h1>
     <h2>{{ object.description }}</h2>
     <br>
+
+    <div class="comments">
+        <ul>
+            {% include "forum_comment.html" %}
+        </ul>
+    </div>
 
 </div>
 {% endblock %}

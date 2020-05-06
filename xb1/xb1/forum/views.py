@@ -3,15 +3,16 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
 from django.views.generic.edit import CreateView, UpdateView
 
 
 from ..articles.models import ForumCategory, Forum, Comment
 from ..core.views import LoginMixinView
+from ..core.models import Profile
 
 
-class ForumIndexView(TemplateView):
+class ForumIndexView(LoginMixinView, TemplateView):
 
     template_name = "forum_index.html"
 
@@ -46,7 +47,7 @@ class ForumIndexView(TemplateView):
         return context
 
     
-class ForumListView(TemplateView):
+class ForumListView(LoginMixinView, TemplateView):
 
     template_name = "forum_list.html"
 
@@ -90,7 +91,7 @@ class ForumCategoryUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequ
     fields = ("title", "is_open")
 
 
-class ForumDetailView(TemplateView):
+class ForumDetailView(LoginMixinView, TemplateView):
 
     template_name = "forum_detail.html"
 
@@ -100,11 +101,64 @@ class ForumDetailView(TemplateView):
 
         pk = kwargs.get("pk", None)
         context["object"] = Forum.objects.get(pk=pk)
+
+        context["comments"] = []
+
+        q_comments = Comment.objects.filter(forum=context["object"], reaction_to=None)
+
+        for comment in q_comments:
+            context["comments"].append({
+                "author": comment.author.profile,
+                "text": comment.text,
+                "date": comment.date,
+                "id": comment.pk,
+                "comments": self.get_comment_childs(comment)
+            })
         
         return context
 
+    def get_comment_childs(self, parent):
 
-class ForumCreateView(CreateView):
+        res = []
+
+        for comment in parent.comment_set.all():
+            res.append({
+                "author": comment.author.profile,
+                "text": comment.text,
+                "date": comment.date,
+                "id": comment.pk,
+                "comments": self.get_comment_childs(comment)
+            })
+        
+        return res
+
+
+class PostCommentView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+
+        if request.user.is_authenticated:
+    
+            forum_id = int(request.POST.get('forum_id'))
+            reaction_to_id = int(request.POST.get('comment_id'))
+            text = request.POST.get('text')
+            comment = Comment(
+                text=text,
+                author_id=request.user.id,
+                forum_id=forum_id,
+                reaction_to_id=reaction_to_id
+            )
+            comment.save()
+            comment.user = Profile.objects.get(user_id=request.user.id)
+            return render(request, 'new_reply.html', {"reply":comment})
+    
+        else:
+            response = JsonResponse({"error": "Unauthorized"})
+            response.status_code = 401
+            return response
+
+
+class ForumCreateView(LoginMixinView, CreateView):
 
     template_name = "forum_form.html"
     success_url = reverse_lazy("forum:index")
