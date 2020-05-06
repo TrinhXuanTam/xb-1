@@ -39,8 +39,7 @@
                         comment_id: ref.attr('id')
                     },
                     success: function(data) {
-                        ref.parents().eq(3).find(".subcomments ul").prepend(data)
-                        // alert(ref.parents().eq(2).attr('class'))
+                        ref.parents().eq(3).find(".subcomments ul").first().prepend(data)
                         ref.find("textarea").val('')
                     }
                 });
