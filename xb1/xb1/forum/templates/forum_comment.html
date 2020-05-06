@@ -34,12 +34,12 @@
         </div>
     </div>
 
-    {% if comment.comments|length %}
         <div class="subcomments">
             <ul>
-                {% include "forum_comment.html" with comments=comment.comments %}
+                {% if comment.comments|length %}
+                    {% include "forum_comment.html" with comments=comment.comments %}
+                {% endif %}
             </ul>
         </div>
-    {% endif %}
     </li>
 {%endfor%}
