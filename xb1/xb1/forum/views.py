@@ -108,13 +108,15 @@ class ForumDetailView(LoginMixinView, TemplateView):
 
         for comment in q_comments:
             context["comments"].append({
-                "author": comment.author.profile,
+                "author": comment.author,
                 "text": comment.text,
                 "date": comment.date,
                 "id": comment.pk,
                 "comments": self.get_comment_childs(comment)
             })
         
+        context["forum_id"] = context["object"].pk
+
         return context
 
     def get_comment_childs(self, parent):
@@ -123,7 +125,7 @@ class ForumDetailView(LoginMixinView, TemplateView):
 
         for comment in parent.comment_set.all():
             res.append({
-                "author": comment.author.profile,
+                "author": comment.author,
                 "text": comment.text,
                 "date": comment.date,
                 "id": comment.pk,
@@ -150,7 +152,7 @@ class PostCommentView(LoginRequiredMixin, View):
             )
             comment.save()
             comment.user = Profile.objects.get(user_id=request.user.id)
-            return render(request, 'new_reply.html', {"reply":comment})
+            return render(request, 'forum_comment.html', {"forum_id":forum_id, "comments":[comment]})
     
         else:
             response = JsonResponse({"error": "Unauthorized"})

@@ -1,11 +1,10 @@
 {% for comment in comments %}
     <li>
-    {{user}}
     <div class="comment">
-        <img class=comment_profile_pic src="{{comment.author.image.url}}">
+        <img class=comment_profile_pic src="{{comment.author.profile.image.url}}">
         <div class="comment_content">	
             <div class= "comment_header">	
-                <div class="comment_nickname">{{comment.author.nickname}}</div>
+                <div class="comment_nickname">{{comment.author.profile.nickname}}</div>
                 <div class="comment_date">{{comment.date}}</div>
             </div>
             <div class="comment_text">{{comment.text}}</div>
@@ -42,4 +41,28 @@
             </ul>
         </div>
     </li>
+
+    <!-- Post a comment -->
+    <script>
+        $("#{{comment.id}}").submit(function(event) {
+            event.preventDefault();
+            ref = $(this)
+            $.ajax({
+                type:'POST',
+                async: true,
+                cache: false,
+                url:'{% url "forum:post_comment" %}',
+                data: {
+                    csrfmiddlewaretoken: $(this).find("input[type='hidden']").val(),
+                    forum_id: "{{ forum_id }}",
+                    text: $(this).find("textarea").val(),
+                    comment_id: ref.attr('id')
+                },
+                success: function(data) {
+                    ref.parents().eq(3).find(".subcomments ul").first().prepend(data)
+                    ref.find("textarea").val('')
+                }
+            });
+        })
+    </script>
 {%endfor%}
