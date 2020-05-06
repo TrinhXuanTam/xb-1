@@ -47,7 +47,8 @@
     display: flex;
     flex-flow: row;
     margin-top: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    align-items: center;
 }
 
 .preview_header img {
@@ -66,7 +67,7 @@
     margin-right: 10px;
 }
 
-.preview_edit_button button {
+.preview_edit_button a {
     font-size: 14px;
     background: transparent;
     border: none;
@@ -78,7 +79,7 @@
     transition: 0.2s;
 }
 
-.preview_edit_button button:hover {
+.preview_edit_button a:hover {
     color: black;
     background: white;
     cursor: pointer;
@@ -90,6 +91,7 @@
 
 .preview a {
     text-decoration: none;
+    color: white;
 }
 
 .preview_thumb img{
