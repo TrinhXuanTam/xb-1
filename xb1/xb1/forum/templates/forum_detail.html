@@ -19,8 +19,39 @@
         <ul>
             {% include "forum_comment.html" %}
         </ul>
-    </div>
 
+    {% if user.is_authenticated %}
+		<form id="comment_post_form" method="POST">
+			{% csrf_token %}
+			<textarea required rows=1 placeholder="Add a comment"></textarea>
+			<button class="comment_section_button">Post</button>
+		</form>
+
+		<script src="{% static 'js/articles_detail.js' %}"></script>
+		<!-- Post a new comment and display it -->
+		<script>
+			document.getElementById("comment_post_form").onsubmit = function(event) {
+				event.preventDefault();
+				$.ajax({
+					type:'POST',
+					async: true,
+					cache: false,
+					url:'{% url "forum:post_comment" %}',
+					data: {
+						csrfmiddlewaretoken: $("#comment_post_form input[type='hidden']").val(),
+						forum_id: "{{ forum_id }}",
+						text: $("#comment_post_form textarea").val(),
+                        comment_id: -1,
+					  },
+					  success: function(data) {
+         				$('#comment_post_form').before(data) 
+         				$('#comment_post_form textarea').val('') 
+					  }
+				  });
+			  }
+        </script>
+    {% endif %}
+    </div>
     
 </div>
 {% endblock %}

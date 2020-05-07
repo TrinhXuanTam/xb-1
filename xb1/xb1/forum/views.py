@@ -148,8 +148,10 @@ class PostCommentView(LoginRequiredMixin, View):
                 text=text,
                 author_id=request.user.id,
                 forum_id=forum_id,
-                reaction_to_id=reaction_to_id
             )
+            if reaction_to_id >= 0:
+                comment.reaction_to_id=reaction_to_id
+    
             comment.save()
             comment.user = Profile.objects.get(user_id=request.user.id)
             return render(request, 'forum_comment.html', {"forum_id":forum_id, "comments":[comment]})
