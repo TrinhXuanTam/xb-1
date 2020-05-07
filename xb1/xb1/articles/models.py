@@ -104,6 +104,9 @@ class Forum(TimeStampedModel):
     is_closed = models.BooleanField(verbose_name=_("Is closed"), default=False)
     category = models.ForeignKey(ForumCategory, verbose_name=_("Category"), on_delete=models.SET_NULL, blank=True, null=True)
 
+    def __str__(self):
+        return self.title
+
 
 class Comment(TimeStampedModel):
 
@@ -115,4 +118,5 @@ class Comment(TimeStampedModel):
     is_censured = models.BooleanField(verbose_name=_("Is censured"), default=False)
     date = models.DateTimeField(verbose_name=_("Posted on"), default=timezone.now, null=False, blank=False, editable=False)
 
-
+    def __str__(self):
+        return self.text

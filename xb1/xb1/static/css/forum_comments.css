@@ -1,0 +1,12 @@
+.comments {
+    text-align: left;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.subcomments {
+  border-left: 2px solid #afafaf;
+  border-radius: 15px;
+}
