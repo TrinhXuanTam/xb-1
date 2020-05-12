@@ -1,0 +1,39 @@
+.articles_content {
+    flex: 1;
+}
+
+.articles_categories {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.articles_categories_slider_menu {
+    border-radius: 3rem;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
+    width: 90%;
+    padding: 10px;
+}
+
+.article_category {
+    font-size: 20px;
+    padding: 0 15px;
+    display: table-cell;
+}
+
+.slider_button {
+    background: none;
+    color: white;
+    border: none;
+    outline: none;
+}
+
+.slider_button:hover {
+    cursor: pointer;
+}
+
+.articles_list {
+
+}
