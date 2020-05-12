@@ -8,34 +8,29 @@
 {% block content %}
 <div class="articles_content">
     <div class="articles_categories">
+
         <button class="slider_button slider_back">
-            <i class="fas fa-angle-left fa-2x"></i>
+            <i class="fas fa-angle-left fa-3x"></i>
         </button>
+        
         <div class="articles_categories_slider_menu">
             <div class=articles_categories_wrapper>
                 <button class="article_category article_category_active">Vše</button>
-                <button class="article_category">Kategorie</button>
-                <button class="article_category">Kategorie</button>
-                <button class="article_category">Kategorie</button>
-                <button class="article_category">Kategorie</button>
-                <button class="article_category">Kategorie</button>
-                <button class="article_category">Kategorie</button>
-                <button class="article_category">Kategorie</button>
-                <button class="article_category">Kategorie</button>
-                <button class="article_category">Kategorie</button>
-                <button class="article_category">Kategorie</button>
-                <button class="article_category">Kategorie</button>
-                <button class="article_category">Kategorie</button>
-                <button class="article_category">Kategorie</button>
-                <button class="article_category">Kategorie</button>
-                <button class="article_category">Kategorie</button>
+                
+                {% for category in categories %}
+                <button class="article_category">{{category}}</button>
+                {% endfor %}
             </div>
         </div>
+
         <button class="slider_button slider_next">
-            <i class="fas fa-angle-right fa-2x"></i>
+            <i class="fas fa-angle-right fa-3x"></i>
         </button>
     </div>
-    <div class="articles_list"></div>
+
+    <div class="articles_list">
+        {% include "articles_by_category.html" with articles=object_list %}
+    </div>
 </div>
 
 <script src="{% static 'js/articles.js' %}"></script>
