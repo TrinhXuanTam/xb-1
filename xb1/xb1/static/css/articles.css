@@ -11,7 +11,7 @@
 }
 
 .articles_categories_slider_menu {
-    border-radius: 3rem;
+    border-radius: 10px;
     overflow: hidden;
     background: rgba(255, 255, 255, 0.03);
     box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
@@ -50,11 +50,93 @@
     flex: 1;
     background: rgba(255, 255, 255, 0.03);
     box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
-    border-top-left-radius: 2rem;
-    border-top-right-radius: 2rem;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
     width: 90%;
     margin: 0 auto;
     margin-top: 10px;
     padding: 0 20px;
     padding-top: 20px;
+}
+
+.articles_topnav {
+    display: flex;
+    justify-content: flex-end;
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    white-space: nowrap;
+}
+
+.new_article_button {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border: none;
+    color: white;
+    outline: none;
+    padding: 5px;
+    border: 1px solid white;
+    border-radius: 8px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.new_article_button .fas {
+    border-left: 1px solid white;
+    padding: 7px;
+    margin-left: 5px;
+}
+
+.new_article_button:hover {
+    color: black;
+    background: white;
+}
+
+.article_search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    text-decoration: none;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border: none;
+    color: white;
+    outline: none;
+    border: 1px solid white;
+    border-radius: 8px;
+    margin-left: 10px;
+}
+
+.article_search input[type="text"] {
+    flex: 1;
+    color: white;
+    height: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    padding-left: 10px;
+}
+
+.article_search button {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background: none;
+    color: white;
+    height: 100%;
+    border: none;
+    border-left: 1px solid white;
+    padding: 7px;
+    outline: none;
+    cursor: pointer;
+}
+
+.article_search button:hover {
+    color: black;
+    background: white;
 }

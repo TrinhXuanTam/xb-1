@@ -7,8 +7,17 @@
 
 {% block content %}
 <div class="articles_content">
+    <div class="articles_topnav">
+        {%if perms.articles.change_article %}
+        <a href="{% url 'articles:article_create' %}" class="new_article_button">Create article<i class="fas fa-plus"></i></a>
+        {%endif%}
+        
+        <form class="article_search">
+            <input type="text" placeholder="Search articles">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
     <div class="articles_categories">
-
         <button class="slider_button slider_back">
             <i class="fas fa-angle-left fa-3x"></i>
         </button>

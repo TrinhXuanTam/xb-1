@@ -8,8 +8,5 @@
     bottom: 10px;
     right: 10px;
     margin: 20px;
-}
-
-.chat:focus {
     outline: none;
 }
