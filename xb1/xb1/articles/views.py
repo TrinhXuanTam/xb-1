@@ -13,7 +13,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from .forms import ArticleForm
-from .models import Article, Comment
+from .models import Article, Comment, Category, Tag
 from ..core.models import Profile
 from ..core.views import LoginMixinView
 
@@ -23,6 +23,14 @@ from django.template.loader import render_to_string
 class ArticleListView(LoginMixinView, ListView):
     model = Article
     template_name = "articles.html"
+    ordering = ['-modified']
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ArticleListView, self).get_context_data(*args, **kwargs)
+        context['categories'] = Category.objects.all()
+        for article in context['object_list']:
+            article.article_tags = Tag.objects.filter(article=article)
+        return context
 
 
 class ArticleCreateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, CreateView):

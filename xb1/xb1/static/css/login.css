@@ -111,6 +111,7 @@
 
 .modal_content button,
 #sign_up {
+    text-decoration: none;
     font-size: 14px;
     background: transparent;
     border: none;
@@ -120,13 +121,13 @@
     border: 1px solid white;
     border-radius: 1rem;
     transition: 0.2s;
+    cursor: pointer;
 }
 
 .modal_content button:hover,
 #sign_up:hover {
     color: black;
     background: white;
-    cursor: pointer;
 }
 
 .modal_content h1 {

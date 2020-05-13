@@ -1,0 +1,323 @@
+.articles_content {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+}
+
+.articles_categories {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.articles_categories_slider_menu {
+    border-radius: 10px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
+    width: 90%;
+    padding: 10px;
+    white-space: nowrap;
+}
+
+.articles_categories_wrapper {
+    display: flex;
+}
+
+.article_category {
+    outline: none;
+    font-size: 20px;
+    padding: 0 15px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.article_category_active {
+    border-bottom: 1px solid white;
+}
+
+.slider_button {
+    background: none;
+    color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.articles_list {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.articles_topnav {
+    display: flex;
+    justify-content: flex-end;
+    width: 91%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    white-space: nowrap;
+}
+
+.new_article_button,
+.new_category_button {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
+    border: none;
+    outline: none;
+    padding: 5px;
+    border-radius: 8px;
+    transition: 0.2s;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.new_article_button {
+    border: 1px solid #32CD32;
+    color: #32CD32;
+}
+
+.new_article_button .fas {
+    border-left: 1px solid #32CD32;
+    padding: 7px;
+    margin-left: 5px;
+}
+
+.new_article_button:hover {
+    color: black;
+    background: #32CD32;
+}
+
+.new_category_button {
+    border: 1px solid white;
+    color: white;
+}
+
+.new_category_button:hover {
+    color: black;
+    background: white;
+}
+
+.new_category_button .fas {
+    border-left: 1px solid white;
+    padding: 7px;
+    margin-left: 5px;
+}
+
+.article_search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    text-decoration: none;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
+    border: none;
+    color: white;
+    outline: none;
+    border: 1px solid white;
+    border-radius: 8px;
+    margin-left: 10px;
+}
+
+.article_search input[type="text"] {
+    flex: 1;
+    color: white;
+    height: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    padding-left: 10px;
+}
+
+.article_search button {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background: none;
+    color: white;
+    height: 100%;
+    border: none;
+    border-left: 1px solid white;
+    padding: 7px 10px;
+    outline: none;
+    cursor: pointer;
+}
+
+.article_search button:hover {
+    color: black;
+    background: white;
+}
+
+.article_preview {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255,255,255, 0.2);
+    transition-property: background;
+    transition-duration: 500ms;
+}
+
+.article_preview:hover {
+    background: rgba(255,255,255, 0.05);
+}
+
+.article_preview:first-of-type {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.preview_title {
+    text-align: left;
+    font-size: xx-large;
+}
+
+.preview_thumbnail {
+    width: 20%;
+    height: 100%;
+}
+
+.preview_content {
+    color: white;
+    text-decoration: none;
+    margin-left: 10px;
+    flex: 1;
+}
+
+.preview_info {
+    display: flex;
+    flex-flow: row;
+    align-items: flex-end;
+    text-align: left;
+}
+
+.preview_author_profile_image {
+    width: 30px;
+    height: 30px;
+    object-fit: fill;
+    border-radius: 50%;
+}
+
+.preview_author_nickname {
+    margin-left: 5px;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.preview_modified {
+    flex: 1;
+    text-align: right;
+}
+
+.preview_text {
+    margin-top: 20px;
+    text-align: justify;
+}
+
+.preview_utilities {
+    margin-top: 20px;
+    width: 100%;
+    text-align: right;
+}
+
+.preview_edit_button,
+.preview_delete_button,
+.preview_hide_button {
+    text-decoration: none;
+    font-size: 14px;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+.preview_edit_button {
+    color: #FFD700	;
+    border: 1px solid #FFD700;
+}
+
+.preview_edit_button:hover{
+    color: black;
+    background: #FFD700;
+}
+
+.preview_delete_button {
+    color: rgb(200, 0, 0);
+    border: 1px solid rgb(200, 0, 0);
+}
+
+.preview_delete_button:hover {
+    color: black;
+    background: rgb(200, 0, 0);
+}
+
+.preview_hide_button {
+    color: white;
+    border: 1px solid white;
+}
+
+.preview_hide_button:hover {
+    color: black;
+    background: white;
+}
+
+.article_preview_tags {
+    margin-top: 10px;
+    padding: 0 10px;
+    width: 100%;
+    text-align: left;
+}
+
+.article_tag {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    position: relative;
+    margin: 0 15px 0 0;
+    padding: 0 10px 0 12px;
+    font-size: 12px;
+    font-weight: bold;
+    background: rgba(255,255,255, 0.3);
+}
+
+.article_tag:before {
+    content: "";
+    position: absolute;
+    top:0;
+    left: -12px;
+    width: 0;
+    height: 0;
+    border-color: transparent rgba(255,255,255, 0.3) transparent transparent;
+    border-style: solid;
+    border-width: 12px 12px 12px 0;
+}
+
+.article_tag:after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 1px;
+    float: left;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: white;
+}
