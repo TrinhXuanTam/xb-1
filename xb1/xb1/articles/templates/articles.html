@@ -10,8 +10,9 @@
     <div class="articles_topnav">
         {%if perms.articles.change_article %}
         <a href="{% url 'articles:article_create' %}" class="new_article_button">Create article<i class="fas fa-plus"></i></a>
+        <a href="#" class="new_category_button">Add category<i class="fas fa-list"></i></a>
         {%endif%}
-        
+
         <form class="article_search">
             <input type="text" placeholder="Search articles">
             <button type="submit"><i class="fa fa-search"></i></button>

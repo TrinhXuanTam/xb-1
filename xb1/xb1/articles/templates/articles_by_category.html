@@ -17,9 +17,9 @@
     </a>
     {%if perms.articles.change_article%}
     <div class="preview_utilities">
-        <div class="preview_edit_button">
-            <a href="{% url 'articles:article_update' pk=article.pk %}">{%trans "Edit"%}</a>
-        </div>  
+        <a class="preview_hide_button" href="#">{%trans "Hide"%}</a>
+        <a class="preview_edit_button" href="{% url 'articles:article_update' pk=article.pk %}">{%trans "Edit"%}</a>
+        <a class="preview_delete_button" href="#">{%trans "Delete"%}</a>
     </div>
     {%endif%}
 </div>
