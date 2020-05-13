@@ -1,3 +1,26 @@
 {% load i18n %}
 {% for article in articles %}
+<div class="article_preview">
+    {%if article.thumbnail%}
+    <img class="preview_thumbnail" src="{{article.thumbnail.url}}">
+    {%endif%}
+    <a href="{% url 'articles:detail' slug=article.slug %}" class="preview_content">
+        <div class="preview_title">{{article.title}}</div>
+        <div class="preview_info">
+            {%if article.author.profile.image%}
+            <img class="preview_author_profile_image" src="{{article.author.profile.image.url}}">
+            {%endif%}
+            <div class="preview_author_nickname">{{article.author.profile.nickname}}</div>
+            <div class="preview_modified">{{article.modified}}</div>
+        </div>
+        <div class="preview_text">{{ article.preview_text | safe | default_if_none:"" }}</div>
+    </a>
+    {%if perms.articles.change_article%}
+    <div class="preview_utilities">
+        <div class="preview_edit_button">
+            <a href="{% url 'articles:article_update' pk=article.pk %}">{%trans "Edit"%}</a>
+        </div>  
+    </div>
+    {%endif%}
+</div>
 {% endfor %}
