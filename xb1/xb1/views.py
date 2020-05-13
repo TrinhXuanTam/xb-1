@@ -1,5 +1,7 @@
 from django.contrib.auth import login
-from django.contrib.auth.views import LoginView as BaseLoginView, LogoutView as BaseLogoutView
+from django.contrib.auth.views import LoginView as BaseLoginView, LogoutView as BaseLogoutView, \
+    PasswordResetConfirmView as AuthPasswordResetConfirmView, PasswordResetCompleteView as AuthPasswordResetCompleteView, \
+    PasswordResetView as AuthPasswordResetView, PasswordResetDoneView as AuthPasswordResetDoneView
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -18,7 +20,8 @@ from django.views.generic.edit import FormView
 from django.contrib.auth.views import PasswordChangeView as AuthPasswordChangeView
 
 from .articles.models import Article, UploadedFile
-from .core.forms import UserRegistrationForm, UserLoginForm, ProfileUpdateForm, UserUpdateForm, UserChangeEmailForm, ChangePasswordForm
+from .core.forms import UserRegistrationForm, UserLoginForm, ProfileUpdateForm, UserChangeEmailForm, \
+    ChangePasswordForm, ChangePasswordResetForm, PasswordResetEmailForm
 
 from .core.models import User, Profile
 from django.contrib.auth.forms import UserCreationForm
@@ -170,6 +173,24 @@ class EmailChangeView(LoginMixinView, FormView):
         # self.request.user.email_user(subject, message)
         send_mail(subject, message, EMAIL_HOST_USER, [str(self.request.user.temp_email)], fail_silently=False)
         return redirect('activation_sent')
+
+
+class PasswordResetView(LoginMixinView, AuthPasswordResetView):
+    form_class = PasswordResetEmailForm
+    template_name = "registration/password_reset.html"
+
+
+class PasswordResetConfirmView(LoginMixinView, AuthPasswordResetConfirmView):
+    form_class = ChangePasswordResetForm
+    template_name = "registration/password_reset_confirm.html"
+
+
+class PasswordResetDoneView(LoginMixinView, AuthPasswordResetDoneView):
+    template_name = "registration/password_reset_done.html"
+
+
+class PasswordResetCompleteView(LoginMixinView, AuthPasswordResetCompleteView):
+    template_name = "registration/password_reset_complete.html"
 
 
 class Register(LoginMixinView, FormView):

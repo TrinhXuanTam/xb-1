@@ -8,7 +8,7 @@ from PIL import Image
 class User(AbstractUser):
     email = models.EmailField(unique=True)
     # new email when users change email, temp will be set to email if users authenticate their new email
-    temp_email = models.EmailField(unique=True, null=True)
+    temp_email = models.EmailField(null=True)
     signup_confirmation = models.BooleanField(default=False)
 
 
