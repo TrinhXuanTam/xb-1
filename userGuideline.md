@@ -16,18 +16,29 @@ Cílem tohoto dokumentu je seznámení uživatelů XB1 fans s funkcionalitami st
     - Uživatel zadá svoje přihlašovací údaje (je nutná úspěšná registrace). Po přihlášení jsou uživateli odemknuty funkcionality pro přihlášené.
     
     ![](pictures/login2.PNG)
+    - Pokud si uživatel potřebuje resetovat heslo, musí kliknout na tento odkaz při přihlášení.
+    
+    ![](pictures/passwordResetWhere.PNG)
+    - Následně zadá svůj email, na který mu bude poslány instrukce k nastavení nového hesla.
+    
+    ![](pictures/passwordReset.PNG)
+    - Nastavení hesla
+    
+    ![](pictures/passwordResetSet.PNG)
 
 ### Profilová sekce
 - V profilové sekci si uživatel může změnit svoje přihlašovací a osobní údaje.
-    - ![](pictures/profile1.PNG) 
+
+    ![](pictures/profile1.PNG) 
 - Pro změnu hesla platí stejná pravidla jako při registraci.
-    - ![](pictures/profile_pass_change.PNG)
 
+    ![](pictures/profile_pass_change.PNG)
 - Pro změnu emailu se musí ověřit nově zadaná emailová adresa zasláním aktivačního odkazu.  Expirační doba odkazu je 24 hodin.
-    - ![](pictures/profile_email_change.PNG)
 
+    ![](pictures/profile_email_change.PNG)
 - Změna osobních údajů je dobrovolná, slouží převážně k urychlení objednávek z e-shopu XB1 fans automatickým doplněním osobních údajů. Pro změnu profilového obrázku se doporučují obrázky do rozlišení 300x300 pixelů, větší obrázky jsou zmenšeny do vhodné velikosti.
-    - ![](pictures/profile2.PNG)
+    
+    ![](pictures/profile2.PNG)
 
 ### E-shop sekce
 ### Článková sekce
