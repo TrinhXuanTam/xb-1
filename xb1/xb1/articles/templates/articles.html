@@ -25,10 +25,10 @@
         
         <div class="articles_categories_slider_menu">
             <div class=articles_categories_wrapper>
-                <button class="article_category article_category_active">Vše</button>
+                <button class="article_category_all article_category_active">Vše</button>
                 
                 {% for category in categories %}
-                <button class="article_category">{{category}}</button>
+                <button class="article_category" id="{{category}}">{{category}}</button>
                 {% endfor %}
             </div>
         </div>
@@ -42,6 +42,47 @@
         {% include "articles_by_category.html" with articles=object_list %}
     </div>
 </div>
+
+<script>
+    $(".article_category_all").click(function(event) {
+        event.preventDefault();
+        ref = $(this)
+        $.ajax({
+            type:'POST',
+            async: true,
+            cache: false,
+            url:'{% url "articles:get_all_articles" %}',
+            data: {
+                csrfmiddlewaretoken: "{{ csrf_token }}"
+              },
+              success: function(data) {
+                  $('.articles_list').empty()
+                  $('.articles_list').append(data)
+              }
+          });
+    })
+</script>
+
+<script>
+    $(".article_category").click(function(event) {
+        event.preventDefault();
+        ref = $(this)
+        $.ajax({
+            type:'POST',
+            async: true,
+            cache: false,
+            url:'{% url "articles:get_articles_by_category" %}',
+            data: {
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                category: ref.attr('id')
+              },
+              success: function(data) {
+                  $('.articles_list').empty()
+                  $('.articles_list').append(data)
+              }
+          });
+    })
+</script>
 
 <script src="{% static 'js/articles.js' %}"></script>
 {% endblock %}

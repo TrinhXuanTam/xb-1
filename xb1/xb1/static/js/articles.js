@@ -18,11 +18,10 @@ $(".slider_back").click(function() {
     $('.articles_categories_wrapper').animate({'margin-left':'+=' + off + 'px'}, 200);
 })
 
-$(".article_category").click(function() {
+$(".article_category, .article_category_all").click(function() {
     if($(this).hasClass('article_category_active'))
         return
 
-    $('.article_category').removeClass("article_category_active")
+    $('*').removeClass("article_category_active")
     $(this).addClass('article_category_active')
-
 })

@@ -111,3 +111,18 @@ class PostCommentReplyView(LoginRequiredMixin, View):
             response = JsonResponse({"error": "Unauthorized"})
             response.status_code = 401
             return response
+
+class GetArticlesByCategoryView(View):
+    def post(self, request, *args, **kwargs):
+        category = Category.objects.get(name=request.POST.get('category'))
+        articles = Article.objects.filter(category=category.id)
+        for article in articles:
+            article.article_tags = Tag.objects.filter(article=article)
+        return render(request, 'articles_by_category.html', {"articles":articles})
+
+class GetAllArticlesView(View):
+    def post(self, request, *args, **kwargs):
+        articles = Article.objects.all()
+        for article in articles:
+            article.article_tags = Tag.objects.filter(article=article)
+        return render(request, 'articles_by_category.html', {"articles":articles})

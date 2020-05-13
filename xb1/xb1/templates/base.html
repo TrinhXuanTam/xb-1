@@ -157,6 +157,21 @@
 
       <!-- Scripts -->
 
+      <script>
+            $(document).on({
+                ajaxStart: function() {
+                    $('#wrapper').css('filter', 'blur(10px)');
+                    $('#loading').css('visibility', 'visible');
+                    $('#loading').css('display', 'block');
+            },
+                ajaxStop: function() { 
+                    $('#wrapper').css('filter', 'blur(0)');
+                    $('#loading').css('visibility', 'hidden');
+                    $('#loading').css('display', 'none');
+            }
+            });
+      </script>
+
       <!-- Display warning if user fails to authenticate -->
       <script>
           document.getElementById("login_form").onsubmit = function(event) {
