@@ -3,15 +3,19 @@ Cílem tohoto dokumentu je seznámení uživatelů XB1 fans s funkcionalitami st
 ### Uživatelská sekce
 - Registrace 
     - Uživatel zadá svoje přihlašovací údaje a následně je na zadaný email zaslán aktivační odkaz.
-    - ![](pictures/register1.PNG)
+    
+    ![](pictures/register1.PNG)
     - Expirační doba odkazu je 24 hodin.
-    - ![](pictures/activation_link.PNG)
+
+    ![](pictures/activation_link.PNG)
 
 - Přihlášení
-    - Přihlásit se je možné kliknutím na tato místa. 
-    - ![](pictures/login1.PNG)
+    - Přihlásit se je možné kliknutím na tato místa.
+
+    ![](pictures/login1.PNG)
     - Uživatel zadá svoje přihlašovací údaje (je nutná úspěšná registrace). Po přihlášení jsou uživateli odemknuty funkcionality pro přihlášené.
-    - ![](pictures/login2.PNG)
+    
+    ![](pictures/login2.PNG)
 
 ### Profilová sekce
 - V profilové sekci si uživatel může změnit svoje přihlašovací a osobní údaje.
