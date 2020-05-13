@@ -23,10 +23,13 @@ from django.template.loader import render_to_string
 class ArticleListView(LoginMixinView, ListView):
     model = Article
     template_name = "articles.html"
+    ordering = ['-modified']
 
     def get_context_data(self, *args, **kwargs):
         context = super(ArticleListView, self).get_context_data(*args, **kwargs)
         context['categories'] = Category.objects.all()
+        for article in context['object_list']:
+            article.article_tags = Tag.objects.filter(article=article)
         return context
 
 

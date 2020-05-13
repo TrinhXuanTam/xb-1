@@ -16,6 +16,11 @@
         <div class="preview_text">{{ article.preview_text | safe | default_if_none:"" }}</div>
     </a>
     {%if perms.articles.change_article%}
+    <div class="article_preview_tags">
+        {%for tag in article.article_tags%}
+        <div class="article_tag">{{tag}}</div>
+        {%endfor%}
+    </div>
     <div class="preview_utilities">
         <a class="preview_hide_button" href="#">{%trans "Hide"%}</a>
         <a class="preview_edit_button" href="{% url 'articles:article_update' pk=article.pk %}">{%trans "Edit"%}</a>

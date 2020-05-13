@@ -276,3 +276,48 @@
     color: black;
     background: white;
 }
+
+.article_preview_tags {
+    margin-top: 10px;
+    padding: 0 10px;
+    width: 100%;
+    text-align: left;
+}
+
+.article_tag {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    position: relative;
+    margin: 0 15px 0 0;
+    padding: 0 10px 0 12px;
+    font-size: 12px;
+    font-weight: bold;
+    background: rgba(255,255,255, 0.3);
+}
+
+.article_tag:before {
+    content: "";
+    position: absolute;
+    top:0;
+    left: -12px;
+    width: 0;
+    height: 0;
+    border-color: transparent rgba(255,255,255, 0.3) transparent transparent;
+    border-style: solid;
+    border-width: 12px 12px 12px 0;
+}
+
+.article_tag:after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 1px;
+    float: left;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: white;
+}
