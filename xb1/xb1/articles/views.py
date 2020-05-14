@@ -64,9 +64,10 @@ class ArticleDetailView(LoginMixinView, DetailView):
     template_name = "articles_detail.html"
 
     def get_context_data(self, *args, **kwargs):
-        context = super(ArticleDetailView, self).get_context_data(*args, **kwargs)
-        article = Article.objects.get(slug=kwargs['slug'])
+        context  = super(ArticleDetailView, self).get_context_data(*args, **kwargs)
+        article  = Article.objects.get(slug=kwargs['slug'])
         comments = None
+
         if article.allow_comments:
             comments = Comment.objects.filter(article=article.id, reaction_to_id=None).order_by('date').reverse()
             # Get comments with user data
@@ -76,8 +77,14 @@ class ArticleDetailView(LoginMixinView, DetailView):
                 comment.replies = Comment.objects.filter(reaction_to_id=comment.id).order_by('date')
                 for reply in comment.replies:
                     reply.user = Profile.objects.get(user_id=reply.author_id)
-        context['article'] = article
-        context['comments'] = comments
+
+        article_tags       = Tag.objects.filter(article=article)
+        article_categories = Category.objects.filter(article=article)
+
+        context['article']    = article
+        context['comments']   = comments
+        context['categories'] = article_categories
+        context['tags']       = article_tags
         return context
 
     def get(self, request, *args, **kwargs):
