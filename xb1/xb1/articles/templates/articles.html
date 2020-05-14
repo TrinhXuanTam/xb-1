@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block include %}
@@ -9,12 +10,12 @@
 <div class="articles_content">
     <div class="articles_topnav">
         {%if perms.articles.change_article %}
-        <a href="{% url 'articles:article_create' %}" class="new_article_button">Create article<i class="fas fa-plus"></i></a>
-        <a href="#" class="new_category_button">Add category<i class="fas fa-list"></i></a>
+        <a href="{% url 'articles:article_create' %}" class="new_article_button">{%trans "Create article"%}<i class="fas fa-plus"></i></a>
+        <a href="#" class="new_category_button">{%trans "Add category"%}<i class="fas fa-list"></i></a>
         {%endif%}
 
         <form class="article_search">
-            <input type="text" required placeholder="Search articles">
+            <input type="text" required placeholder="{%trans "Search articles"%}">
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
     </div>
@@ -25,7 +26,7 @@
         
         <div class="articles_categories_slider_menu">
             <div class=articles_categories_wrapper>
-                <button class="article_category_all article_category_active">Vše</button>
+                <button class="article_category_all article_category_active">{%trans "All"%}</button>
                 
                 {% for category in categories %}
                 <button class="article_category" id="{{category.id}}">{{category}}</button>
@@ -111,7 +112,7 @@
                 }
             });
         }else {
-            $(this).text("Confirm")
+            $(this).text("{%trans "Confirm"%}")
             $(this).addClass("delete_confirmation")
         }
     })
