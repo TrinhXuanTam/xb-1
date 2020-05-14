@@ -21,21 +21,21 @@
 			<div class="article_footer_left">
 				{% if categories %}
 				<div class="article_footer_item">
-					<h1>categories</h1>
+					<h1>{% trans "categories" %}</h1>
 					{% for category in categories %}
-					<p class="article_category">'{{ category }}'</p>
+					<p class="article_category">{{ category }}</p>
 					{% endfor %}
 				</div>
 				{% endif %}
 				<div class="article_footer_item">
-					<h1>author</h1>
+					<h1>{% trans "author" %}</h1>
 					<p>{{ article.author }}</p>
 				</div>
 			</div>
 			<div class="article_footer_right">
 				{% if tags %}
 				<div class="article_footer_item">
-					<h1 class="tags_h">tags</h1>
+					<h1 class="tags_h">{% trans "tags" %}</h1>
 					{% for tag in tags %}
 					<div class="article_tag">{{ tag }}</div>
 					{% endfor %}
@@ -43,14 +43,14 @@
 				{% endif %}
 				{% if article.sources %}
 				<div class="article_footer_item">
-					<h1>sources</h1>
+					<h1>{% trans "sources" %}</h1>
 					<p>{{ article.sources }}</p>
 				</div>
 				{% endif %}
 			</div>
 			{%if perms.articles.change_article %}
 			<br>
-			<a href="/articles/{{ article.id }}"><button class="edit_button">Edit Article</button></a>
+			<a href="/articles/{{ article.id }}"><button class="edit_button">{% trans "Edit Article" %}</button></a>
 			{% endif %}
 		</div>
 	</div>
@@ -70,8 +70,8 @@
 			{% if user.is_authenticated %}
 			<form id="{{comment.id}}" class="comment_reply_form" method="POST">
 				{% csrf_token %}
-				<textarea required rows=1 placeholder="Add a reply"></textarea>
-				<button class="comment_section_button">Reply</button>
+				<textarea required rows=1 placeholder="{% trans "Add A Reply" %}"></textarea>
+				<button class="comment_section_button">{% trans "Reply" %}</button>
 			</form>
 			{% endif %}
 		</div>
@@ -95,8 +95,8 @@
 {% if user.is_authenticated %}
 	<form id="comment_post_form" method="POST">
 		{% csrf_token %}
-		<textarea required rows=1 placeholder="Add a comment"></textarea>
-		<button class="comment_section_button">Post</button>
+		<textarea required rows=1 placeholder="{% trans "Add A Comment" %}"></textarea>
+		<button class="comment_section_button">{% trans "Post" %}</button>
 	</form>
 
 	<script src="{% static 'js/articles_detail.js' %}"></script>
