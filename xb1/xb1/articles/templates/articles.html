@@ -44,8 +44,7 @@
 </div>
 
 <script>
-    $(".article_category_all").click(function(event) {
-        event.preventDefault();
+    $(".article_category_all").click(function() {
         ref = $(this)
         $.ajax({
             type:'POST',
@@ -56,16 +55,14 @@
                 csrfmiddlewaretoken: "{{ csrf_token }}"
               },
               success: function(data) {
-                  $('.articles_list').empty()
-                  $('.articles_list').append(data)
+                  $('.articles_list').html(data)
               }
           });
     })
 </script>
 
 <script>
-    $(".article_category").click(function(event) {
-        event.preventDefault();
+    $(".article_category").click(function() {
         ref = $(this)
         $.ajax({
             type:'POST',
@@ -77,8 +74,7 @@
                 category: ref.attr('id')
               },
               success: function(data) {
-                  $('.articles_list').empty()
-                  $('.articles_list').append(data)
+                  $('.articles_list').html(data)
               }
           });
     })
