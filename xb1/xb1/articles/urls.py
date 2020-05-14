@@ -15,5 +15,5 @@ urlpatterns = [
     url(r'^post_reply', login_required(views.PostCommentReplyView.as_view()), name="post_reply"),
     url(r'^get_articles_by_category', views.GetArticlesByCategoryView.as_view(), name="get_articles_by_category"),
     url(r'^get_all_articles', views.GetAllArticlesView.as_view(), name="get_all_articles"),
-    
+    url(r'^search_articles', views.ArticleSearchView.as_view(), name="search_articles"),
 ]

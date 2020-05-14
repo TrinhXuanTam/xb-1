@@ -28,7 +28,7 @@
                 <button class="article_category_all article_category_active">Vše</button>
                 
                 {% for category in categories %}
-                <button class="article_category" id="{{category}}">{{category}}</button>
+                <button class="article_category" id="{{category.id}}">{{category}}</button>
                 {% endfor %}
             </div>
         </div>
@@ -42,6 +42,27 @@
         {% include "get_articles.html" with articles=object_list %}
     </div>
 </div>
+
+<script>
+    $(".article_search").submit(function(event) {
+        event.preventDefault()
+        ref = $(this)
+        $('*').removeClass('article_category_active')
+        $.ajax({
+            type:'GET',
+            async: true,
+            cache: false,
+            url:'{% url "articles:search_articles" %}',
+            data: {
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                keywords: ref.find('input[type=text]').val()
+              },
+              success: function(data) {
+                  $('.articles_list').html(data)
+              }
+          });
+    })
+</script>
 
 <script>
     $(".article_category_all").click(function() {

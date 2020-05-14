@@ -19,6 +19,8 @@ from ..core.views import LoginMixinView
 
 from django.http import JsonResponse, HttpResponse
 from django.template.loader import render_to_string
+from django.db.models import Q
+from functools import reduce
 
 class ArticleListView(LoginMixinView, ListView):
     model = Article
@@ -114,8 +116,7 @@ class PostCommentReplyView(LoginRequiredMixin, View):
 
 class GetArticlesByCategoryView(View):
     def get(self, request, *args, **kwargs):
-        category = Category.objects.get(name=request.GET.get('category'))
-        articles = Article.objects.filter(category=category.id)
+        articles = Article.objects.filter(category=request.GET.get('category'))
         for article in articles:
             article.article_tags = Tag.objects.filter(article=article).order_by('name')
         return render(request, 'get_articles.html', {"articles":articles})
@@ -123,6 +124,17 @@ class GetArticlesByCategoryView(View):
 class GetAllArticlesView(View):
     def get(self, request, *args, **kwargs):
         articles = Article.objects.all()
+        for article in articles:
+            article.article_tags = Tag.objects.filter(article=article).order_by('name')
+        return render(request, 'get_articles.html', {"articles":articles})
+
+class ArticleSearchView(View):
+    def get(self, request, *args, **kwargs):
+        keywords       = request.GET.get('keywords').split()
+        tags_query     = reduce(lambda x, y: x | y, [Q(name__icontains=keyword) for keyword in keywords])
+        articles_query = reduce(lambda x, y: x | y, [Q(title__icontains=keyword) for keyword in keywords])
+        tags           = Tag.objects.filter(tags_query)
+        articles       = Article.objects.filter(Q(tags__in=tags) | Q(articles_query)).distinct().order_by('-modified')
         for article in articles:
             article.article_tags = Tag.objects.filter(article=article).order_by('name')
         return render(request, 'get_articles.html', {"articles":articles})
