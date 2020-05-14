@@ -1,6 +1,15 @@
 {% load i18n %}
 {% for article in articles %}
+
+{% if article.article_state == 1 or perms.articles.change_article %}
+
+
+{% if article.article_state == 1 %}
 <div class="article_preview">
+{% else %}
+<div class="article_preview article_hidden">
+{%endif%}
+
     {%if article.thumbnail%}
     <img class="preview_thumbnail" src="{{article.thumbnail.url}}">
     {%endif%}
@@ -22,10 +31,18 @@
         {%endfor%}
     </div>
     <div class="preview_utilities">
+
+        {% if article.article_state == 1 %}
         <a class="preview_hide_button" href="#">{%trans "Hide"%}</a>
+        {% else %}
+        <a class="preview_publish_button" href="#">{%trans "Publish"%}</a>
+        {%endif%}
+
+
         <a class="preview_edit_button" href="{% url 'articles:article_update' pk=article.pk %}">{%trans "Edit"%}</a>
         <a class="preview_delete_button" href="#">{%trans "Delete"%}</a>
     </div>
     {%endif%}
 </div>
+{%endif%}
 {% endfor %}

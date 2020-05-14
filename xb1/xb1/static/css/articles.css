@@ -237,7 +237,8 @@
 
 .preview_edit_button,
 .preview_delete_button,
-.preview_hide_button {
+.preview_hide_button,
+.preview_publish_button {
     text-decoration: none;
     font-size: 14px;
     background: transparent;
@@ -268,12 +269,14 @@
     background: rgb(200, 0, 0);
 }
 
-.preview_hide_button {
+.preview_hide_button,
+.preview_publish_button {
     color: white;
     border: 1px solid white;
 }
 
-.preview_hide_button:hover {
+.preview_hide_button:hover,
+.preview_publish_button:hover {
     color: black;
     background: white;
 }
@@ -321,4 +324,8 @@
     height: 5px;
     border-radius: 50%;
     background: white;
+}
+
+.article_hidden {
+    opacity: 0.4;
 }

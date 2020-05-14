@@ -14,7 +14,7 @@
         {%endif%}
 
         <form class="article_search">
-            <input type="text" placeholder="Search articles">
+            <input type="text" required placeholder="Search articles">
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
     </div>
@@ -39,7 +39,7 @@
     </div>
 
     <div class="articles_list">
-        {% include "articles_by_category.html" with articles=object_list %}
+        {% include "get_articles.html" with articles=object_list %}
     </div>
 </div>
 
@@ -47,7 +47,7 @@
     $(".article_category_all").click(function() {
         ref = $(this)
         $.ajax({
-            type:'POST',
+            type:'GET',
             async: true,
             cache: false,
             url:'{% url "articles:get_all_articles" %}',
@@ -65,7 +65,7 @@
     $(".article_category").click(function() {
         ref = $(this)
         $.ajax({
-            type:'POST',
+            type:'GET',
             async: true,
             cache: false,
             url:'{% url "articles:get_articles_by_category" %}',

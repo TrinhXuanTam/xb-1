@@ -29,7 +29,7 @@ class ArticleListView(LoginMixinView, ListView):
         context = super(ArticleListView, self).get_context_data(*args, **kwargs)
         context['categories'] = Category.objects.all()
         for article in context['object_list']:
-            article.article_tags = Tag.objects.filter(article=article)
+            article.article_tags = Tag.objects.filter(article=article).order_by('name')
         return context
 
 
@@ -113,16 +113,16 @@ class PostCommentReplyView(LoginRequiredMixin, View):
             return response
 
 class GetArticlesByCategoryView(View):
-    def post(self, request, *args, **kwargs):
-        category = Category.objects.get(name=request.POST.get('category'))
+    def get(self, request, *args, **kwargs):
+        category = Category.objects.get(name=request.GET.get('category'))
         articles = Article.objects.filter(category=category.id)
         for article in articles:
-            article.article_tags = Tag.objects.filter(article=article)
-        return render(request, 'articles_by_category.html', {"articles":articles})
+            article.article_tags = Tag.objects.filter(article=article).order_by('name')
+        return render(request, 'get_articles.html', {"articles":articles})
 
 class GetAllArticlesView(View):
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         articles = Article.objects.all()
         for article in articles:
-            article.article_tags = Tag.objects.filter(article=article)
-        return render(request, 'articles_by_category.html', {"articles":articles})
+            article.article_tags = Tag.objects.filter(article=article).order_by('name')
+        return render(request, 'get_articles.html', {"articles":articles})

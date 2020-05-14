@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block include%}
+{%endblock%}
+
+{% block content %}
+<div class="articles_content">
+    <form class="article_search">
+        <input type="text" required placeholder="Search articles">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+
+    <div class="articles_list">
+    </div>
+</div>
+{%endblock%}
