@@ -43,18 +43,19 @@ Cílem tohoto dokumentu je seznámení uživatelů XB1 fans s funkcionalitami st
 ### E-shop sekce
 - Přidání nového produktu do košíku
 
-
+    ![](pictures/addNewItem.png) 
 - Přidání již přidaného produktu do košíku 
 
-
+    ![](pictures/addAlreadyItem.png) 
 - Odebrání 1 kusu zboží z košíku 
 
-
+    ![](pictures/removeItem.png) 
 - Odebrání všech kusů konkrétního zboží
 
-
+    ![](pictures/removeAllItem.png) 
 - Odebrání všech kusů zboží
 
+    ![](pictures/removeAllItems.png) 
 ### Článková sekce
 - Při vstupu do sekce článků se uživateli zobrazí seznam všech článků
 
