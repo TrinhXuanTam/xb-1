@@ -42,5 +42,10 @@ Cílem tohoto dokumentu je seznámení uživatelů XB1 fans s funkcionalitami st
 
 ### E-shop sekce
 ### Článková sekce
+- Při vstupu do sekce článků se uživateli zobrazí všechny články
+- Uživatel může filtrovat články dle kategorie
+- Články lze vyhledávat - výsledek budou články, jejichž tagy nebo název, obsahuje alespoň jedno zadané klíčové slovo
+- Uživatelům bez editačních práv se zobrazí pouze seznam dostupných článků
+- Správci mohou zde spravovat, přidávat a mazat články
 ### Kontaktní sekce
 ### Forum sekce
