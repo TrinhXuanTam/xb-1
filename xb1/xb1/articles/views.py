@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -138,3 +138,44 @@ class ArticleSearchView(View):
         for article in articles:
             article.article_tags = Tag.objects.filter(article=article).order_by('name')
         return render(request, 'get_articles.html', {"articles":articles})
+
+class ArticleDeleteView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        article = Article.objects.get(id=int(request.POST.get('article_id')))
+        if self.request.user == article.author:
+            article.delete()
+            response = JsonResponse({"ok": "deleted"})
+            response.status_code = 204
+            return response
+        else:
+            response = JsonResponse({"error": "Unauthorized"})
+            response.status_code = 401
+            return response
+
+class HideArticleView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        article = Article.objects.get(id=int(request.POST.get('article_id')))
+        if self.request.user == article.author:
+            article.article_state = 0
+            article.save()
+            response = JsonResponse({"ok": "hidden"})
+            response.status_code = 200
+            return response
+        else:
+            response = JsonResponse({"error": "Unauthorized"})
+            response.status_code = 401
+            return response
+
+class PublishArticleView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        article = Article.objects.get(id=int(request.POST.get('article_id')))
+        if self.request.user == article.author:
+            article.article_state = 1
+            article.save()
+            response = JsonResponse({"ok": "published"})
+            response.status_code = 200
+            return response
+        else:
+            response = JsonResponse({"error": "Unauthorized"})
+            response.status_code = 401
+            return response

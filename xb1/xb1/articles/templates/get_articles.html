@@ -33,14 +33,14 @@
     <div class="preview_utilities">
 
         {% if article.article_state == 1 %}
-        <a class="preview_hide_button" href="#">{%trans "Hide"%}</a>
+        <button class="preview_hide_button" id="{{ article.id }}">{%trans "Hide"%}</button>
         {% else %}
-        <a class="preview_publish_button" href="#">{%trans "Publish"%}</a>
+        <button class="preview_publish_button" id="{{ article.id }}">{%trans "Publish"%}</button>
         {%endif%}
 
 
         <a class="preview_edit_button" href="{% url 'articles:article_update' pk=article.pk %}">{%trans "Edit"%}</a>
-        <a class="preview_delete_button" href="#">{%trans "Delete"%}</a>
+        <button class="preview_delete_button" id="{{ article.id }}">{%trans "Delete"%}</button>
     </div>
     {%endif%}
 </div>
