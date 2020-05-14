@@ -56,7 +56,7 @@
 
   <div class="left">
     {% for article in object_list %}
-      {%if forloop.last %}
+      {%if forloop.first %}
         <h1>{{ article.title }}</h1><br>
         <p>{{ article.text | safe}}</p><br>
         <h3>{{ article.author.label }} {{ article.author }}</h3>

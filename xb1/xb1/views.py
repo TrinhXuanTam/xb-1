@@ -54,7 +54,8 @@ user_logged_in.connect(show_login_message)
 
 
 class IndexView(LoginMixinView, ListView):
-    model = Article
+    model         = Article
+    queryset      = Article.objects.filter(article_state=1).order_by('-modified')
     template_name = "index.html"
 
 
