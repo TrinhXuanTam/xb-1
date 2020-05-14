@@ -73,4 +73,23 @@ Cílem tohoto dokumentu je seznámení uživatelů XB1 fans s funkcionalitami st
 ![](pictures/article_detail_reply.png)    
 
 ### Kontaktní sekce
-### Forum sekce
+### Fórum sekce
+- Fórum umožňuje autorizovanému uživateli zapojovat se do diskuze s ostatními uživateli.
+- Zde mohou uživatelé sdílet vlastní tvorbu s dalšími uživateli, a získat zároveň zpětnou vazbu formou komentářů.
+#### Hlavní stránka
+- Hlavní stránka fóra obsahuje přehled posledních aktivních fór.
+- V horní části je 5 posledních aktivních fór nezávislé kategorie. Pod tím jsou postupně přehledy jednotlivých kategorií (také 5 posledních ativních)
+- Kliknutím na nadpis kategorie fóra je uživatel přesměrován na stránku co obsahuje přehled všech fór dané kategorie.
+- Pokud je přihlášený správce stránky, má navíc možnost kategorii fóra editovat
+- Pokud je přihlášený správce stránky, pod přehledem všech kategorií má odkaz pro vytvoření nové kategorie.
+- Kliknutím na nadpis jednotlivého fóra, je uživatel přenesen 
+#### Přehled fór kategorie
+- Stránka obsahuje všechna fóra dané kategorie, seřazené sestupně dle poslední aktivity.
+- Pokud je kategorie uzavřená, můžou v ní nová fóra vytvářet jen správci.
+- Pokud je kategorie otevřená, mohou do ní přispívat novými fóry všichni autorizovaní uživatelé
+- Kliknutím na nadpis fóra je uživatel přesměrován na detail fóra, kde se může zapojit do diskuze.
+#### Detail fóra
+- V horní části fóra (hlavička) je nadpis a text, který zadal uživatel, co fórum vytvořil.
+- Pod hlavičkou fóra je sekce komentářů.
+- Autorizovaní uživatelé mohou do diskuze psát komentáře a zároveň reagovat na komentáře ostatních.  
+![](pictures/forum_comments.png)
