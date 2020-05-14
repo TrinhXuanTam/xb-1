@@ -8,24 +8,48 @@
 
 {%block content %}
   <div class="right">
-    <ul class="preview">
+    <div class="article_previews">
         {% for article in object_list %}
-        <li>
-          <h1>{{ article.title }}</h1>
+        {% if article.article_state == 1 %}
+        <div class="preview">
+          <div class="preview_title">
+            <a href = "{% url 'articles:detail' slug=article.slug %}">
+              {{ article.title }}
+            </a>
+          </div>
+          <div class="preview_header">
+            <img src="{{article.author.profile.image.url}}">
+            <div class="preview_author_info">
+              <div class="preview_author">{{article.author.profile.nickname}}</div>
+              <div class="preview_date">{{article.modified}}</div>
+            </div>
+            {%if perms.articles.change_article %}
+            <div class="preview_edit_button">
+              <a href="{% url 'articles:article_update' pk=article.pk %}">
+                {%trans "Edit"%}
+              </a>
+            </div>
+            {%endif%}
+          </div>
           <a href = "{% url 'articles:detail' slug=article.slug %}">
-            <div class="preview-thumb">
-              <img src="{% static 'img/universe.jpg' %}">
-              <div class="preview-content">
+            <div class="preview_content">
+              {% if article.thumbnail %}
+              <div class="preview_thumb">
+                <img src="{{article.thumbnail.url}}">
+              </div>
+              {%endif%}
+
+              <div class="preview_text">
                 {{ article.preview_text | safe | default_if_none:"" }}<br>
               </div>
             </div>
           </a>
-        </li>
-
-          {% empty %}
-          <li>{% trans "No articles created." %}</li>
+        </div>
+        {%endif%}
+        {% empty %}
+          {% trans "No articles created." %}
         {% endfor %}
-    </ul>
+      </div>
   </div>
 
 

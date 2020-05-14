@@ -22,6 +22,12 @@ urlpatterns = [
     url(r'^login/$', views.LoginView.as_view(), name='login'),
     url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
 
+    # Password reset urls
+    url(r'^password_reset/$', views.PasswordResetView.as_view(), name='password_reset'),
+    url(r'^password_reset/done/$', views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('password_reset_confirm/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    url(r'^password_reset_complete/$', views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+
     # Profile view
     url(r'^profile/$', views.ProfileView.as_view(), name='profile'),
 
@@ -32,6 +38,7 @@ urlpatterns = [
     url(r"^articles/", include("xb1.articles.urls")),
     url(r"^core/", include("xb1.core.urls")),
     url(r"^contact/", include("xb1.contact.urls")),
+    url(r"^forum/", include("xb1.forum.urls")),
     url(r"^eshop/", include("xb1.eshop.urls")),
 
     url(r"^sent/", views.ActivationSentView.as_view(), name="activation_sent"),

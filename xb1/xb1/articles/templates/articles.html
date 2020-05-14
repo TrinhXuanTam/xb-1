@@ -1,49 +1,108 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block include %}
-<link rel="stylesheet" href="{% static 'css/layout2.css' %}" >
+<link rel="stylesheet" href="{% static 'css/articles.css' %}" >
 {% endblock %}
 
-        {% block content %}
-        <div class="main">
-
-<h1>Articles</h1>
-<br>
-<ul>
-{% for article in object_list %}
-    <li>
-        <h2>{{ article.title }}</h2>
-        {%if article.thumbnail%}
-        <img style = "display: block; margin-left: auto; margin-right: auto;" src = "{{article.thumbnail.url}}">
+{% block content %}
+<div class="articles_content">
+    <div class="articles_topnav">
+        {%if perms.articles.change_article %}
+        <a href="{% url 'articles:article_create' %}" class="new_article_button">{%trans "Create article"%}<i class="fas fa-plus"></i></a>
+        <a href="#" class="new_category_button">{%trans "Add category"%}<i class="fas fa-list"></i></a>
         {%endif%}
-        <div class="article_content">{{ article.text | safe }}</div>
-        <br>
-                <h3>Autor: {{ article.author }}</h3>
-                {%if article.author.profile.image%}
-                <img style = "display: block; margin-left: auto; margin-right: auto;" src = "{{article.author.profile.image.url}}">
-                {%else%}
-                <img style = "display: block; margin-left: auto; margin-right: auto;" src = "{% get_media_prefix %}default.jpg">
-                {%endif%}
-                <br>
-                {%if perms.articles.change_article %}
-                  <a href="{% url 'articles:article_update' pk=article.pk %}">Edit article</a>
-                {%endif%}
-                <br>
-                <br>
 
-    </li>
-{% empty %}
-    <li>No articles created.</li>
-{% endfor %}
-</ul>
+        <form class="article_search">
+            <input type="text" required placeholder="{%trans "Search articles"%}">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+    <div class="articles_categories">
+        <button class="slider_button slider_back">
+            <i class="fas fa-angle-left fa-3x"></i>
+        </button>
+        
+        <div class="articles_categories_slider_menu">
+            <div class=articles_categories_wrapper>
+                <button class="article_category_all article_category_active">{%trans "All"%}</button>
+                
+                {% for category in categories %}
+                <button class="article_category" id="{{category.id}}">{{category}}</button>
+                {% endfor %}
+            </div>
+        </div>
 
-<br>
-            {%if perms.articles.add_article %}
-                <a href="{% url 'articles:article_create' %}">Create new article</a>
-            {%else%}
-                <a id="login_trigger" onclick="openDialog()"><i class="fas fa-user"></i> Login as admin to create an article </a>
-            {%endif%}
-<br>
-                                    </div>
-        {% endblock %}
+        <button class="slider_button slider_next">
+            <i class="fas fa-angle-right fa-3x"></i>
+        </button>
+    </div>
+
+    <div class="articles_list">
+        {% include "get_articles.html" with articles=object_list %}
+    </div>
+</div>
+
+{%if perms.articles.change_article %}
+<script>
+    $(".article_search").submit(function(event) {
+        event.preventDefault()
+        ref = $(this)
+        $('*').removeClass('article_category_active')
+        $.ajax({
+            type:'GET',
+            async: true,
+            cache: false,
+            url:'{% url "articles:search_articles" %}',
+            data: {
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                keywords: ref.find('input[type=text]').val()
+              },
+              success: function(data) {
+                  $('.articles_list').html(data)
+              }
+        });
+    })
+</script>
+
+<script>
+    $(".article_category_all").click(function() {
+        ref = $(this)
+        $.ajax({
+            type:'GET',
+            async: true,
+            cache: false,
+            url:'{% url "articles:get_all_articles" %}',
+            data: {
+                csrfmiddlewaretoken: "{{ csrf_token }}"
+              },
+              success: function(data) {
+                  $('.articles_list').html(data)
+              }
+          });
+    })
+</script>
+
+<script>
+    $(".article_category").click(function() {
+        ref = $(this)
+        $.ajax({
+            type:'GET',
+            async: true,
+            cache: false,
+            url:'{% url "articles:get_articles_by_category" %}',
+            data: {
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                category: ref.attr('id')
+              },
+              success: function(data) {
+                  $('.articles_list').html(data)
+              }
+          });
+    })
+</script>
+{%endif%}
+
+<script src="{% static 'js/articles.js' %}"></script>
+{% endblock %}

@@ -1,4 +1,4 @@
-* {
+.sidebar * {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -8,9 +8,9 @@
 .sidebar {
     z-index: 2;
     position: fixed;
-    left: 0;
     width: 50px;
-    height: 100%;
+    bottom: 0;
+    top: 0;
     background: radial-gradient( circle,
                                  rgba(30, 35, 44, 1) 0%,
                                  rgba(0, 0, 0, 1) 100%

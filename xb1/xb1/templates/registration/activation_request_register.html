@@ -1,7 +1,9 @@
 {% autoescape off %}
-Hi {{ user.username }},
+Tento e-mail vám byl zaslán na základě potvrzení emailové adresy.
 
-Please click the following link to confirm your registration:
+Klikněte na tento odkaz k potvrzení Vašeho emailu:
 
-http://{{ domain }}{% url 'activate_registration' uidb64=uid token=token %}
+http://{{ domain }}{% url 'activate_email' uidb64=uid token=token %}
+
+Vaše XB1 fans.
 {% endautoescape %}

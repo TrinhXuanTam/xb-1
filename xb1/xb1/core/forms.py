@@ -1,5 +1,6 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm, PasswordChangeForm, \
+    SetPasswordForm, PasswordResetForm
 from .models import User, Profile
 from django.forms import Textarea
 
@@ -83,6 +84,25 @@ class ChangePasswordForm(PasswordChangeForm):
         fields = ['old_password', 'new_password1', 'new_password2']
 
 
+class ChangePasswordResetForm(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super(ChangePasswordResetForm, self).__init__(*args, **kwargs)
+        for field_name in ('new_password1', 'new_password2'):
+            # remove helper text
+            self.fields[field_name].help_text = None
+            # remove labels
+            self.fields[field_name].label = False
+
+            self.fields[field_name].widget.attrs['class'] = 'registration_input'
+
+        self.fields['new_password1'].widget.attrs['placeholder'] = 'Nové heslo'
+        self.fields['new_password2'].widget.attrs['placeholder'] = 'Potvrdit heslo'
+
+    class Meta:
+        model = User
+        fields = ['new_password1', 'new_password2']
+
+
 class ProfileUpdateForm(forms.ModelForm):
     image = forms.ImageField(required=True, error_messages={'invalid': "Neplatný soubor."},
                              widget=forms.FileInput)
@@ -117,6 +137,34 @@ class UserChangeEmailForm(forms.ModelForm):
         self.fields['temp_email'].label = False
         self.fields['temp_email'].widget.attrs['class'] = 'registration_input'
 
+    def clean_temp_email(self):
+        # Get the email
+        temp_email = self.cleaned_data.get('temp_email')
+
+        # Check to see if any users already exist with this email as a username.
+        try:
+            match = User.objects.get(email=temp_email)
+        except User.DoesNotExist:
+            # Unable to find a user, this is fine
+            return temp_email
+
+        # A user was found with this as a username, raise an error.
+        raise forms.ValidationError('Tento email je používán.')
+
     class Meta:
         model = User
         fields = ['temp_email']
+
+
+class PasswordResetEmailForm(PasswordResetForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs['placeholder'] = 'Zadejte váš email'
+        self.fields['email'].label = False
+        self.fields['email'].widget.attrs['class'] = 'registration_input'
+
+    class Meta:
+        model = User
+        fields = ['email']
+
