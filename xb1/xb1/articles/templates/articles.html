@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block include %}
@@ -9,12 +10,12 @@
 <div class="articles_content">
     <div class="articles_topnav">
         {%if perms.articles.change_article %}
-        <a href="{% url 'articles:article_create' %}" class="new_article_button">Create article<i class="fas fa-plus"></i></a>
-        <a href="#" class="new_category_button">Add category<i class="fas fa-list"></i></a>
+        <a href="{% url 'articles:article_create' %}" class="new_article_button">{%trans "Create article"%}<i class="fas fa-plus"></i></a>
+        <a href="#" class="new_category_button">{%trans "Add category"%}<i class="fas fa-list"></i></a>
         {%endif%}
 
         <form class="article_search">
-            <input type="text" placeholder="Search articles">
+            <input type="text" required placeholder="{%trans "Search articles"%}">
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
     </div>
@@ -25,10 +26,10 @@
         
         <div class="articles_categories_slider_menu">
             <div class=articles_categories_wrapper>
-                <button class="article_category article_category_active">Vše</button>
+                <button class="article_category_all article_category_active">{%trans "All"%}</button>
                 
                 {% for category in categories %}
-                <button class="article_category">{{category}}</button>
+                <button class="article_category" id="{{category.id}}">{{category}}</button>
                 {% endfor %}
             </div>
         </div>
@@ -39,9 +40,69 @@
     </div>
 
     <div class="articles_list">
-        {% include "articles_by_category.html" with articles=object_list %}
+        {% include "get_articles.html" with articles=object_list %}
     </div>
 </div>
+
+{%if perms.articles.change_article %}
+<script>
+    $(".article_search").submit(function(event) {
+        event.preventDefault()
+        ref = $(this)
+        $('*').removeClass('article_category_active')
+        $.ajax({
+            type:'GET',
+            async: true,
+            cache: false,
+            url:'{% url "articles:search_articles" %}',
+            data: {
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                keywords: ref.find('input[type=text]').val()
+              },
+              success: function(data) {
+                  $('.articles_list').html(data)
+              }
+        });
+    })
+</script>
+
+<script>
+    $(".article_category_all").click(function() {
+        ref = $(this)
+        $.ajax({
+            type:'GET',
+            async: true,
+            cache: false,
+            url:'{% url "articles:get_all_articles" %}',
+            data: {
+                csrfmiddlewaretoken: "{{ csrf_token }}"
+              },
+              success: function(data) {
+                  $('.articles_list').html(data)
+              }
+          });
+    })
+</script>
+
+<script>
+    $(".article_category").click(function() {
+        ref = $(this)
+        $.ajax({
+            type:'GET',
+            async: true,
+            cache: false,
+            url:'{% url "articles:get_articles_by_category" %}',
+            data: {
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                category: ref.attr('id')
+              },
+              success: function(data) {
+                  $('.articles_list').html(data)
+              }
+          });
+    })
+</script>
+{%endif%}
 
 <script src="{% static 'js/articles.js' %}"></script>
 {% endblock %}

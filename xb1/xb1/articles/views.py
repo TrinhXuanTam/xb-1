@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -19,6 +19,8 @@ from ..core.views import LoginMixinView
 
 from django.http import JsonResponse, HttpResponse
 from django.template.loader import render_to_string
+from django.db.models import Q
+from functools import reduce
 
 class ArticleListView(LoginMixinView, ListView):
     model = Article
@@ -29,7 +31,7 @@ class ArticleListView(LoginMixinView, ListView):
         context = super(ArticleListView, self).get_context_data(*args, **kwargs)
         context['categories'] = Category.objects.all()
         for article in context['object_list']:
-            article.article_tags = Tag.objects.filter(article=article)
+            article.article_tags = Tag.objects.filter(article=article).order_by('name')
         return context
 
 
@@ -107,6 +109,72 @@ class PostCommentReplyView(LoginRequiredMixin, View):
             new_reply.save()
             new_reply.user = Profile.objects.get(user_id=request.user.id)
             return render(request, 'new_reply.html', {"reply":new_reply})
+        else:
+            response = JsonResponse({"error": "Unauthorized"})
+            response.status_code = 401
+            return response
+
+class GetArticlesByCategoryView(View):
+    def get(self, request, *args, **kwargs):
+        articles = Article.objects.filter(category=request.GET.get('category'))
+        for article in articles:
+            article.article_tags = Tag.objects.filter(article=article).order_by('name')
+        return render(request, 'get_articles.html', {"articles":articles})
+
+class GetAllArticlesView(View):
+    def get(self, request, *args, **kwargs):
+        articles = Article.objects.all().order_by('-modified')
+        for article in articles:
+            article.article_tags = Tag.objects.filter(article=article).order_by('name')
+        return render(request, 'get_articles.html', {"articles":articles})
+
+class ArticleSearchView(View):
+    def get(self, request, *args, **kwargs):
+        keywords       = request.GET.get('keywords').split()
+        tags_query     = reduce(lambda x, y: x | y, [Q(name__icontains=keyword) for keyword in keywords])
+        articles_query = reduce(lambda x, y: x | y, [Q(title__icontains=keyword) for keyword in keywords])
+        tags           = Tag.objects.filter(tags_query)
+        articles       = Article.objects.filter(Q(tags__in=tags) | Q(articles_query)).distinct().order_by('-modified')
+        for article in articles:
+            article.article_tags = Tag.objects.filter(article=article).order_by('name')
+        return render(request, 'get_articles.html', {"articles":articles})
+
+class ArticleDeleteView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        article = Article.objects.get(id=int(request.POST.get('article_id')))
+        if self.request.user == article.author:
+            article.delete()
+            response = JsonResponse({"ok": "deleted"})
+            response.status_code = 204
+            return response
+        else:
+            response = JsonResponse({"error": "Unauthorized"})
+            response.status_code = 401
+            return response
+
+class HideArticleView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        article = Article.objects.get(id=int(request.POST.get('article_id')))
+        if self.request.user == article.author:
+            article.article_state = 0
+            article.save()
+            response = JsonResponse({"ok": "hidden"})
+            response.status_code = 200
+            return response
+        else:
+            response = JsonResponse({"error": "Unauthorized"})
+            response.status_code = 401
+            return response
+
+class PublishArticleView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        article = Article.objects.get(id=int(request.POST.get('article_id')))
+        if self.request.user == article.author:
+            article.article_state = 1
+            article.save()
+            response = JsonResponse({"ok": "published"})
+            response.status_code = 200
+            return response
         else:
             response = JsonResponse({"error": "Unauthorized"})
             response.status_code = 401

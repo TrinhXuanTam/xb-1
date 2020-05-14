@@ -10,6 +10,7 @@
   <div class="right">
     <div class="article_previews">
         {% for article in object_list %}
+        {% if article.article_state == 1 %}
         <div class="preview">
           <div class="preview_title">
             <a href = "{% url 'articles:detail' slug=article.slug %}">
@@ -44,7 +45,7 @@
             </div>
           </a>
         </div>
-
+        {%endif%}
         {% empty %}
           {% trans "No articles created." %}
         {% endfor %}

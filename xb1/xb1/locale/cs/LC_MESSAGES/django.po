@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-06 17:57+0200\n"
+"POT-Creation-Date: 2020-05-14 20:19+0200\n"
 "Language: cz\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +39,7 @@ msgid "Read more..."
 msgstr "Zobrazit více..."
 
 #: xb1/articles/models.py:62 xb1/articles/models.py:103
-#: xb1/articles/models.py:113
+#: xb1/articles/models.py:116
 msgid "Author"
 msgstr "Autor"
 
@@ -67,7 +67,7 @@ msgstr "Zveřejněno od"
 msgid "Published to"
 msgstr "Zveřejněné do"
 
-#: xb1/articles/models.py:69 xb1/articles/models.py:114
+#: xb1/articles/models.py:69 xb1/articles/models.py:117
 #: xb1_env/lib/python3.6/site-packages/django/db/models/fields/__init__.py:2032
 msgid "Text"
 msgstr "Text"
@@ -92,25 +92,56 @@ msgstr "Popis fóra"
 msgid "Is closed"
 msgstr "Uzavřené"
 
-#: xb1/articles/models.py:110
+#: xb1/articles/models.py:113
 msgid "Article"
 msgstr "Článek"
 
-#: xb1/articles/models.py:111
+#: xb1/articles/models.py:114 xb1/forum/templates/forum_index.html:12
+#: xb1/templates/base.html:133
 msgid "Forum"
 msgstr "Fórum"
 
-#: xb1/articles/models.py:112
+#: xb1/articles/models.py:115
 msgid "Reacts to"
 msgstr "Reaguje na"
 
-#: xb1/articles/models.py:115
+#: xb1/articles/models.py:118
 msgid "Is censured"
 msgstr "Je cenzurován"
 
-#: xb1/articles/models.py:116
+#: xb1/articles/models.py:119
 msgid "Posted on"
 msgstr ""
+
+#: xb1/articles/templates/articles.html:13
+msgid "Create article"
+msgstr "Přidat článek"
+
+#: xb1/articles/templates/articles.html:14
+msgid "Add category"
+msgstr "Přidat kategorii"
+
+#: xb1/articles/templates/articles.html:18
+msgid "Search articles"
+msgstr "Vyhledat článek"
+
+#: xb1/articles/templates/articles.html:29
+msgid "All"
+msgstr "Vše"
+
+#: xb1/articles/templates/articles.html:63
+#: xb1/articles/templates/get_articles.html:38
+msgid "Publish"
+msgstr "Publikovat"
+
+#: xb1/articles/templates/articles.html:84
+#: xb1/articles/templates/get_articles.html:36
+msgid "Hide"
+msgstr "Skrýt"
+
+#: xb1/articles/templates/articles.html:115
+msgid "Confirm"
+msgstr "Potvrdit"
 
 #: xb1/articles/templates/articles_detail.html:12
 #, fuzzy
@@ -119,12 +150,24 @@ msgid "Title:"
 msgstr "Nadpis"
 
 #: xb1/articles/templates/articles_form.html:24
+#: xb1/forum/templates/forum_category_form.html:23
+#: xb1/forum/templates/forum_form.html:23
 msgid "Submit"
 msgstr "Uložit"
 
 #: xb1/articles/templates/articles_form.html:27
+#: xb1/forum/templates/forum_category_form.html:26
 msgid "Back"
 msgstr "Zpět"
+
+#: xb1/articles/templates/get_articles.html:42 xb1/templates/index.html:29
+msgid "Edit"
+msgstr "Upravit"
+
+#: xb1/articles/templates/get_articles.html:43
+#: xb1_env/lib/python3.6/site-packages/django/forms/formsets.py:391
+msgid "Delete"
+msgstr "Smazat"
 
 #: xb1/core/models.py:17
 #: xb1_env/lib/python3.6/site-packages/django/db/models/fields/files.py:360
@@ -157,16 +200,40 @@ msgstr "Příjmení"
 msgid "Phone"
 msgstr "Telefon"
 
-#: xb1/settings.py:187
+#: xb1/forum/templates/forum_form.html:26
+#, fuzzy
+#| msgid "Back"
+msgid "Back TODO"
+msgstr "Zpět"
+
+#: xb1/forum/templates/forum_index.html:21
+#, fuzzy
+#| msgid "Add category"
+msgid "Edit category"
+msgstr "Přidat kategorii"
+
+#: xb1/forum/templates/forum_index.html:40
+msgid "Create new forum category"
+msgstr ""
+
+#: xb1/forum/templates/forum_list.html:17
+msgid "Create new forum"
+msgstr ""
+
+#: xb1/forum/views.py:27 xb1/forum/views.py:66
+msgid "Last forums"
+msgstr ""
+
+#: xb1/settings.py:189
 msgid "Czech"
 msgstr "Čeština"
 
-#: xb1/templates/base.html:37 xb1/templates/base.html:46
+#: xb1/templates/base.html:37 xb1/templates/base.html:47
 #: xb1/templates/base.html:73 xb1/templates/contact.html:44
 msgid "Login"
 msgstr "Přihlásit se"
 
-#: xb1/templates/base.html:47
+#: xb1/templates/base.html:48
 msgid "Sign Up"
 msgstr "Registrovat se"
 
@@ -295,11 +362,7 @@ msgstr "Potřebujete účet?"
 msgid "Sign up"
 msgstr "Registrovat se"
 
-#: xb1/templates/index.html:23
-msgid "Edit"
-msgstr "Upravit"
-
-#: xb1/templates/index.html:43 xb1/templates/index.html:59
+#: xb1/templates/index.html:50 xb1/templates/index.html:66
 msgid "No articles created."
 msgstr "Žádné články nejsou dostupné"
 
@@ -856,10 +919,6 @@ msgstr[1] ""
 #: xb1_env/lib/python3.6/site-packages/django/forms/formsets.py:379
 #: xb1_env/lib/python3.6/site-packages/django/forms/formsets.py:386
 msgid "Order"
-msgstr ""
-
-#: xb1_env/lib/python3.6/site-packages/django/forms/formsets.py:391
-msgid "Delete"
 msgstr ""
 
 #: xb1_env/lib/python3.6/site-packages/django/forms/models.py:754
