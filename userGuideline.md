@@ -47,5 +47,19 @@ Cílem tohoto dokumentu je seznámení uživatelů XB1 fans s funkcionalitami st
 - Články lze vyhledávat - výsledek budou články, jejichž tagy nebo název, obsahuje alespoň jedno zadané klíčové slovo
 - Uživatelům bez editačních práv se zobrazí pouze seznam dostupných článků
 - Správci mohou zde spravovat, přidávat a mazat články
+- Detail článku
+  - Detail článku začíná vždy názvem daného článku, poté vlevo pod čarou je vždy datum vytvoření. Dále následuje text samotného článku. Na levé straně je vždy uveden autor, nicméně ostatní atributy článku, konkrétněji kategorie (vlevo), tagy a zdroje (vlevo), nemusí být vždy zobrazeny. To záleží na autorovi, zdali je k danému článku přidal, či nikoli. V našem případě jsou přidány všechny možné atributy.
+  - Tlačítko „Upravit článek“ je viditelné pouze pro uživatele, kteří mají příslušné právo upravovat články. Jedná se o přesměrování na editační stránku daného článku.
+    
+    ![](pictures/article_detail_overview.png)
+
+  - Dále je možné přidávat pod článek komentáře, pokud to bylo povoleno. Jednotlivé komentáře lze přidávat pomocí psaní do textového pole a poté kliknutím na tlačítko „Odeslat“. 
+
+    ![](pictures/article_detail_comment.png)
+    
+  - Další funkcionalitou této sekce je odpovídaní na jednotlivé komentáře. Pro odpověď na daný komentář je potřeba kliknout na tlačítko „Odpovědět“ pod tímto komentářem, pak zadat text do zobrazeného textového pole a nakonec znovu kliknout na tlačítko „Odpovědět“.    
+
+    ![](pictures/article_detail_reply.png)    
+
 ### Kontaktní sekce
 ### Forum sekce
