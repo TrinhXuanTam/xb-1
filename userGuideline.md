@@ -56,6 +56,15 @@ Cílem tohoto dokumentu je seznámení uživatelů XB1 fans s funkcionalitami st
 - Odebrání všech kusů zboží
 
     ![](pictures/removeAllItems.png) 
+- Upravení stavajícího produktu
+
+    ![](pictures/changeItem.png) 
+- Potvrzení zaplacení objednávky
+
+    ![](pictures/payOrder.png)
+- Smazaní objednávky
+
+    ![](pictures/removeOrder.png)
 ### Článková sekce
 - Při vstupu do sekce článků se uživateli zobrazí seznam všech článků
 
