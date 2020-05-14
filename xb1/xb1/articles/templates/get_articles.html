@@ -46,3 +46,78 @@
 </div>
 {%endif%}
 {% endfor %}
+
+{%if perms.articles.change_article%}
+<script>
+    function hide_function(event) {
+        event.preventDefault();
+        ref = $(this)
+        $.ajax({
+                type:'POST',
+                async: true,
+                cache: false,
+                url:'{% url "articles:hide_article" %}',
+                data: {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    article_id: ref.attr('id')
+                },
+                success: function(data) {
+                    ref.attr('class', "preview_publish_button");
+                    ref.text("{%trans "Publish"%}");
+                    ref.parents().eq(1).addClass("article_hidden");
+                    ref.one('click', publish_function);
+                }
+            });
+    };
+    
+    function publish_function(event) {
+        event.preventDefault();
+        ref = $(this)
+        $.ajax({
+                type:'POST',
+                async: true,
+                cache: false,
+                url:'{% url "articles:publish_article" %}',
+                data: {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    article_id: ref.attr('id')
+                },
+                success: function(data) {
+                    ref.attr('class', "preview_hide_button");
+                    ref.text("{%trans "Hide"%}");
+                    ref.parents().eq(1).removeClass("article_hidden");
+                    ref.one('click', hide_function);
+                }
+            });
+    };
+
+    $(".preview_hide_button").one('click' ,hide_function);
+    $(".preview_publish_button").one('click', publish_function);
+</script>
+
+
+<script>
+    $(".preview_delete_button").click(function(event) {
+        event.preventDefault()
+        if ($(this).hasClass("delete_confirmation")) {
+            ref = $(this)
+            $.ajax({
+                type:'POST',
+                async: true,
+                cache: false,
+                url:'{% url "articles:article_delete" %}',
+                data: {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    article_id: ref.attr('id')
+                },
+                success: function(data) {
+                    ref.parents().eq(1).remove()
+                }
+            });
+        }else {
+            $(this).text("{%trans "Confirm"%}")
+            $(this).addClass("delete_confirmation")
+        }
+    })
+</script>
+{%endif%}

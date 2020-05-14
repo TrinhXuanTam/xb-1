@@ -123,7 +123,7 @@ class GetArticlesByCategoryView(View):
 
 class GetAllArticlesView(View):
     def get(self, request, *args, **kwargs):
-        articles = Article.objects.all()
+        articles = Article.objects.all().order_by('-modified')
         for article in articles:
             article.article_tags = Tag.objects.filter(article=article).order_by('name')
         return render(request, 'get_articles.html', {"articles":articles})
