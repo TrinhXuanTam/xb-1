@@ -47,6 +47,10 @@
     text-transform: uppercase;
 }
 
+.tags_h {
+    margin-right: 15px;
+}
+
 .article_footer p {
     display: inline;
     font-weight: bold;
@@ -54,6 +58,7 @@
 
 .article_footer_item {
     margin-bottom: 8px;
+    max-width: 40rem;
 }
 
 .article_footer_left {
@@ -126,7 +131,8 @@
     margin-left: 10%;
 }
 
-.comment_section_button {
+.comment_section_button,
+.edit_button {
     margin-top: 20px;
     background: transparent;
     border: none;
@@ -139,7 +145,8 @@
     opacity: 0.8;
 }
 
-.comment_section_button:hover {
+.comment_section_button:hover,
+.edit_button:hover {
     color: black;
     background: white;
     cursor: pointer;
@@ -189,4 +196,56 @@
 #comment_post_form textarea:hover,
 .comment_reply_form textarea:hover {
     border: 1px solid white;
+}
+
+.article_tag {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    position: relative;
+    margin: 0 15px 0 0;
+    padding: 0 10px 0 12px;
+    font-size: 12px;
+    font-weight: bold;
+    background: rgba(255,255,255, 0.3);
+}
+
+.article_tag:before {
+    content: "";
+    position: absolute;
+    top:0;
+    left: -12px;
+    width: 0;
+    height: 0;
+    border-color: transparent rgba(255,255,255, 0.3) transparent transparent;
+    border-style: solid;
+    border-width: 12px 12px 12px 0;
+}
+
+.article_tag:after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 1px;
+    float: left;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: white;
+}
+
+.article_category {
+    white-space: nowrap;
+    border-radius: 5px;
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    position: relative;
+    margin: 0 5px 0 0;
+    padding: 5px 10px 5px 10px;
+    font-size: 12px;
+    font-weight: bold;
+    background: rgba(255,255,255, 0.3);
 }

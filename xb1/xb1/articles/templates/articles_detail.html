@@ -19,35 +19,39 @@
 		</div>
 		<div class="article_footer">
 			<div class="article_footer_left">
+				{% if categories %}
+				<div class="article_footer_item">
+					<h1>categories</h1>
+					{% for category in categories %}
+					<p class="article_category">'{{ category }}'</p>
+					{% endfor %}
+				</div>
+				{% endif %}
 				<div class="article_footer_item">
 					<h1>author</h1>
 					<p>{{ article.author }}</p>
 				</div>
-				{% if not categories == None %}
-				<div class="article_footer_item">
-					<h1>categories</h1>
-					{% for category in categories %}
-					<p>'{{ category }}'</p>
-					{% endfor %}
-				</div>
-				{% endif %}
 			</div>
 			<div class="article_footer_right">
-				{% if not tags == None %}
+				{% if tags %}
 				<div class="article_footer_item">
-					<h1>tags</h1>
+					<h1 class="tags_h">tags</h1>
 					{% for tag in tags %}
-					<p>#{{ tag }}</p>
+					<div class="article_tag">{{ tag }}</div>
 					{% endfor %}
 				</div>
 				{% endif %}
-				{% if not article.sources == None %}
+				{% if article.sources %}
 				<div class="article_footer_item">
 					<h1>sources</h1>
 					<p>{{ article.sources }}</p>
 				</div>
 				{% endif %}
 			</div>
+			{%if perms.articles.change_article %}
+			<br>
+			<a href="/articles/{{ article.id }}"><button class="edit_button">Edit Article</button></a>
+			{% endif %}
 		</div>
 	</div>
 </div>
