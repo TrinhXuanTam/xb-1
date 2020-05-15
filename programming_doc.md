@@ -23,6 +23,15 @@
     - django-crispy-forms==1.9.0
     - django-cleanup==4.0.0
 
+## Minimum OS/HW requirements
+- OS:
+    - Debian 9/10
+- HW:
+    - 2 GB RAM
+    - 1 CPU Core
+    - 24 GB SSD
+
+
 ## Návod na instalaci (Debian server)
 - spustě příkaz `sudo sh install.sh`
     - tento script stáhne potřebné závislosti pro běh django serveru
