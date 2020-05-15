@@ -26,9 +26,9 @@
 ## Minimum OS/HW requirements
 - OS:
     - Debian 9/10
+    - Přístup k serveru jakou superuser
 - HW:
     - 2 GB RAM
-    - 1 CPU Core
     - 24 GB SSD
 
 
