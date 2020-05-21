@@ -18,7 +18,12 @@
 {% for category in categories %}
     <div class="forum_category_wrapper">
 
-        <a class="forum_category" href="{% url 'forum:forum_list' pk=category.pk %}">
+        {% if category.pk != False %}
+            <a class="forum_category" href="{% url 'forum:forum_list' pk=category.pk %}">
+        {% else %}
+            <a class="forum_category" href="{% url 'forum:forum_list' %}">
+        {% endif %}
+                
             <i class="fas fa-sticky-note fa-2x"></i>
             <div class=forum_category_info>
                 <div class="forum_category_title">{{ category.title }}</div>

@@ -21,10 +21,16 @@ class ForumIndexView(LoginMixinView, TemplateView):
 
         context = super(ForumIndexView, self).get_context_data(*args, **kwargs)
 
-        context["categories"] = ForumCategory.objects.all().order_by('title')
+        context["categories"] = list(ForumCategory.objects.all().order_by('title'))
 
         for category in context["categories"]:
             category.latest = Forum.objects.filter(category=category.id).last()
+
+        context["categories"].insert(0, {
+            "title": _("All forums"),
+            "latest": Forum.objects.filter().last(),
+            "pk": False
+        })
 
         return context
 
