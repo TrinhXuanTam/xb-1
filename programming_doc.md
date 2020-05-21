@@ -33,15 +33,21 @@
 
 
 ## Návod na instalaci (Debian server)
-- spustě příkaz `sudo sh install.sh`
+- stáhněte si zip tohoto projektu: https://gitlab.fit.cvut.cz/ridzodan/sp1-initial-web/-/archive/master/sp1-initial-web-master.zip
+- tento zip vyextrahujte v domovském adresáři uživatele
+- následně přesuňte obsah extrahované složky o level výše (tedy do home adresáře uživatele): `mv sp1-initial-web-master/* .`
+- **před voláním následujících skriptů se ujistěte, že složka xb1 z git repositáře je v home adresáři uživatele (případně je nutné upravit cestu k projektu v konfiguračních souborech  nginxu)**
+- v souboru **nginx_conf** nastavte port (proměnná **listen**) a adresu serveru/doménu (proměnná **server_name**). Změňte výskyt proměnné *ridzodan* za jméno vašeho usera. Soubor uložte.
+- v souboru **xb1.ini** změňte proměnnou **base**, tak aby odkazovala na váš home adresář. Soubor uložte
+- spustě příkaz `chmod +x setup_django_server.sh`
+- spustě příkaz `./setup_django_server.sh`
     - tento script stáhne potřebné závislosti pro běh django serveru
     - následně vytvoří serveru virtuální prostředí
     - nainstaluje potřebné python knihovny
     - zinicializuje django server
-- spustě příkaz `sudo sh install_nginx.sh`
+- spustě příkaz `chmod +x setup_nginx_server.sh`
+- spustě příkaz `./setup_nginx_server.sh`
     - tento script stáhne potřebné závislosti pro běh nginx reverse proxy serveru
     - vytvoří konfigurační soubory, pro nalinkování serveru
-- spusťte příkaz `sudo sh run.sh`
-    - tento script spustí nginx server
-
-*Tyto scripty zatím nejsou funkční, ale brzy je zprovozníme*
+    - server by v tuto chvíli již měl být dostupný na zadané adrese.
+- pro restart serveru zadejte (např při změně zdrojových souborů django serveru): `sudo service uwsgi restart`
