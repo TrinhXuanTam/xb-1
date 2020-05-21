@@ -3,17 +3,16 @@
 {% load i18n %}
 
 {% block include %}
-    <link rel="stylesheet" href="{% static 'css/article_detail.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/forum_detail.css' %}" >
     <link rel="stylesheet" href="{% static 'css/forum_comments.css' %}" >
 {% endblock %}
 
 {% block content %}
-<div class="main">
-
-    
-    <h1>{{ object.title }}</h1>
-    <h2>{{ object.description }}</h2>
-    <br>
+<div class="forum_detail_content">
+	<div class="forum_detail_info">
+		<a class="forum_category_title" href="{% url 'forum:forum_list' pk=object.category.pk %}">{{object.category.title}} /</a>
+		<a class="forum_thread_title" href="{% url 'forum:forum_detail' pk=object.pk %}">{{object.title}}</a>
+    </div>
 
     <div class="comments">
         <ul>

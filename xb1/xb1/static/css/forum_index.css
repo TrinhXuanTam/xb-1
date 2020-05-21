@@ -5,21 +5,18 @@
     margin: 0 auto;
     background: rgba(255, 255, 255, 0.03);
     box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    margin-top: 3rem;
-    transition-property: background, box-shadow;
-    transition-duration: 4s;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
-.forum_topic_wrapper {
+.forum_category_wrapper {
     display: flex;
-    margin: 10px;
+    margin: 6px;
     border-radius: 10px;
     background: rgba(0, 0, 0, 0.3);
 }
 
-.forum_topic {
+.forum_category {
     display: flex;
     flex: 1;
     flex-flow: row;
@@ -30,32 +27,70 @@
     text-decoration: none;
 }
 
-.forum_topic:hover,
+.forum_category:hover,
 .forum_latest_thread:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.forum_topic_info {
+.forum_category_info {
     text-align: left;
     margin-left: 10px;
 }
 
-.forum_topic_title,
+.forum_category_title,
 .forum_latest_thread_title {
     font-size: larger;
     font-weight: bold;
 }
 
-.forum_topic_description {
+.forum_category_description {
     color: gray;
 }
 
 .forum_latest_thread {
     padding: 10px;
-    width: 50%;
+    width: 35%;
     color: white;
     text-align: left;
     text-decoration: none;
     background: rgba(0, 0, 0, 0.2);
     border-radius: 10px;
+}
+
+.new_forum_button {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
+    border: none;
+    outline: none;
+    padding: 5px;
+    border-radius: 8px;
+    transition: 0.2s;
+    cursor: pointer;
+    margin-left: 10px;
+    border: 1px solid #32CD32;
+    color: #32CD32;
+}
+.new_forum_button .fas {
+    border-left: 1px solid #32CD32;
+    padding: 7px;
+    margin-left: 5px;
+}
+
+.new_forum_button:hover {
+    color: black;
+    background: #32CD32;
+}
+
+.forum_index_topnav {
+    display: flex;
+    width: 91%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    white-space: nowrap;
 }

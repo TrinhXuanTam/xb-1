@@ -7,22 +7,33 @@
 {% endblock %}
 
 {% block content %}
+
+{%if perms.articles.change_forum_category%}
+<div class="forum_index_topnav">
+    <a href="{% url 'forum:create_forum_category' %}" class="new_forum_button">{%trans "New forum"%}<i class="fas fa-plus"></i></a>
+</div>
+{%endif%}
+
 <div class="forum_index_content">
 {% for category in categories %}
-    <div class="forum_topic_wrapper">
+    <div class="forum_category_wrapper">
 
-        <a class="forum_topic" href="{% url 'forum:forum_list' pk=category.pk %}">
-            <i class="fas fa-comment-alt fa-2x"></i>
-            <div class=forum_topic_info>
-                <div class="forum_topic_title">{{ category.title }}</div>
-                <div class="forum_topic_description">{{ category.description }}</div>
+        <a class="forum_category" href="{% url 'forum:forum_list' pk=category.pk %}">
+            <i class="fas fa-sticky-note fa-2x"></i>
+            <div class=forum_category_info>
+                <div class="forum_category_title">{{ category.title }}</div>
+                {%if category.description%}
+                <div class="forum_category_description">{{ category.description }}</div>
+                {%endif%}
             </div>
         </a>
 
         {% if category.latest %}
         <a class="forum_latest_thread" href="{% url 'forum:forum_detail' pk=category.latest.pk %}">
             <div class="forum_latest_thread_title">{{ category.latest.title }}</div>
-            <div class="forum_topic_description">{{category.latest.description}}</div>
+            {%if category.description%}
+            <div class="forum_category_description">{{category.latest.description}}</div>
+            {%endif%}
         </a>
         {% endif %}
     </div>

@@ -21,7 +21,7 @@ class ForumIndexView(LoginMixinView, TemplateView):
 
         context = super(ForumIndexView, self).get_context_data(*args, **kwargs)
 
-        context["categories"] = ForumCategory.objects.all()
+        context["categories"] = ForumCategory.objects.all().order_by('title')
 
         for category in context["categories"]:
             category.latest = Forum.objects.filter(category=category.id).last()
@@ -49,6 +49,9 @@ class ForumListView(LoginMixinView, TemplateView):
             context["is_open"] = False
             context["category_pk"] = False
         
+        for forum in context["forums"]:
+            forum.replies_cnt = Comment.objects.filter(forum=forum).count()
+
         return context
 
 
