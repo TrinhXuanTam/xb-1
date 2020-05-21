@@ -21,28 +21,16 @@ class ForumIndexView(LoginMixinView, TemplateView):
 
         context = super(ForumIndexView, self).get_context_data(*args, **kwargs)
 
-        context["categories"] = []
+        context["categories"] = list(ForumCategory.objects.all().order_by('title'))
 
-        context["categories"].append({
-            "title": _("Last forums"),
-            "forums": Forum.objects.all()[:5],
-            "url": reverse_lazy("forum:forum_list"),
+        for category in context["categories"]:
+            category.latest = Forum.objects.filter(category=category.id).last()
+
+        context["categories"].insert(0, {
+            "title": _("All forums"),
+            "latest": Forum.objects.filter().last(),
             "pk": False
         })
-
-        for category in ForumCategory.objects.all():
-
-            c = {
-                "title": category.title,
-                "forums": [],
-                "url": reverse_lazy("forum:forum_list", kwargs={"pk": category.pk}),
-                "pk": category.pk
-            }
-
-            for forum in category.forum_set.all()[:5]: # Get only five results // TODO filter 5 with last activity (last comments)
-                c["forums"].append(forum)
-
-            context["categories"].append(c)
 
         return context
 
@@ -67,6 +55,9 @@ class ForumListView(LoginMixinView, TemplateView):
             context["is_open"] = False
             context["category_pk"] = False
         
+        for forum in context["forums"]:
+            forum.replies_cnt = Comment.objects.filter(forum=forum).count()
+
         return context
 
 

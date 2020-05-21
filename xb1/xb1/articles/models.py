@@ -90,6 +90,7 @@ class ForumCategory(models.Model):
 
     title = models.CharField(verbose_name=_("Title"), max_length=100)
     is_open = models.BooleanField(verbose_name=_("Is public"), default=True)
+    description = models.TextField(verbose_name=_("Forum description"), blank=True, null=True)
 
     def __str__(self):
         return self.title
