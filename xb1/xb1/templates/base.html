@@ -131,6 +131,9 @@
             <li><a href="{% url 'articles:article_list' %}">{% trans "Articles" %}</a></li>
             <li><a href="#">{% trans "About us" %}</a></li>
             <li><a href="{% url 'forum:index' %}">{% trans "Forum" %}</a></li>
+            {% if user.is_superuser %}
+                <li><a href="/admin/">{% trans "Admin" %}</a></li>
+            {% endif %} 
         </ul>
 
         {% if messages %} {% for message in messages %}

@@ -8,7 +8,7 @@
 
 {% block content %}
 
-{%if perms.articles.change_forum_category%}
+{%if perms.articles.change_forum_category %}
 <div class="forum_index_topnav">
     <a href="{% url 'forum:create_forum_category' %}" class="new_forum_button">{%trans "New forum"%}<i class="fas fa-plus"></i></a>
 </div>
