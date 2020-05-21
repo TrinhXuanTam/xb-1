@@ -3,42 +3,29 @@
 {% load i18n %}
 
 {% block include %}
-<link rel="stylesheet" href="{% static 'css/layout2.css' %}" >
+<link rel="stylesheet" href="{% static 'css/forum_index.css' %}" >
 {% endblock %}
 
 {% block content %}
-<div class="main">
+<div class="forum_index_content">
+{% for category in categories %}
+    <div class="forum_topic_wrapper">
 
-    <h1>{% trans "Forum" %}</h1>
-    <br>
-    <ul>
-        {% for category in categories %}
-            <li>
-                <a href="{{ category.url }}">
-                    <h2>{{ category.title }}</h2>
-                </a>
-                {%if perms.articles.change_forum_category and category.pk %}
-                    <a href="{% url 'forum:update_forum_category' pk=category.pk %}">{% trans "Edit category" %}</a>
-                {%endif%}
+        <a class="forum_topic" href="{% url 'forum:forum_list' pk=category.pk %}">
+            <i class="fas fa-comment-alt fa-2x"></i>
+            <div class=forum_topic_info>
+                <div class="forum_topic_title">{{ category.title }}</div>
+                <div class="forum_topic_description">{{ category.description }}</div>
+            </div>
+        </a>
 
-                {% for forum in category.forums %}
-                    <a href="{% url 'forum:forum_detail' pk=forum.pk %}">
-                        <h3> {{ forum.title }} </h3>
-                    </a>
-                    <p> {{ forum.description }} </p>
-                    <br>
-                {% endfor %}
-
-                <br><br>
-
-            </li>
-        {% endfor %}
-    </ul>
-
-    <br>
-        {%if perms.articles.add_forum_category %}
-            <a href="{% url 'forum:create_forum_category' %}">{% trans "Create new forum category" %}</a>
-        {%endif%}
-    <br>
+        {% if category.latest %}
+        <a class="forum_latest_thread" href="{% url 'forum:forum_detail' pk=category.latest.pk %}">
+            <div class="forum_latest_thread_title">{{ category.latest.title }}</div>
+            <div class="forum_topic_description">{{category.latest.description}}</div>
+        </a>
+        {% endif %}
+    </div>
+{% endfor %}
 </div>
 {% endblock %}
