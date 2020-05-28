@@ -25,6 +25,9 @@ body {
   color: white;
   margin-bottom: 15px;
   border-radius: 10px;
+  position: fixed;
+  margin-left: 50px;
+  z-index: 1;
  }
 
 
@@ -49,4 +52,33 @@ body {
 ::-webkit-scrollbar-thumb {
     background: white;
     border-radius: 10px;
+}
+
+#hideMe {
+    -moz-animation: hide 0s ease-in 3s forwards;
+    /* Firefox */
+    -webkit-animation: hide 0s ease-in 3s forwards;
+    /* Safari and Chrome */
+    -o-animation: hide 0s ease-in 3s forwards;
+    /* Opera */
+    animation: hide 0s ease-in 3s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+@keyframes hide {
+    to {
+        padding: 0;
+        width:0;
+        height:0;
+        overflow:hidden;
+    }
+}
+::-webkit-keyframes hide {
+    to {
+        padding: 0;
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
 }
