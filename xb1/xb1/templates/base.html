@@ -133,12 +133,11 @@
             <li><a href="{% url 'forum:index' %}">{% trans "Forum" %}</a></li>
             {% if user.is_superuser %}
                 <li><a href="/admin/">{% trans "Admin" %}</a></li>
-            {% endif %} 
+            {% endif %}
         </ul>
-
-        {% if messages %} {% for message in messages %}
-        <li><a>{{ message }} </a></li>
-        {% endfor %} {% endif %}
+            {% if messages %} {% for message in messages %}
+            <div class="alert" >{{ message }}</div>
+            {% endfor %} {% endif %}
     </nav>
 
 

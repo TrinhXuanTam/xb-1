@@ -18,6 +18,13 @@ body {
     margin: 0;
 }
 
+.alert {
+  float: right;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+ }
+
 
 .content {
     min-height: 100vh;

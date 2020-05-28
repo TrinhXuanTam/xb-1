@@ -104,7 +104,7 @@ class ChangePasswordResetForm(SetPasswordForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
-    image = forms.ImageField(required=True, error_messages={'invalid': "Neplatný soubor."},
+    image = forms.ImageField(required=False, error_messages={'invalid': "Neplatný soubor."},
                              widget=forms.FileInput)
 
     def __init__(self, *args, **kwargs):
