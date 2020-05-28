@@ -26,8 +26,6 @@
      <!-- Loading animation during slow connection -->
     <div id="loading"></div>
 
-
-
     <!-- Modal login form -->
     <div id="login_modal" class="modal">
       <div class="modal_content">
@@ -51,10 +49,6 @@
       </div>
     </div>
 
-
-
-
-
     <!-- Chat button -->
     <button class="chat"><i class="fas fa-comments fa-2x"></i></button>
 
@@ -66,47 +60,33 @@
         <ul class="sidebar-options">
             {% if user.is_authenticated %}
             <li>
-                <a href="{% url 'profile' %}"><i class="fas fa-user"></i> {% trans "Profile" %}</a>
+                <a href="{% url 'profile' %}"><i class="fas fa-user sidebarOffset"></i> {% trans "Profile" %}</a>
             </li>
             {% else %}
             <li>
-                <a class="login_trigger" onclick="openDialog()"><i class="fas fa-user"></i> {% trans "Login" %}</a>
+                <a class="login_trigger" onclick="openDialog()"><i class="fas fa-user sidebarOffset"></i>{% trans "Login" %}</a>
             </li>
             {% endif %}
 
             {% if user.is_authenticated %}
             <li>
-                <a href="{% url 'contact:contact' %}"><i class="fas fa-envelope"></i> {% trans "Contact" %}</a>
+                <a href="{% url 'contact:contact' %}"><i class="fas fa-envelope sidebarOffset"></i>{% trans "Contact" %}</a>
             </li>
             {% else %}
             <li>
-                <a class="login_trigger" onclick="openDialog()"><i class="fas fa-envelope"></i> {% trans "Contact" %}</a>
+                <a class="login_trigger" onclick="openDialog()"><i class="fas fa-envelope sidebarOffset"></i>{% trans "Contact" %}</a>
             </li>
             {% endif %}
 
-            <li>
-                <a href="#"><i class="fas fa-calendar-week"></i> {% trans "Link" %}</a>
-            </li>
-            <li>
-                <a href="#"><i class="fas fa-link"></i> {% trans "Link" %}</a>
-            </li>
         </ul>
 
         <!-- Bottom sidebar options -->
         <ul class="sidebar-options bottom">
-            <li>
-                <a href="#"><i class="fas fa-circle color"></i> {% trans "Color" %}</a>
-            </li>
-            <li>
-                <a href="#"><i class="fas fa-question-circle"></i> {% trans "Link" %}</a>
-            </li>
 
             {% if user.is_authenticated %}
             <li>
-                <a href="{% url 'logout' %}"
-                ><i class="fas fa-power-off"></i> {% trans "Logout" %}
-            </a>
-        </li>
+                <a href="{% url 'logout' %}"><i class="fas fa-power-off sidebarOffset"></i>{% trans "Logout" %}</a>
+            </li>
         {% endif %}
         </ul>
   </div>

@@ -41,11 +41,11 @@ from .settings import EMAIL_HOST_USER
 
 
 def show_logout_message(sender, user, request, **kwargs):
-    messages.info(request, 'You have been logged out.')
+    messages.info(request, 'Byl jste úspěšně odhlášen.')
 
 
 def show_login_message(sender, user, request, **kwargs):
-    messages.info(request, f'Welcome {user.username}')
+    messages.info(request, f'Vítejte {user.username}.')
 
 
 user_logged_out.connect(show_logout_message)
@@ -94,7 +94,7 @@ class ProfileView(LoginMixinView, ListView):
 
         if p_form.is_valid():
             p_form.save()
-            messages.success(self.request, f'Your account has been updated!')
+            messages.success(self.request, f'Váš účet byl úspěšně zaktualizován.')
             return redirect('profile')
         # username = form.cleaned_data.get('username')
         # messages.success(self.request, f'Account created for {username}! You can now log in.')

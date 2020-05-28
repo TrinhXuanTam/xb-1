@@ -37,7 +37,6 @@
     transition-property: padding, background, color;
     transition-duration: 0.3s;
     white-space: nowrap;
-    word-spacing: 15px;
 }
 
 .sidebar ul li:hover a {
@@ -64,4 +63,8 @@ ul li .fas {
 
 .color {
     color: orange;
+}
+
+.sidebarOffset{
+    margin-right: 15px;
 }
