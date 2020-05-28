@@ -21,6 +21,8 @@ body {
 .alert {
   float: right;
   padding: 10px;
+  background-color: #32CD32;
+  color: white;
   margin-bottom: 15px;
   border-radius: 10px;
  }
