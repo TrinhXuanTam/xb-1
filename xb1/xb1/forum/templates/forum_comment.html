@@ -63,4 +63,18 @@
             });
         })
     </script>
+
+    <script>
+        var comment_textarea = document.querySelectorAll('#comment_post_form textarea, .comment_reply_form textarea');
+
+        comment_textarea.forEach(function(node) {
+          node.setAttribute('style', 'height:' + (comment_textarea.scrollHeight) + 'px;overflow-y:hidden;');
+          node.addEventListener("input", OnInput, false);
+        })
+        
+        function OnInput() {
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
+        }
+    </script>
 {%endfor%}
