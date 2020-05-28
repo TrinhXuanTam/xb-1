@@ -67,7 +67,7 @@ class ForumCategoryCreateView(LoginMixinView, LoginRequiredMixin, PermissionRequ
     success_url = reverse_lazy("forum:index")
     permission_required = "articles.add_forumcategory"
     model = ForumCategory
-    fields = ("title", "is_open")
+    fields = ("title", "is_open", "description")
 
     def form_valid(self, form):
         return super(ForumCategoryCreateView, self).form_valid(form)
@@ -79,7 +79,7 @@ class ForumCategoryUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequ
     success_url = reverse_lazy("forum:index")
     permission_required = "articles.change_forumcategory"
     model = ForumCategory
-    fields = ("title", "is_open")
+    fields = ("title", "is_open", "description")
 
 
 class ForumDetailView(LoginMixinView, TemplateView):
