@@ -56,8 +56,12 @@ class ForumListView(LoginMixinView, TemplateView):
             context["category_pk"] = False
         
         for forum in context["forums"]:
-            forum.replies_cnt = Comment.objects.filter(forum=forum).count()
-            forum.last_date = Comment.objects.latest('date').date
+            querySet = Comment.objects.filter(forum=forum)
+            forum.replies_cnt = querySet.count()
+            try:
+                forum.last_date = querySet.latest('date').date
+            except Comment.DoesNotExist:
+                forum.last_date = '-'
 
         return context
 
