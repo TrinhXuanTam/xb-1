@@ -57,6 +57,7 @@ class ForumListView(LoginMixinView, TemplateView):
         
         for forum in context["forums"]:
             forum.replies_cnt = Comment.objects.filter(forum=forum).count()
+            forum.last_date = Comment.objects.latest('date').date
 
         return context
 
