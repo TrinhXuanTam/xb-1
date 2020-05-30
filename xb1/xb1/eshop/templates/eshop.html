@@ -34,7 +34,7 @@
 		{% endif %}
 		<div class="shopOfferItem">	
 			<div class="shopOfferImage">
-				{{ shopItem.itemImg.url }}
+				<img class=shopOfferImage src="{{ shopItem.itemImg.url }}">
 			</div>
 			<div class="shopOfferText">
 				<span class="shopOfferName">{{ shopItem.itemName }}</span>
@@ -50,4 +50,14 @@
     {% endfor %}
 </ul>
 </div>
+{% if perms.eshop.add_shopitem %}
+<div>
+	<a href="{% url 'eshop:manageShopCreate' %}">Nový produkt</a>
+</div>
+{% endif %}
+{% if perms.eshop.view_shopitem %}
+<div>
+	<a href="{% url 'eshop:manageShopList' %}">Zobrazit seznam produktů</a>
+</div>
+{% endif %}
 {% endblock %}
