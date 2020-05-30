@@ -20,9 +20,9 @@ class ContactFormView(LoginMixinView, FormView):
     def form_valid(self, form):
 
         message = form.cleaned_data["message"] + "\n\nFrom: " + self.request.user.username
-        topic = form.cleaned_data["topic"]
-        send_mail(topic, message, EMAIL_HOST_USER, [FEEDBACK_EMAIL], fail_silently=False)
-        messages.success(self.request, 'Email successfully sent.')
+        subject = form.cleaned_data["subject"]
+        send_mail(subject, message, EMAIL_HOST_USER, [FEEDBACK_EMAIL], fail_silently=False)
+        messages.success(self.request, 'Email úspěšně odeslán.')
 
         return super(ContactFormView, self).form_valid(form)
 

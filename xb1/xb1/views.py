@@ -121,10 +121,14 @@ def activate_email(request, uidb64, token):
     # checking if the user exists, if the token is valid.
     if user is not None and account_activation_token.check_token(user, token):
         # if valid set active true
+        if User.objects.get(temp_email=user.temp_email) is not None:
+            return render(request, 'registration/activation_email_unique_fail.html')
+
         user.email = user.temp_email
         user.temp_email = None
         user.save()
         login(request, user)
+        messages.success(request, f'Aktualizace proběhla úspěšně.')
         return redirect('index')
     else:
         return render(request, 'registration/activation_invalid.html')
