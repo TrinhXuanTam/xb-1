@@ -21,9 +21,9 @@ class ShopItem(models.Model):
 	itemName = models.CharField("Název produktu", max_length = 20)
 	itemPrice = models.DecimalField("Cena", decimal_places=2, max_digits=10)
 	itemImg = models.ImageField(_("Image"), default='default.jpg', upload_to='ShopItems', blank=True, null=True)
-	itemDesc = models.CharField(_("Detail"), max_length = 200);
+	itemDesc = models.CharField(_("Detail"), max_length = 200)
 	itemType = models.PositiveSmallIntegerField("Typ produktu", choices=TYPE_CHOICES, default=NONE)
-	itemActive = models.BooleanField("Aktivovat", default=True);
+	itemActive = models.BooleanField("Aktivovat", default=True)
 	
 class ShopOrder(models.Model):
 	orderFirstName =  models.CharField(_("Name"), max_length=100, null=True, blank=True)
