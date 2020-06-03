@@ -15,8 +15,8 @@
 
         {% endfor %}
 
-    <button type="submit">Objednat</button>
+    <button class="order_btn" type="submit">Objednat</button>
+    <input class="order_btn" type="button" onclick="location.href='{% url 'eshop:shopIndex' %}'" value="Zpět" />
 </form>
-
 </div>
 {% endblock %}

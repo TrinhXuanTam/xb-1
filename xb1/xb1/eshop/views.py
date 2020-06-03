@@ -223,7 +223,7 @@ class OrderCreateView(LoginMixinView, FormView):
 		if self.request.session.get('orderList', None) == None :
 			return redirect(reverse('eshop:manageOrderCreateFailure', kwargs={'id': 1}))
 
-		if self.request.user:
+		if not self.request.user.is_anonymous:
 			user = self.request.user
 			context['form'].fields['orderFirstName'].initial = user.profile.name
 			context['form'].fields['orderLastName'].initial = user.profile.surname

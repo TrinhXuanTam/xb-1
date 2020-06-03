@@ -3,25 +3,47 @@
 
 {% block include %}
 <link rel="stylesheet" href="{% static 'css/layout_shopIndex.css' %}" >
+<link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}" />
 {% endblock %}
 
 {%block content %}
-<div class="shopOrderBox">
+	<div class="shopOrderBox">
 	{% if request.session.orderList == None %}
 		Košík je prázdný
 	{% else %}
+		<table class = "cartTable" cellspacing="0" cellpadding="0">
+		<caption><i class="fas fa-shopping-cart"></i> Košík</caption>
+		<tr class="cartTableRow">
+		<th class="cartTableCol" colspan="2">Zboží</th>
+		<th class="cartTableCol">Množství</th>
+		<th class="cartTableCol">Cena</th>
+		<th class="cartTableCol" >Přidat</th>
+		<th class="cartTableCol" >Odebrat</th>
+		<th class="cartTableCol" >Zrušit</th>
+
+	  </tr>
 		{% for orderItem in orderItems %}
-			Jméno: {{ orderItem.0.itemName }} Počet: {{ orderItem.1 }} Cena za kus: {{ orderItem.0.itemPrice }} 
-			<a href="{% url 'eshop:cartItemAdd' pk=orderItem.0.pk %}">Přidat</a>
-			<a href="{% url 'eshop:cartItemRemove' pk=orderItem.0.pk %}">Odebrat</a>
-			<a href="{% url 'eshop:cartItemDiscard' pk=orderItem.0.pk %}">Smazat</a>
+		<tr class="cartTableRow">
+			<td class="cartTableColMerge">
+				<img class=shopOfferImageCart src="{{ orderItem.0.itemImg.url }}">
+			</td>
+			<td class="cartTableColMerge"> {{ orderItem.0.itemName }} </td>
+			<td class="cartTableCol"> {{ orderItem.1 }}  </td>
+			<td class="cartTableCol"> {{ orderItem.0.itemPrice }} </td>
+			<td class="cartTableCol"><a href="{% url 'eshop:cartItemAdd' pk=orderItem.0.pk %}"><i class="fas fa-plus"></i></a> </td>
+			<td class="cartTableCol"><a href="{% url 'eshop:cartItemRemove' pk=orderItem.0.pk %}"><i class="fas fa-minus"></i></a> </td>
+			<td class="cartTableCol"><a href="{% url 'eshop:cartItemDiscard' pk=orderItem.0.pk %}"><i class="fas fa-times"></i></a> </td>
+			</tr>
 		{% endfor %}
-	<a href="{% url 'eshop:cartItemsDiscard' %}">Smazat vše</a>	
-	
-	Celková cena: {{ totalPrice }}
-	<a href="{% url 'eshop:manageOrderCreate' %}">Objednat</a>
+	</table>
+	<br>
+	<a href="{% url 'eshop:cartItemsDiscard' %}"><i class="fas fa-trash"></i> Smazat vše</a> <br>
+	<div class="cartBottom">
+		Celková cena: {{ totalPrice }} <br>
+		<input class="order_btn" type="button" onclick="location.href='{% url 'eshop:manageOrderCreate' %}'" value="Objednat"/>
+	</div>
 	{% endif %}
-	
+
 </div>
 
 <div class="shopItemBox">

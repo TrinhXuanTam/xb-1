@@ -10,6 +10,12 @@ class OrderForm(forms.ModelForm):
 		labels = {
 			'orderAddressPostNumber': "PSČ",
 		}
+	def __init__(self, *args, **kwargs):
+		super(OrderForm, self).__init__(*args, **kwargs)
+
+		for field_name in ("orderFirstName", "orderLastName", "orderEmail", "orderAddressCity", "orderAddressStreet", "orderAddressPostNumber", "orderPhone"):
+			self.fields[field_name].widget.attrs['class'] = 'order_form_input'
+
 class ShopItemForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(ShopItemForm, self).__init__(*args, **kwargs)

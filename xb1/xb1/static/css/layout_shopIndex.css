@@ -23,6 +23,79 @@
     transition-property: background, box-shadow;
     transition-duration: 1s;
 }
+.shopOfferImageCart {
+    margin-top: 3px;
+	width: 50px;
+	height: 50px;
+	background: transparent;
+	border-radius: 4px 4px 4px 4px;
+}
+
+.cartTable{
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 80%;
+}
+
+.cartTable caption {
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.cartTable th{
+    padding-bottom: 10px;
+}
+
+.cartTableRow{
+  border: 1px solid grey;
+
+}
+
+.cartTableCol{
+    margin: 2px;
+    width: auto;
+    border-bottom: 1px solid grey;
+}
+
+.cartBottom{
+    max-width: 1000px;
+    width: 80%;
+    margin: 0 auto;
+    text-align: right;
+}
+
+.cartBottom i {
+    position: absolute;
+}
+
+.cartTableColMerge{
+    margin: 2px;
+    width: auto;
+    border-bottom: 1px solid grey;
+    text-align: left;
+}
+
+.order_btn {
+    float: right;
+    background: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    padding: 10px 30px;
+    border: 1px solid white;
+    border-radius: 1rem;
+    transition: 0.2s;
+    display: block;
+    margin-top: 10px;
+}
+
+.order_btn:hover {
+    color: black;
+    background: white;
+    cursor: pointer;
+}
 
 .shopItemBox > ul > li{
 	width: 220px;
