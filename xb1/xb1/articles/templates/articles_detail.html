@@ -60,15 +60,11 @@
 	{% if article.allow_comments %}
 
     <div class="comments">
-        <ul>
-            {% include "article_comment.html" %}
-        </ul>
-
 		{% if user.is_authenticated %}
 			<form id="comment_post_form" method="POST">
 				{% csrf_token %}
 				<textarea required rows=1 placeholder="Add a comment"></textarea>
-				<button class="comment_section_button">Post</button>
+				<button class="comment_section_post_button">Post</button>
 			</form>
 
 			<script src="{% static 'js/articles_detail.js' %}"></script>
@@ -88,13 +84,16 @@
 							comment_id: -1,
 						},
 						success: function(data) {
-							$('#comment_post_form').before(data) 
-							$('#comment_post_form textarea').val('') 
+							$('.comment_section').prepend(data)
+							$('#comment_post_form textarea').val('')
 						}
 					});
 				}
 			</script>
 		{% endif %}
+		<ul class="comment_section">
+            {% include "article_comment.html" %}
+		</ul>
     </div>
 
 

@@ -11,7 +11,7 @@
 
 <div class="profile_content">
 
-
+    {% if user.is_authenticated %}
         {%if user.profile.image%}
         <img class="profile_image" src="{{ user.profile.image.url }}">
         {%else%}
@@ -42,6 +42,11 @@
             <button class="profile_btn" type="submit">Aktualizovat</button>
         </div>
         </form>
+    {% else %}
+        <h3>
+            Pro zobrazení profilu je nutné se přihlásit.
+        </h3>
+    {% endif %}
 </div>
 
 {% endblock %}

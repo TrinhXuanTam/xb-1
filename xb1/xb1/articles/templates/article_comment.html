@@ -10,7 +10,7 @@
             <div class="comment_text">{{comment.text}}</div>
 
             {% if user.is_authenticated %}
-                <button class="comment_section_button" id="button_comment_{{comment.id}}" onclick="showReply('comment_{{comment.id}}')">Reply</button>
+                <button class="comment_section_reply_button" id="button_comment_{{comment.id}}" onclick="showReply('comment_{{comment.id}}')">Reply</button>
 
                 <div id="comment_{{comment.id}}" style="display: none" >
                     <form id="{{comment.id}}" class="comment_reply_form" method="POST">
