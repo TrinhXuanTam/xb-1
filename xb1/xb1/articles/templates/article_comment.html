@@ -1,22 +1,52 @@
+{% load i18n %}
 {% for comment in comments %}
     <li>
     <div class="comment">
         <img class=comment_profile_pic src="{{comment.author.profile.image.url}}">
-        <div class="comment_content">	
-            <div class= "comment_header">	
+        <div class="comment_content">
+            <div class= "comment_header">
                 <div class="comment_nickname">{{comment.author.profile.nickname}}</div>
                 <div class="comment_date">{{comment.date}}</div>
             </div>
-            <div class="comment_text">{{comment.text}}</div>
+
+            {% if comment.is_censured %}
+                <div class="comment_text">
+                    <b>{% trans "Comment has been banned for inappropriate speech." %}</b>
+                </div>
+            {% else %}
+                <div class="comment_text">{{comment.text }}</div>
+            {% endif %}
 
             {% if user.is_authenticated %}
-                <button class="comment_section_button" id="button_comment_{{comment.id}}" onclick="showReply('comment_{{comment.id}}')">Reply</button>
+
+                <!-- Admin section for banning -->
+                {% if perms.articles.change_comment %}
+                    {% if not comment.is_censured %}
+                        <a href="{% url 'articles:ban_comment' pk=comment.id %}">
+                            <button>
+                                {% trans "Censure" %}<i class="fas fa-ban" style="font-size: 15px;"></i>
+                            </button>
+                        </a>
+                    {% else %}
+                        <article href="{% url 'articles:unban_comment' pk=comment.id %}">
+                            <button>
+                                {% trans "Un-censure" %}<i class="fas fa-lock-open" style="font-size: 15px;"></i>
+                            </button>
+                        </a>
+                        <div class="comment_text">
+                            {% trans "Banned text:" %}{{comment.text }}
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                <button class="comment_section_button" id="button_comment_{{comment.id}}" onclick="showReply('comment_{{comment.id}}')">{% trans "Reply" %}</button>
 
                 <div id="comment_{{comment.id}}" style="display: none" >
                     <form id="{{comment.id}}" class="comment_reply_form" method="POST">
                         {% csrf_token %}
+                        <!-- {{ comment.form.text }} -->
                         <textarea required rows=1 placeholder="Add a reply"></textarea>
-                        <button class="comment_section_button">Reply</button>
+                        <button class="comment_section_button">{% trans "Reply" %}</button>
                     </form>
                 </div>
 

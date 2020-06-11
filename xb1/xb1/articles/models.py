@@ -114,9 +114,9 @@ class Comment(TimeStampedModel):
     forum = models.ForeignKey(Forum, verbose_name=_("Forum"), on_delete=models.CASCADE, blank=True, null=True)
     reaction_to = models.ForeignKey("Comment", verbose_name=_("Reacts to"), on_delete=models.CASCADE, blank=True, null=True)
     author = models.ForeignKey(User, verbose_name=_("Author"), on_delete=models.SET_NULL, blank=True, null=True)
-    text = models.TextField(verbose_name=_("Text"), blank=True, null=True)
+    text = RichTextField(verbose_name=_("Text"), blank=True, null=True, config_name="comment")
     is_censured = models.BooleanField(verbose_name=_("Is censured"), default=False)
     date = models.DateTimeField(verbose_name=_("Posted on"), default=timezone.now, null=False, blank=False, editable=False)
 
     def __str__(self):
-        return self.text
+        return self.text if self.text else "---"

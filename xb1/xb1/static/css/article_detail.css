@@ -75,8 +75,18 @@
 }
 
 .comment_wrapper {
+    width: 70%;
+    height: auto;
+    margin: 3rem auto;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
+    border-radius: 3rem;
+    transition-property: background, box-shadow;
+    transition-duration: 4s;
+    padding: 3rem;
+
     align-self: center;
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
     width: 70%;
     height: auto;
 }
@@ -131,8 +141,7 @@
     margin-left: 10%;
 }
 
-.comment_section_button,
-.edit_button {
+button {
     margin-top: 20px;
     background: transparent;
     border: none;
@@ -145,8 +154,7 @@
     opacity: 0.8;
 }
 
-.comment_section_button:hover,
-.edit_button:hover {
+button:hover {
     color: black;
     background: white;
     cursor: pointer;

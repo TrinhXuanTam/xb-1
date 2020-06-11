@@ -78,7 +78,8 @@ class ArticleDetailView(LoginMixinView, DetailView):
                     "text": comment.text,
                     "date": comment.date,
                     "id": comment.pk,
-                    "comments": self.get_comment_childs(comment)
+                    "comments": self.get_comment_childs(comment),
+                    "is_censured": comment.is_censured
                 })
 
         article_tags       = Tag.objects.filter(article=article)
@@ -88,6 +89,7 @@ class ArticleDetailView(LoginMixinView, DetailView):
         context['comments']   = comments
         context['categories'] = article_categories
         context['tags']       = article_tags
+
         return context
 
     def get_comment_childs(self, parent):
@@ -100,9 +102,10 @@ class ArticleDetailView(LoginMixinView, DetailView):
                 "text": comment.text,
                 "date": comment.date,
                 "id": comment.pk,
-                "comments": self.get_comment_childs(comment)
+                "comments": self.get_comment_childs(comment),
+                "is_censured": comment.is_censured
             })
-        
+
         return res
 
     def get(self, request, *args, **kwargs):
@@ -166,6 +169,7 @@ class ArticleSearchView(View):
 
 
 class ArticleDeleteView(LoginRequiredMixin, View):
+
     def post(self, request, *args, **kwargs):
         article = Article.objects.get(id=int(request.POST.get('article_id')))
         if self.request.user == article.author:
@@ -207,3 +211,31 @@ class PublishArticleView(LoginRequiredMixin, View):
             response = JsonResponse({"error": "Unauthorized"})
             response.status_code = 401
             return response
+
+
+class BanCommentView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, View):
+
+    permission_required = "articles.change_comment"
+
+    def get(self, request, *args, **kwargs):
+
+        comment = Comment.objects.get(pk=kwargs["pk"])
+
+        comment.is_censured = True
+        comment.save()
+
+        return HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))
+
+
+class UnbanCommentView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, View):
+
+    permission_required = "articles.change_comment"
+
+    def get(self, request, *args, **kwargs):
+
+        comment = Comment.objects.get(pk=kwargs["pk"])
+
+        comment.is_censured = False
+        comment.save()
+
+        return HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))
