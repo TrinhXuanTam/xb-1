@@ -205,7 +205,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-# CKEDITOR settings 
+# CKEDITOR settings
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
 CKEDITOR_UPLOAD_PATH = 'article_content_images/'
@@ -215,6 +215,10 @@ CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Standard',
-        'width': '85%'
+        'width': '85%',
     },
+    "comment": {
+        'width': '100%',
+        "toolbar": [["Bold", "Italic", "Underline", "SpellChecker"],],
+    }
 }
