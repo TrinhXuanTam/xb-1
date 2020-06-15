@@ -18,6 +18,9 @@ class UserLoginForm(AuthenticationForm):
         self.fields['username'].widget.attrs['class'] = 'login_input'
         self.fields['password'].widget.attrs['class'] = 'login_input'
 
+        self.fields['username'].widget.attrs['autocomplete'] = 'off'
+        self.fields['password'].widget.attrs['autocomplete'] = 'off'
+
     def confirm_login_allowed(self, user):
         if not user.is_active:
             raise forms.ValidationError(
@@ -126,7 +129,7 @@ class ProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['image', 'nickname', 'name', 'surname', 'city', 'postalCode', 'address', 'phone']
+        fields = ['nickname', 'name', 'surname', 'city', 'postalCode', 'address', 'phone', 'image']
 
 
 class UserChangeEmailForm(forms.ModelForm):
