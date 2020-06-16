@@ -3,25 +3,25 @@
 {% load i18n %}
 
 {% block include %}
-<link rel="stylesheet" href="{% static 'css/layout2.css' %}" >
+<link rel="stylesheet" href="{% static 'css/forum_form.css' %}" >
 {% endblock %}
 
 {% block content %}
 <form id ="article_form" method="post" enctype="multipart/form-data">{% csrf_token %}
-    <table>
-        {% for field in form.visible_fields %}
-        <tr>
-            <th>{{ field.label_tag }}</th>
-            <td>
-            {{ field.errors }}
-            {{ field }}
-            {{ field.help_text }}
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-    <input type="submit" value="{% trans 'Submit' %}">
-</form>
+        <div style="width: 80%; margin: 0 auto;">
 
-<a class = "back" href="{% url 'forum:index' %}">{% trans "Back" %}</a> <br>
+        {% for field in form.visible_fields %}
+            {% if field == form.is_open %}
+            {{ field.label_tag }}
+            {{ field }}<br>
+            <br>
+            {%else%}
+            {{ field.label_tag }}
+            {{ field }}
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <button class="article_form_btn" type="submit">{% trans 'Submit' %}</button>
+</form>
 {% endblock %}
