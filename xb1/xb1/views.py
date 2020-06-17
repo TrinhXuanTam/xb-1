@@ -12,6 +12,8 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.signals import user_logged_out, user_logged_in
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 from .core.tokens import account_activation_token
 from .core.views import LoginMixinView
@@ -79,7 +81,7 @@ class LogoutView(BaseLogoutView):
     pass
 
 
-class ProfileView(LoginMixinView, ListView):
+class ProfileView(LoginMixinView, LoginRequiredMixin, ListView):
     model = User
     template_name = "profile.html"
     form_class = ProfileUpdateForm
