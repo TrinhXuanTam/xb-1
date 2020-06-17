@@ -166,7 +166,7 @@
                   type:'POST',
                   async: true,
                   cache: false,
-                  url:'{% url "login" %}',
+                  url:'{% url "login_modal" %}',
                   dataType: "json",
                   data: {
                       csrfmiddlewaretoken: $("#login_form input[type='hidden']").val(),

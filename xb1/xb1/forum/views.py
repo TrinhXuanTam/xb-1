@@ -158,7 +158,7 @@ class PostCommentView(LoginRequiredMixin, View):
             return response
 
 
-class ForumCreateView(LoginMixinView, CreateView):
+class ForumCreateView(LoginMixinView, LoginRequiredMixin, CreateView):
 
     template_name = "forum_form.html"
     success_url = reverse_lazy("forum:index")
