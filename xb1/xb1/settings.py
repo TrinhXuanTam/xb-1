@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from django.utils.translation import ugettext_lazy as _
+from selenium import webdriver
 
 try:
     from .passwords import EMAIL_PASSWORD
@@ -103,6 +104,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'xb1.wsgi.application'
+
+WEB_DRIVER_LOCATION = BASE_DIR + '/resource/chromedriver.exe'
 
 # Eshop bank account
 ESHOP_BANK_ACCOUNT = "0525827/0100"
