@@ -14,7 +14,7 @@
                     <b>{% trans "Comment has been banned for inappropriate speech." %}</b>
                 </div>
             {% else %}
-                <div class="comment_text">{{comment.text }}</div>
+                <div class="comment_text">{{ comment.text }}</div>
             {% endif %}
 
             {% if user.is_authenticated %}
