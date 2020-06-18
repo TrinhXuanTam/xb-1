@@ -175,7 +175,6 @@ button:hover {
     transition: 0.5s;
     resize: none;
     padding: 20px;
-    width: 100%;
 }
 
 #comment_post_form textarea {
@@ -193,8 +192,7 @@ button:hover {
     transition: 0.5s;
     resize: none;
     padding: 20px;
-    margin-left: 15%;
-    margin-right: 15%;
+    margin: 0 auto;
 }
 
 #comment_post_form button {

@@ -18,7 +18,6 @@
             {% endif %}
 
             {% if user.is_authenticated %}
-
                 <!-- Admin section for banning -->
                 {% if perms.articles.change_comment %}
                     {% if not comment.is_censured %}
@@ -39,7 +38,7 @@
                     {% endif %}
                 {% endif %}
 
-                <button class="comment_section_button" id="button_comment_{{comment.id}}" onclick="showReply('comment_{{comment.id}}')">{% trans "Reply" %}</button>
+                <button class="comment_section_reply_button" id="button_comment_{{comment.id}}" onclick="showReply('comment_{{comment.id}}')">{% trans "Reply" %}</button>
 
                 <div id="comment_{{comment.id}}" style="display: none" >
                     <form id="{{comment.id}}" class="comment_reply_form" method="POST">
