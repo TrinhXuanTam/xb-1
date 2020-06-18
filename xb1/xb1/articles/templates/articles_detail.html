@@ -59,44 +59,44 @@
 
 	{% if article.allow_comments %}
 
-    <div class="comments">
-		{% if user.is_authenticated %}
-			<form id="comment_post_form" method="POST">
-				{% csrf_token %}
-				<textarea required rows=1 placeholder="Add a comment"></textarea>
-				<button class="comment_section_post_button">Post</button>
-			</form>
+		<div class="comment_wrapper">
+			<ul>
+				{% include "article_comment.html" %}
+			</ul>
 
-			<script src="{% static 'js/articles_detail.js' %}"></script>
-			<!-- Post a new comment and display it -->
-			<script>
-				document.getElementById("comment_post_form").onsubmit = function(event) {
-					event.preventDefault();
-					$.ajax({
-						type:'POST',
-						async: true,
-						cache: false,
-						url:'{% url "articles:post_comment" %}',
-						data: {
-							csrfmiddlewaretoken: $("#comment_post_form input[type='hidden']").val(),
-							article_id: "{{ article.pk }}",
-							text: $("#comment_post_form textarea").val(),
-							comment_id: -1,
-						},
-						success: function(data) {
-							$('.comment_section').prepend(data)
-							$('#comment_post_form textarea').val('')
-						}
-					});
-				}
-			</script>
-		{% endif %}
-		<ul class="comment_section">
-            {% include "article_comment.html" %}
-		</ul>
-    </div>
+			{% if user.is_authenticated %}
+				<form id="comment_post_form" method="POST">
+					{% csrf_token %}
+					<!-- {{ comment_form.text }} -->
+					<textarea required rows=1 placeholder="Add a comment"></textarea>
+					<button class="comment_section_button">Post</button>
+				</form>
 
-
+				<script src="{% static 'js/articles_detail.js' %}"></script>
+				<!-- Post a new comment and display it -->
+				<script>
+					document.getElementById("comment_post_form").onsubmit = function(event) {
+						event.preventDefault();
+						$.ajax({
+							type:'POST',
+							async: true,
+							cache: false,
+							url:'{% url "articles:post_comment" %}',
+							data: {
+								csrfmiddlewaretoken: $("#comment_post_form input[type='hidden']").val(),
+								article_id: "{{ article.pk }}",
+								text: $("#comment_post_form textarea").val(),
+								comment_id: -1,
+							},
+							success: function(data) {
+								$('#comment_post_form').before(data)
+								$('#comment_post_form textarea').val('')
+							}
+						});
+					}
+				</script>
+			{% endif %}
+		</div>
 
 	{% endif %}
 {% endblock %}

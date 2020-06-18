@@ -7,7 +7,6 @@ from . import views
 from .views import activate_registration, PasswordChangeView, EmailChangeView, activate_email, ckeditor_browse, ckeditor_upload, ckeditor_delete
 from django.contrib.auth import views as auth_views
 
-
 admin.autodiscover()
 
 urlpatterns = [

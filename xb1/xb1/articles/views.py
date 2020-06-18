@@ -9,7 +9,7 @@ from django.views.generic.edit import FormView, CreateView, UpdateView
 from django.views.generic.detail import DetailView
 from django.views import View
 from django.contrib.auth.forms import UserChangeForm
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from .forms import ArticleForm
@@ -67,6 +67,10 @@ class ArticleDetailView(LoginMixinView, DetailView):
     def get_context_data(self, *args, **kwargs):
         context  = super(ArticleDetailView, self).get_context_data(*args, **kwargs)
         article  = Article.objects.get(slug=kwargs['slug'])
+
+        if article.article_state == article.HIDDEN and article.author != self.request.user:
+            return False
+
         comments = []
 
         if article.allow_comments:
@@ -78,7 +82,8 @@ class ArticleDetailView(LoginMixinView, DetailView):
                     "text": comment.text,
                     "date": comment.date,
                     "id": comment.pk,
-                    "comments": self.get_comment_childs(comment)
+                    "comments": self.get_comment_childs(comment),
+                    "is_censured": comment.is_censured
                 })
 
         article_tags       = Tag.objects.filter(article=article)
@@ -88,6 +93,7 @@ class ArticleDetailView(LoginMixinView, DetailView):
         context['comments']   = comments
         context['categories'] = article_categories
         context['tags']       = article_tags
+
         return context
 
     def get_comment_childs(self, parent):
@@ -100,14 +106,20 @@ class ArticleDetailView(LoginMixinView, DetailView):
                 "text": comment.text,
                 "date": comment.date,
                 "id": comment.pk,
-                "comments": self.get_comment_childs(comment)
+                "comments": self.get_comment_childs(comment),
+                "is_censured": comment.is_censured
             })
-        
+
         return res
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        return render(request, 'articles_detail.html', self.get_context_data(*args, **kwargs))
+
+        tmp = self.get_context_data(*args, **kwargs)
+        if not tmp:
+            return redirect('articles:article_list')
+        else:
+            return render(request, 'articles_detail.html', tmp)
 
 
 class PostCommentView(LoginRequiredMixin, View):
@@ -166,6 +178,7 @@ class ArticleSearchView(View):
 
 
 class ArticleDeleteView(LoginRequiredMixin, View):
+
     def post(self, request, *args, **kwargs):
         article = Article.objects.get(id=int(request.POST.get('article_id')))
         if self.request.user == article.author:
@@ -207,3 +220,31 @@ class PublishArticleView(LoginRequiredMixin, View):
             response = JsonResponse({"error": "Unauthorized"})
             response.status_code = 401
             return response
+
+
+class BanCommentView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, View):
+
+    permission_required = "articles.change_comment"
+
+    def get(self, request, *args, **kwargs):
+
+        comment = Comment.objects.get(pk=kwargs["pk"])
+
+        comment.is_censured = True
+        comment.save()
+
+        return HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))
+
+
+class UnbanCommentView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, View):
+
+    permission_required = "articles.change_comment"
+
+    def get(self, request, *args, **kwargs):
+
+        comment = Comment.objects.get(pk=kwargs["pk"])
+
+        comment.is_censured = False
+        comment.save()
+
+        return HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))

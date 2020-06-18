@@ -1,4 +1,5 @@
 from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView as BaseLoginView, LogoutView as BaseLogoutView, \
     PasswordResetConfirmView as AuthPasswordResetConfirmView, PasswordResetCompleteView as AuthPasswordResetCompleteView, \
     PasswordResetView as AuthPasswordResetView, PasswordResetDoneView as AuthPasswordResetDoneView
@@ -79,7 +80,7 @@ class LogoutView(BaseLogoutView):
     pass
 
 
-class ProfileView(LoginMixinView, ListView):
+class ProfileView(LoginMixinView, LoginRequiredMixin, ListView ):
     model = User
     template_name = "profile.html"
     form_class = ProfileUpdateForm

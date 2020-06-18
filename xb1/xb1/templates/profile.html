@@ -18,6 +18,7 @@
         <img class="profile_image" src="{% get_media_prefix %}default.jpg">
         {%endif%}
         <form method="POST" enctype="multipart/form-data">
+            <label style="font-size: 23px;">Obrázek: {{p_form.image}} </label>
         <div class="profile_main">
         <h1>{% trans "Account info" %}</h1>
         <h3>{{ user.username }}</h3>
@@ -31,14 +32,12 @@
             <h1>{% trans "Informace o uživateli" %}</h1>
                 {% for field in p_form %}
             {% if field != p_form.image %}
-                {{field.label_tag }} <br>
+                {{field.label_tag }}
                 {{ field }}
             {% endif %}
             {% endfor %}
 
-            <div class=profile_image_form>
-                <label>{{p_form.image.label}}:</label>{{ p_form.image }}
-            </div>
+
             <button class="profile_btn" type="submit">Aktualizovat</button>
         </div>
         </form>
