@@ -14,3 +14,4 @@ whitenoise==5.0.1
 Pillow==7.1.1
 django-crispy-forms==1.9.0
 django-cleanup==4.0.0
+selenium
