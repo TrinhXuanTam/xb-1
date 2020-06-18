@@ -52,8 +52,7 @@ urlpatterns = [
     # url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^ckeditor/upload/', ckeditor_upload, name='ckeditor_upload'),
     url(r'^ckeditor/browse/', ckeditor_browse, name='ckeditor_browse'),
-    url(r'^ckeditor/delete/', ckeditor_delete, name='ckeditor_delete')
-
+    url(r'^ckeditor/delete/', ckeditor_delete, name='ckeditor_delete'),
 ]
 
 if settings.DEBUG:

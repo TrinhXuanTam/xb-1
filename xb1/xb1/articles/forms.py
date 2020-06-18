@@ -2,11 +2,11 @@ from django import forms
 
 import django.utils.formats
 
-from .models import Article, Comment
+from .models import Article, Comment, Category, Tag
 from ..core.widgets import DateTimePickerInput
 from ckeditor_uploader.fields import RichTextUploadingField
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
-
+from django.forms.widgets import CheckboxSelectMultiple
 
 class ArticleForm(forms.ModelForm):
 
@@ -30,6 +30,9 @@ class ArticleForm(forms.ModelForm):
         self.fields["published_to"].widget.attrs["autocomplete"] = "off"
 
         self.fields["text"].widget = CKEditorUploadingWidget()
+
+        self.fields["category"].widget = CheckboxSelectMultiple()
+        self.fields["category"].queryset = Category.objects.all()
 
     def clean(self):
 

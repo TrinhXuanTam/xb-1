@@ -215,8 +215,8 @@ CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Standard',
-        'width': '100%',
         'extraPlugins': 'autogrow',
+        'width': '100%',
     },
     "comment": {
         'width': '100%',
