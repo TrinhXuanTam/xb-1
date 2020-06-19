@@ -11,7 +11,7 @@ class ShopItemAdmin(admin.ModelAdmin):
 	
 @admin.register(ShopOrder)
 class ShopOrderAdmin(admin.ModelAdmin):
-	list_display = ("orderFirstName", "orderLastName", "orderEmail", "orderAddressCity", "orderAddressStreet", "orderAddressStreetNumber", "orderAddressPostNumber")
+	list_display = ("orderFirstName", "orderLastName", "orderEmail", "orderAddressCity", "orderAddressStreet", "orderAddressPostNumber", "orderPhone")
 	
 @admin.register(ShopOrderItem)
 class ShopOrderItemAdmin(admin.ModelAdmin):
