@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^admin_tools/', include('admin_tools.urls')),
 
     # Login redirect urls
+    url(r'^D7E88079F0C53EE2AC930A3D7300218AC6F0615FECD4A91CFDBA/$', views.LoginViewModal.as_view(), name='login_modal'),
     url(r'^login/$', views.LoginView.as_view(), name='login'),
     url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
 

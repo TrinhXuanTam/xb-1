@@ -11,8 +11,8 @@ class UserLoginForm(AuthenticationForm):
         super(UserLoginForm, self).__init__(*args, **kwargs)
 
         # set text placeholders
-        self.fields['username'].widget.attrs['placeholder'] = 'Username'
-        self.fields['password'].widget.attrs['placeholder'] = 'Password'
+        self.fields['username'].widget.attrs['placeholder'] = 'Uživatelské jméno'
+        self.fields['password'].widget.attrs['placeholder'] = 'Heslo'
 
         # set css class
         self.fields['username'].widget.attrs['class'] = 'login_input'
@@ -44,10 +44,10 @@ class UserRegistrationForm(UserCreationForm):
             self.fields[field_name].widget.attrs['class'] = 'registration_input'
 
         # set text placeholders
-        self.fields['username'].widget.attrs['placeholder'] = 'Username'
+        self.fields['username'].widget.attrs['placeholder'] = 'Uživatelské jméno'
         self.fields['email'].widget.attrs['placeholder'] = 'E-mail'
-        self.fields['password1'].widget.attrs['placeholder'] = 'Password'
-        self.fields['password2'].widget.attrs['placeholder'] = 'Retype password'
+        self.fields['password1'].widget.attrs['placeholder'] = 'Heslo'
+        self.fields['password2'].widget.attrs['placeholder'] = 'Potvrdit heslo'
 
     class Meta:
         model = User
