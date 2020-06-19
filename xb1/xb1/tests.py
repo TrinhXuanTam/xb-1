@@ -12,7 +12,7 @@ class SeleniumTestCase(StaticLiveServerTestCase):
 	def setUp(self):
 		self.wb = webdriver.Chrome(WEB_DRIVER_LOCATION)
 		super(StaticLiveServerTestCase, self).setUp()
-		
+
 	def tearDown(self):
-		#self.wb.close()
+		self.wb.close()
 		super(StaticLiveServerTestCase, self).tearDown()
