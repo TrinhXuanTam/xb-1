@@ -11,7 +11,7 @@ from ..settings import EMAIL_HOST_USER, FEEDBACK_EMAIL
 # Create your views here.
 
 
-class ContactFormView(LoginMixinView, FormView):
+class ContactFormView(LoginMixinView, LoginRequiredMixin, FormView):
 
     template_name = "contact.html"
     form_class = ContactForm

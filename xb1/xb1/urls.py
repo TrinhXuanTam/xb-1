@@ -7,7 +7,6 @@ from . import views
 from .views import activate_registration, PasswordChangeView, EmailChangeView, activate_email, ckeditor_browse, ckeditor_upload, ckeditor_delete
 from django.contrib.auth import views as auth_views
 
-
 admin.autodiscover()
 
 urlpatterns = [
@@ -19,6 +18,7 @@ urlpatterns = [
     url(r'^admin_tools/', include('admin_tools.urls')),
 
     # Login redirect urls
+    url(r'^D7E88079F0C53EE2AC930A3D7300218AC6F0615FECD4A91CFDBA/$', views.LoginViewModal.as_view(), name='login_modal'),
     url(r'^login/$', views.LoginView.as_view(), name='login'),
     url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
 

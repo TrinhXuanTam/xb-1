@@ -90,7 +90,7 @@ class ForumCategory(models.Model):
 
     title = models.CharField(verbose_name=_("Title"), max_length=100)
     is_open = models.BooleanField(verbose_name=_("Is public"), default=True)
-    description = models.TextField(verbose_name=_("Forum description"), blank=True, null=True)
+    description = models.TextField(verbose_name=_("Popis tématu"), blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -99,7 +99,7 @@ class ForumCategory(models.Model):
 class Forum(TimeStampedModel):
 
     title = models.CharField(verbose_name=_("Title"), max_length=100)
-    description = models.TextField(verbose_name=_("Forum description"), blank=True, null=True)
+    description = models.TextField(verbose_name=_("Popis vlákna"), blank=True, null=True)
     author = models.ForeignKey(User, verbose_name=_("Author"), on_delete=models.SET_NULL, blank=True, null=True)
     is_closed = models.BooleanField(verbose_name=_("Is closed"), default=False)
     category = models.ForeignKey(ForumCategory, verbose_name=_("Category"), on_delete=models.SET_NULL, blank=True, null=True)

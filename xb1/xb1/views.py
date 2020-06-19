@@ -1,4 +1,5 @@
 from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView as BaseLoginView, LogoutView as BaseLogoutView, \
     PasswordResetConfirmView as AuthPasswordResetConfirmView, PasswordResetCompleteView as AuthPasswordResetCompleteView, \
     PasswordResetView as AuthPasswordResetView, PasswordResetDoneView as AuthPasswordResetDoneView
@@ -59,7 +60,7 @@ class IndexView(LoginMixinView, ListView):
     template_name = "index.html"
 
 
-class LoginView(LoginMixinView, BaseLoginView):
+class LoginViewModal(LoginMixinView, BaseLoginView):
     template_name = "registration/login.html"
     form_class = UserLoginForm
 
@@ -75,11 +76,16 @@ class LoginView(LoginMixinView, BaseLoginView):
         return response
 
 
+class LoginView(LoginMixinView, BaseLoginView):
+    template_name = "registration/login.html"
+    form_class = UserLoginForm
+
+
 class LogoutView(BaseLogoutView):
     pass
 
 
-class ProfileView(LoginMixinView, ListView):
+class ProfileView(LoginMixinView, LoginRequiredMixin, ListView ):
     model = User
     template_name = "profile.html"
     form_class = ProfileUpdateForm
@@ -156,7 +162,7 @@ def activate_registration(request, uidb64, token):
         return render(request, 'registration/activation_invalid.html')
 
 
-class EmailChangeView(LoginMixinView, FormView):
+class EmailChangeView(LoginMixinView, LoginRequiredMixin, FormView):
     template_name = 'registration/email_change.html'
     form_class = UserChangeEmailForm
 
@@ -166,7 +172,7 @@ class EmailChangeView(LoginMixinView, FormView):
         self.request.user.temp_email = form.cleaned_data['temp_email']
         self.request.user.save()
         current_site = get_current_site(self.request)
-        subject = 'Please confirm your new email'
+        subject = 'Potvrďte Váš nový email'
         # load a template like get_template()
         # and calls its render() method immediately.
         message = render_to_string('registration/activation_request_email.html', {
@@ -206,7 +212,7 @@ class Register(LoginMixinView, FormView):
         form = self.form_class(self.request.POST)
         user = form.save()
         current_site = get_current_site(self.request)
-        subject = 'Please Activate Your Account'
+        subject = 'Potvrďte Váš email'
         user.is_active = False
         user.signup_confirmation = False
         user.save()

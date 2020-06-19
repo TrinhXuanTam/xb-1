@@ -1,21 +1,23 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {%block content %}
-  <div class="modal2">
-      <div class="modal_content">
 
+    <div>
+      <div class="login_form_content">
 
-        <h1>Login</h1>
+        <h1>{% trans "Login" %}</h1>
 
-        <form method = "POST">
+        <form id="login_form" method = "POST">
             {% csrf_token %}
             {{ login_form.username }}
             {{ login_form.password }}
+            <a href="{% url 'password_reset' %}" class = "password_reset">Zapomenuté heslo</a>
             <br>
             <br>
 
-            <button type = "submit">Login</button>
-            <a id="sign_up" href = "{% url 'register' %}">Sign Up</a>
+            <button type = "submit">{% trans "Login" %}</button>
+            <a id="sign_up" href = "{% url 'register' %}">{% trans "Sign Up" %}</a>
         </form>
       </div>
     </div>
