@@ -59,6 +59,20 @@ class ArticleUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMi
         form.instance.author = self.request.user
         return super(ArticleUpdateView, self).form_valid(form)
 
+class TagCreateView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        tag_id = request.POST.get("tag_id")
+
+        if tag_id.isdigit() and Tag.objects.filter(id = tag_id).exists():
+            response = JsonResponse({"ok": "found"})
+            response.status_code = 200
+            return response
+        else:
+            new_tag  = Tag.objects.create(name=request.POST.get("tag_text"))
+            response = JsonResponse({"created": "new tag created", "tag_id" : new_tag.id})
+            response.status_code = 201
+            return response
+    
 
 class ArticleDetailView(LoginMixinView, DetailView):
     model = Article

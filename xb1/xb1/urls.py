@@ -53,6 +53,7 @@ urlpatterns = [
     url(r'^ckeditor/upload/', ckeditor_upload, name='ckeditor_upload'),
     url(r'^ckeditor/browse/', ckeditor_browse, name='ckeditor_browse'),
     url(r'^ckeditor/delete/', ckeditor_delete, name='ckeditor_delete'),
+    path('select2/', include('django_select2.urls')),
 ]
 
 if settings.DEBUG:

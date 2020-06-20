@@ -23,4 +23,8 @@ urlpatterns = [
     url(r'^comment/(?P<pk>\d+)/ban', views.BanCommentView.as_view(), name="ban_comment"),
     url(r'^comment/(?P<pk>\d+)/unban', views.UnbanCommentView.as_view(), name="unban_comment"),
 
+    # Tags
+    url(r'^create_tag', views.TagCreateView.as_view(), name="create_tag"),
+
+
 ]

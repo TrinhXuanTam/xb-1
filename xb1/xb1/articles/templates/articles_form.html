@@ -31,7 +31,28 @@
 	  tags: true,
     tokenSeparators: [','], 
     placeholder: "Add your tags here",
-    selectOnClose: true, 
+  });
+
+  $('#id_tags').on("select2:selecting", function(e) {
+    id  = e.params.args.data.id
+    ref = $("#id_tags option[value=" + id + "]")
+    $.ajax({
+      type:'POST',
+      cache: false,
+      url:'{% url "articles:create_tag" %}',
+      dataType: "json",
+      data: {
+          csrfmiddlewaretoken: "{{ csrf_token }}",
+          tag_id: id,
+          tag_text: ref.text()
+        },
+
+      statusCode: {
+        201: function(data) {
+          ref.val(data.tag_id)
+        }
+      }
+    });
   });
 </script>
 
