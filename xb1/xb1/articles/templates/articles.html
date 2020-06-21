@@ -9,9 +9,17 @@
 {% block content %}
 <div class="articles_content">
     <div class="articles_topnav">
+
         {%if perms.articles.add_article %}
         <a href="{% url 'articles:article_create' %}" class="new_article_button">{%trans "Create article"%}<i class="fas fa-plus"></i></a>
-        <a href="#" class="new_category_button">{%trans "Add category"%}<i class="fas fa-list"></i></a>
+        
+        <form class="new_category_form">
+            <button class="new_category_button" type="button">{%trans "Add category"%}<i class="fas fa-list"></i></button>
+            <div class="new_category_input">
+                <input type="text" placeholder="{%trans "Category"%}">
+                <button type="submit"><i class="fas fa-plus"></i></button>
+            </div>
+        </form>
         {%endif%}
 
         <form class="article_search">

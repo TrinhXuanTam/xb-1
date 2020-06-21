@@ -119,5 +119,10 @@
             $(this).addClass("delete_confirmation")
         }
     })
+
+    $(".preview_delete_button").focusout(function(event) {
+        $(this).text('{%trans "Delete"%}')
+        $(this).removeClass("delete_confirmation")
+    })
 </script>
 {%endif%}

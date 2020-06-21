@@ -25,3 +25,16 @@ $(".article_category, .article_category_all").click(function() {
     $('*').removeClass("article_category_active")
     $(this).addClass('article_category_active')
 })
+
+$(".new_category_button").click(function() {
+    $(".new_category_button").fadeOut(500, function() {
+        $(".new_category_input").css("display", "flex").hide().fadeIn(500);
+        $(".new_category_input input").focus();
+    })
+});
+
+$(".new_category_input").focusout(function(){
+    $(".new_category_input").fadeOut(500, function() {
+        $(".new_category_button").fadeIn(500);
+    })
+})
