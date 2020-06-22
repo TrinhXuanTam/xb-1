@@ -26,5 +26,9 @@ urlpatterns = [
     # Tags
     url(r'^create_tag', views.TagCreateView.as_view(), name="create_tag"),
 
+    # Categories
+    url(r'^create_category', views.CategoryCreateView.as_view(), name="create_category"),
+    url(r'^delete_category', views.CategoryDeleteView.as_view(), name="delete_category"),
+
 
 ]

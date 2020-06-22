@@ -11,6 +11,7 @@ from django.views import View
 from django.contrib.auth.forms import UserChangeForm
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.db.models.functions import Lower
 
 from .forms import ArticleForm
 from .models import Article, Comment, Category, Tag
@@ -29,7 +30,7 @@ class ArticleListView(LoginMixinView, ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ArticleListView, self).get_context_data(*args, **kwargs)
-        context['categories'] = Category.objects.all()
+        context['categories'] = Category.objects.all().order_by(Lower("name"))
         for article in context['object_list']:
             article.article_tags = Tag.objects.filter(article=article).order_by('name')
         return context
@@ -59,7 +60,10 @@ class ArticleUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMi
         form.instance.author = self.request.user
         return super(ArticleUpdateView, self).form_valid(form)
 
-class TagCreateView(LoginRequiredMixin, View):
+class TagCreateView(LoginRequiredMixin, PermissionRequiredMixin, View):
+
+    permission_required = "articles.change_article"
+
     def post(self, request, *args, **kwargs):
         tag_id = request.POST.get("tag_id")
 
@@ -73,6 +77,24 @@ class TagCreateView(LoginRequiredMixin, View):
             response.status_code = 201
             return response
     
+class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, View):
+
+    permission_required = "articles.change_article"
+
+    def post(self, request, *args, **kwargs):
+        if not Category.objects.filter(name=request.POST.get("category_name")).exists():
+            Category.objects.create(name=request.POST.get("category_name"))
+
+        return HttpResponseRedirect(reverse_lazy("articles:article_list"))
+
+class CategoryDeleteView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    permission_required = "articles.change_article"
+
+    def post(self, request, *args, **kwargs):
+        if Category.objects.filter(id=request.POST.get("category_id")).exists():
+            Category.objects.get(id=request.POST.get("category_id")).delete()
+
+        return HttpResponseRedirect(reverse_lazy("articles:article_list"))
 
 class ArticleDetailView(LoginMixinView, DetailView):
     model = Article

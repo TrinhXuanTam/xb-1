@@ -23,7 +23,10 @@ $(".article_category, .article_category_all").click(function() {
         return
 
     $('*').removeClass("article_category_active")
+    $('.article_category_delete_button').fadeOut(100)
+
     $(this).addClass('article_category_active')
+    $(this).parent().find(".article_category_delete_button").fadeIn(500)
 })
 
 $(".new_category_button").click(function() {

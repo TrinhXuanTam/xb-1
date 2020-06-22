@@ -39,6 +39,22 @@
     border-bottom: 1px solid white;
 }
 
+.article_category_option {
+    position: relative;
+}
+
+.article_category_delete_button {
+    background: none;
+    outline: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+
 .slider_button {
     background: none;
     color: white;
