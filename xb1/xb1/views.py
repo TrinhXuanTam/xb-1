@@ -195,7 +195,9 @@ def activate_registration(request, uidb64, token):
 
 class EmailChangeView(LoginMixinView, LoginRequiredMixin, FormView):
     """
-    View displays email change form and sends authentication link to entered email
+    View displays email change form and sends authentication link to entered email,
+    newly entered email is saved in a temporary variable and if new email is valid
+    then temporary email is set as email
     """
     template_name = 'registration/email_change.html'
     form_class = UserChangeEmailForm
