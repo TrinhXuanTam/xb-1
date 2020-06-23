@@ -27,6 +27,9 @@ class Profile(models.Model):
         return f'{self.user}\'s profile'
 
     def save(self, *args, **kwargs):
+        """
+        When a profile is modified, function checks parameters of profile image and downsizes it if it is too big
+        """
         super().save(*args, **kwargs)
 
         if self.image:

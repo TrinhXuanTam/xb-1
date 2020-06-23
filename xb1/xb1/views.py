@@ -40,7 +40,9 @@ import os
 
 from .settings import EMAIL_HOST_USER
 
-
+"""
+Messages shown at login/logout
+"""
 def show_logout_message(sender, user, request, **kwargs):
     messages.info(request, 'Byl jste úspěšně odhlášen.')
 
@@ -55,12 +57,18 @@ user_logged_in.connect(show_login_message)
 
 
 class IndexView(LoginMixinView, ListView):
+    """
+    View displays home page with latest article on front page
+    """
     model         = Article
     queryset      = Article.objects.filter(article_state=1).order_by('-modified')
     template_name = "index.html"
 
 
 class LoginViewModal(LoginMixinView, BaseLoginView):
+    """
+    View handles ajax requests from modal login view
+    """
     template_name = "registration/login.html"
     form_class = UserLoginForm
 
@@ -77,20 +85,32 @@ class LoginViewModal(LoginMixinView, BaseLoginView):
 
 
 class LoginView(LoginMixinView, BaseLoginView):
+    """
+    Basic login view inherited from BaseLoginView
+    """
     template_name = "registration/login.html"
     form_class = UserLoginForm
 
 
 class LogoutView(BaseLogoutView):
+    """
+    Basic login view inherited from BaseLogoutView
+    """
     pass
 
 
-class ProfileView(LoginMixinView, LoginRequiredMixin, ListView ):
+class ProfileView(LoginMixinView, LoginRequiredMixin, ListView):
+    """
+    Profile view for authenticated users, user can change his credentials and set his profile picture
+    """
     model = User
     template_name = "profile.html"
     form_class = ProfileUpdateForm
 
     def get_context_data(self, *args, **kwargs):
+        """
+        Method fills in profile form with data of the authenticated user
+        """
         context = super(ProfileView, self).get_context_data(*args, **kwargs)
         context["p_form"] = ProfileUpdateForm(instance=self.request.user.profile)
         return context
@@ -102,23 +122,30 @@ class ProfileView(LoginMixinView, LoginRequiredMixin, ListView ):
             p_form.save()
             messages.success(self.request, f'Váš účet byl úspěšně zaktualizován.')
             return redirect('profile')
-        # username = form.cleaned_data.get('username')
-        # messages.success(self.request, f'Account created for {username}! You can now log in.')
-        # return redirect('login')
 
 
 class ActivationSentView(LoginMixinView, ListView):
+    """
+    If user decides to change email from profile section and enters an email, this view displays sent message.
+    """
     model = User
     template_name = "registration/activation_sent.html"
 
 
 class PasswordChangeView(LoginMixinView, AuthPasswordChangeView):
+    """
+    View displays a form to change password
+    """
     form_class = ChangePasswordForm
     success_url = '/profile/'
     template_name = "registration/password_change_form.html"
 
 
 def activate_email(request, uidb64, token):
+    """
+    Function checks token sent during email change process,
+    if tokens match then email change is finished, otherwise error message is shown
+    """
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
@@ -141,6 +168,10 @@ def activate_email(request, uidb64, token):
 
 
 def activate_registration(request, uidb64, token):
+    """
+    Function checks token sent during registration process,
+    if tokens match then registration is finished, otherwise error message is shown
+    """
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
@@ -163,6 +194,9 @@ def activate_registration(request, uidb64, token):
 
 
 class EmailChangeView(LoginMixinView, LoginRequiredMixin, FormView):
+    """
+    View displays email change form and sends authentication link to entered email
+    """
     template_name = 'registration/email_change.html'
     form_class = UserChangeEmailForm
 
@@ -181,30 +215,44 @@ class EmailChangeView(LoginMixinView, LoginRequiredMixin, FormView):
             # method will generate a hash value with user related data
             'token': account_activation_token.make_token(self.request.user),
         })
-        # self.request.user.email_user(subject, message)
         send_mail(subject, message, EMAIL_HOST_USER, [str(self.request.user.temp_email)], fail_silently=False)
         return redirect('activation_sent')
 
 
 class PasswordResetView(LoginMixinView, AuthPasswordResetView):
+    """
+    View displays password reset form and sends reset password details to entered email
+    """
     form_class = PasswordResetEmailForm
     template_name = "registration/password_reset.html"
 
 
 class PasswordResetConfirmView(LoginMixinView, AuthPasswordResetConfirmView):
+    """
+    View displays password reset form and sends reset password details to entered email
+    """
     form_class = ChangePasswordResetForm
     template_name = "registration/password_reset_confirm.html"
 
 
 class PasswordResetDoneView(LoginMixinView, AuthPasswordResetDoneView):
+    """
+    View displays message that informs user that password has been sent
+    """
     template_name = "registration/password_reset_done.html"
 
 
 class PasswordResetCompleteView(LoginMixinView, AuthPasswordResetCompleteView):
+    """
+    View displays message that informs user that password has been changed
+    """
     template_name = "registration/password_reset_complete.html"
 
 
 class Register(LoginMixinView, FormView):
+    """
+    View displays registration form and sends activation token to entered email
+    """
     template_name = "registration/register.html"
     form_class = UserRegistrationForm
 
@@ -226,22 +274,6 @@ class Register(LoginMixinView, FormView):
         })
         user.email_user(subject, message)
         return redirect('activation_sent')
-        # username = form.cleaned_data.get('username')
-        # messages.success(self.request, f'Account created for {username}! You can now log in.')
-        # return redirect('login')
-
-
-# def register(request):
-#    if request.method == 'POST':
-#       form = UserRegistrationForm(request.POST)
-#        if form.is_valid():
-#            form.save()
-#            username = form.cleaned_data.get('username')
-#            messages.success(request, f'Account created for {username}! You can now log in.')
-#            return redirect('login')
-#    else:
-#        form = UserRegistrationForm()
-#    return render(request, 'registration/register.html', {'form': form})
 
 #CKEDITOR
 @csrf_exempt

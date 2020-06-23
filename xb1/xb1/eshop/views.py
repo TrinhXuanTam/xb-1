@@ -156,7 +156,7 @@ class ShopItemCreateView(LoginMixinView, LoginRequiredMixin, CreateView):
 class ShopItemUpdateView(LoginMixinView, LoginRequiredMixin, UpdateView):
 	model = ShopItem
 	form_class = ShopItemForm
-	template_name = "manageShopAdd.html"
+	template_name = "manageShopEdit.html"
 	success_url = reverse_lazy("eshop:manageShopList")
 	permission_required = "eshop.change_shopitem"
 	def form_valid(self, form):
