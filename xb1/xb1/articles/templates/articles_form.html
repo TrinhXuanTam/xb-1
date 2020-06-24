@@ -31,28 +31,35 @@
 	  tags: true,
     tokenSeparators: [','], 
     placeholder: "Add your tags here",
-  });
-
-  $('#id_tags').on("select2:selecting", function(e) {
-    id  = e.params.args.data.id
-    ref = $("#id_tags option[value=" + id + "]")
-    $.ajax({
-      type:'POST',
-      cache: false,
-      url:'{% url "articles:create_tag" %}',
-      dataType: "json",
-      data: {
-          csrfmiddlewaretoken: "{{ csrf_token }}",
-          tag_id: id,
-          tag_text: ref.text()
-        },
-
-      statusCode: {
-        201: function(data) {
-          ref.val(data.tag_id)
-        }
+    selectOnclose: true,
+    createTag: function(params) {
+      return {
+          id: params.term,
+          text: params.term,
+          newTag: true,
       }
-    });
+              },
+  }).on("select2:select", function(e) {
+    data = e.params.data
+    if(data.newTag == true) {
+      ref = $("#id_tags option[value=" + data.id + "]")
+      $.ajax({
+        type:'POST',
+        cache: false,
+        url:'{% url "articles:create_tag" %}',
+        dataType: "json",
+        data: {
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+            tag_text: data.text
+          },
+
+        success: function(ret) {
+          ref.remove()
+          var newOption = new Option(data.text, ret.tag_id, true, true);
+          $("#id_tags").append(newOption).trigger('change');
+        }
+      });
+    }
   });
 </script>
 
