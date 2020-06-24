@@ -12,7 +12,10 @@ from ..settings import EMAIL_HOST_USER, FEEDBACK_EMAIL
 
 
 class ContactFormView(LoginMixinView, LoginRequiredMixin, FormView):
-
+    """
+    Contact form for authenticated users,
+    sends message to email specified in settings.py
+    """
     template_name = "contact.html"
     form_class = ContactForm
     success_url = reverse_lazy("index")
