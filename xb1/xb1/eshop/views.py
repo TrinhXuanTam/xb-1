@@ -30,8 +30,12 @@ from ..settings import ESHOP_BANK_ACCOUNT
 
 import random
 
-# TemplateView used for late redirect after success and failure messages
 class DelayRedirectView(LoginMixinView, TemplateView):
+	"""
+	Custom RedicetView
+	Used for display error message or confirmation and forcing redirect by JS to target page
+	"""
+	
 	template_name = "delayedRedirect.html"
 	def __init__(self, delay, target, kwargs, messages):
 		self.delay = delay
@@ -40,10 +44,14 @@ class DelayRedirectView(LoginMixinView, TemplateView):
 		self.messages = messages
 		
 	def get_context_data(self, **localKwargs):
+		"""
+		Set values to context and get message if is any present
+		"""
 		context = super(DelayRedirectView, self).get_context_data(**localKwargs)
 		context['delay'] = self.delay
 		context['target'] = reverse(self.target, kwargs=self.redirectKwargs)
 		
+		# Find and set message text if id is set
 		try:
 			messageID = int(localKwargs.get('id', 0))
 		except ValueError:
@@ -51,20 +59,23 @@ class DelayRedirectView(LoginMixinView, TemplateView):
 		
 		context['message'] = self.messages[messageID]
 		return context
-
-		
-#		
-# Index View		
-#		
+	
 class ShopIndex(LoginMixinView, ListView):
+	"""
+	ShopIndex is used for manipulate with context of Index page, adding items in bucket and items in shop
+	page: ^$
+	"""
+	
 	model = ShopItem
 	template_name = "eshop.html"
 	def get_context_data(self, **kwargs):
 		context = super(ShopIndex, self).get_context_data(**kwargs)
+		# Check if any item is in the shop list
 		if self.request.session.get('orderList', None) == None:
 			context['totalPrice'] = 0;
 			return context
 		
+		# Calculate total price and rearrange store items in that list for being displayeds
 		totalPrice = 0;
 		context['orderItems'] = [];	
 		for shopItem in self.object_list:
@@ -77,11 +88,12 @@ class ShopIndex(LoginMixinView, ListView):
 		
 		return context		
 		
-
-#
-# Cart Views
-#
 class CartItemAddView(RedirectView):
+	"""
+	Used for adding item to shop list and redirecting back.
+	page: ^manage/cart/add/(?P<pk>[0-9]+)$
+	note: If item is already present, count is incresed
+	"""
 	permanent = False
 	def get_redirect_url(self, *args, **kwargs):
 		id = kwargs.get('pk', None)
@@ -101,11 +113,21 @@ class CartItemAddView(RedirectView):
 		return reverse_lazy("eshop:shopIndex")		
 		
 class CartItemAddFailureView(DelayRedirectView):
+	"""
+	In case of failure adding new item into shop list, see cause list in note
+	page: ^manage/cart/add/failure/(?P<id>[0-9]+)$
+	note: Item does not exist. Item is not active.
+	"""
 	def __init__(self):
 		super(CartItemAddFailureView, self).__init__(5000, "eshop:shopIndex", None,
 			["Something bad happened", "Item can not be found", "Item is no longer available"])
 		
 class CartItemRemoveView(RedirectView):
+	"""
+	Used for removing item by one from shop list and redirecting back.
+	page: ^manage/cart/remove/(?P<pk>[0-9]+)$
+	note: If list become empty, will be destroyed. If count of order is 0 or less item is fully removed from order.
+	"""
 	permanent = False;
 	def get_redirect_url(self, *args, **kwargs):
 		id = kwargs.get('pk', None)
@@ -124,6 +146,11 @@ class CartItemRemoveView(RedirectView):
 
 
 class CartItemDiscardView(RedirectView):
+	"""
+	Used for removing all items or one item fully from shop list and redirecting back.
+	page: ^manage/cart/discard/$ , ^manage/cart/discard/(?P<pk>[0-9]+)$
+	note: Clear all or just one item.
+	"""
 	permanent = False
 	def get_redirect_url(self, *args, **kwargs):
 		id = kwargs.get('pk', '')
@@ -138,25 +165,36 @@ class CartItemDiscardView(RedirectView):
 			
 		return reverse_lazy("eshop:shopIndex")		
 	
-
-#
-# ShopItem Views
-#
 class ShopItemListView(LoginMixinView, LoginRequiredMixin, ListView):
+	"""
+	Display all ShopItems in list also with values of each instance
+	page: ^manage/shop/list/$
+	admin: yes
+	"""
 	model = ShopItem
 	template_name = "manageShopList.html"
 	permission_required = "eshop.view_shopitem"
 	
 class ShopItemCreateView(LoginMixinView, LoginRequiredMixin, CreateView):
+	"""
+	Create new ShopItem
+	page: ^manage/shop/add/$ 
+	admin: yes
+	"""
 	form_class = ShopItemForm
 	template_name = "manageShopAdd.html"
 	success_url = reverse_lazy("eshop:manageShopList")
 	permission_required = "eshop.add_shopitem"
 		
 class ShopItemUpdateView(LoginMixinView, LoginRequiredMixin, UpdateView):
+	"""
+	Create new ShopItem from old one by updating old values with new one.
+	page: ^manage/shop/update/(?P<pk>[0-9]+)$
+	admin: yes
+	"""
 	model = ShopItem
 	form_class = ShopItemForm
-	template_name = "manageShopAdd.html"
+	template_name = "manageShopEdit.html"
 	success_url = reverse_lazy("eshop:manageShopList")
 	permission_required = "eshop.change_shopitem"
 	def form_valid(self, form):
@@ -178,17 +216,32 @@ class ShopItemUpdateView(LoginMixinView, LoginRequiredMixin, UpdateView):
 # Order Views		
 #		
 class OrderListView(LoginMixinView, LoginRequiredMixin, ListView):
+	"""
+	Display all ShopOrder in list also with values of each instance
+	page: ^manage/order/list/$
+	admin: yes
+	"""
 	model = ShopOrder
 	template_name = "manageOrderList.html"
 	permission_required = "eshop.view_shoporder"
 	
 class OrderRemoveView(LoginMixinView, LoginRequiredMixin, DeleteView):
+	"""
+	Remove ShopOrder from system, Cascade remove is used. Payment will be removed as well
+	page: ^manage/order/remove/(?P<pk>[0-9]+)$
+	admin: yes
+	"""
 	model = ShopOrder
 	template_name = "manageOrderRemove.html"
 	success_url = reverse_lazy("eshop:manageOrderList")
 	permission_required = "eshop.delete_shoporder"
 	
 class OrderPayView(LoginMixinView, LoginRequiredMixin, RedirectView):
+	"""
+	Set payment status of ShopOder to True
+	page: ^manage/order/remove/(?P<pk>[0-9]+)$
+	admin: yes
+	"""
 	permanent = False
 	permission_required = "eshop.update_shoporder"
 	def get_redirect_url(self, *args, **kwargs):
@@ -211,17 +264,41 @@ class OrderPayView(LoginMixinView, LoginRequiredMixin, RedirectView):
 		return reverse_lazy('eshop:manageOrderList')
 	
 class OrderPayFailureView(DelayRedirectView):
+	"""
+	In case of failure confirmation of payment
+	page: ^manage/order/pay/failure/(?P<id>[0-9]+)$
+	note: Order does not exist.
+	admin: yes
+	"""
 	def __init__(self):
 		super(OrderPayFailureView, self).__init__(5000, "eshop:manageOrderList", None,
 			["Something bad happened", "Bad address, only numbers can be use", "Order not found", "Payment not found"])
 	
 class OrderCreateView(LoginMixinView, FormView):
+	"""
+	Create new order from all items in order list
+	page: ^manage/order/create/$
+	admin: no
+	note: List is cleared after order
+	"""
 	template_name = "manageOrderCreate.html"
 	form_class = OrderForm
 	success_url = reverse_lazy("eshop:shopIndex")
 	def render_to_response(self, context):
 		if self.request.session.get('orderList', None) == None :
 			return redirect(reverse('eshop:manageOrderCreateFailure', kwargs={'id': 1}))
+
+		# Use information from profile
+		if not self.request.user.is_anonymous:
+			user = self.request.user
+			context['form'].fields['orderFirstName'].initial = user.profile.name
+			context['form'].fields['orderLastName'].initial = user.profile.surname
+			context['form'].fields['orderEmail'].initial = user.email
+			context['form'].fields['orderAddressCity'].initial = user.profile.city
+			context['form'].fields['orderAddressStreet'].initial = user.profile.address
+			context['form'].fields['orderAddressPostNumber'].initial = user.profile.postalCode
+			context['form'].fields['orderPhone'].initial = user.profile.phone
+
 		return super(OrderCreateView, self).render_to_response(context)
 		
 	def form_valid(self, form):
@@ -242,7 +319,8 @@ class OrderCreateView(LoginMixinView, FormView):
 			confirmedItems.append((resultObject, self.request.session['orderList'][orderItemID]))
 			
 		form.instance.save()
-
+		
+		# Create links beetwen items
 		for confirmedItem in confirmedItems:
 			item = ShopOrderItem()
 			item.shopItem = confirmedItem[0]
@@ -250,6 +328,7 @@ class OrderCreateView(LoginMixinView, FormView):
 			item.shopItemCount = confirmedItem[1]
 			item.save()
 
+		# Create payment for this order
 		payment = ShopPayment()	
 		payment.paymentOrder = form.instance
 		payment.paymentReceived = False
@@ -260,6 +339,7 @@ class OrderCreateView(LoginMixinView, FormView):
 		
 		self.request.session['orderList'] = None
 	
+		# Set and send email to inserted mail address, with link to track delivery
 		current_site = get_current_site(self.request)
 		subject = 'Order successfully received'
 		message = render_to_string('manageOrderEmail.html', {
@@ -276,11 +356,22 @@ class OrderCreateView(LoginMixinView, FormView):
 		return super(OrderCreateView, self).form_valid(form)
 
 class OrderCreateFailureView(DelayRedirectView):
+	"""
+	In case of failure creating an order, see note for cause.
+	page: ^manage/order/create/failure/(?P<id>[0-9]+)$
+	note: Empty cart, Bad item in cart
+	admin: no
+	"""
 	def __init__(self):
 		super(OrderCreateFailureView, self).__init__(5000, "eshop:shopIndex", None,
 			["Something bad happened", "Empty cart can not be ordered", "Item in your cart doesn't exist, reset cart", "Item in your cart is no longer available, reset cart"])		
 
 class OrderTrackerView(LoginMixinView, TemplateView):
+	"""
+	Used for display information about order, used by link from email
+	page: ^manage/order/tracker/(?P<slug>[\w-]+)/$
+	admin: no
+	"""
 	template_name = "manageOrderTracker.html"
 	def dispatch(self, request, *args, **kwargs):
 		result = ShopOrder.objects.filter(orderSlug = kwargs['slug']).first()
@@ -295,6 +386,12 @@ class OrderTrackerView(LoginMixinView, TemplateView):
 		return context
 		
 class OrderTrackerFailureView(DelayRedirectView):
+	"""
+	In case of failure tracking order, see note for cause.
+	page: ^manage/order/tracker/failure/(?P<id>[0-9]+)$
+	note: Malformed id of order
+	admin: no
+	"""
 	def __init__(self):
 		super(OrderTrackerFailureView, self).__init__(5000, "eshop:shopIndex", None,
 			["Something bad happened", "Order related with this tracker doesn't exists"])

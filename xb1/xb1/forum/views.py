@@ -34,7 +34,7 @@ class ForumIndexView(LoginMixinView, TemplateView):
 
         return context
 
-    
+
 class ForumListView(LoginMixinView, TemplateView):
 
     template_name = "forum_list.html"
@@ -54,7 +54,7 @@ class ForumListView(LoginMixinView, TemplateView):
             context["title"] = _("Last forums")
             context["is_open"] = False
             context["category_pk"] = False
-        
+
         for forum in context["forums"]:
             querySet = Comment.objects.filter(forum=forum)
             forum.replies_cnt = querySet.count()
@@ -108,9 +108,10 @@ class ForumDetailView(LoginMixinView, TemplateView):
                 "text": comment.text,
                 "date": comment.date,
                 "id": comment.pk,
-                "comments": self.get_comment_childs(comment)
+                "comments": self.get_comment_childs(comment),
+                "is_censured": comment.is_censured
             })
-        
+
         context["forum_id"] = context["object"].pk
 
         return context
@@ -125,9 +126,10 @@ class ForumDetailView(LoginMixinView, TemplateView):
                 "text": comment.text,
                 "date": comment.date,
                 "id": comment.pk,
-                "comments": self.get_comment_childs(comment)
+                "comments": self.get_comment_childs(comment),
+                "is_censured": comment.is_censured
             })
-        
+
         return res
 
 
@@ -136,7 +138,7 @@ class PostCommentView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
 
         if request.user.is_authenticated:
-    
+
             forum_id = int(request.POST.get('forum_id'))
             reaction_to_id = int(request.POST.get('comment_id'))
             text = request.POST.get('text')
@@ -147,18 +149,18 @@ class PostCommentView(LoginRequiredMixin, View):
             )
             if reaction_to_id >= 0:
                 comment.reaction_to_id=reaction_to_id
-    
+
             comment.save()
             comment.user = Profile.objects.get(user_id=request.user.id)
             return render(request, 'forum_comment.html', {"forum_id":forum_id, "comments":[comment]})
-    
+
         else:
             response = JsonResponse({"error": "Unauthorized"})
             response.status_code = 401
             return response
 
 
-class ForumCreateView(LoginMixinView, CreateView):
+class ForumCreateView(LoginMixinView, LoginRequiredMixin, CreateView):
 
     template_name = "forum_form.html"
     success_url = reverse_lazy("forum:index")

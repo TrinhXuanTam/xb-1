@@ -9,7 +9,7 @@ from django.views.generic.edit import FormView, CreateView, UpdateView
 from django.views.generic.detail import DetailView
 from django.views import View
 from django.contrib.auth.forms import UserChangeForm
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models.functions import Lower
 
@@ -98,6 +98,10 @@ class ArticleDetailView(LoginMixinView, DetailView):
     def get_context_data(self, *args, **kwargs):
         context  = super(ArticleDetailView, self).get_context_data(*args, **kwargs)
         article  = Article.objects.get(slug=kwargs['slug'])
+
+        if article.article_state == article.HIDDEN and article.author != self.request.user:
+            return False
+
         comments = []
 
         if article.allow_comments:
@@ -141,7 +145,12 @@ class ArticleDetailView(LoginMixinView, DetailView):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        return render(request, 'articles_detail.html', self.get_context_data(*args, **kwargs))
+
+        tmp = self.get_context_data(*args, **kwargs)
+        if not tmp:
+            return redirect('articles:article_list')
+        else:
+            return render(request, 'articles_detail.html', tmp)
 
 
 class PostCommentView(LoginRequiredMixin, View):

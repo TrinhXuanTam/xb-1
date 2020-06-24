@@ -1,5 +1,7 @@
 .comments {
     text-align: left;
+    width: 85%;
+    margin: 0 auto;
 }
 
 ul {
@@ -73,7 +75,33 @@ ul {
   margin-left: 10%;
 }
 
-.comment_section_button,
+.comment_section_post_button{
+ margin-top: 20px;
+  background: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  padding: 7px 21px;
+  border: 1px solid white;
+  transition: 0.2s;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin-left: 15%;
+}
+
+.comment_section_reply_button{
+  margin-top: 20px;
+  background: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  padding: 7px 21px;
+  border: 1px solid white;
+  transition: 0.2s;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
 .edit_button {
   margin-top: 20px;
   background: transparent;
@@ -109,7 +137,6 @@ ul {
   transition: 0.5s;
   resize: none;
   padding: 20px;
-  width: 100%;
 }
 
 #comment_post_form textarea {
@@ -127,8 +154,8 @@ ul {
   transition: 0.5s;
   resize: none;
   padding: 20px;
-  margin-left: 15%;
-  margin-right: 15%;
+  margin: 0 auto;
+
 }
 
 #comment_post_form button {

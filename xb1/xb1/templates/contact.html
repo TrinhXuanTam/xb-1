@@ -7,8 +7,6 @@
 {% endblock %}
 
 {% block content %}
-    {% if user.is_authenticated %}
-
         <div class = "contact_form">
             <h1>{% trans "Contact" %}</h1>
             <h3>
@@ -26,9 +24,4 @@
               <button type="submit">{% trans "Send" %}</button>
           </form>
         </div>
-    {%else%}
-    <h3>
-        Pro kontakt je nutné se přihlásit.
-    </h3>
-    {%endif%}
 {% endblock %}

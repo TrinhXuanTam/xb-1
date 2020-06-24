@@ -1,6 +1,7 @@
 .registration_content {
     text-align: center;
     margin-top: 30px;
+    padding:20px;
 }
 
 .registration_content .header {
@@ -8,14 +9,14 @@
 }
 
 .registration_content .registration_form {
-    margin-top: 30px;
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.03);
-    box-shadow: 10px 0px 55px 1px rgba(0,0,0,0.75);
+    text-align: center;
+    background: radial-gradient( circle, rgba(30, 35, 44, 1) 0%, rgba(13, 13, 13, 1) 100%);
+    box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
     border-radius: 2rem;
-    padding: 30px;
-    transition-property: box-shadow;
-    transition-duration: 4s;
+    padding: 40px 40px 50px;
+    display: inline-block;
+    position: relative;
+    margin-top: 25px;
 }
 
 .registration_content .registration_form:hover {
