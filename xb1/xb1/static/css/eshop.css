@@ -113,3 +113,15 @@
     border-radius: 5px;
     margin: 3px 3px 3px 3px;
 }
+
+.tableWrapper {
+  width: 90%;
+  height: auto;
+  margin: 3rem auto;
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
+  border-radius: 3rem;
+  transition-property: background, box-shadow;
+  transition-duration: 4s;
+  padding: 2rem;
+}

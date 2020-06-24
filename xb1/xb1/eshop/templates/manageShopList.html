@@ -7,6 +7,7 @@
 
 {%block content %}
 {% if object_list %}
+<div class="tableWrapper">
 <div class="divTable blueTable">
 	<div class="divTableHeading">
 		<div class="divTableRow">
@@ -26,12 +27,14 @@
 			<div class="divTableCell">{{ shopItem.itemPrice }}</div>
 			<div class="divTableCell"><a href="{{ shopItem.itemImg.url }}">Obrázek</a></div>
 			<div class="divTableCell">{{ shopItem.itemDesc }}</div>
+
 			<div class="divTableCell"><button class="tag_button">{{ shopItem.get_itemType_display }}</button></div>
 			<div class="divTableCell">{{ shopItem.itemActive }}</div>
 			<div class="divTableCell"><a href="{% url 'eshop:manageShopUpdate' pk=shopItem.pk %}"><button class="changeButton">Upravit</button></a></div>
 		</div>
 		{% endfor %}
 	</div>
+</div>
 </div>
 {% endif %}
 {% endblock %}
