@@ -125,3 +125,12 @@
   transition-duration: 4s;
   padding: 2rem;
 }
+
+.productImg {
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  vertical-align: middle;
+}
