@@ -58,25 +58,17 @@
     <div class="sidebar">
         <!-- Top sidebar options -->
         <ul class="sidebar-options">
-            {% if user.is_authenticated %}
             <li>
                 <a href="{% url 'profile' %}"><i class="fas fa-user sidebarOffset"></i> {% trans "Profile" %}</a>
             </li>
-            {% else %}
-            <li>
-                <a class="login_trigger" onclick="openDialog()"><i class="fas fa-user sidebarOffset"></i>{% trans "Login" %}</a>
-            </li>
-            {% endif %}
 
-            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'eshop:manageOrderList' %}"><i class="fas fa-shopping-basket sidebarOffset"></i>{% trans "Orders" %}</a>
+            </li>
+
             <li>
                 <a href="{% url 'contact:contact' %}"><i class="fas fa-envelope sidebarOffset"></i>{% trans "Contact" %}</a>
             </li>
-            {% else %}
-            <li>
-                <a class="login_trigger" onclick="openDialog()"><i class="fas fa-envelope sidebarOffset"></i>{% trans "Contact" %}</a>
-            </li>
-            {% endif %}
 
         </ul>
 

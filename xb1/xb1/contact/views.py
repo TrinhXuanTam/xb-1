@@ -28,4 +28,3 @@ class ContactFormView(LoginMixinView, LoginRequiredMixin, FormView):
         messages.success(self.request, 'Email úspěšně odeslán.')
 
         return super(ContactFormView, self).form_valid(form)
-

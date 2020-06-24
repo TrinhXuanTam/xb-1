@@ -9,9 +9,18 @@
 {% block content %}
 <div class="articles_content">
     <div class="articles_topnav">
+
         {%if perms.articles.add_article %}
         <a href="{% url 'articles:article_create' %}" class="new_article_button">{%trans "Create article"%}<i class="fas fa-plus"></i></a>
-        <a href="#" class="new_category_button">{%trans "Add category"%}<i class="fas fa-list"></i></a>
+        
+        <form class="new_category_form" method="POST" action="{% url 'articles:create_category' %}">
+            <button class="new_category_button" type="button">{%trans "Add category"%}<i class="fas fa-list"></i></button>
+            <div class="new_category_input">
+                {% csrf_token %}
+                <input type="text" name="category_name" placeholder="{%trans "Category"%}">
+                <button type="submit"><i class="fas fa-plus"></i></button>
+            </div>
+        </form>
         {%endif%}
 
         <form class="article_search">
@@ -26,10 +35,18 @@
 
         <div class="articles_categories_slider_menu">
             <div class=articles_categories_wrapper>
-                <button class="article_category_all article_category_active">{%trans "All"%}</button>
+                <div>
+                    <button class="article_category_all article_category_active">{%trans "All"%}</button>
+                </div>
 
                 {% for category in categories %}
-                <button class="article_category" id="{{category.id}}">{{category}}</button>
+                <div class="article_category_option">
+                    <button class="article_category" id="{{category.id}}">{{category}}</button>
+                    <form action="{% url "articles:delete_category" %}" method="POST">
+                        {% csrf_token %}
+                        <button class="article_category_delete_button" name="category_id" value="{{category.id}}"><i class="fas fa-times-circle"></i></button>
+                    </form>
+                </div>
                 {% endfor %}
             </div>
         </div>
@@ -45,6 +62,37 @@
 </div>
 
 {%if perms.articles.change_article %}
+<script>
+    $(".article_category_delete_button").click(function(e) {
+        icon = $(this).find(".fas")
+
+        if(icon.hasClass("fa-times-circle")) {
+            e.preventDefault()
+            icon.fadeOut(300, function() {
+                $(this).removeClass("fa-times-circle")
+            })
+            icon.fadeIn(300, function() {
+                $(this).addClass("fa-trash-alt")
+            })
+            $(this).focus()
+        }
+    })
+
+    $(".article_category_delete_button").focusout(function() {
+        icon = $(this).find(".fas")
+
+        if(icon.hasClass("fa-trash-alt")) {
+            icon.fadeOut(300, function() {
+                $(this).removeClass("fa-trash-alt")
+            })
+
+            icon.fadeIn(300, function() {
+                $(this).addClass("fa-times-circle")
+            })
+        }
+    })
+</script>
+
 <script>
     $(".article_search").submit(function(event) {
         event.preventDefault()

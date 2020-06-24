@@ -13,6 +13,8 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.signals import user_logged_out, user_logged_in
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 from .core.tokens import account_activation_token
 from .core.views import LoginMixinView
