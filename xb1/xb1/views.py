@@ -1,5 +1,5 @@
 from django.contrib.auth import login
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.views import LoginView as BaseLoginView, LogoutView as BaseLogoutView, \
     PasswordResetConfirmView as AuthPasswordResetConfirmView, PasswordResetCompleteView as AuthPasswordResetCompleteView, \
     PasswordResetView as AuthPasswordResetView, PasswordResetDoneView as AuthPasswordResetDoneView
@@ -14,7 +14,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.signals import user_logged_out, user_logged_in
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.views import View
 
 from .core.tokens import account_activation_token
 from .core.views import LoginMixinView
@@ -35,6 +35,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from ckeditor_uploader.views import browse, upload, get_files_browse_urls
 from ckeditor_uploader.forms import SearchForm
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 from django.conf import settings
 from .articles.models import UploadedFile
 import json
@@ -280,45 +281,64 @@ class Register(LoginMixinView, FormView):
         return redirect('activation_sent')
 
 #CKEDITOR
-@csrf_exempt
-def ckeditor_upload(request, *args, **kwargs):
-    response = upload(request, *args, **kwargs)
-    if b"Invalid" not in response.content:
-        location = json.loads(response.content)
-        path = os.path.relpath(location['url'], '/media')
-        UploadedFile(uploaded_file=path).save()
-    return response
+class CKEditorUploadView(LoginRequiredMixin, View):
+    """
+    Saves a file uploaded via CKEditor.
+    """
 
-@csrf_exempt
-def ckeditor_browse(request):
-    files = get_files_browse_urls(request.user)
-    if request.method == 'POST':
-        form = SearchForm(request.POST)
-        if form.is_valid():
-            query = form.cleaned_data.get('q', '').lower()
-            files = list(filter(lambda d: query in d[
-                'visible_filename'].lower(), files))
-    else:
-        form = SearchForm()
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(CKEditorUploadView, self).dispatch(request, *args, **kwargs)
 
-    show_dirs = getattr(settings, 'CKEDITOR_BROWSE_SHOW_DIRS', False)
-    dir_list = sorted(set(os.path.dirname(f['src'])
-                          for f in files), reverse=True)
+    def post(self, request, *args, **kwargs):
+        response = upload(request, *args, **kwargs)
+        if b"Invalid" not in response.content:
+            location = json.loads(response.content)
+            path = os.path.relpath(location['url'], '/media')
+            UploadedFile(uploaded_file=path).save()
+        return response
 
-    if os.name == 'nt':
-        files = [f for f in files if os.path.basename(f['src']) != 'Thumbs.db']
+class CKEditorBrowseView(LoginRequiredMixin, View):
+    """
+    Renders a list of all uploaded files in the CKEditor file manager.
+    """
 
-    context = {
-        'show_dirs': show_dirs,
-        'dirs': dir_list,
-        'files': files,
-        'form': form
-    }
-    return render(request, 'ckeditor_browse.html', context)
+    permission_required = "articles.change_article"
 
-def ckeditor_delete(request):
-    src = request.POST.get('DeleteButton')
-    res = UploadedFile.objects.filter(uploaded_file=os.path.relpath(src, '/media'))
-    for x in res:
-        x.delete()
-    return HttpResponseRedirect("/ckeditor/browse")
+    def get(self, request, *args, **kwargs):
+       files = get_files_browse_urls(request.user)
+       if request.method == 'POST':
+           form = SearchForm(request.POST)
+           if form.is_valid():
+               query = form.cleaned_data.get('q', '').lower()
+               files = list(filter(lambda d: query in d[
+                   'visible_filename'].lower(), files))
+       else:
+           form = SearchForm()
+
+       show_dirs = getattr(settings, 'CKEDITOR_BROWSE_SHOW_DIRS', False)
+       dir_list = sorted(set(os.path.dirname(f['src'])
+                             for f in files), reverse=True)
+
+       if os.name == 'nt':
+           files = [f for f in files if os.path.basename(f['src']) != 'Thumbs.db']
+
+       context = {
+           'show_dirs': show_dirs,
+           'dirs': dir_list,
+           'files': files,
+           'form': form
+       }
+       return render(request, 'ckeditor_browse.html', context)
+
+class CKEditorDeleteView(LoginRequiredMixin, View):
+    """
+    Deletes an existing file in CKEditor file manager.
+    """
+    
+    def post(self, request, *args, **kwargs):
+        src = request.POST.get('DeleteButton')
+        res = UploadedFile.objects.filter(uploaded_file=os.path.relpath(src, '/media'))
+        for x in res:
+            x.delete()
+        return HttpResponseRedirect("/ckeditor/browse")
