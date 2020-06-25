@@ -13,6 +13,9 @@ from ..core.models import User
 import random
 
 class Category(models.Model):
+    """
+    Category model for filtering articles.
+    """
 
     name = models.CharField(_("Name"), max_length=100)
 
@@ -21,6 +24,9 @@ class Category(models.Model):
 
 
 class Tag(models.Model):
+    """
+    Category tags model for filtering articles.
+    """
 
     name = models.CharField(_("Name"), max_length=100)
 
