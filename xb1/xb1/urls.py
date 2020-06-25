@@ -4,7 +4,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from .views import activate_registration, PasswordChangeView, EmailChangeView, activate_email, ckeditor_browse, ckeditor_upload, ckeditor_delete
+from .views import activate_registration, PasswordChangeView, EmailChangeView, activate_email, CKEditorBrowseView, CKEditorUploadView, CKEditorDeleteView
 from django.contrib.auth import views as auth_views
 
 admin.autodiscover()
@@ -50,9 +50,9 @@ urlpatterns = [
 
     # CKEDITOR
     # url(r'^ckeditor/', include('ckeditor_uploader.urls')),
-    url(r'^ckeditor/upload/', ckeditor_upload, name='ckeditor_upload'),
-    url(r'^ckeditor/browse/', ckeditor_browse, name='ckeditor_browse'),
-    url(r'^ckeditor/delete/', ckeditor_delete, name='ckeditor_delete'),
+    url(r'^ckeditor/upload/', CKEditorUploadView.as_view(), name='ckeditor_upload'),
+    url(r'^ckeditor/browse/', CKEditorBrowseView.as_view(), name='ckeditor_browse'),
+    url(r'^ckeditor/delete/', CKEditorDeleteView.as_view(), name='ckeditor_delete'),
 ]
 
 if settings.DEBUG:

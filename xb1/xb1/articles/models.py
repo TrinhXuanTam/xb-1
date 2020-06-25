@@ -13,6 +13,9 @@ from ..core.models import User
 import random
 
 class Category(models.Model):
+    """
+    Category model for filtering articles.
+    """
 
     name = models.CharField(_("Name"), max_length=100)
 
@@ -21,6 +24,9 @@ class Category(models.Model):
 
 
 class Tag(models.Model):
+    """
+    Category tags model for filtering articles.
+    """
 
     name = models.CharField(_("Name"), max_length=100)
 
@@ -29,6 +35,10 @@ class Tag(models.Model):
 
 
 class UploadedFile(models.Model):
+    """
+    CKEditor model for storing uploaded files.
+    """
+
     uploaded_file = models.FileField(upload_to=u"article_content_images/")
     uploaded_at = models.DateField(editable=False, auto_now_add=True)
 
@@ -45,7 +55,6 @@ class UploadedFile(models.Model):
         file_storage.delete(file_path)
         file_storage.delete(name + "_thumb" + ext)
 
-# TimeStampedModel - An abstract base class model that provides self-updating "created" and "modified" fields.
 class Article(TimeStampedModel):
 
     HIDDEN = 0

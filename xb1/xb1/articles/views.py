@@ -24,11 +24,19 @@ from django.db.models import Q
 from functools import reduce
 
 class ArticleListView(LoginMixinView, ListView):
+    """
+    Renders a list of all articles.
+    Articles marked as hidden are only rendered for authorized users with sufficient privileges.
+    Users with sufficient privileges are able to create, edit and delete articles.
+    """
+
     model = Article
     template_name = "articles.html"
     ordering = ['-modified']
 
     def get_context_data(self, *args, **kwargs):
+        """Adds categories to context and assigns tags to articles."""
+
         context = super(ArticleListView, self).get_context_data(*args, **kwargs)
         context['categories'] = Category.objects.all().order_by(Lower("name"))
         for article in context['object_list']:
@@ -37,6 +45,9 @@ class ArticleListView(LoginMixinView, ListView):
 
 
 class ArticleCreateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    """
+    Creates a new article if user has sufficient privileges for managing articles.
+    """
 
     template_name = "articles_form.html"
     form_class = ArticleForm
@@ -49,6 +60,9 @@ class ArticleCreateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMi
 
 
 class ArticleUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    """
+    Updates an article if user has sufficient privileges for managing articles.
+    """
 
     model = Article
     template_name = "articles_form.html"
@@ -61,28 +75,46 @@ class ArticleUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMi
         return super(ArticleUpdateView, self).form_valid(form)
 
 class TagCreateView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    """
+    Dynamically creates new tags via AJAX.
+    Sufficient privileges for managing articles are required in order to create new tags.
+    """
 
     permission_required = "articles.change_article"
 
     def post(self, request, *args, **kwargs):
+        """A new tag will be created if and only if the tag doesn't already exists and is not an empty string."""
+
         tag_text = request.POST.get("tag_text")
-        if not Tag.objects.filter(name=tag_text).exists():
+        if tag_text and not Tag.objects.filter(name=tag_text).exists():
             new_tag  = Tag.objects.create(name=tag_text)
-            response = JsonResponse({"created": "new tag created", "tag_id" : new_tag.id})
+            response = JsonResponse({"tag_id" : new_tag.id})
             response.status_code = 201
             return response
     
 class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    """
+    Creates a new article category.
+    Sufficient privileges for managing articles are required in order to create new categories.
+    """
 
     permission_required = "articles.change_article"
 
     def post(self, request, *args, **kwargs):
-        if not Category.objects.filter(name=request.POST.get("category_name")).exists():
+        """A new category will be created if and only if the category doesn't already exists and is not an empty string."""
+
+        category_name = request.POST.get("category_name")
+        if category_name and not Category.objects.filter(name=category).exists():
             Category.objects.create(name=request.POST.get("category_name"))
 
         return HttpResponseRedirect(reverse_lazy("articles:article_list"))
 
 class CategoryDeleteView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    """
+    Deletes an existing category.
+    Sufficient privileges for managing articles are required in order to delete categories.
+    """
+
     permission_required = "articles.change_article"
 
     def post(self, request, *args, **kwargs):
@@ -154,6 +186,12 @@ class ArticleDetailView(LoginMixinView, DetailView):
 
 
 class PostCommentView(LoginRequiredMixin, View):
+    """
+    Creates new comment posts and replies via AJAX.
+    A rendered comment/reply as HTML will be return to the client.
+    User authorization is required.
+    """
+
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             article_id = int(request.POST.get('article_id'))
@@ -181,6 +219,10 @@ class PostCommentView(LoginRequiredMixin, View):
 
 
 class GetArticlesByCategoryView(View):
+    """
+    Handles AJAX requests and returns a filtered list of articles according to a given category as HTML.
+    """
+
     def get(self, request, *args, **kwargs):
         articles = Article.objects.filter(category=request.GET.get('category'))
         for article in articles:
@@ -189,6 +231,10 @@ class GetArticlesByCategoryView(View):
 
 
 class GetAllArticlesView(View):
+    """
+    Returns a list of all articles as HTML.
+    """
+
     def get(self, request, *args, **kwargs):
         articles = Article.objects.all().order_by('-modified')
         for article in articles:
@@ -197,7 +243,13 @@ class GetAllArticlesView(View):
 
 
 class ArticleSearchView(View):
+    """
+    Returns a filtered list of articles according to a given set of keywords.
+    """
+    
     def get(self, request, *args, **kwargs):
+        """An article matches a keyword if the title or its tags contains a given the given keyword"""
+
         keywords       = request.GET.get('keywords').split()
         tags_query     = reduce(lambda x, y: x | y, [Q(name__icontains=keyword) for keyword in keywords])
         articles_query = reduce(lambda x, y: x | y, [Q(title__icontains=keyword) for keyword in keywords])
@@ -208,49 +260,57 @@ class ArticleSearchView(View):
         return render(request, 'get_articles.html', {"articles":articles})
 
 
-class ArticleDeleteView(LoginRequiredMixin, View):
+class ArticleDeleteView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    """
+    Deletes an existing article.
+    Sufficient privileges for managing articles are required in order to delete articles.
+    """
+
+    permission_required = "articles.change_article"
 
     def post(self, request, *args, **kwargs):
         article = Article.objects.get(id=int(request.POST.get('article_id')))
-        if self.request.user == article.author:
+        if article:
             article.delete()
-            response = JsonResponse({"ok": "deleted"})
-            response.status_code = 204
-            return response
+            return HttpResponse(status=204)
         else:
-            response = JsonResponse({"error": "Unauthorized"})
-            response.status_code = 401
-            return response
+            return HttpResponse(status=401)
 
 
-class HideArticleView(LoginRequiredMixin, View):
+class HideArticleView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    """
+    Marks an article as hidden which prevents the article being rendered for ordinary users.
+    Sufficient privileges for managing articles are required in order to hide articles.
+    """
+
+    permission_required = "articles.change_article"
+
     def post(self, request, *args, **kwargs):
         article = Article.objects.get(id=int(request.POST.get('article_id')))
-        if self.request.user == article.author:
+        if article:
             article.article_state = 0
             article.save()
-            response = JsonResponse({"ok": "hidden"})
-            response.status_code = 200
-            return response
+            return HttpResponse(status=200)
         else:
-            response = JsonResponse({"error": "Unauthorized"})
-            response.status_code = 401
-            return response
+            return HttpResponse(status=401)
 
 
-class PublishArticleView(LoginRequiredMixin, View):
+class PublishArticleView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    """
+    Marks an article as published which makes the article public.
+    Sufficient privileges for managing articles are required in order to publish articles.
+    """
+
+    permission_required = "articles.change_article"
+
     def post(self, request, *args, **kwargs):
         article = Article.objects.get(id=int(request.POST.get('article_id')))
-        if self.request.user == article.author:
+        if article:
             article.article_state = 1
             article.save()
-            response = JsonResponse({"ok": "published"})
-            response.status_code = 200
-            return response
+            return HttpResponse(status=200)
         else:
-            response = JsonResponse({"error": "Unauthorized"})
-            response.status_code = 401
-            return response
+            return HttpResponse(status=401)
 
 
 class BanCommentView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, View):
