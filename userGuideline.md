@@ -12,7 +12,7 @@ Cílem tohoto dokumentu je seznámení uživatelů XB1 fans s funkcionalitami st
 - Přihlášení
     - Přihlásit se je možné kliknutím na tato místa.
 
-    ![](pictures/login1.PNG)
+    ![](pictures/login.png)
     - Uživatel zadá svoje přihlašovací údaje (je nutná úspěšná registrace). Po přihlášení jsou uživateli odemknuty funkcionality pro přihlášené.
     
     ![](pictures/login2.PNG)
@@ -102,7 +102,11 @@ Cílem tohoto dokumentu je seznámení uživatelů XB1 fans s funkcionalitami st
     
 - Další funkcionalitou této sekce je odpovídaní na jednotlivé komentáře. Pro odpověď na daný komentář je potřeba kliknout na tlačítko „Odpovědět“ pod tímto komentářem, pak zadat text do zobrazeného textového pole a nakonec znovu kliknout na tlačítko „Odpovědět“.    
 
-![](pictures/article_detail_reply.png)    
+![](pictures/article_detail_reply.png)
+
+- Také je možné využít cenzury nevhodných komentářů, pokud k tomu máte daná práva. Tyto komentáře se později nebudou zobrazovat.
+
+![](pictures/clanky.png)
 
 ### Fórum sekce
 - Fórum umožňuje autorizovanému uživateli zapojovat se do diskuze s ostatními uživateli.
