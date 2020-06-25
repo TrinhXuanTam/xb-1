@@ -298,6 +298,7 @@ class CKEditorUploadView(LoginRequiredMixin, View):
             UploadedFile(uploaded_file=path).save()
         return response
 
+
 class CKEditorBrowseView(LoginRequiredMixin, View):
     """
     Renders a list of all uploaded files in the CKEditor file manager.
@@ -331,11 +332,12 @@ class CKEditorBrowseView(LoginRequiredMixin, View):
        }
        return render(request, 'ckeditor_browse.html', context)
 
+
 class CKEditorDeleteView(LoginRequiredMixin, View):
     """
     Deletes an existing file in CKEditor file manager.
     """
-    
+
     def post(self, request, *args, **kwargs):
         src = request.POST.get('DeleteButton')
         res = UploadedFile.objects.filter(uploaded_file=os.path.relpath(src, '/media'))
