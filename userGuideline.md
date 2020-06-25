@@ -43,28 +43,28 @@ Cílem tohoto dokumentu je seznámení uživatelů XB1 fans s funkcionalitami st
 ### E-shop sekce
 - Přidání nového produktu do košíku
 
-    ![](pictures/addNewItem.png) 
+    ![](pictures/ehop1.png) 
 - Přidání již přidaného produktu do košíku 
 
-    ![](pictures/addAlreadyItem.png) 
+    ![](pictures/ehop2.png) 
 - Odebrání 1 kusu zboží z košíku 
 
-    ![](pictures/removeItem.png) 
+    ![](pictures/ehop3.png) 
 - Odebrání všech kusů konkrétního zboží
 
-    ![](pictures/removeAllItem.png) 
+    ![](pictures/ehop4.png) 
 - Odebrání všech kusů zboží
 
-    ![](pictures/removeAllItems.png) 
+    ![](pictures/ehop5.png) 
 - Upravení stavajícího produktu
 
-    ![](pictures/changeItem.png) 
+    ![](pictures/ehop6.png) 
 - Potvrzení zaplacení objednávky
 
-    ![](pictures/payOrder.png)
+    ![](pictures/ehop7.png)
 - Smazaní objednávky
 
-    ![](pictures/removeOrder.png)
+    ![](pictures/ehop8.png)
 ### Článková sekce
 - Při vstupu do sekce článků se uživateli zobrazí seznam všech článků
 
