@@ -29,7 +29,7 @@
 	<div class="collapsible_cart">
 		<div class="collapsible_cart_wrapper">
 			{% if request.session.orderList == None %}
-				Košík je prázdný
+				<div class="empty_cart">Košík je prázdný</div>
 			{% else %}
 				<table class = "cartTable" cellspacing="0" cellpadding="0">
 				<tr class="cartTableRow">
@@ -67,30 +67,30 @@
 </div>
 
 <div class="shopItemBox">
-<ul>
-	{% for shopItem in object_list %}
-	{% if shopItem.itemActive == True %}
-    <li>
-		{%if shopItem.itemType != 2 %}
-		<div class="shopSpecialItem shopSpecial{{ shopItem.itemType }}">{{ shopItem.get_itemType_display }}</div>
+	<ul>
+		{% for shopItem in object_list %}
+		{% if shopItem.itemActive == True %}
+		<li>
+			{%if shopItem.itemType != 2 %}
+			<div class="shopSpecialItem shopSpecial{{ shopItem.itemType }}">{{ shopItem.get_itemType_display }}</div>
+			{% endif %}
+			<div class="shopOfferItem">	
+				<div class="shopOfferImage">
+					<img class=shopOfferImage src="{{ shopItem.itemImg.url }}">
+				</div>
+				<div class="shopOfferText">
+					<span class="shopOfferName">{{ shopItem.itemName }}</span>
+					<div class="shopOfferDesc">{{ shopItem.itemDesc }}</div>
+				</div>
+				<div class="shopOfferControl">
+					<div>{{ shopItem.itemPrice }}</div>
+					<div><a href="{% url 'eshop:cartItemAdd' pk=shopItem.pk %}">Objednat</a></div>
+				</div>
+			</div>
+		</li>
 		{% endif %}
-		<div class="shopOfferItem">	
-			<div class="shopOfferImage">
-				<img class=shopOfferImage src="{{ shopItem.itemImg.url }}">
-			</div>
-			<div class="shopOfferText">
-				<span class="shopOfferName">{{ shopItem.itemName }}</span>
-				<div class="shopOfferDesc">{{ shopItem.itemDesc }}</div>
-			</div>
-			<div class="shopOfferControl">
-				<div>{{ shopItem.itemPrice }}</div>
-				<div><a href="{% url 'eshop:cartItemAdd' pk=shopItem.pk %}">Objednat</a></div>
-			</div>
-		</div>
-	</li>
-	{% endif %}
-    {% endfor %}
-</ul>
+		{% endfor %}
+	</ul>
 </div>
 
 <script>
