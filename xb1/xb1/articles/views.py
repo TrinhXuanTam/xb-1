@@ -23,6 +23,7 @@ from django.template.loader import render_to_string
 from django.db.models import Q
 from functools import reduce
 
+
 class ArticleListView(LoginMixinView, ListView):
     """
     Renders a list of all articles.
@@ -74,6 +75,7 @@ class ArticleUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMi
         form.instance.author = self.request.user
         return super(ArticleUpdateView, self).form_valid(form)
 
+
 class TagCreateView(LoginRequiredMixin, PermissionRequiredMixin, View):
     """
     Dynamically creates new tags via AJAX.
@@ -91,7 +93,8 @@ class TagCreateView(LoginRequiredMixin, PermissionRequiredMixin, View):
             response = JsonResponse({"tag_id" : new_tag.id})
             response.status_code = 201
             return response
-    
+
+
 class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, View):
     """
     Creates a new article category.
@@ -109,6 +112,7 @@ class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, View):
 
         return HttpResponseRedirect(reverse_lazy("articles:article_list"))
 
+
 class CategoryDeleteView(LoginRequiredMixin, PermissionRequiredMixin, View):
     """
     Deletes an existing category.
@@ -123,7 +127,12 @@ class CategoryDeleteView(LoginRequiredMixin, PermissionRequiredMixin, View):
 
         return HttpResponseRedirect(reverse_lazy("articles:article_list"))
 
+
 class ArticleDetailView(LoginMixinView, DetailView):
+    """
+    Renders detail view of an article,
+    also renders comments under the article
+    """
     model = Article
     template_name = "articles_detail.html"
 
@@ -246,7 +255,7 @@ class ArticleSearchView(View):
     """
     Returns a filtered list of articles according to a given set of keywords.
     """
-    
+
     def get(self, request, *args, **kwargs):
         """An article matches a keyword if the title or its tags contains a given the given keyword"""
 
@@ -314,6 +323,9 @@ class PublishArticleView(LoginRequiredMixin, PermissionRequiredMixin, View):
 
 
 class BanCommentView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, View):
+    """
+    Changes comment status to banned and redirects user back to previous page.
+    """
 
     permission_required = "articles.change_comment"
 
@@ -328,6 +340,9 @@ class BanCommentView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin
 
 
 class UnbanCommentView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, View):
+    """
+    Changes comment status to unbanned and redirects user back to prevous page.
+    """
 
     permission_required = "articles.change_comment"
 

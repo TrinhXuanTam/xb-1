@@ -13,6 +13,9 @@ from ..core.models import Profile
 
 
 class ForumIndexView(LoginMixinView, TemplateView):
+    """
+    View shows list of all categories and last active forum in a category.
+    """
 
     template_name = "forum_index.html"
 
@@ -36,6 +39,9 @@ class ForumIndexView(LoginMixinView, TemplateView):
 
 
 class ForumListView(LoginMixinView, TemplateView):
+    """
+    View lists all forums in selected category.
+    """
 
     template_name = "forum_list.html"
 
@@ -67,6 +73,9 @@ class ForumListView(LoginMixinView, TemplateView):
 
 
 class ForumCategoryCreateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    """
+    View creates new forum category.
+    """
 
     template_name = "forum_category_form.html"
     success_url = reverse_lazy("forum:index")
@@ -79,6 +88,9 @@ class ForumCategoryCreateView(LoginMixinView, LoginRequiredMixin, PermissionRequ
 
 
 class ForumCategoryUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    """
+    View for editing existing forum category.
+    """
 
     template_name = "forum_category_form.html"
     success_url = reverse_lazy("forum:index")
@@ -88,6 +100,10 @@ class ForumCategoryUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequ
 
 
 class ForumDetailView(LoginMixinView, TemplateView):
+    """
+    Forum displays text of the forum title
+    and comments under it.
+    """
 
     template_name = "forum_detail.html"
 
@@ -134,6 +150,9 @@ class ForumDetailView(LoginMixinView, TemplateView):
 
 
 class PostCommentView(LoginRequiredMixin, View):
+    """
+    View handles requests for creating new comments.
+    """
 
     def post(self, request, *args, **kwargs):
 
@@ -161,6 +180,9 @@ class PostCommentView(LoginRequiredMixin, View):
 
 
 class ForumCreateView(LoginMixinView, LoginRequiredMixin, CreateView):
+    """
+    View handles form which creates a new forum.
+    """
 
     template_name = "forum_form.html"
     success_url = reverse_lazy("forum:index")
