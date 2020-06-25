@@ -74,6 +74,11 @@ Cílem tohoto dokumentu je seznámení uživatelů XB1 fans s funkcionalitami st
 
 ![](pictures/article_view_perm.png)
 
+- Zvolí-li správce možnost "upravit", bude přesměrován na formulář pro úpravu článku
+
+![](pictures/article_form.png)
+
+
 - Uživatel může filtrovat články dle kategorie
 
 ![](pictures/categories.png)
