@@ -49,6 +49,7 @@ mv requirements.txt xb1/requirements.txt
 mv xb1 $home_folder
 mv uwsgi.service $home_folder/uwsgi.service
 cd $home_folder
+chmod 777 xb1
 
 # Upgrade pip
 pip3 install --upgrade pip
