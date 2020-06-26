@@ -73,6 +73,9 @@ pip3 install -r requirements.txt
 python3 manage.py migrate
 python3 manage.py createsuperuser
 python3 manage.py loaddata groups.json
+python3 manage.py collectstatic
+mkdir -p static
+mv xb1/staticRoot/* static/
 cd ..
 
 ####################
