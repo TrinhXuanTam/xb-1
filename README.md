@@ -1,3 +1,18 @@
+Návod na instalaci a deploy (Debian server)
+===========================================
+- stáhněte si zip tohoto projektu: https://gitlab.fit.cvut.cz/trinhxu2/xb-1/-/archive/master/xb-1-master.zip
+- tento zip vyextrahujte a prejdete do jeho slozky
+- v souboru setup.sh upravte nasledujici promenne:
+    - `port_number` - zde zadejte na jakem portu aplikace pobezi
+    - `server_name` - zde zadejte public IP serveru / domenove jmeno
+    - `home_folder` - zde zadejte cestu do home slozky uzivatele (napr.: `/home/dev`)
+- pridejte skriptu prava pro spusteni: `chmod +x setup.sh`
+- spuste skript: `./setup.sh` (Behem behu skriptu budete pozadani o potvrzeni instalaci balicku pomoci `y`, pro zadani hesla pro sudo prikazy a pro vytvoreni superusera database serveru)
+- skript nejprve stahne potrebne zavislosti, nasledne spusti konfiguraci django serveru, nakonec nakonfiguruje nginx server.
+- po dokonceni behu skriptu, zacne byt server dostupny pres zvolenou adresu a port
+- log soubory nginx jsou v adresari `/var/log/nginx/`
+- pro restart serveru zadejte (např při změně zdrojových souborů django serveru): `sudo service uwsgi restart`
+
 Zapnutí projektu
 ================
 
@@ -60,11 +75,11 @@ vytvoreni superusera
 
 tvorba prekladu
 ---------------
-preklad v templatu:  
+preklad v templatu:
  1. v hlavicce templatu `{% load i18n %}`
  2. preklad: `{% trans "What I want to translate." %}`
 
-preklad v py souborech:  
+preklad v py souborech:
  1. `from django.utils.translation import ugettext_lazy as _`
  2. preklad: `_("What I want to translate.")`
 
@@ -83,14 +98,14 @@ export uzivatelskych skupin do json
 
 typy uzivatelskych prav
 -----------------------
-Kazdy model automaticky generuje tyto 4 druhy prav:  
-`add_modelname`, `change_modelname`, `delete_modelname`, `view_modelname`  
+Kazdy model automaticky generuje tyto 4 druhy prav:
+`add_modelname`, `change_modelname`, `delete_modelname`, `view_modelname`
 (modelname odpovida nazvu modelu v lower case)
 
 K pravum se pristupuje skrze nazev aplikace: `articles.add_article`
 
-Jestlize chci zabranit aby uzivatel mohl vstoupit na stranku:  
-1. V templatu, co obsahuje odkaz na stranku musi byt odkaz podminen pravem:  
+Jestlize chci zabranit aby uzivatel mohl vstoupit na stranku:
+1. V templatu, co obsahuje odkaz na stranku musi byt odkaz podminen pravem:
     - pr.: `{%if perms.articles.change_article %} <a href="{% url 'articles:article_update' pk=article.pk %}">Edit article</a> {%endif%}`
     - Odkaz na editaci clanku se zobrazi jen uzivateli co ma prislusna opravneni
 2. Opravneni musi byt osetrene i na samotnem view (nestaci jen skryt tlacitko, uzivatel si muze domyslet jaka je url)
@@ -118,7 +133,7 @@ Tasku přidejte label **Ve vývoji** (Lépe je pak vidět, že task je obsazený
 Vytvořte si pro task novou větev na Gitlabu. **Nepracujte ve větvi master!**
 Klikněte na **Create merge request**.
 Zvolte že chcete jen branch.
-Jméno nové branche neměnte, source branch ponechte master. 
+Jméno nové branche neměnte, source branch ponechte master.
 
 
 Commitování změn
