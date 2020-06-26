@@ -71,6 +71,7 @@ pip3 install -r requirements.txt
 
 # Setup django db
 python3 manage.py migrate
+echo "Creating django superuser, please enter your login data."
 python3 manage.py createsuperuser
 python3 manage.py loaddata groups.json
 python3 manage.py collectstatic
