@@ -46,9 +46,9 @@ sudo apt-get install python3-pip
 
 # Move server source files to correct location
 mv requirements.txt xb1/requirements.txt
-mv xb1/* $home_folder/xb1
+mv xb1 $home_folder
 mv uwsgi.service $home_folder/uwsgi.service
-cd ..
+cd $home_folder
 
 # Upgrade pip
 pip3 install --upgrade pip
@@ -65,7 +65,7 @@ source /usr/local/bin/virtualenvwrapper.sh
 mkvirtualenv xb1
 
 # Install python required libraries
-cd xb1/
+cd xb1
 pip3 install -r requirements.txt
 cd ..
 
