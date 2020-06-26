@@ -18,7 +18,7 @@ echo "server {
         include         uwsgi_params;
         uwsgi_pass      unix:$home_folder/xb1/xb1.sock;
     }
-}" > nginx_conf
+}" > $home_folder/nginx_conf
 
 echo "[uwsgi]
 project = xb1
@@ -34,7 +34,7 @@ processes = 5
 socket = %(base)/%(project)/%(project).sock
 chmod-socket = 666
 vacuum = true
-plugins = python3" > xb1.ini
+plugins = python3" > $home_folder/xb1.ini
 
 #####################
 # Setup django server
@@ -43,6 +43,12 @@ plugins = python3" > xb1.ini
 # Install python3
 sudo apt-get update
 sudo apt-get install python3-pip
+
+# Move server source files to correct location
+mv requirements.txt xb1/requirements.txt
+mv xb1/* $home_folder/xb1
+mv uwsgi.service $home_folder/uwsgi.service
+cd ..
 
 # Upgrade pip
 pip3 install --upgrade pip
@@ -61,6 +67,7 @@ mkvirtualenv xb1
 # Install python required libraries
 cd xb1/
 pip3 install -r requirements.txt
+cd ..
 
 ####################
 # Setup nginx server
