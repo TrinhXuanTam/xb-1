@@ -68,6 +68,11 @@ mkvirtualenv xb1
 # Install python required libraries
 cd xb1
 pip3 install -r requirements.txt
+
+# Setup django db
+python3 manage.py migrate
+python3 manage.py createsuperuser
+python3 manage.py loaddata groups.json
 cd ..
 
 ####################
