@@ -13,6 +13,10 @@ echo "server {
     location /static/ {
         root $home_folder/xb1;
     }
+    
+    location /media/ {
+        root /home/ridzodan/xb1/xb1;
+    }
 
     location / {
         include         uwsgi_params;
