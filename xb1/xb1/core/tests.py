@@ -15,15 +15,13 @@ from .models import Profile
 from .tokens import account_activation_token
 
 from selenium import webdriver  
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 import time
 
 class AuthenticationTests(SeleniumTestCase):
 
 	def test_register(self):
-		chrome_options = Options()
-		chrome_options.add_argument("--headless")
 		driver = webdriver.Remote(command_executor='http://selenium_hub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
 		driver.get("http://www.seznam.cz")
 		
