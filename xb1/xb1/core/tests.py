@@ -24,7 +24,7 @@ class AuthenticationTests(SeleniumTestCase):
 	def test_register(self):
 		chrome_options = Options()
 		chrome_options.add_argument("--headless")
-		driver = webdriver.Chrome(chrome_options=chrome_options)
+		driver = webdriver.Remote(command_executor='http://selenium_hub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
 		driver.get("http://www.seznam.cz")
 		
 		time.sleep(2)
