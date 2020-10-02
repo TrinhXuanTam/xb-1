@@ -6,7 +6,7 @@ from django.urls import reverse
 
 from selenium.common.exceptions import NoSuchElementException
 
-from unittest import skiphttp://www.duo.com
+from unittest import skip
 
 from ..tests import SeleniumTestCase
 from ..settings import BASE_DIR
