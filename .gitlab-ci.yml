@@ -1,5 +1,4 @@
-default:
-  image: python:latest
+image: python:latest
 
 stages:
   - test
