@@ -10,4 +10,4 @@ stages:
 test:
   stage: test
   script:
-  - echo "X"
+  - .\xb1\manage.py test
