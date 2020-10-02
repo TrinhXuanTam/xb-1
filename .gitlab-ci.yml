@@ -10,4 +10,4 @@ stages:
 test:
   stage: test
   script:
-  - ./xb1/manage.py test
+  - python ./xb1/manage.py test
