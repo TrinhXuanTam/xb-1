@@ -1,13 +1,13 @@
 image: python:latest
 
+before_script:
+  - python -V
+  - pip install -r requirements.txt
+
 stages:
   - test
 
 test:
   stage: test
   script:
-  - apk update
-  - apk add python3
-  - apk add --no-cache --update python3
-  - apk add --no-cache --update python3-dev gcc jpeg-dev zlib-dev musl-dev
-  - echo "XX"
+  - echo "X"
