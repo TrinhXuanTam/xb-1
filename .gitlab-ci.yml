@@ -10,4 +10,5 @@ stages:
 test:
   stage: test
   script:
-  - python ./xb1/manage.py test xb1.core.tests.AuthenticationTests.test_register --verbose
+  - cd xb1
+  - python ./xb1/manage.py test
