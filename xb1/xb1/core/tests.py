@@ -6,7 +6,7 @@ from django.urls import reverse
 
 from selenium.common.exceptions import NoSuchElementException
 
-from unittest import skip
+from unittest import skiphttp://www.duo.com
 
 from ..tests import SeleniumTestCase
 from ..settings import BASE_DIR
@@ -14,6 +14,7 @@ from .models import User
 from .models import Profile
 from .tokens import account_activation_token
 
+from selenium import webdriver  
 from selenium.webdriver.chrome.options import Options
 
 import time
@@ -23,4 +24,9 @@ class AuthenticationTests(SeleniumTestCase):
 	def test_register(self):
 		chrome_options = Options()
 		chrome_options.add_argument("--headless")
+		driver = webdriver.Chrome(chrome_options=chrome_options)
+		driver.get("http://www.seznam.cz")
+		
+		time.sleep(2)
+		driver.quit()
 		print("XXX")
