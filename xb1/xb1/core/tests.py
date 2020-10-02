@@ -14,9 +14,13 @@ from .models import User
 from .models import Profile
 from .tokens import account_activation_token
 
+from selenium.webdriver.chrome.options import Options
+
 import time
 
 class AuthenticationTests(SeleniumTestCase):
 
 	def test_register(self):
+		chrome_options = Options()
+		chrome_options.add_argument("--headless")
 		print("XXX")
