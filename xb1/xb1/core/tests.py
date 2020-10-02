@@ -15,3 +15,8 @@ from .models import Profile
 from .tokens import account_activation_token
 
 import time
+
+class AuthenticationTests(SeleniumTestCase):
+
+	def test_register(self):
+		print("XXX")

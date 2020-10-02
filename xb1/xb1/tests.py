@@ -19,5 +19,4 @@ class SeleniumTestCase(StaticLiveServerTestCase):
 		super(StaticLiveServerTestCase, self).tearDown()
 
 	def login(self):
-		print("XXX")
 		return 0
