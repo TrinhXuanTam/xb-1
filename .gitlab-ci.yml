@@ -1,5 +1,8 @@
 image: python:latest
 
+services:
+    - selenium/standalone-chrome
+
 before_script:
   - python -V
   - pip install -r requirements.txt
