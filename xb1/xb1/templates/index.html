@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block include %}
+<link rel="stylesheet" href="{% static 'css/layout1.css' %}" >
+{% endblock %}
+
+{%block content %}
+  <div class="right">
+    <div class="article_previews">
+        {% for article in object_list %}
+        {% if article.article_state == 1 %}
+        <div class="preview">
+          <div class="preview_title">
+            <a href = "{% url 'articles:detail' slug=article.slug %}">
+              {{ article.title }}
+            </a>
+          </div>
+          <div class="preview_header">
+            <img src="{{article.author.profile.image.url}}">
+            <div class="preview_author_info">
+              <div class="preview_author">{{article.author.profile.nickname}}</div>
+              <div class="preview_date">{{article.modified}}</div>
+            </div>
+            {%if perms.articles.change_article %}
+            <div class="preview_edit_button">
+              <a href="{% url 'articles:article_update' pk=article.pk %}">
+                {%trans "Edit"%}
+              </a>
+            </div>
+            {%endif%}
+          </div>
+          <a href = "{% url 'articles:detail' slug=article.slug %}">
+            <div class="preview_content">
+              {% if article.thumbnail %}
+              <div class="preview_thumb">
+                <img src="{{article.thumbnail.url}}">
+              </div>
+              {%endif%}
+
+              <div class="preview_text">
+                {{ article.preview_text | safe | default_if_none:"" }}<br>
+              </div>
+            </div>
+          </a>
+        </div>
+        {%endif%}
+        {% empty %}
+          {% trans "No articles created." %}
+        {% endfor %}
+      </div>
+  </div>
+
+
+
+  <div class="left">
+    {% for article in object_list %}
+      {%if forloop.first %}
+        <h1>{{ article.title }}</h1><br>
+        <p>{{ article.text | safe}}</p><br>
+        <h3>{{ article.author.label }} {{ article.author }}</h3>
+      {% endif %}
+
+        {% empty %}
+        <h1>{% trans "No articles created." %}</h1>
+    {% endfor %}
+  </div>
+{% endblock %}

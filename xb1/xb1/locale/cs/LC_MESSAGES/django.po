@@ -1,0 +1,450 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: django\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-14 21:55+0200\n"
+"Language: cz\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"cz/)\n"
+
+#: xb1/articles/models.py:17 xb1/articles/models.py:25 xb1/core/models.py:22
+msgid "Name"
+msgstr "Jméno"
+
+#: xb1/articles/models.py:54
+msgid "Hidden"
+msgstr "Skrytý"
+
+#: xb1/articles/models.py:55
+msgid "Published"
+msgstr "Zveřejněný"
+
+#: xb1/articles/models.py:58 xb1/articles/models.py:91
+#: xb1/articles/models.py:100
+msgid "Title"
+msgstr "Nadpis"
+
+#: xb1/articles/models.py:59
+msgid "Thumbnail"
+msgstr "Ikona"
+
+#: xb1/articles/models.py:60
+msgid "Preview text"
+msgstr "Popisek"
+
+#: xb1/articles/models.py:60
+msgid "Read more..."
+msgstr "Zobrazit více..."
+
+#: xb1/articles/models.py:61 xb1/articles/models.py:102
+#: xb1/articles/models.py:115
+msgid "Author"
+msgstr "Autor"
+
+#: xb1/articles/models.py:62
+msgid "Slug"
+msgstr "Slug"
+
+#: xb1/articles/models.py:63 xb1/articles/models.py:104
+msgid "Category"
+msgstr "Kategorie"
+
+#: xb1/articles/models.py:64
+msgid "Tag"
+msgstr "Tag"
+
+#: xb1/articles/models.py:65
+msgid "Comments allowed"
+msgstr "Komentáře povoleny"
+
+#: xb1/articles/models.py:66
+msgid "Published from"
+msgstr "Zveřejněno od"
+
+#: xb1/articles/models.py:67
+msgid "Published to"
+msgstr "Zveřejněné do"
+
+#: xb1/articles/models.py:68 xb1/articles/models.py:116
+msgid "Text"
+msgstr "Text"
+
+#: xb1/articles/models.py:69
+msgid "Sources"
+msgstr "Zdroje"
+
+#: xb1/articles/models.py:70
+msgid "State"
+msgstr "Stav"
+
+#: xb1/articles/models.py:92
+msgid "Is public"
+msgstr "Je veřejný"
+
+#: xb1/articles/models.py:101
+msgid "Forum description"
+msgstr "Popis fóra"
+
+#: xb1/articles/models.py:103
+msgid "Is closed"
+msgstr "Uzavřené"
+
+#: xb1/articles/models.py:112
+msgid "Article"
+msgstr "Článek"
+
+#: xb1/articles/models.py:113 xb1/forum/templates/forum_index.html:12
+#: xb1/templates/base.html:133
+msgid "Forum"
+msgstr "Fórum"
+
+#: xb1/articles/models.py:114
+msgid "Reacts to"
+msgstr "Reaguje na"
+
+#: xb1/articles/models.py:117
+msgid "Is censured"
+msgstr "Je cenzurován"
+
+#: xb1/articles/models.py:118
+msgid "Posted on"
+msgstr "Zveřejněno od"
+
+#: xb1/articles/templates/articles.html:13
+msgid "Create article"
+msgstr "Přidat článek"
+
+#: xb1/articles/templates/articles.html:14
+msgid "Add category"
+msgstr "Přidat kategorii"
+
+#: xb1/articles/templates/articles.html:18
+msgid "Search articles"
+msgstr "Vyhledat článek"
+
+#: xb1/articles/templates/articles.html:29
+msgid "All"
+msgstr "Vše"
+
+#: xb1/articles/templates/articles_detail.html:24
+#, fuzzy
+#| msgid "Category"
+msgid "categories"
+msgstr "Kategorie"
+
+#: xb1/articles/templates/articles_detail.html:31
+#, fuzzy
+#| msgid "Author"
+msgid "author"
+msgstr "Autor"
+
+#: xb1/articles/templates/articles_detail.html:38
+msgid "tags"
+msgstr "tagy"
+
+#: xb1/articles/templates/articles_detail.html:46
+#, fuzzy
+#| msgid "Sources"
+msgid "sources"
+msgstr "Zdroje"
+
+#: xb1/articles/templates/articles_detail.html:53
+#, fuzzy
+#| msgid "Article"
+msgid "Edit Article"
+msgstr "Článek"
+
+#: xb1/articles/templates/articles_detail.html:73
+msgid "Add A Reply"
+msgstr "Přidat odpověď"
+
+#: xb1/articles/templates/articles_detail.html:74
+msgid "Reply"
+msgstr "Odpovědět"
+
+#: xb1/articles/templates/articles_detail.html:98
+msgid "Add A Comment"
+msgstr "Přidat komentář"
+
+#: xb1/articles/templates/articles_detail.html:99
+msgid "Post"
+msgstr "Odeslat"
+
+#: xb1/articles/templates/articles_form.html:24
+#: xb1/forum/templates/forum_category_form.html:23
+#: xb1/forum/templates/forum_form.html:23
+msgid "Submit"
+msgstr "Uložit"
+
+#: xb1/articles/templates/articles_form.html:27
+#: xb1/forum/templates/forum_category_form.html:26
+msgid "Back"
+msgstr "Zpět"
+
+#: xb1/articles/templates/get_articles.html:36
+#: xb1/articles/templates/get_articles.html:87
+msgid "Hide"
+msgstr "Skrýt"
+
+#: xb1/articles/templates/get_articles.html:38
+#: xb1/articles/templates/get_articles.html:66
+msgid "Publish"
+msgstr "Publikovat"
+
+#: xb1/articles/templates/get_articles.html:42 xb1/templates/index.html:29
+msgid "Edit"
+msgstr "Upravit"
+
+#: xb1/articles/templates/get_articles.html:43
+msgid "Delete"
+msgstr "Smazat"
+
+#: xb1/articles/templates/get_articles.html:118
+msgid "Confirm"
+msgstr "Potvrdit"
+
+#: xb1/core/models.py:17
+msgid "Image"
+msgstr "Obrázek"
+
+#: xb1/core/models.py:18
+msgid "Nickname"
+msgstr "Přezdívka"
+
+#: xb1/core/models.py:19
+msgid "City"
+msgstr "Město"
+
+#: xb1/core/models.py:20
+#, fuzzy
+#| msgid "PostalCode"
+msgid "Postal Code"
+msgstr "PSČ"
+
+#: xb1/core/models.py:21
+msgid "Address"
+msgstr "Adresa"
+
+#: xb1/core/models.py:23
+msgid "Surname"
+msgstr "Příjmení"
+
+#: xb1/core/models.py:24
+msgid "Phone"
+msgstr "Telefon"
+
+#: xb1/forum/templates/forum_form.html:26
+#, fuzzy
+#| msgid "Back"
+msgid "Back TODO"
+msgstr "Zpět"
+
+#: xb1/forum/templates/forum_index.html:21
+#, fuzzy
+#| msgid "Add category"
+msgid "Edit category"
+msgstr "Přidat kategorii"
+
+#: xb1/forum/templates/forum_index.html:40
+msgid "Create new forum category"
+msgstr ""
+
+#: xb1/forum/templates/forum_list.html:17
+msgid "Create new forum"
+msgstr ""
+
+#: xb1/forum/views.py:27 xb1/forum/views.py:66
+msgid "Last forums"
+msgstr ""
+
+#: xb1/settings.py:189
+msgid "Czech"
+msgstr "Čeština"
+
+#: xb1/templates/base.html:37 xb1/templates/base.html:47
+#: xb1/templates/base.html:73 xb1/templates/contact.html:44
+msgid "Login"
+msgstr "Přihlásit se"
+
+#: xb1/templates/base.html:48
+msgid "Sign Up"
+msgstr "Registrovat se"
+
+#: xb1/templates/base.html:69
+msgid "Profile"
+msgstr "Profil"
+
+#: xb1/templates/base.html:79 xb1/templates/base.html:83
+#: xb1/templates/base.html:125 xb1/templates/base.html:127
+#: xb1/templates/contact.html:8
+msgid "Contact"
+msgstr "Kontakt"
+
+#: xb1/templates/base.html:88 xb1/templates/base.html:91
+#: xb1/templates/base.html:101
+msgid "Link"
+msgstr "Odkaz"
+
+#: xb1/templates/base.html:98
+msgid "Color"
+msgstr "Barva"
+
+#: xb1/templates/base.html:107
+msgid "Logout"
+msgstr "Odhlásit se"
+
+#: xb1/templates/base.html:121
+msgid "Log in"
+msgstr "Přihlásit se"
+
+#: xb1/templates/base.html:130
+msgid "Eshop"
+msgstr "Obchod"
+
+#: xb1/templates/base.html:131
+msgid "Articles"
+msgstr "Články"
+
+#: xb1/templates/base.html:132
+msgid "About us"
+msgstr "O nás"
+
+#: xb1/templates/ckeditor_browse.html:5
+msgid "Select an image to embed"
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:50
+msgid "Browse for the image you want, then click 'Embed Image' to continue..."
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:52
+msgid ""
+"No images found. Upload images using the 'Image Button' dialog's 'Upload' "
+"tab."
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:73
+#, fuzzy
+#| msgid "Image"
+msgid "Images in: "
+msgstr "Obrázek"
+
+#: xb1/templates/ckeditor_browse.html:85 xb1/templates/ckeditor_browse.html:108
+#, fuzzy
+#| msgid "Image"
+msgid "Embed Image"
+msgstr "Obrázek"
+
+#: xb1/templates/ckeditor_browse.html:86 xb1/templates/ckeditor_browse.html:109
+msgid "Delete Image"
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:180
+msgid "Play Slideshow"
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:181
+msgid "Pause Slideshow"
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:182
+msgid "&lsaquo; Previous Photo"
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:183
+msgid "Next Photo &rsaquo;"
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:184
+msgid "Next &rsaquo;"
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:185
+msgid "&lsaquo; Prev"
+msgstr ""
+
+#: xb1/templates/contact.html:25
+msgid "Send"
+msgstr "Odeslat"
+
+#: xb1/templates/contact.html:37
+msgid "User name"
+msgstr "Uživatelské jméno"
+
+#: xb1/templates/contact.html:39
+msgid "Password"
+msgstr "Heslo"
+
+#: xb1/templates/contact.html:47
+msgid "Need an Account?"
+msgstr "Potřebujete účet?"
+
+#: xb1/templates/contact.html:47
+msgid "Sign up"
+msgstr "Registrovat se"
+
+#: xb1/templates/index.html:50 xb1/templates/index.html:66
+msgid "No articles created."
+msgstr "Žádné články nejsou dostupné"
+
+#: xb1/templates/profile.html:22
+msgid "Account info"
+msgstr "Informace o účtu"
+
+#: xb1/templates/profile.html:31
+msgid "Informace o uživateli"
+msgstr ""
+
+#, fuzzy
+#~| msgid "Title"
+#~ msgid "Title:"
+#~ msgstr "Nadpis"
+
+#, fuzzy
+#~| msgid "Address"
+#~ msgid "Email address"
+#~ msgstr "Adresa"
+
+#, fuzzy
+#~| msgid "Address"
+#~ msgid "IPv4 address"
+#~ msgstr "Adresa"
+
+#, fuzzy
+#~| msgid "Address"
+#~ msgid "IP address"
+#~ msgstr "Adresa"
+
+#, fuzzy
+#~| msgid "State"
+#~ msgid "Sat"
+#~ msgstr "Stav"
+
+#, fuzzy
+#~| msgid "Surname"
+#~ msgid "Sun"
+#~ msgstr "Příjmení"
+
+#, fuzzy
+#~| msgid "Contact"
+#~ msgid "oct"
+#~ msgstr "Kontakt"
+
+#, fuzzy
+#~| msgid "Hidden"
+#~ msgid "Forbidden"
+#~ msgstr "Skrytý"
+
+#~ msgid "User"
+#~ msgstr "Uživatel"
+
+#~ msgid "Read more"
+#~ msgstr "Zobrazit více"
+
+#~ msgid "Update"
+#~ msgstr "Aktualizovat"
+
+#~ msgid "TODO"
+#~ msgstr "TODO"

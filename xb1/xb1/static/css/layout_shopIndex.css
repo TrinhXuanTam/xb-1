@@ -1,0 +1,285 @@
+.shopOrderBox{
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 10px 0px 55px 1px rgba(0,0,0,0.75);
+    transition-property: background, box-shadow;
+    transition-duration: 1s;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.shopItemBox{
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+	display: grid;
+    height: auto;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 10px 0px 55px 1px rgba(0,0,0,0.75);
+    padding-top: 1rem;
+	padding-bottom: 1rem;
+    overflow: hidden;
+    transition-property: background, box-shadow;
+    transition-duration: 1s;
+}
+.shopOfferImageCart {
+    margin-top: 3px;
+	width: 50px;
+	height: 50px;
+	background: transparent;
+	border-radius: 4px 4px 4px 4px;
+}
+
+.cartTable{
+	padding-top: 10px;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 80%;
+}
+
+.cartTable caption {
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.cartTable th{
+    padding-bottom: 10px;
+}
+
+.cartTableRow{
+  border: 1px solid grey;
+
+}
+
+.cartTableCol{
+    margin: 2px;
+    width: auto;
+    border-bottom: 1px solid grey;
+}
+
+.cartBottom{
+    max-width: 1000px;
+    width: 80%;
+    margin: 0 auto;
+	text-align: right;
+	display: inline-block;
+}
+
+.cartBottom i {
+    position: absolute;
+}
+
+.cartTableColMerge{
+    margin: 2px;
+    width: auto;
+    border-bottom: 1px solid grey;
+    text-align: left;
+}
+
+.order_btn {
+    float: right;
+    background: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    padding: 10px 30px;
+    border: 1px solid white;
+    border-radius: 1rem;
+    transition: 0.2s;
+    display: block;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.order_btn:hover {
+    color: black;
+    background: white;
+    cursor: pointer;
+}
+
+.shopItemBox > ul > li{
+	width: 220px;
+	height: 270px;
+	display: inline-block;
+	margin-left: 1rem;
+	margin-top: 1rem;
+	position: relative;
+}
+
+.shopItemBox > ul > li > .shopOfferItem {
+    backface-visibility: hidden;
+    position: absolute;
+	border-radius: 1rem;
+	left: 10px;
+	top: 10px;
+    width: 200px;
+    height: 250px;
+}
+
+.shopSpecialItem{
+	position: absolute;
+	right: 0px;
+	padding: 4px;
+	border-radius: 6px;
+	z-index: 1;
+}
+
+.shopSpecial3{
+	background-color: #c0392b;
+}
+
+.shopSpecial0{
+	background-color: #f39c12;
+}
+
+.shopSpecial1{
+	background-color: #08A045;
+}
+
+.shopOfferImage{
+	width: 200px;
+	height: 150px;
+	background-color: rgba(48, 59, 67, 1);
+	border-radius: 6px 6px 0px 0px;
+}
+
+.shopOfferName{
+	position: absolute;
+	left: 0px;
+	top: -15px;
+	padding: 6px;
+	background-color: #34495e;
+	border-radius: 6px 6px 6px 0px;
+}
+
+.shopOfferControl{
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	overflow: hidden;
+	border-radius: 6px 0px 6px 0px;
+}
+
+.shopOfferControl > :first-child{
+	background-color: #e74c3c;
+}
+
+.shopOfferControl > :last-child{
+	background-color: #c0392b;
+}
+
+.shopOfferControl > *{
+	padding: 6px;
+	display: inline-block;
+}
+
+.shopOfferText{
+	width: 100%;
+	position: absolute;
+	top: 150px;
+	background-color: #112233;
+	height: calc(100% - 150px);
+	border-radius: 0px 0px 6px 6px;
+	transition-property: top, height;
+	transition-duration: 1s;
+}
+
+.shopOfferDesc{
+	margin-top: 15px;
+	text-align: left;
+}
+
+.shopOfferText:hover{
+	top: 0px;
+	height: 100%;
+}
+
+a {
+	text-decoration: none;
+	color: white;
+}
+
+.eshop_topnav {
+    display: flex;
+    margin-bottom: 10px;
+	white-space: nowrap;
+	margin-left: 11%;
+}
+
+.view_products_button,
+.add_product_button {
+	height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
+    border: none;
+    outline: none;
+    padding: 5px;
+    border-radius: 8px;
+    transition: 0.2s;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.view_products_button .fas,
+.add_product_button .fas {
+    padding: 7px;
+    margin-left: 5px;
+}
+
+.add_product_button .fas {
+    border-left: 1px solid #32CD32;
+}
+
+.add_product_button {
+    border: 1px solid #32CD32;
+    color: #32CD32;
+}
+
+.add_product_button:hover {
+    color: black;
+    background: #32CD32;
+}
+
+.view_products_button .fas {
+    border-left: 1px solid white;
+}
+
+.view_products_button {
+	border: 1px solid white;
+	color: white;
+}
+
+.view_products_button:hover {
+    color: black;
+    background: white;
+}
+
+.cart_header {
+	padding: 10px 0;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.cart_caption {
+	font-size: x-large;
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: white;
+	outline: none;
+}
+
+.collapsible_cart {
+	overflow: hidden;
+	max-height: 0;
+	transition: max-height 0.5s ease-out;
+}
+
+.empty_cart {
+    padding-bottom: 8px;
+    padding-top: 8px;
+}

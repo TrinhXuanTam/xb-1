@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+<html>
+
+
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{% static 'js/loading.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/loading.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/logo.css' %}" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+    {% block include %}{% endblock %}
+  </head>
+
+  <body>
+
+     <!-- Loading animation during slow connection -->
+    <div id="loading"></div>
+
+    <!-- Modal login form -->
+    <div id="login_modal" class="modal">
+      <div class="modal_content">
+        <span class="close">&times;</span>
+
+
+        <h1>{% trans "Login" %}</h1>
+
+        <form id="login_form" method = "POST">
+            {% csrf_token %}
+            {{ login_form.username }}
+            {{ login_form.password }}
+            <a href="{% url 'password_reset' %}" class = "password_reset">Zapomenuté heslo</a>
+            <br>
+            <br>
+
+            <button type = "submit">{% trans "Login" %}</button>
+            <a id="sign_up" href = "{% url 'register' %}">{% trans "Sign Up" %}</a>
+        </form>
+        <div id="login_warning">The username or password is incorrect</div>
+      </div>
+    </div>
+
+    <!-- Chat button -->
+    <button class="chat"><i class="fas fa-comments fa-2x"></i></button>
+
+
+
+    <!-- Left sidebar -->
+    <div class="sidebar">
+        <!-- Top sidebar options -->
+        <ul class="sidebar-options">
+            <li>
+                <a href="{% url 'profile' %}"><i class="fas fa-user sidebarOffset"></i> {% trans "Profile" %}</a>
+            </li>
+
+            <li>
+                <a href="{% url 'eshop:manageOrderList' %}"><i class="fas fa-shopping-basket sidebarOffset"></i>{% trans "Orders" %}</a>
+            </li>
+
+            <li>
+                <a href="{% url 'contact:contact' %}"><i class="fas fa-envelope sidebarOffset"></i>{% trans "Contact" %}</a>
+            </li>
+
+        </ul>
+
+        <!-- Bottom sidebar options -->
+        <ul class="sidebar-options bottom">
+
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'logout' %}"><i class="fas fa-power-off sidebarOffset"></i>{% trans "Logout" %}</a>
+            </li>
+        {% endif %}
+        </ul>
+  </div>
+
+
+
+    <!-- Top navbar -->
+    <nav class="navigation_bar navbar-fixed-top">
+        <!-- Options -->
+        <ul>
+            {% if not user.is_authenticated %}
+            <li><a class="login_trigger" onclick="openDialog()">{% trans "Log in" %}</a></li>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'contact:contact' %}">{% trans "Contact" %}</a></li>
+            {% else %}
+                <li><a class="login_trigger" onclick="openDialog()">{% trans "Contact" %}</a></li>
+            {% endif %}
+
+            <li><a href="{% url 'eshop:shopIndex' %}">{% trans "Eshop" %}</a></li>
+            <li><a href="{% url 'articles:article_list' %}">{% trans "Articles" %}</a></li>
+            <li><a href="#">{% trans "About us" %}</a></li>
+            <li><a href="{% url 'forum:index' %}">{% trans "Forum" %}</a></li>
+            {% if user.is_superuser %}
+                <li><a href="/admin/">{% trans "Admin" %}</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+      <!-- Success message content -->
+     {% if messages %} {% for message in messages %}
+     <div class="alert " id="hideMe" >{{ message }}</div>
+     {% endfor %} {% endif %}
+
+    <div id="wrapper">
+      <!-- Page content -->
+      <div class="content">
+          <!-- Header -->
+          <div class="header">
+              <!-- Logo -->
+              <a href="{% url 'index' %}">
+                  <img id="logo" src="{% static 'img/logo.png' %}"/>
+              </a>
+          </div>
+          {% block content %} {% endblock %}
+      </div>
+
+      <!-- Scripts -->
+      <script>
+            $(function () {
+              $(document).scroll(function () {
+                  var $nav = $(".navbar-fixed-top");
+                  $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+                });
+            });
+      </script>
+      <script>
+            $(document).on({
+                ajaxStart: function() {
+                    $('#wrapper').css('filter', 'blur(10px)');
+                    $('#loading').css('visibility', 'visible');
+                    $('#loading').css('display', 'block');
+            },
+                ajaxStop: function() { 
+                    $('#wrapper').css('filter', 'blur(0)');
+                    $('#loading').css('visibility', 'hidden');
+                    $('#loading').css('display', 'none');
+            }
+            });
+      </script>
+
+      <!-- Display warning if user fails to authenticate -->
+      <script>
+          document.getElementById("login_form").onsubmit = function(event) {
+              event.preventDefault();
+              $.ajax({
+                  type:'POST',
+                  async: true,
+                  cache: false,
+                  url:'{% url "login_modal" %}',
+                  dataType: "json",
+                  data: {
+                      csrfmiddlewaretoken: $("#login_form input[type='hidden']").val(),
+                      username: $("#login_form input[type='text']").val(),
+                      password: $("#login_form input[type='password']").val()
+                    },
+                    // refresh on success
+                    success: function(data) {
+                        location.reload(true);
+                    },
+                    // display warning message
+                    error: function() {
+                        $("#login_warning").css("opacity", 1);
+                    }
+                });
+            }
+        </script>
+        <script src="{% static 'js/login.js' %}"></script>
+    </div>
+  </body>
+</html>

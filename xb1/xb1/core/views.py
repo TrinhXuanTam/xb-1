@@ -1,0 +1,17 @@
+from django.shortcuts import render
+from django.views.generic import View
+from .forms import UserLoginForm
+
+class LoginMixinView(View):
+    """
+    Adds login form to context data.
+    (Every site, which has login form must inherit this view)
+    """
+
+    def get_context_data(self, *args, **kwargs):
+
+        context = super(LoginMixinView, self).get_context_data(*args, **kwargs)
+
+        context["login_form"] = UserLoginForm
+
+        return context
