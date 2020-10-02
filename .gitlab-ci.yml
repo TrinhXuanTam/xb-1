@@ -11,4 +11,4 @@ test:
   stage: test
   script:
   - cd xb1
-  - python ./xb1/manage.py test
+  - python ./manage.py test
