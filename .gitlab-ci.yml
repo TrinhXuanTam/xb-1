@@ -13,5 +13,6 @@ stages:
 test:
   stage: test
   script:
+  - SELENIUM_REMOTE_ADDRESS="http://selenium__standalone-chrome:4444/wd/hub"
   - cd xb1
   - python ./manage.py test

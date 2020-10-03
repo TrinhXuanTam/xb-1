@@ -17,12 +17,14 @@ from .tokens import account_activation_token
 from selenium import webdriver  
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
+from ..driver import getDriver
+
 import time
 
 class AuthenticationTests(SeleniumTestCase):
 
 	def test_register(self):
-		driver = webdriver.Remote(command_executor='http://selenium__standalone-chrome:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+		driver = getDriver()
 		driver.get("http://www.seznam.cz")
 		
 		time.sleep(2)
