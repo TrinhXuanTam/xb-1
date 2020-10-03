@@ -6,8 +6,6 @@ from django.urls import reverse
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
-from .settings import WEB_DRIVER_LOCATION
-
 import time
 
 class SeleniumTestCase(StaticLiveServerTestCase):
