@@ -1,10 +1,7 @@
 image: python:latest
 
 services:
-  selenium:
-    image: selenium/standalone-chrome
-    ports:
-      - "4444:4444"
+  - selenium/standalone-chrome
 
 before_script:
   - python -V

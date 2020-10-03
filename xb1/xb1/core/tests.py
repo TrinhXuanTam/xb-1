@@ -22,7 +22,7 @@ import time
 class AuthenticationTests(SeleniumTestCase):
 
 	def test_register(self):
-		driver = webdriver.Remote(command_executor='http://selenium_hub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+		driver = webdriver.Remote(command_executor='http://selenium__standalone-chrome:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
 		driver.get("http://www.seznam.cz")
 		
 		time.sleep(2)
