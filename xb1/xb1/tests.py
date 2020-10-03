@@ -14,8 +14,8 @@ class SeleniumTestCase(StaticLiveServerTestCase):
 
 	def setUp(self):
 		self.wb = getDriver()
-		super(StaticLiveServerTestCase, self).setUp()
 		self.port = 9000
+		super(StaticLiveServerTestCase, self).setUp()
 
 	def tearDown(self):
 		self.wb.quit()
