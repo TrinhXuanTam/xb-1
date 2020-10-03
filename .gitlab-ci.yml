@@ -14,6 +14,7 @@ test:
   stage: test
   script:
   - SELENIUM_REMOTE_ADDRESS="http://selenium__standalone-chrome:4444/wd/hub"
-  - DJANGO_LIVE_TEST_SERVER_ADDRESS="localhost:8050"
+  - WEB_APP_IP="$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -f 1)"
+  - echo $WEB_APP_IP
   - cd xb1
   - python ./manage.py test
