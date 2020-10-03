@@ -11,7 +11,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
 class SeleniumTestCase(LiveServerTestCase):
-	port = 9000
+	#port = 9000
 
 	def setUp(self):
 		self.wb = getDriver()
