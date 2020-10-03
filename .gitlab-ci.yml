@@ -16,4 +16,4 @@ test:
   - SELENIUM_REMOTE_ADDRESS="http://selenium__standalone-chrome:4444/wd/hub"
   - DJANGO_LIVE_TEST_SERVER_ADDRESS="localhost:8050"
   - cd xb1
-  - python ./manage.py test
+  - python ./manage.py test --liveserver=localhost:8150

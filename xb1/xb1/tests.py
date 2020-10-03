@@ -11,14 +11,15 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
 class SeleniumTestCase(LiveServerTestCase):
+	port = 9000
 
 	def setUp(self):
 		self.wb = getDriver()
-		super(StaticLiveServerTestCase, self).setUp()
+		super(LiveServerTestCase, self).setUp()
 
 	def tearDown(self):
 		self.wb.quit()
-		super(StaticLiveServerTestCase, self).tearDown()
+		super(LiveServerTestCase, self).tearDown()
 		
 class SeleniumAuthenticatedTestCase(SeleniumTestCase):
 
