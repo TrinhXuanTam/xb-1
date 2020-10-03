@@ -24,7 +24,10 @@ class SeleniumTestCase(LiveServerTestCase):
 class SeleniumAuthenticatedTestCase(SeleniumTestCase):
 
 	def login(self, name, password):
+		print("XXXXXXXXXXXXXXX")
 		print('%s%s' % (self.live_server_url, reverse('index')))
+		print("XXXXXXXXXXXXXXX")
+		
 		self.wb.get('%s%s' % (self.live_server_url, reverse('index')))
 		time.sleep(1)
 		loginPopup = self.wb.find_element_by_xpath('/html/body/div[3]/ul[1]/li[1]/a')
