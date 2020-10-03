@@ -11,7 +11,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
 class SeleniumTestCase(LiveServerTestCase):
-	#port = 9000
+	port = 9000
 
 	def setUp(self):
 		self.wb = getDriver()
@@ -28,7 +28,7 @@ class SeleniumAuthenticatedTestCase(SeleniumTestCase):
 		print('%s%s' % (self.live_server_url, reverse('index')))
 		print("XXXXXXXXXXXXXXX")
 		
-		self.wb.get('%s%s' % (self.live_server_url, reverse('index')))
+		self.wb.get("http://python:9000/")
 		time.sleep(1)
 		loginPopup = self.wb.find_element_by_xpath('/html/body/div[3]/ul[1]/li[1]/a')
 		loginPopup.click()
