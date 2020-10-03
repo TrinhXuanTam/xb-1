@@ -20,7 +20,6 @@ staticRoot
 
 # Password settings files
 passwords.py
-xb1/xb1/driver.py
 
 # Images
 profile_image/
