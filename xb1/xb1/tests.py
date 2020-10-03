@@ -2,7 +2,7 @@ import time
 
 from .driver import getDriver
 
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.contrib.staticfiles.testing import LiveServerTestCase
 from django.test import TestCase
 from django.test import LiveServerTestCase
 from django.urls import reverse
@@ -10,11 +10,10 @@ from django.urls import reverse
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
-class SeleniumTestCase(StaticLiveServerTestCase):
+class SeleniumTestCase(LiveServerTestCase):
 
 	def setUp(self):
 		self.wb = getDriver()
-		self.port = 9000
 		super(StaticLiveServerTestCase, self).setUp()
 
 	def tearDown(self):
