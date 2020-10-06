@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
+
 {% load static %}
+{% load i18n %}
 
 {%block include%}
 <link rel="stylesheet" href="{% static 'css/eshop.css' %}" >
@@ -10,14 +12,14 @@
 <div class="divTable blueTable">
 	<div class="divTableHeading">
 		<div class="divTableRow">
-			<div class="divTableHead">First Name</div>
-			<div class="divTableHead">Last Name</div>
-			<div class="divTableHead">Email</div>
-			<div class="divTableHead">City</div>
-			<div class="divTableHead">Street</div>
-			<div class="divTableHead">Street Number</div>
-			<div class="divTableHead">Post Number</div>
-			<div class="divTableHead">Payed</div>
+			<div class="divTableHead">{% trans "First name" %}</div>
+			<div class="divTableHead">{% trans "Last Name" %}</div>
+			<div class="divTableHead">{% trans "Email" %}</div>
+			<div class="divTableHead">{% trans "City" %}</div>
+			<div class="divTableHead">{% trans "Street" %}</div>
+			<div class="divTableHead">{% trans "Street Number" %}</div>
+			<div class="divTableHead">{% trans "Post Number" %}</div>
+			<div class="divTableHead">{% trans "Payed" %}</div>
 			<div class="divTableHead"></div>
 			<div class="divTableHead"></div>
 		</div>
@@ -33,8 +35,8 @@
 			<div class="divTableCell">{{ order.orderAddressStreetNumber }}</div>
 			<div class="divTableCell">{{ order.orderAddressPostNumber }}</div>
 			<div class="divTableCell">{{ order.isPaid }}</div>
-			<div class="divTableCell"><a href="{% url 'eshop:manageOrderPay' pk=order.pk %}">Zaplatit</a></div>
-			<div class="divTableCell"><a href="{% url 'eshop:manageOrderRemove' pk=order.pk %}">Smazat</a></div>
+			<div class="divTableCell"><a href="{% url 'eshop:manageOrderPay' pk=order.pk %}">{% trans "Pay" %}</a></div>
+			<div class="divTableCell"><a href="{% url 'eshop:manageOrderRemove' pk=order.pk %}">{% trans "Delete" %}</a></div>
 		</div>
 		{% endfor %}
 	</div>

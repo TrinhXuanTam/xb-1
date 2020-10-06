@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
+
 {% block include %}
 <link rel="stylesheet" href="{% static 'css/manageOrder.css' %}" >
 {% endblock %}
 {% block content %}
 <div class = "shopAdd_form">
-    <h1>Objednat zboží</h1>
+    <h1>{% trans "Order products" %}</h1>
 
 <form method="post">
     {% csrf_token %}
@@ -15,8 +17,8 @@
 
         {% endfor %}
 
-    <button class="order_btn" type="submit">Objednat</button>
-    <input class="order_btn" type="button" onclick="location.href='{% url 'eshop:shopIndex' %}'" value="Zpět" />
+    <button class="order_btn" type="submit">{% trans "Create order" %}</button>
+    <input class="order_btn" type="button" onclick="location.href='{% url 'eshop:shopIndex' %}'" value="{% trans 'Back' %}" />
 </form>
 </div>
 {% endblock %}

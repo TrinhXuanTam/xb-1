@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block include %}
@@ -10,35 +11,35 @@
 <div class="eshop_topnav">
 	{% if perms.eshop.add_shopitem %}
 	<div>
-		<a class="add_product_button"href="{% url 'eshop:manageShopCreate' %}">Nový produkt<i class="fas fa-plus"></i></a>
+		<a class="add_product_button"href="{% url 'eshop:manageShopCreate' %}">{% trans "New product" %}<i class="fas fa-plus"></i></a>
 	</div>
 	{% endif %}
 	{% if perms.eshop.view_shopitem %}
 	<div>
-		<a class="view_products_button" href="{% url 'eshop:manageShopList' %}">Zobrazit seznam produktů<i class="fas fa-list"></i></a>
+		<a class="view_products_button" href="{% url 'eshop:manageShopList' %}">{% trans "Show products list" %}<i class="fas fa-list"></i></a>
 	</div>
 	{% endif %}
 </div>
-	
+
 <div class="shopOrderBox">
 
 	<div class="cart_header">
-		<button class="cart_caption"><i class="fas fa-shopping-cart"></i> Košík <i class="cart_display_arrow fas fa-angle-down"></i></button>
+		<button class="cart_caption"><i class="fas fa-shopping-cart"></i> {% trans "Cart" %} <i class="cart_display_arrow fas fa-angle-down"></i></button>
 	</div>
-		
+
 	<div class="collapsible_cart">
 		<div class="collapsible_cart_wrapper">
 			{% if request.session.orderList == None %}
-				<div class="empty_cart">Košík je prázdný</div>
+				<div class="empty_cart">{% trans "Cart is empty" %}</div>
 			{% else %}
 				<table class = "cartTable" cellspacing="0" cellpadding="0">
 				<tr class="cartTableRow">
-				<th class="cartTableCol" colspan="2">Zboží</th>
-				<th class="cartTableCol">Množství</th>
-				<th class="cartTableCol">Cena</th>
-				<th class="cartTableCol" >Přidat</th>
-				<th class="cartTableCol" >Odebrat</th>
-				<th class="cartTableCol" >Zrušit</th>
+				<th class="cartTableCol" colspan="2">{% trans "Product" %}</th>
+				<th class="cartTableCol">{% trans "Amount" %}</th>
+				<th class="cartTableCol">{% trans "Price" %}</th>
+				<th class="cartTableCol" >{% trans "Add" %}</th>
+				<th class="cartTableCol" >{% trans "Remove" %}</th>
+				<th class="cartTableCol" >{% trans "Cancel" %}</th>
 
 			  </tr>
 				{% for orderItem in orderItems %}
@@ -56,10 +57,10 @@
 				{% endfor %}
 			</table>
 			<br>
-			<a href="{% url 'eshop:cartItemsDiscard' %}"><i class="fas fa-trash"></i> Smazat vše</a> <br>
+			<a href="{% url 'eshop:cartItemsDiscard' %}"><i class="fas fa-trash"></i> {% trans "Delete all" %}</a> <br>
 			<div class="cartBottom">
 				Celková cena: {{ totalPrice }} <br>
-				<input class="order_btn" type="button" onclick="location.href='{% url 'eshop:manageOrderCreate' %}'" value="Objednat"/>
+				<input class="order_btn" type="button" onclick="location.href='{% url 'eshop:manageOrderCreate' %}'" value="{% trans 'Create order' %}"/>
 			</div>
 			{% endif %}
 		</div>
@@ -74,7 +75,7 @@
 			{%if shopItem.itemType != 2 %}
 			<div class="shopSpecialItem shopSpecial{{ shopItem.itemType }}">{{ shopItem.get_itemType_display }}</div>
 			{% endif %}
-			<div class="shopOfferItem">	
+			<div class="shopOfferItem">
 				<div class="shopOfferImage">
 					<img class=shopOfferImage src="{{ shopItem.itemImg.url }}">
 				</div>
@@ -84,7 +85,7 @@
 				</div>
 				<div class="shopOfferControl">
 					<div>{{ shopItem.itemPrice }}</div>
-					<div><a href="{% url 'eshop:cartItemAdd' pk=shopItem.pk %}">Objednat</a></div>
+					<div><a href="{% url 'eshop:cartItemAdd' pk=shopItem.pk %}">{% trans "Create order" %}</a></div>
 				</div>
 			</div>
 		</li>

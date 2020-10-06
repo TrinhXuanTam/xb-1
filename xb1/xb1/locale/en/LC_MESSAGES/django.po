@@ -1,124 +1,131 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: django\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-06 18:05+0200\n"
-"Language: cz\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"cz/)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: xb1/articles/models.py:20 xb1/articles/models.py:31 xb1/core/forms.py:125
 #: xb1/core/models.py:22 xb1/eshop/models.py:38
 #: xb1/eshop/templates/manageShopList.html:16
 msgid "Name"
-msgstr "Jméno"
+msgstr ""
 
 #: xb1/articles/models.py:63
 msgid "Hidden"
-msgstr "Skrytý"
+msgstr ""
 
 #: xb1/articles/models.py:64
 msgid "Published"
-msgstr "Zveřejněný"
+msgstr ""
 
 #: xb1/articles/models.py:67 xb1/articles/models.py:100
 #: xb1/articles/models.py:110
 msgid "Title"
-msgstr "Nadpis"
+msgstr ""
 
 #: xb1/articles/models.py:68
 msgid "Thumbnail"
-msgstr "Ikona"
+msgstr ""
 
 #: xb1/articles/models.py:69
 msgid "Preview text"
-msgstr "Popisek"
+msgstr ""
 
 #: xb1/articles/models.py:69
 msgid "Read more..."
-msgstr "Zobrazit více..."
+msgstr ""
 
 #: xb1/articles/models.py:70 xb1/articles/models.py:112
 #: xb1/articles/models.py:125
 msgid "Author"
-msgstr "Autor"
+msgstr ""
 
 #: xb1/articles/models.py:71 xb1/eshop/models.py:45
 msgid "Slug"
-msgstr "Slug"
+msgstr ""
 
 #: xb1/articles/models.py:72 xb1/articles/models.py:114
 #: xb1/articles/templates/articles.html:20
 msgid "Category"
-msgstr "Kategorie"
+msgstr ""
 
 #: xb1/articles/models.py:73
 msgid "Tag"
-msgstr "Tag"
+msgstr ""
 
 #: xb1/articles/models.py:74
 msgid "Comments allowed"
-msgstr "Komentáře povoleny"
+msgstr ""
 
 #: xb1/articles/models.py:75
 msgid "Published from"
-msgstr "Zveřejněno od"
+msgstr ""
 
 #: xb1/articles/models.py:76
 msgid "Published to"
-msgstr "Zveřejněné do"
+msgstr ""
 
 #: xb1/articles/models.py:77 xb1/articles/models.py:126
 msgid "Text"
-msgstr "Text"
+msgstr ""
 
 #: xb1/articles/models.py:78
 msgid "Sources"
-msgstr "Zdroje"
+msgstr ""
 
 #: xb1/articles/models.py:79
 msgid "State"
-msgstr "Stav"
+msgstr ""
 
 #: xb1/articles/models.py:101
 msgid "Is public"
-msgstr "Je veřejný"
+msgstr ""
 
 #: xb1/articles/models.py:102
-#, fuzzy
-#| msgid "Forum description"
 msgid "Category description"
-msgstr "Popis fóra"
+msgstr ""
 
 #: xb1/articles/models.py:111
 msgid "Forum description"
-msgstr "Popis fóra"
+msgstr ""
 
 #: xb1/articles/models.py:113
 msgid "Is closed"
-msgstr "Uzavřené"
+msgstr ""
 
 #: xb1/articles/models.py:122
 msgid "Article"
-msgstr "Článek"
+msgstr ""
 
 #: xb1/articles/models.py:123 xb1/templates/base.html:105
 msgid "Forum"
-msgstr "Fórum"
+msgstr ""
 
 #: xb1/articles/models.py:124
 msgid "Reacts to"
-msgstr "Reaguje na"
+msgstr ""
 
 #: xb1/articles/models.py:127
 msgid "Is censured"
-msgstr "Je cenzurován"
+msgstr ""
 
 #: xb1/articles/models.py:128
 msgid "Posted on"
-msgstr "Zveřejněno od"
+msgstr ""
 
 #: xb1/articles/templates/article_comment.html:14
 #: xb1/forum/templates/forum_comment.html:15
@@ -127,17 +134,13 @@ msgstr ""
 
 #: xb1/articles/templates/article_comment.html:26
 #: xb1/forum/templates/forum_comment.html:31
-#, fuzzy
-#| msgid "Is censured"
 msgid "Censure"
-msgstr "Je cenzurován"
+msgstr ""
 
 #: xb1/articles/templates/article_comment.html:32
 #: xb1/forum/templates/forum_comment.html:37
-#, fuzzy
-#| msgid "Is censured"
 msgid "Un-censure"
-msgstr "Je cenzurován"
+msgstr ""
 
 #: xb1/articles/templates/article_comment.html:36
 #: xb1/forum/templates/forum_comment.html:41
@@ -147,93 +150,85 @@ msgstr ""
 #: xb1/articles/templates/article_comment.html:41
 #: xb1/articles/templates/article_comment.html:48
 msgid "Reply"
-msgstr "Odpovědět"
+msgstr ""
 
 #: xb1/articles/templates/articles.html:14
 msgid "Create article"
-msgstr "Přidat článek"
+msgstr ""
 
 #: xb1/articles/templates/articles.html:17
 msgid "Add category"
-msgstr "Přidat kategorii"
+msgstr ""
 
 #: xb1/articles/templates/articles.html:27
 msgid "Search articles"
-msgstr "Vyhledat článek"
+msgstr ""
 
 #: xb1/articles/templates/articles.html:39
 msgid "All"
-msgstr "Vše"
+msgstr ""
 
 #: xb1/articles/templates/articles_detail.html:25
-#, fuzzy
-#| msgid "Category"
 msgid "categories"
-msgstr "Kategorie"
+msgstr ""
 
 #: xb1/articles/templates/articles_detail.html:32
-#, fuzzy
-#| msgid "Author"
 msgid "author"
-msgstr "Autor"
+msgstr ""
 
 #: xb1/articles/templates/articles_detail.html:39
 msgid "tags"
-msgstr "tagy"
+msgstr ""
 
 #: xb1/articles/templates/articles_detail.html:47
-#, fuzzy
-#| msgid "Sources"
 msgid "sources"
-msgstr "Zdroje"
+msgstr ""
 
 #: xb1/articles/templates/articles_detail.html:54
-#, fuzzy
-#| msgid "Article"
 msgid "Edit Article"
-msgstr "Článek"
+msgstr ""
 
 #: xb1/articles/templates/articles_detail.html:72
 #: xb1/forum/templates/forum_detail.html:26
 msgid "Post"
-msgstr "Odeslat"
+msgstr ""
 
 #: xb1/articles/templates/articles_form.html:26
 #: xb1/eshop/templates/manageShopUpdate.html:6
 #: xb1/forum/templates/forum_category_form.html:25
 #: xb1/forum/templates/forum_form.html:17
 msgid "Submit"
-msgstr "Uložit"
+msgstr ""
 
 #: xb1/articles/templates/articles_form.html:66
 #: xb1/eshop/templates/manageOrderCreate.html:21
 msgid "Back"
-msgstr "Zpět"
+msgstr ""
 
 #: xb1/articles/templates/get_articles.html:36
 #: xb1/articles/templates/get_articles.html:87
 msgid "Hide"
-msgstr "Skrýt"
+msgstr ""
 
 #: xb1/articles/templates/get_articles.html:38
 #: xb1/articles/templates/get_articles.html:66
 msgid "Publish"
-msgstr "Publikovat"
+msgstr ""
 
 #: xb1/articles/templates/get_articles.html:42 xb1/templates/index.html:29
 msgid "Edit"
-msgstr "Upravit"
+msgstr ""
 
 #: xb1/articles/templates/get_articles.html:43
 #: xb1/articles/templates/get_articles.html:124
 #: xb1/eshop/templates/manageOrderList.html:39
 msgid "Delete"
-msgstr "Smazat"
+msgstr ""
 
 #: xb1/articles/templates/get_articles.html:118
 #: xb1/eshop/templates/manageOrderRemove.html:5
 msgid "Confirm"
-msgstr "Potvrdit"
+msgstr ""
 
 #: xb1/contact/forms.py:6
 msgid "Message"
@@ -257,11 +252,11 @@ msgstr ""
 
 #: xb1/core/forms.py:16 xb1/core/forms.py:49
 msgid "User name"
-msgstr "Uživatelské jméno"
+msgstr ""
 
 #: xb1/core/forms.py:17 xb1/core/forms.py:51
 msgid "Password"
-msgstr "Heslo"
+msgstr ""
 
 #: xb1/core/forms.py:50 xb1/eshop/models.py:40
 #: xb1/eshop/templates/manageOrderList.html:17
@@ -269,30 +264,24 @@ msgid "Email"
 msgstr ""
 
 #: xb1/core/forms.py:52
-#, fuzzy
-#| msgid "Confirm"
 msgid "Confirm password"
-msgstr "Potvrdit"
+msgstr ""
 
 #: xb1/core/forms.py:82
 msgid "Current password"
 msgstr ""
 
 #: xb1/core/forms.py:83
-#, fuzzy
-#| msgid "Password"
 msgid "New password"
-msgstr "Heslo"
+msgstr ""
 
 #: xb1/core/forms.py:84 xb1/core/forms.py:104
 msgid "New password confirmation"
 msgstr ""
 
 #: xb1/core/forms.py:103
-#, fuzzy
-#| msgid "Password"
 msgid "New pasword"
-msgstr "Heslo"
+msgstr ""
 
 #: xb1/core/forms.py:112
 msgid "Invalid file"
@@ -301,30 +290,28 @@ msgstr ""
 #: xb1/core/forms.py:123 xb1/core/models.py:17 xb1/eshop/models.py:27
 #: xb1/eshop/templates/manageShopList.html:18
 msgid "Image"
-msgstr "Obrázek"
+msgstr ""
 
 #: xb1/core/forms.py:124 xb1/core/models.py:18
 msgid "Nickname"
-msgstr "Přezdívka"
+msgstr ""
 
 #: xb1/core/forms.py:126 xb1/core/models.py:23 xb1/eshop/models.py:39
 msgid "Surname"
-msgstr "Příjmení"
+msgstr ""
 
 #: xb1/core/forms.py:127 xb1/core/models.py:19 xb1/eshop/models.py:41
 #: xb1/eshop/templates/manageOrderList.html:18
 msgid "City"
-msgstr "Město"
+msgstr ""
 
 #: xb1/core/forms.py:128 xb1/eshop/forms.py:12
-#, fuzzy
-#| msgid "PostalCode"
 msgid "Postal code"
-msgstr "PSČ"
+msgstr ""
 
 #: xb1/core/forms.py:129 xb1/core/models.py:21 xb1/eshop/models.py:42
 msgid "Address"
-msgstr "Adresa"
+msgstr ""
 
 #: xb1/core/forms.py:130
 msgid "Phone number"
@@ -343,14 +330,12 @@ msgid "Enter your email"
 msgstr ""
 
 #: xb1/core/models.py:20 xb1/eshop/models.py:43
-#, fuzzy
-#| msgid "PostalCode"
 msgid "Postal Code"
-msgstr "PSČ"
+msgstr ""
 
 #: xb1/core/models.py:24 xb1/eshop/models.py:44
 msgid "Phone"
-msgstr "Telefon"
+msgstr ""
 
 #: xb1/eshop/models.py:25
 msgid "Product name"
@@ -426,10 +411,8 @@ msgid "Amount"
 msgstr ""
 
 #: xb1/eshop/templates/eshop.html:40
-#, fuzzy
-#| msgid "Address"
 msgid "Add"
-msgstr "Adresa"
+msgstr ""
 
 #: xb1/eshop/templates/eshop.html:41
 msgid "Remove"
@@ -440,17 +423,13 @@ msgid "Cancel"
 msgstr ""
 
 #: xb1/eshop/templates/eshop.html:60
-#, fuzzy
-#| msgid "Delete"
 msgid "Delete all"
-msgstr "Smazat"
+msgstr ""
 
 #: xb1/eshop/templates/eshop.html:63 xb1/eshop/templates/eshop.html:88
 #: xb1/eshop/templates/manageOrderCreate.html:20
-#, fuzzy
-#| msgid "Create article"
 msgid "Create order"
-msgstr "Přidat článek"
+msgstr ""
 
 #: xb1/eshop/templates/manageOrderCreate.html:10
 msgid "Order products"
@@ -461,16 +440,12 @@ msgid "Your order has been successfully received."
 msgstr ""
 
 #: xb1/eshop/templates/manageOrderList.html:15
-#, fuzzy
-#| msgid "User name"
 msgid "First name"
-msgstr "Uživatelské jméno"
+msgstr ""
 
 #: xb1/eshop/templates/manageOrderList.html:16
-#, fuzzy
-#| msgid "Name"
 msgid "Last Name"
-msgstr "Jméno"
+msgstr ""
 
 #: xb1/eshop/templates/manageOrderList.html:19
 msgid "Street"
@@ -497,10 +472,8 @@ msgid "Are you sure you want to delete order with email address:"
 msgstr ""
 
 #: xb1/eshop/templates/manageShopAdd.html:22
-#, fuzzy
-#| msgid "Create article"
 msgid "Create"
-msgstr "Přidat článek"
+msgstr ""
 
 #: xb1/eshop/templates/manageShopEdit.html:11
 msgid "Edit product"
@@ -511,10 +484,8 @@ msgid "Apply change"
 msgstr ""
 
 #: xb1/eshop/templates/manageShopList.html:19
-#, fuzzy
-#| msgid "Forum description"
 msgid "Description"
-msgstr "Popis fóra"
+msgstr ""
 
 #: xb1/eshop/templates/manageShopList.html:20
 msgid "Type"
@@ -578,20 +549,16 @@ msgid "New thread"
 msgstr ""
 
 #: xb1/forum/templates/forum_list.html:17
-#, fuzzy
-#| msgid "Add category"
 msgid "Edit category"
-msgstr "Přidat kategorii"
+msgstr ""
 
 #: xb1/forum/templates/forum_list.html:41
 msgid "Last post"
 msgstr ""
 
 #: xb1/forum/templates/forum_list.html:45
-#, fuzzy
-#| msgid "Reply"
 msgid "Replies"
-msgstr "Odpovědět"
+msgstr ""
 
 #: xb1/forum/views.py:33
 msgid "All forums"
@@ -602,28 +569,26 @@ msgid "Last forums"
 msgstr ""
 
 #: xb1/forum/views.py:177
-#, fuzzy
-#| msgid "Author"
 msgid "Unauthorized"
-msgstr "Autor"
+msgstr ""
 
 #: xb1/settings.py:193
 msgid "Czech"
-msgstr "Čeština"
+msgstr ""
 
 #: xb1/templates/base.html:35 xb1/templates/base.html:45
 #: xb1/templates/registration/login.html:9
 #: xb1/templates/registration/login.html:19
 msgid "Login"
-msgstr "Přihlásit se"
+msgstr ""
 
 #: xb1/templates/base.html:46 xb1/templates/registration/login.html:20
 msgid "Sign Up"
-msgstr "Registrovat se"
+msgstr ""
 
 #: xb1/templates/base.html:62
 msgid "Profile"
-msgstr "Profil"
+msgstr ""
 
 #: xb1/templates/base.html:66
 msgid "Orders"
@@ -632,27 +597,27 @@ msgstr ""
 #: xb1/templates/base.html:70 xb1/templates/base.html:97
 #: xb1/templates/base.html:99 xb1/templates/contact.html:11
 msgid "Contact"
-msgstr "Kontakt"
+msgstr ""
 
 #: xb1/templates/base.html:80
 msgid "Logout"
-msgstr "Odhlásit se"
+msgstr ""
 
 #: xb1/templates/base.html:93
 msgid "Log in"
-msgstr "Přihlásit se"
+msgstr ""
 
 #: xb1/templates/base.html:102
 msgid "Eshop"
-msgstr "Obchod"
+msgstr ""
 
 #: xb1/templates/base.html:103
 msgid "Articles"
-msgstr "Články"
+msgstr ""
 
 #: xb1/templates/base.html:104
 msgid "About us"
-msgstr "O nás"
+msgstr ""
 
 #: xb1/templates/base.html:107
 msgid "Admin"
@@ -677,16 +642,12 @@ msgid ""
 msgstr ""
 
 #: xb1/templates/ckeditor_browse.html:73
-#, fuzzy
-#| msgid "Image"
 msgid "Images in: "
-msgstr "Obrázek"
+msgstr ""
 
 #: xb1/templates/ckeditor_browse.html:85 xb1/templates/ckeditor_browse.html:108
-#, fuzzy
-#| msgid "Image"
 msgid "Embed Image"
-msgstr "Obrázek"
+msgstr ""
 
 #: xb1/templates/ckeditor_browse.html:86 xb1/templates/ckeditor_browse.html:109
 msgid "Delete Image"
@@ -719,96 +680,21 @@ msgstr ""
 #: xb1/templates/contact.html:13
 msgid "Contact form header text"
 msgstr ""
-"Máte nápad, na co bychom neměli zapomenout, nebo se s námi jen chcete "
-"spojit? Využijte kontaktní formulář. Vašich rad si ceníme!"
+"Do you have any idea, what should we improve? Or you just want to contact "
+"us. Use our contact form. We apriciate all your messages!"
 
 #: xb1/templates/contact.html:23
 msgid "Send"
-msgstr "Odeslat"
+msgstr ""
 
 #: xb1/templates/index.html:50 xb1/templates/index.html:66
 msgid "No articles created."
-msgstr "Žádné články nejsou dostupné"
+msgstr ""
 
 #: xb1/templates/profile.html:23
 msgid "Account info"
-msgstr "Informace o účtu"
+msgstr ""
 
 #: xb1/templates/profile.html:32
 msgid "Informace o uživateli"
 msgstr ""
-
-#~ msgid "Add A Reply"
-#~ msgstr "Přidat odpověď"
-
-#~ msgid "Add A Comment"
-#~ msgstr "Přidat komentář"
-
-#, fuzzy
-#~| msgid "Back"
-#~ msgid "Back TODO"
-#~ msgstr "Zpět"
-
-#~ msgid "Link"
-#~ msgstr "Odkaz"
-
-#~ msgid "Color"
-#~ msgstr "Barva"
-
-#~ msgid "Need an Account?"
-#~ msgstr "Potřebujete účet?"
-
-#~ msgid "Sign up"
-#~ msgstr "Registrovat se"
-
-#, fuzzy
-#~| msgid "Title"
-#~ msgid "Title:"
-#~ msgstr "Nadpis"
-
-#, fuzzy
-#~| msgid "Address"
-#~ msgid "Email address"
-#~ msgstr "Adresa"
-
-#, fuzzy
-#~| msgid "Address"
-#~ msgid "IPv4 address"
-#~ msgstr "Adresa"
-
-#, fuzzy
-#~| msgid "Address"
-#~ msgid "IP address"
-#~ msgstr "Adresa"
-
-#, fuzzy
-#~| msgid "State"
-#~ msgid "Sat"
-#~ msgstr "Stav"
-
-#, fuzzy
-#~| msgid "Surname"
-#~ msgid "Sun"
-#~ msgstr "Příjmení"
-
-#, fuzzy
-#~| msgid "Contact"
-#~ msgid "oct"
-#~ msgstr "Kontakt"
-
-#, fuzzy
-#~| msgid "Hidden"
-#~ msgid "Forbidden"
-#~ msgstr "Skrytý"
-
-#~ msgid "User"
-#~ msgstr "Uživatel"
-
-#~ msgid "Read more"
-#~ msgstr "Zobrazit více"
-
-#~ msgid "Update"
-#~ msgstr "Aktualizovat"
-
-#~ msgid "TODO"
-#~ msgstr "TODO"

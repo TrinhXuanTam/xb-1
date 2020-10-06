@@ -10,11 +10,11 @@
 
 <div class="forum_list_topnav">
 {% if is_open or perms.articles.add_forum and category_pk %}
-    <a href="{% url 'forum:create_forum' pk=category_pk %}" class="new_thread_button">Nové vlákno<i class="fas fa-plus"></i></a>
+    <a href="{% url 'forum:create_forum' pk=category_pk %}" class="new_thread_button">{% trans "New thread" %}<i class="fas fa-plus"></i></a>
 {% endif %}
 
 {%if perms.articles.change_forum_category and category_pk %}
-    <a href="{% url 'forum:update_forum_category' pk=category_pk %}" class="edit_forum_button">Editovat téma<i class="fas fa-edit"></i></a>
+    <a href="{% url 'forum:update_forum_category' pk=category_pk %}" class="edit_forum_button">{% trans "Edit category" %}<i class="fas fa-edit"></i></a>
 {%endif%}
 </div>
 
@@ -38,16 +38,16 @@
             </div>
             <table class="forum_thread_info">
                 <tr>
-                    <td>Last post:</td>
+                    <td>{% trans "Last post" %}:</td>
                     <td>{{forum.last_date}}</td>
                 </tr>
                 <tr>
-                    <td>Replies:</td>
+                    <td>{% trans "Replies" %}:</td>
                     <td>{{forum.replies_cnt}}</td>
                 </tr>
             </table>
 
-            
+
         </a>
     {% endfor %}
     </div>

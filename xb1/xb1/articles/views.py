@@ -1,26 +1,24 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
-from django.http import HttpResponseRedirect
+from django.db.models import Q
+from django.db.models.functions import Lower
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.views.generic import TemplateView
-from django.views.generic.list import ListView
-from django.views.generic.edit import FormView, CreateView, UpdateView
-from django.views.generic.detail import DetailView
 from django.views import View
-from django.contrib.auth.forms import UserChangeForm
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.db.models.functions import Lower
+from django.views.generic import TemplateView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import FormView, CreateView, UpdateView
+from django.views.generic.list import ListView
 
-from .forms import ArticleForm
-from .models import Article, Comment, Category, Tag
 from ..core.models import Profile
 from ..core.views import LoginMixinView
+from .forms import ArticleForm
+from .models import Article, Comment, Category, Tag
 
-from django.http import JsonResponse, HttpResponse
-from django.template.loader import render_to_string
-from django.db.models import Q
 from functools import reduce
 
 

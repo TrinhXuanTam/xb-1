@@ -30,7 +30,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6**laao0t2_n4&o#4js)a&i_^prv*ys@$bvf&kffk1p*4#)41)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -191,22 +191,20 @@ FORMAT_MODULE_PATH = [
 # Provide a lists of languages which your site supports.
 LANGUAGES = (
     ('cs', _('Czech')),
+    # ('en', _('English')),
 )
 
 # Default language
 LANGUAGE_CODE = 'cs'
+TIME_ZONE = 'Europe/Prague'
 
 # Tell Django where the project's translation files should be.
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 
-TIME_ZONE = 'Europe/Prague'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 # CKEDITOR settings

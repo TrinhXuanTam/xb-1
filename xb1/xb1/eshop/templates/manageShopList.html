@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
+
 {% load static %}
+{% load i18n %}
 
 {%block include%}
 <link rel="stylesheet" href="{% static 'css/eshop.css' %}" >
@@ -11,12 +13,12 @@
 	<div class="divTable blueTable">
 		<div class="divTableHeading">
 			<div class="divTableRow">
-				<div class="divTableHead">Name</div>
-				<div class="divTableHead">Price</div>
-				<div class="divTableHead">Image</div>
-				<div class="divTableHead">Description</div>
-				<div class="divTableHead">Type</div>
-				<div class="divTableHead">Active</div>
+				<div class="divTableHead">{% trans "Name" %}</div>
+				<div class="divTableHead">{% trans "Price" %}</div>
+				<div class="divTableHead">{% trans "Image" %}</div>
+				<div class="divTableHead">{% trans "Description" %}</div>
+				<div class="divTableHead">{% trans "Type" %}</div>
+				<div class="divTableHead">{% trans "Active" %}</div>
 				<div class="divTableHead"></div>
 			</div>
 		</div>
@@ -30,7 +32,7 @@
 
 				<div class="divTableCell"><button class="tag_button">{{ shopItem.get_itemType_display }}</button></div>
 				<div class="divTableCell">{{ shopItem.itemActive }}</div>
-				<div class="divTableCell"><a href="{% url 'eshop:manageShopUpdate' pk=shopItem.pk %}"><button class="changeButton">Upravit</button></a></div>
+				<div class="divTableCell"><a href="{% url 'eshop:manageShopUpdate' pk=shopItem.pk %}"><button class="changeButton">{% trans "Upravit" %}</button></a></div>
 			</div>
 			{% endfor %}
 		</div>

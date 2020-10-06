@@ -18,12 +18,12 @@
 		{% if object.description %}
 		<div class="forum_thread_description">{{object.description}}</div>
 		{% endif %}
-		
+
 		{% if user.is_authenticated %}
 		<form id="comment_post_form" method="POST">
 			{% csrf_token %}
 			<textarea required rows=1 placeholder="Add a comment"></textarea>
-			<button class="forum_detail_post">Post</button>
+			<button class="forum_detail_post">{% trans "Post" %}</button>
 		</form>
 		<script src="{% static 'js/articles_detail.js' %}"></script>
 		<!-- Post a new comment and display it -->
@@ -42,8 +42,8 @@
 						comment_id: -1,
 					},
 					success: function(data) {
-						$('.comments ul:first').prepend(data) 
-						$('#comment_post_form textarea').val('') 
+						$('.comments ul:first').prepend(data)
+						$('#comment_post_form textarea').val('')
 					}
 				});
 			}
@@ -56,6 +56,6 @@
             {% include "forum_comment.html" %}
         </ul>
     </div>
-    
+
 </div>
 {% endblock %}

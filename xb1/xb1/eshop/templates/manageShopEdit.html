@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
+
 {% load static %}
+{% load i18n %}
+
 {% block include %}
 <link rel="stylesheet" href="{% static 'css/shopEdit.css' %}" >
 {% endblock %}
 {% block content %}
 <div class = "shopAdd_form">
-    <h1>Upravit produkt</h1>
+    <h1>{% trans "Edit product" %}</h1>
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -16,7 +19,7 @@
 
         {% endfor %}
 
-    <button type="submit">Změnit</button>
+    <button type="submit">{% trans "Apply change" %}</button>
 </form>
 
 </div>
