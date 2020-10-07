@@ -22,10 +22,10 @@ class ShopItem(models.Model):
 		(NEW, "New")
 	)
 	
-	itemName = models.CharField("Název produktu", max_length = 20)
+	itemName = models.CharField("Název produktu", max_length = 50)
 	itemPrice = models.DecimalField("Cena", decimal_places=2, max_digits=10)
 	itemImg = models.ImageField(_("Image"), default='default.jpg', upload_to='ShopItems', blank=True, null=True)
-	itemDesc = models.CharField(_("Detail"), max_length = 200)
+	itemDesc = models.TextField(_("Detail"))
 	itemType = models.PositiveSmallIntegerField("Typ produktu", choices=TYPE_CHOICES, default=NONE)
 	itemActive = models.BooleanField("Aktivovat", default=True)
 	
