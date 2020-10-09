@@ -1,0 +1,14 @@
+version: "3.3"
+
+services:
+  browser:
+    image: "selenium/standalone-chrome"
+    ports:
+      - 4444:4444
+  core:
+    image: "core:latest"
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - browser
