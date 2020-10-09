@@ -9,4 +9,8 @@ services:
 build:
   stage: build
   script:
-    - docker-compose up --exit-code-from core
+  - SELENIUM_REMOTE_ADDRESS="http://selenium__standalone-chrome:4444/wd/hub"
+  - WEB_APP_IP="$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -f 1)"
+  - echo $WEB_APP_IP
+  - cd xb1
+  - python ./manage.py test
