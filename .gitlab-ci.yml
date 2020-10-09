@@ -1,19 +1,12 @@
-image: python:latest
+image: docker/compose
+
+variables:
+    DOCKER_DRIVER: overlay2
 
 services:
-  - selenium/standalone-chrome
+  - docker:dind
 
-before_script:
-  - python -V
-  - pip install -r requirements.txt
-
-stages:
-  - test
-
-
-test:
-  stage: test
+build:
+  stage: build
   script:
-  - SELENIUM_REMOTE_ADDRESS="http://selenium__standalone-chrome:4444/wd/hub"
-  - cd xb1
-  - python ./manage.py test
+    - docker-compose up
