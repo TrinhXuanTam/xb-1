@@ -14,8 +14,12 @@ urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
 
     # Admin urls
+    url(r'^users/$', views.UserListView.as_view(), name='user_list'),
+    url(r'^users/user_detail/(?P<pk>\d+)/$', views.UserDetailView.as_view(), name='user_detail'),
+    url(r'^users/user_detail/(?P<pk>\d+)/comments/$', views.UserCommentsView.as_view(), name='user_comments'),
+
     url(r'^admin/', admin.site.urls, name='admin'),
-    url(r'^admin_tools/', include('admin_tools.urls')),
+    url(r'^admin_tools/ ', include('admin_tools.urls')),
 
     # Login redirect urls
     url(r'^D7E88079F0C53EE2AC930A3D7300218AC6F0615FECD4A91CFDBA/$', views.LoginViewModal.as_view(), name='login_modal'),
