@@ -1,10 +1,12 @@
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.views import LoginView as BaseLoginView, LogoutView as BaseLogoutView, \
-    PasswordResetConfirmView as AuthPasswordResetConfirmView, PasswordResetCompleteView as AuthPasswordResetCompleteView, \
+    PasswordResetConfirmView as AuthPasswordResetConfirmView, \
+    PasswordResetCompleteView as AuthPasswordResetCompleteView, \
     PasswordResetView as AuthPasswordResetView, PasswordResetDoneView as AuthPasswordResetDoneView
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
+from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -18,11 +20,11 @@ from django.views import View
 
 from .core.tokens import account_activation_token
 from .core.views import LoginMixinView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, UpdateView
 
 from django.contrib.auth.views import PasswordChangeView as AuthPasswordChangeView
 
-from .articles.models import Article, UploadedFile
+from .articles.models import Article, UploadedFile, Comment
 from .core.forms import UserRegistrationForm, UserLoginForm, ProfileUpdateForm, UserChangeEmailForm, \
     ChangePasswordForm, ChangePasswordResetForm, PasswordResetEmailForm
 
@@ -31,7 +33,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.http import JsonResponse, HttpResponseRedirect
 
-#CKEDITOR
+# CKEDITOR
 from ckeditor_uploader.views import browse, upload, get_files_browse_urls
 from ckeditor_uploader.forms import SearchForm
 from django.views.decorators.csrf import csrf_exempt
@@ -46,6 +48,8 @@ from .settings import EMAIL_HOST_USER
 """
 Messages shown at login/logout
 """
+
+
 def show_logout_message(sender, user, request, **kwargs):
     messages.info(request, 'Byl jste úspěšně odhlášen.')
 
@@ -63,8 +67,8 @@ class IndexView(LoginMixinView, ListView):
     """
     View displays home page with latest article on front page
     """
-    model         = Article
-    queryset      = Article.objects.filter(article_state=1).order_by('-modified')
+    model = Article
+    queryset = Article.objects.filter(article_state=1).order_by('-modified')
     template_name = "index.html"
 
 
@@ -280,7 +284,8 @@ class Register(LoginMixinView, FormView):
         user.email_user(subject, message)
         return redirect('activation_sent')
 
-#CKEDITOR
+
+# CKEDITOR
 class CKEditorUploadView(LoginRequiredMixin, View):
     """
     Saves a file uploaded via CKEditor.
@@ -307,30 +312,30 @@ class CKEditorBrowseView(LoginRequiredMixin, View):
     permission_required = "articles.change_article"
 
     def get(self, request, *args, **kwargs):
-       files = get_files_browse_urls(request.user)
-       if request.method == 'POST':
-           form = SearchForm(request.POST)
-           if form.is_valid():
-               query = form.cleaned_data.get('q', '').lower()
-               files = list(filter(lambda d: query in d[
-                   'visible_filename'].lower(), files))
-       else:
-           form = SearchForm()
+        files = get_files_browse_urls(request.user)
+        if request.method == 'POST':
+            form = SearchForm(request.POST)
+            if form.is_valid():
+                query = form.cleaned_data.get('q', '').lower()
+                files = list(filter(lambda d: query in d[
+                    'visible_filename'].lower(), files))
+        else:
+            form = SearchForm()
 
-       show_dirs = getattr(settings, 'CKEDITOR_BROWSE_SHOW_DIRS', False)
-       dir_list = sorted(set(os.path.dirname(f['src'])
-                             for f in files), reverse=True)
+        show_dirs = getattr(settings, 'CKEDITOR_BROWSE_SHOW_DIRS', False)
+        dir_list = sorted(set(os.path.dirname(f['src'])
+                              for f in files), reverse=True)
 
-       if os.name == 'nt':
-           files = [f for f in files if os.path.basename(f['src']) != 'Thumbs.db']
+        if os.name == 'nt':
+            files = [f for f in files if os.path.basename(f['src']) != 'Thumbs.db']
 
-       context = {
-           'show_dirs': show_dirs,
-           'dirs': dir_list,
-           'files': files,
-           'form': form
-       }
-       return render(request, 'ckeditor_browse.html', context)
+        context = {
+            'show_dirs': show_dirs,
+            'dirs': dir_list,
+            'files': files,
+            'form': form
+        }
+        return render(request, 'ckeditor_browse.html', context)
 
 
 class CKEditorDeleteView(LoginRequiredMixin, View):
@@ -344,3 +349,61 @@ class CKEditorDeleteView(LoginRequiredMixin, View):
         for x in res:
             x.delete()
         return HttpResponseRedirect("/ckeditor/browse")
+
+
+class UserListView(LoginMixinView, LoginRequiredMixin, ListView):
+    template_name = 'users/user_list.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        keywords = self.request.GET.get('keywords')
+
+        if not keywords:
+            return User.objects.all().order_by("-pk")
+
+        keywords = keywords.split()
+        if keywords:
+            return User.objects.filter(Q(profile__nickname__icontains=keywords[0]) | Q(username__icontains=keywords[0])).order_by("-pk")
+        else:
+            return User.objects.all().order_by("-pk")
+
+
+class UserDetailView(LoginMixinView, LoginRequiredMixin, UpdateView):
+    model = User
+    template_name = "users/user_detail.html"
+    form_class = ProfileUpdateForm
+    success_url = reverse_lazy("user_list")
+
+    def get_context_data(self, *args, **kwargs):
+        """
+        Method fills in profile form with data of the authenticated user
+        """
+        context = super(UserDetailView, self).get_context_data(*args, **kwargs)
+        context["form"] = ProfileUpdateForm(instance=self.object.profile)
+        return context
+
+    def post(self, request, **kwargs):
+        if 'update_user' in request.POST:
+            p_form = ProfileUpdateForm(self.request.POST, self.request.FILES, instance=User.objects.get(pk=self.kwargs['pk']).profile)
+            if p_form.is_valid():
+                p_form.save()
+                return redirect('user_list')
+        elif 'ban_user' in request.POST:
+            user = User.objects.get(pk=self.kwargs['pk'])
+            user.is_active = False
+            user.save()
+            return redirect('user_list')
+        elif 'unban_user' in request.POST:
+            user = User.objects.get(pk=self.kwargs['pk'])
+            user.is_active = True
+            user.save()
+
+        return redirect('user_list')
+
+
+class UserCommentsView(LoginMixinView, LoginRequiredMixin, ListView):
+    template_name = 'users/user_comments.html'
+    paginate_by = 5
+
+    def get_queryset(self):
+        return Comment.objects.filter(author__pk=self.kwargs['pk']).order_by("-pk")

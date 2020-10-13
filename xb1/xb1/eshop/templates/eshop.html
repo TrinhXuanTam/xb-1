@@ -11,7 +11,7 @@
 <div class="eshop_topnav">
 	{% if perms.eshop.add_shopitem %}
 	<div>
-		<a class="add_product_button"href="{% url 'eshop:manageShopCreate' %}">{% trans "New product" %}<i class="fas fa-plus"></i></a>
+		<a class="add_product_button" href="{% url 'eshop:manageShopCreate' %}">{% trans "New product" %}<i class="fas fa-plus"></i></a>
 	</div>
 	{% endif %}
 	{% if perms.eshop.view_shopitem %}
@@ -24,7 +24,7 @@
 <div class="shopOrderBox">
 
 	<div class="cart_header">
-		<button class="cart_caption"><i class="fas fa-shopping-cart"></i> {% trans "Cart" %} <i class="cart_display_arrow fas fa-angle-down"></i></button>
+		<button class="cart_caption"><i class="fas fa-shopping-cart"></i> {% trans "Cart" %} ({{totalCount}}) <i class="cart_display_arrow fas"></i></button>
 	</div>
 
 	<div class="collapsible_cart">
@@ -85,7 +85,7 @@
 				</div>
 				<div class="shopOfferControl">
 					<div>{{ shopItem.itemPrice }}</div>
-					<div><a href="{% url 'eshop:cartItemAdd' pk=shopItem.pk %}">{% trans "Create order" %}</a></div>
+					<div><a onclick="sessionStorage.setItem('cartStatus', 'opened');" href="{% url 'eshop:cartItemAdd' pk=shopItem.pk %}">{% trans "Create order" %}</a></div>
 				</div>
 			</div>
 		</li>
@@ -95,11 +95,38 @@
 </div>
 
 <script>
+	$(".collapsible_cart").css("transition",  'none')
+	if(sessionStorage.getItem('cartStatus') == "opened") {
+		$(".cart_caption .cart_display_arrow").addClass('fa-angle-up')
+		$(".collapsible_cart").css("max-height", $(".collapsible_cart_wrapper").height() + 'px')
+    } else if(sessionStorage.getItem('cartStatus') == "collapsed"){
+		$(".cart_caption .cart_display_arrow").addClass('fa-angle-down')
+		$(".cart_caption").addClass('cart-collapsed')
+    } else {
+		sessionStorage.setItem('cartStatus', 'collapsed');
+		$(".cart_caption .cart_display_arrow").addClass('fa-angle-down')
+		$(".cart_caption").addClass('cart-collapsed')
+		$(".collapsible_cart").css("max-height", '0px')
+	}
+
+
 	$(".cart_caption").click(function(event){
-		$(".collapsible_cart").css("max-height", function(index, css){
-        	return css == '0px' ? $(".collapsible_cart_wrapper").height() + 'px'  : '0';
-		});
-		$(".cart_caption .cart_display_arrow").toggleClass("fa-angle-down fa-angle-up");
+		$(this).toggleClass('cart-collapsed')
+		$(this).find(".cart_display_arrow").removeClass('fa-angle-down fa-angle-up')
+
+		if($(this).hasClass('cart-collapsed')) {
+			sessionStorage.setItem('cartStatus', 'collapsed');
+			$(this).find(".cart_display_arrow").addClass('fa-angle-down')
+			$(".collapsible_cart").css("max-height", '0px')
+		}else {
+			sessionStorage.setItem('cartStatus', 'opened');
+			$(this).find(".cart_display_arrow").addClass('fa-angle-up')
+			$(".collapsible_cart").css("max-height", $(".collapsible_cart_wrapper").height() + 'px')
+		}
 	});
+</script>
+
+<script defer>
+	$(".collapsible_cart").css("transition",  'max-height 0.5s ease-out')
 </script>
 {% endblock %}

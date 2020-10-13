@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/chat.css' %}" />
     <link rel="stylesheet" href="{% static 'css/logo.css' %}" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
@@ -38,7 +37,7 @@
             {% csrf_token %}
             {{ login_form.username }}
             {{ login_form.password }}
-            <a href="{% url 'password_reset' %}" class = "password_reset">Zapomenuté heslo</a>
+            <a href="{% url 'password_reset' %}" class = "password_reset">{% trans "Forgotten password" %}</a>
             <br>
             <br>
 
@@ -49,11 +48,6 @@
       </div>
     </div>
 
-    <!-- Chat button -->
-    <button class="chat"><i class="fas fa-comments fa-2x"></i></button>
-
-
-
     <!-- Left sidebar -->
     <div class="sidebar">
         <!-- Top sidebar options -->
@@ -62,9 +56,11 @@
                 <a href="{% url 'profile' %}"><i class="fas fa-user sidebarOffset"></i> {% trans "Profile" %}</a>
             </li>
 
-            <li>
-                <a href="{% url 'eshop:manageOrderList' %}"><i class="fas fa-shopping-basket sidebarOffset"></i>{% trans "Orders" %}</a>
-            </li>
+            {% if perms.eshop.view_shoporder %}
+                <li>
+                    <a href="{% url 'eshop:manageOrderList' %}"><i class="fas fa-shopping-basket sidebarOffset"></i>{% trans "Orders" %}</a>
+                </li>
+            {% endif %}
 
             <li>
                 <a href="{% url 'contact:contact' %}"><i class="fas fa-envelope sidebarOffset"></i>{% trans "Contact" %}</a>
@@ -76,10 +72,10 @@
         <ul class="sidebar-options bottom">
 
             {% if user.is_authenticated %}
-            <li>
-                <a href="{% url 'logout' %}"><i class="fas fa-power-off sidebarOffset"></i>{% trans "Logout" %}</a>
-            </li>
-        {% endif %}
+                <li>
+                    <a href="{% url 'logout' %}"><i class="fas fa-power-off sidebarOffset"></i>{% trans "Logout" %}</a>
+                </li>
+            {% endif %}
         </ul>
   </div>
 
@@ -106,7 +102,9 @@
             {% if user.is_superuser %}
                 <li><a href="/admin/">{% trans "Admin" %}</a></li>
             {% endif %}
-            <li><a href="{% url 'core:switch_language' %}">{% trans "Switch language" %}</a>
+            {% if user.is_superuser %}
+                <li><a href="{% url 'user_list' %}">{% trans "User" %}</a></li>
+            {% endif %}
         </ul>
     </nav>
       <!-- Success message content -->

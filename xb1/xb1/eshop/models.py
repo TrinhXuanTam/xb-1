@@ -22,10 +22,10 @@ class ShopItem(models.Model):
 		(NEW, "New")
 	)
 
-	itemName = models.CharField(_("Product name"), max_length = 20)
+	itemName = models.CharField(_("Product name"), max_length = 50)
 	itemPrice = models.DecimalField(_("Price"), decimal_places=2, max_digits=10)
 	itemImg = models.ImageField(_("Image"), default='default.jpg', upload_to='ShopItems', blank=True, null=True)
-	itemDesc = models.CharField(_("Detail"), max_length = 200)
+	itemDesc = models.CharField(_("Detail"), max_length=400)
 	itemType = models.PositiveSmallIntegerField(_("Product type"), choices=TYPE_CHOICES, default=NONE)
 	itemActive = models.BooleanField(_("Activate"), default=True)
 

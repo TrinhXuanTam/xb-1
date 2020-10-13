@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block include %}
+<link rel="stylesheet" href="{% static 'css/user_list.css' %}" />
+{% endblock %}
+{%block content %}
+<div class="user_list_content">
+    <div>
+    <form action="{% url 'user_list' %}" >
+      <input type="text" autocomplete="off" placeholder=" Search user" aria-label="Search" name="keywords">
+      <button>
+        <i class="fas fa-search"></i> {% trans "Search" %}
+      </button>
+    </form>
+</div>
+    <table class="center" cellpadding="4">
+      <thead class="text-nowrap" style="text-align:center;">
+        <tr >
+          <th scope="col" style="border-bottom: 2px solid white;">
+            <span>
+              {% trans "User name" %}
+            </span>
+          </th>
+          <th scope="col" style="border-bottom: 2px solid white;">
+            <span>
+              {% trans "Nickname" %}
+            </span>
+          </th>
+          <th scope="col" style="border-bottom: 2px solid white;">
+            <span>
+              {% trans "Last login" %}
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for user in object_list %}
+          <tr>
+              {% if user.is_active %}
+              <td ><a style="text-decoration: None; color: white;" href="{% url 'user_detail' pk=user.pk %}">{{user.username}}</a></td>
+              <td>{{user.profile.nickname}}</td>
+              <td>{{user.last_login}}</td>
+              {% else %}
+              <td ><a style="text-decoration: None; color: red;" href="{% url 'user_detail' pk=user.pk %}">{{user.username}}</a></td>
+              <td style="color: red;">{{user.profile.nickname}}</td>
+              <td style="color: red;">{{user.last_login}}</td>
+              {% endif %}
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="2">No users found.</td>
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+    <div class="pagination" style="padding-top: 10px;">
+        <span class="step-links">
+
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-arrow-left"></i></a>
+            {% endif %}
+            <span class="current">
+                {% trans "Stránka" %}: {{ page_obj.number }}
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}"><i class="fas fa-arrow-right"></i></a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+{% endblock %}

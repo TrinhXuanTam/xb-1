@@ -69,6 +69,7 @@ ul {
 .comment_text {
   margin-top: 10px;
   opacity: 0.6;
+  word-wrap: break-word;
 }
 
 .comment_reply .comment_profile_pic {

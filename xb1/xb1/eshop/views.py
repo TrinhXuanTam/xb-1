@@ -1,6 +1,7 @@
 from django.core.mail import send_mail
 from django.shortcuts import render
 from django.template.loader import render_to_string
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.views.generic.edit import CreateView
@@ -77,6 +78,7 @@ class ShopIndex(LoginMixinView, ListView):
 		# Check if any item is in the shop list
 		if self.request.session.get('orderList', None) == None:
 			context['totalPrice'] = 0;
+			context['totalCount'] = 0;
 			return context
 
 		# Calculate total price and rearrange store items in that list for being displayeds
@@ -89,6 +91,7 @@ class ShopIndex(LoginMixinView, ListView):
 					totalPrice += self.request.session['orderList'][orderItem] * shopItem.itemPrice;
 
 		context['totalPrice'] = totalPrice;
+		context['totalCount'] = len(context['orderItems']);
 
 		return context
 
@@ -117,6 +120,7 @@ class CartItemAddView(RedirectView):
 			self.request.session['orderList'][id] = self.request.session['orderList'].get(id, 0) + 1
 
 		self.request.session.modified = True
+		messages.success(self.request, 'Cart was updated.')
 		return reverse_lazy("eshop:shopIndex")
 
 
@@ -152,6 +156,7 @@ class CartItemRemoveView(RedirectView):
 				self.request.session['orderList'][id] = self.request.session['orderList'].get(id, 0) - 1
 
 			self.request.session.modified = True
+			messages.success(self.request, 'Cart was updated.')
 
 		return reverse_lazy("eshop:shopIndex")
 
@@ -175,7 +180,7 @@ class CartItemDiscardView(RedirectView):
 			self.request.session.modified = True
 			if len(self.request.session['orderList']) == 0:
 				self.request.session['orderList'] = None
-
+		messages.success(self.request, 'Cart was updated.')
 		return reverse_lazy("eshop:shopIndex")
 
 class ShopItemListView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, ListView):

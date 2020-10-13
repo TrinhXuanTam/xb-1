@@ -4,42 +4,47 @@
 {% load i18n %}
 
 {%block include%}
-<link rel="stylesheet" href="{% static 'css/eshop.css' %}" >
+<link rel="stylesheet" href="{% static 'css/orders_list.css' %}">
 {%endblock%}
 
 {%block content %}
+
 {% if object_list %}
-<div class="divTable blueTable">
-	<div class="divTableHeading">
-		<div class="divTableRow">
-			<div class="divTableHead">{% trans "First name" %}</div>
-			<div class="divTableHead">{% trans "Last Name" %}</div>
-			<div class="divTableHead">{% trans "Email" %}</div>
-			<div class="divTableHead">{% trans "City" %}</div>
-			<div class="divTableHead">{% trans "Street" %}</div>
-			<div class="divTableHead">{% trans "Street Number" %}</div>
-			<div class="divTableHead">{% trans "Post Number" %}</div>
-			<div class="divTableHead">{% trans "Payed" %}</div>
-			<div class="divTableHead"></div>
-			<div class="divTableHead"></div>
-		</div>
-	</div>
-	<div class="divTableBody">
-		{% for order in object_list %}
-		<div class="divTableRow">
-			<div class="divTableCell">{{ order.orderFirstName }}</div>
-			<div class="divTableCell">{{ order.orderLastName }}</div>
-			<div class="divTableCell">{{ order.orderEmail }}</div>
-			<div class="divTableCell">{{ order.orderAddressCity }}</div>
-			<div class="divTableCell">{{ order.orderAddressStreet }}</div>
-			<div class="divTableCell">{{ order.orderAddressStreetNumber }}</div>
-			<div class="divTableCell">{{ order.orderAddressPostNumber }}</div>
-			<div class="divTableCell">{{ order.isPaid }}</div>
-			<div class="divTableCell"><a href="{% url 'eshop:manageOrderPay' pk=order.pk %}">{% trans "Pay" %}</a></div>
-			<div class="divTableCell"><a href="{% url 'eshop:manageOrderRemove' pk=order.pk %}">{% trans "Delete" %}</a></div>
-		</div>
-		{% endfor %}
+<div id="orders-list">
+	<div class="responsive-table-wrapper">
+		<table>
+			<thead>
+				<tr>
+					<th>{% trans "First Name" %}</th>
+					<th>{% trans "Last Name" %}</th>
+					<th>{% trans "Email" %}</th>
+					<th>{% trans "City" %}</th>
+					<th>{% trans "Street" %}</th>
+					<th>{% trans "Street Number" %}</th>
+					<th>{% trans "Post Number" %}</th>
+					<th>{% trans "Payed" %}</th>
+					<th colspan="2">{% trans "Action" %}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for order in object_list %}
+				<tr>
+					<td>{{ order.orderFirstName }}</td>
+					<td>{{ order.orderLastName }}</td>
+					<td>{{ order.orderEmail }}</td>
+					<td>{{ order.orderAddressCity }}</td>
+					<td>{{ order.orderAddressStreet }}</td>
+					<td>{{ order.orderAddressStreetNumber }}</td>
+					<td>{{ order.orderAddressPostNumber }}</td>
+					<td>{{ order.isPaid }}</td>
+					<td><a href="{% url 'eshop:manageOrderPay' pk=order.pk %}"><i class="fas fa-dollar-sign"></i> {% trans "Pay" %}</a></td>
+					<td><a href="{% url 'eshop:manageOrderRemove' pk=order.pk %}"><i class="fas fa-trash"></i> {% trans "Delete" %}</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 	</div>
 </div>
 {% endif %}
+
 {% endblock %}

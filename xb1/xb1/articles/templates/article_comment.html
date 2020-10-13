@@ -27,7 +27,7 @@
                             </button>
                         </a>
                     {% else %}
-                        <article href="{% url 'articles:unban_comment' pk=comment.id %}">
+                        <a href="{% url 'articles:unban_comment' pk=comment.id %}">
                             <button>
                                 {% trans "Un-censure" %}<i class="fas fa-lock-open" style="font-size: 15px;"></i>
                             </button>
