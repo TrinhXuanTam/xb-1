@@ -174,7 +174,7 @@ class PostCommentView(LoginRequiredMixin, View):
             return render(request, 'forum_comment.html', {"forum_id":forum_id, "comments":[comment]})
 
         else:
-            response = JsonResponse({"error": "Unauthorized"})
+            response = JsonResponse({"error": _("Unauthorized")})
             response.status_code = 401
             return response
 

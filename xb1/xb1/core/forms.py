@@ -1,8 +1,10 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm, PasswordChangeForm, \
     SetPasswordForm, PasswordResetForm
-from .models import User, Profile
+from django.utils.translation import ugettext_lazy as _
 from django.forms import Textarea
+
+from .models import User, Profile
 
 
 # custom login form
@@ -11,8 +13,8 @@ class UserLoginForm(AuthenticationForm):
         super(UserLoginForm, self).__init__(*args, **kwargs)
 
         # set text placeholders
-        self.fields['username'].widget.attrs['placeholder'] = 'Uživatelské jméno'
-        self.fields['password'].widget.attrs['placeholder'] = 'Heslo'
+        self.fields['username'].widget.attrs['placeholder'] = _("User name")
+        self.fields['password'].widget.attrs['placeholder'] = _("Password")
 
         # set css class
         self.fields['username'].widget.attrs['class'] = 'login_input'
@@ -44,10 +46,10 @@ class UserRegistrationForm(UserCreationForm):
             self.fields[field_name].widget.attrs['class'] = 'registration_input'
 
         # set text placeholders
-        self.fields['username'].widget.attrs['placeholder'] = 'Uživatelské jméno'
-        self.fields['email'].widget.attrs['placeholder'] = 'E-mail'
-        self.fields['password1'].widget.attrs['placeholder'] = 'Heslo'
-        self.fields['password2'].widget.attrs['placeholder'] = 'Potvrdit heslo'
+        self.fields['username'].widget.attrs['placeholder'] = _("User name")
+        self.fields['email'].widget.attrs['placeholder'] = _("Email")
+        self.fields['password1'].widget.attrs['placeholder'] = _("Password")
+        self.fields['password2'].widget.attrs['placeholder'] = _("Confirm password")
 
     class Meta:
         model = User
@@ -77,9 +79,9 @@ class ChangePasswordForm(PasswordChangeForm):
 
             self.fields[field_name].widget.attrs['class'] = 'registration_input'
 
-        self.fields['old_password'].widget.attrs['placeholder'] = 'Současné heslo'
-        self.fields['new_password1'].widget.attrs['placeholder'] = 'Nové heslo'
-        self.fields['new_password2'].widget.attrs['placeholder'] = 'Potvrdit heslo'
+        self.fields['old_password'].widget.attrs['placeholder'] = _("Current password")
+        self.fields['new_password1'].widget.attrs['placeholder'] = _("New password")
+        self.fields['new_password2'].widget.attrs['placeholder'] = _("New password confirmation")
 
 
     class Meta:
@@ -98,8 +100,8 @@ class ChangePasswordResetForm(SetPasswordForm):
 
             self.fields[field_name].widget.attrs['class'] = 'registration_input'
 
-        self.fields['new_password1'].widget.attrs['placeholder'] = 'Nové heslo'
-        self.fields['new_password2'].widget.attrs['placeholder'] = 'Potvrdit heslo'
+        self.fields['new_password1'].widget.attrs['placeholder'] = _("New pasword")
+        self.fields['new_password2'].widget.attrs['placeholder'] = _("New password confirmation")
 
     class Meta:
         model = User
@@ -107,7 +109,7 @@ class ChangePasswordResetForm(SetPasswordForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
-    image = forms.ImageField(required=False, error_messages={'invalid': "Neplatný soubor."},
+    image = forms.ImageField(required=False, error_messages={'invalid': _("Invalid file")},
                              widget=forms.FileInput)
 
     def __init__(self, *args, **kwargs):
@@ -118,14 +120,14 @@ class ProfileUpdateForm(forms.ModelForm):
 
             self.fields[field_name].widget.attrs['class'] = 'profile_input'
 
-        self.fields['image'].label = 'Obrázek'
-        self.fields['nickname'].label = 'Přezdívka'
-        self.fields['name'].label = 'Jméno'
-        self.fields['surname'].label = 'Příjmení'
-        self.fields['city'].label = 'Město'
-        self.fields['postalCode'].label = 'PSČ'
-        self.fields['address'].label = 'Adresa'
-        self.fields['phone'].label = 'Telefonní číslo'
+        self.fields['image'].label = _("Image")
+        self.fields['nickname'].label = _("Nickname")
+        self.fields['name'].label = _("Name")
+        self.fields['surname'].label = _("Surname")
+        self.fields['city'].label = _("City")
+        self.fields['postalCode'].label = _("Postal code")
+        self.fields['address'].label = _("Address")
+        self.fields['phone'].label = _("Phone number")
 
     class Meta:
         model = Profile
@@ -136,7 +138,7 @@ class UserChangeEmailForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['temp_email'].widget.attrs['placeholder'] = 'Nový email'
+        self.fields['temp_email'].widget.attrs['placeholder'] = _("New email")
         self.fields['temp_email'].label = False
         self.fields['temp_email'].widget.attrs['class'] = 'registration_input'
 
@@ -152,7 +154,7 @@ class UserChangeEmailForm(forms.ModelForm):
             return temp_email
 
         # A user was found with this as a username, raise an error.
-        raise forms.ValidationError('Tento email je používán.')
+        raise forms.ValidationError(_("This email has alredy been registered."))
 
     class Meta:
         model = User
@@ -163,11 +165,10 @@ class PasswordResetEmailForm(PasswordResetForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['email'].widget.attrs['placeholder'] = 'Zadejte váš email'
+        self.fields['email'].widget.attrs['placeholder'] = _("Enter your email")
         self.fields['email'].label = False
         self.fields['email'].widget.attrs['class'] = 'registration_input'
 
     class Meta:
         model = User
         fields = ['email']
-

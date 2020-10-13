@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 from .models import ShopOrder
 from .models import ShopItem
@@ -8,7 +9,7 @@ class OrderForm(forms.ModelForm):
 		model = ShopOrder
 		fields = ("orderFirstName", "orderLastName", "orderEmail", "orderAddressCity", "orderAddressStreet", "orderAddressPostNumber", "orderPhone", )
 		labels = {
-			'orderAddressPostNumber': "PSČ",
+			'orderAddressPostNumber': _("Postal code"),
 		}
 	def __init__(self, *args, **kwargs):
 		super(OrderForm, self).__init__(*args, **kwargs)

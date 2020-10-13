@@ -1,6 +1,7 @@
 from django.core.mail import send_mail
 from django.shortcuts import render
 from django.template.loader import render_to_string
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.views.generic.edit import CreateView
@@ -15,7 +16,7 @@ from django.urls import reverse_lazy
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.conf import settings
-from django.contrib import messages
+from django.utils.translation import ugettext_lazy as _
 
 from .models import ShopItem
 from .models import ShopOrder
@@ -132,7 +133,7 @@ class CartItemAddFailureView(DelayRedirectView):
 
 	def __init__(self):
 		super(CartItemAddFailureView, self).__init__(5000, "eshop:shopIndex", None,
-			["Something bad happened", "Item can not be found", "Item is no longer available"])
+			[_("Something bad happened"), _("Item can not be found"), _("Item is no longer available")])
 
 class CartItemRemoveView(RedirectView):
 	"""
@@ -156,7 +157,7 @@ class CartItemRemoveView(RedirectView):
 
 			self.request.session.modified = True
 			messages.success(self.request, 'Cart was updated.')
-			
+
 		return reverse_lazy("eshop:shopIndex")
 
 
@@ -299,7 +300,7 @@ class OrderPayFailureView(DelayRedirectView):
 	"""
 	def __init__(self):
 		super(OrderPayFailureView, self).__init__(5000, "eshop:manageOrderList", None,
-			["Something bad happened", "Bad address, only numbers can be use", "Order not found", "Payment not found"])
+			[_("Something bad happened"), _("Bad address, only numbers can be use"), _("Order not found"), _("Payment not found")])
 
 
 class OrderCreateView(LoginMixinView, FormView):
@@ -371,7 +372,7 @@ class OrderCreateView(LoginMixinView, FormView):
 
 		# Set and send email to inserted mail address, with link to track delivery
 		current_site = get_current_site(self.request)
-		subject = 'Order successfully received'
+		subject = _("Order successfully received")
 		message = render_to_string('manageOrderEmail.html', {
 			'domain': current_site.domain,
 			'slug': form.instance.orderSlug,
@@ -396,7 +397,10 @@ class OrderCreateFailureView(DelayRedirectView):
 
 	def __init__(self):
 		super(OrderCreateFailureView, self).__init__(5000, "eshop:shopIndex", None,
-			["Something bad happened", "Empty cart can not be ordered", "Item in your cart doesn't exist, reset cart", "Item in your cart is no longer available, reset cart"])
+			[_("Something bad happened"), _("Empty cart can not be ordered"),
+			_("Item in your cart doesn't exist, reset cart"),
+			_("Item in your cart is no longer available, reset cart")
+		])
 
 
 class OrderTrackerView(LoginMixinView, TemplateView):
@@ -431,4 +435,4 @@ class OrderTrackerFailureView(DelayRedirectView):
 
 	def __init__(self):
 		super(OrderTrackerFailureView, self).__init__(5000, "eshop:shopIndex", None,
-			["Something bad happened", "Order related with this tracker doesn't exists"])
+			[_("Something bad happened"), _("Order related with this tracker doesn't exists")])

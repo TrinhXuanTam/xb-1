@@ -69,7 +69,7 @@
 					{% csrf_token %}
 					<!-- {{ comment_form.text }} -->
 					<textarea required rows=1 placeholder="Add a comment"></textarea>
-					<button class="comment_section_button">Post</button>
+					<button class="comment_section_button">{% trans "Post" %}</button>
 				</form>
 
 				<script src="{% static 'js/articles_detail.js' %}"></script>
