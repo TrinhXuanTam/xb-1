@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-06 18:05+0200\n"
+"POT-Creation-Date: 2020-10-13 14:27+0200\n"
 "Language: cz\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -11,7 +11,7 @@ msgstr ""
 
 #: xb1/articles/models.py:20 xb1/articles/models.py:31 xb1/core/forms.py:125
 #: xb1/core/models.py:22 xb1/eshop/models.py:38
-#: xb1/eshop/templates/manageShopList.html:16
+#: xb1/eshop/templates/manageShopList.html:17
 msgid "Name"
 msgstr "Jméno"
 
@@ -104,7 +104,7 @@ msgstr "Uzavřené"
 msgid "Article"
 msgstr "Článek"
 
-#: xb1/articles/models.py:123 xb1/templates/base.html:105
+#: xb1/articles/models.py:123 xb1/templates/base.html:101
 msgid "Forum"
 msgstr "Fórum"
 
@@ -123,10 +123,11 @@ msgstr "Zveřejněno od"
 #: xb1/articles/templates/article_comment.html:14
 #: xb1/forum/templates/forum_comment.html:15
 msgid "Comment has been banned for inappropriate speech."
-msgstr ""
+msgstr "Komentář byl skryt z důvodu obsahu nevhodných výrazů."
 
 #: xb1/articles/templates/article_comment.html:26
 #: xb1/forum/templates/forum_comment.html:31
+#: xb1/templates/users/user_comments.html:20
 #, fuzzy
 #| msgid "Is censured"
 msgid "Censure"
@@ -137,12 +138,13 @@ msgstr "Je cenzurován"
 #, fuzzy
 #| msgid "Is censured"
 msgid "Un-censure"
-msgstr "Je cenzurován"
+msgstr "Zrušit cenzuru"
 
 #: xb1/articles/templates/article_comment.html:36
 #: xb1/forum/templates/forum_comment.html:41
+#: xb1/templates/users/user_comments.html:25
 msgid "Banned text:"
-msgstr ""
+msgstr "Zablokovaný text:"
 
 #: xb1/articles/templates/article_comment.html:41
 #: xb1/articles/templates/article_comment.html:48
@@ -175,7 +177,7 @@ msgstr "Kategorie"
 #, fuzzy
 #| msgid "Author"
 msgid "author"
-msgstr "Autor"
+msgstr "autor"
 
 #: xb1/articles/templates/articles_detail.html:39
 msgid "tags"
@@ -220,13 +222,14 @@ msgstr "Skrýt"
 msgid "Publish"
 msgstr "Publikovat"
 
-#: xb1/articles/templates/get_articles.html:42 xb1/templates/index.html:29
+#: xb1/articles/templates/get_articles.html:42
+#: xb1/eshop/templates/manageShopList.html:35 xb1/templates/index.html:29
 msgid "Edit"
 msgstr "Upravit"
 
 #: xb1/articles/templates/get_articles.html:43
 #: xb1/articles/templates/get_articles.html:124
-#: xb1/eshop/templates/manageOrderList.html:39
+#: xb1/eshop/templates/manageOrderList.html:41
 msgid "Delete"
 msgstr "Smazat"
 
@@ -237,25 +240,26 @@ msgstr "Potvrdit"
 
 #: xb1/contact/forms.py:6
 msgid "Message"
-msgstr ""
+msgstr "Zpráva"
 
 #: xb1/contact/forms.py:7
 msgid "Your message..."
-msgstr ""
+msgstr "Vaše zpráva..."
 
 #: xb1/contact/forms.py:8
 msgid "Subject"
-msgstr ""
+msgstr "Předmět"
 
 #: xb1/contact/forms.py:9
 msgid "Subject..."
-msgstr ""
+msgstr "Předmět..."
 
 #: xb1/contact/views.py:29
 msgid "Email has been successfully sent."
-msgstr ""
+msgstr "E-mail byl úspěšně odeslán."
 
 #: xb1/core/forms.py:16 xb1/core/forms.py:49
+#: xb1/templates/users/user_list.html:22
 msgid "User name"
 msgstr "Uživatelské jméno"
 
@@ -264,46 +268,47 @@ msgid "Password"
 msgstr "Heslo"
 
 #: xb1/core/forms.py:50 xb1/eshop/models.py:40
-#: xb1/eshop/templates/manageOrderList.html:17
+#: xb1/eshop/templates/manageOrderList.html:20
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #: xb1/core/forms.py:52
 #, fuzzy
 #| msgid "Confirm"
 msgid "Confirm password"
-msgstr "Potvrdit"
+msgstr "Potvrdit heslo"
 
 #: xb1/core/forms.py:82
 msgid "Current password"
-msgstr ""
+msgstr "Současné heslo"
 
 #: xb1/core/forms.py:83
 #, fuzzy
 #| msgid "Password"
 msgid "New password"
-msgstr "Heslo"
+msgstr "Nové heslo"
 
 #: xb1/core/forms.py:84 xb1/core/forms.py:104
 msgid "New password confirmation"
-msgstr ""
+msgstr "Potvrzení nového hesla"
 
 #: xb1/core/forms.py:103
 #, fuzzy
 #| msgid "Password"
 msgid "New pasword"
-msgstr "Heslo"
+msgstr "Nové heslo"
 
 #: xb1/core/forms.py:112
 msgid "Invalid file"
-msgstr ""
+msgstr "Špatný soubor"
 
 #: xb1/core/forms.py:123 xb1/core/models.py:17 xb1/eshop/models.py:27
-#: xb1/eshop/templates/manageShopList.html:18
+#: xb1/eshop/templates/manageShopList.html:19
 msgid "Image"
 msgstr "Obrázek"
 
 #: xb1/core/forms.py:124 xb1/core/models.py:18
+#: xb1/templates/users/user_list.html:27
 msgid "Nickname"
 msgstr "Přezdívka"
 
@@ -312,7 +317,7 @@ msgid "Surname"
 msgstr "Příjmení"
 
 #: xb1/core/forms.py:127 xb1/core/models.py:19 xb1/eshop/models.py:41
-#: xb1/eshop/templates/manageOrderList.html:18
+#: xb1/eshop/templates/manageOrderList.html:21
 msgid "City"
 msgstr "Město"
 
@@ -328,19 +333,19 @@ msgstr "Adresa"
 
 #: xb1/core/forms.py:130
 msgid "Phone number"
-msgstr ""
+msgstr "Telefon"
 
 #: xb1/core/forms.py:141
 msgid "New email"
-msgstr ""
+msgstr "Nový email"
 
 #: xb1/core/forms.py:157
 msgid "This email has alredy been registered."
-msgstr ""
+msgstr "Tato emailová adresa již byla registrována."
 
 #: xb1/core/forms.py:168
 msgid "Enter your email"
-msgstr ""
+msgstr "Zadejte Váš email"
 
 #: xb1/core/models.py:20 xb1/eshop/models.py:43
 #, fuzzy
@@ -354,228 +359,229 @@ msgstr "Telefon"
 
 #: xb1/eshop/models.py:25
 msgid "Product name"
-msgstr ""
+msgstr "Název produktu"
 
 #: xb1/eshop/models.py:26 xb1/eshop/templates/eshop.html:39
-#: xb1/eshop/templates/manageShopList.html:17
+#: xb1/eshop/templates/manageShopList.html:18
 msgid "Price"
-msgstr ""
+msgstr "Cena"
 
 #: xb1/eshop/models.py:28
 msgid "Detail"
-msgstr ""
+msgstr "Detail"
 
 #: xb1/eshop/models.py:29
 msgid "Product type"
-msgstr ""
+msgstr "Typ produktu"
 
 #: xb1/eshop/models.py:30
 msgid "Activate"
-msgstr ""
+msgstr "Aktivovat"
 
 #: xb1/eshop/models.py:75
 msgid "TotalPrice"
-msgstr ""
+msgstr "Celková cena"
 
 #: xb1/eshop/models.py:76
 msgid "Received"
-msgstr ""
+msgstr "Doručeno"
 
 #: xb1/eshop/models.py:77
 msgid "VariableSymbol"
-msgstr ""
+msgstr "Variabilní symbol"
 
 #: xb1/eshop/models.py:78
 msgid "SpecificSymbol"
-msgstr ""
+msgstr "Specifický symbol"
 
 #: xb1/eshop/models.py:79 xb1/eshop/models.py:89
 msgid "ShopOrder"
-msgstr ""
+msgstr "Objednávka"
 
 #: xb1/eshop/models.py:88
 msgid "ShopItem"
-msgstr ""
+msgstr "Položka objednávky"
 
 #: xb1/eshop/models.py:90
 msgid "ItemCount"
-msgstr ""
+msgstr "Počet položek"
 
 #: xb1/eshop/templates/eshop.html:14 xb1/eshop/templates/manageShopAdd.html:11
 msgid "New product"
-msgstr ""
+msgstr "Nový produkt"
 
 #: xb1/eshop/templates/eshop.html:19
 msgid "Show products list"
-msgstr ""
+msgstr "Zobrazit seznam produktů"
 
 #: xb1/eshop/templates/eshop.html:27
 msgid "Cart"
-msgstr ""
+msgstr "Košík"
 
 #: xb1/eshop/templates/eshop.html:33
 msgid "Cart is empty"
-msgstr ""
+msgstr "Košík je prázdný"
 
 #: xb1/eshop/templates/eshop.html:37
 msgid "Product"
-msgstr ""
+msgstr "Produkt"
 
 #: xb1/eshop/templates/eshop.html:38
 msgid "Amount"
-msgstr ""
+msgstr "Počet"
 
 #: xb1/eshop/templates/eshop.html:40
 #, fuzzy
 #| msgid "Address"
 msgid "Add"
-msgstr "Adresa"
+msgstr "Přidat"
 
 #: xb1/eshop/templates/eshop.html:41
 msgid "Remove"
-msgstr ""
+msgstr "Odebrat"
 
 #: xb1/eshop/templates/eshop.html:42
 msgid "Cancel"
-msgstr ""
+msgstr "Zrušit"
 
 #: xb1/eshop/templates/eshop.html:60
 #, fuzzy
 #| msgid "Delete"
 msgid "Delete all"
-msgstr "Smazat"
+msgstr "Smazat vše"
 
 #: xb1/eshop/templates/eshop.html:63 xb1/eshop/templates/eshop.html:88
 #: xb1/eshop/templates/manageOrderCreate.html:20
 #, fuzzy
 #| msgid "Create article"
 msgid "Create order"
-msgstr "Přidat článek"
+msgstr "Vytvořit objednávku"
 
 #: xb1/eshop/templates/manageOrderCreate.html:10
 msgid "Order products"
-msgstr ""
+msgstr "Objednat produkty"
 
 #: xb1/eshop/templates/manageOrderEmail.html:5
 msgid "Your order has been successfully received."
-msgstr ""
+msgstr "Objednávka byla úspěšně odeslána."
 
-#: xb1/eshop/templates/manageOrderList.html:15
+#: xb1/eshop/templates/manageOrderList.html:18
 #, fuzzy
 #| msgid "User name"
-msgid "First name"
-msgstr "Uživatelské jméno"
+msgid "First Name"
+msgstr "Křestní jméno"
 
-#: xb1/eshop/templates/manageOrderList.html:16
+#: xb1/eshop/templates/manageOrderList.html:19
 #, fuzzy
 #| msgid "Name"
 msgid "Last Name"
-msgstr "Jméno"
-
-#: xb1/eshop/templates/manageOrderList.html:19
-msgid "Street"
-msgstr ""
-
-#: xb1/eshop/templates/manageOrderList.html:20
-msgid "Street Number"
-msgstr ""
-
-#: xb1/eshop/templates/manageOrderList.html:21
-msgid "Post Number"
-msgstr ""
+msgstr "Příjmení"
 
 #: xb1/eshop/templates/manageOrderList.html:22
-msgid "Payed"
-msgstr ""
+msgid "Street"
+msgstr "Ulice"
 
-#: xb1/eshop/templates/manageOrderList.html:38
+#: xb1/eshop/templates/manageOrderList.html:23
+msgid "Street Number"
+msgstr "Číslo popisné"
+
+#: xb1/eshop/templates/manageOrderList.html:24
+msgid "Post Number"
+msgstr "PSČ"
+
+#: xb1/eshop/templates/manageOrderList.html:25
+msgid "Payed"
+msgstr "Zaplaceno"
+
+#: xb1/eshop/templates/manageOrderList.html:26
+#: xb1/eshop/templates/manageShopList.html:23
+msgid "Action"
+msgstr "Akce"
+
+#: xb1/eshop/templates/manageOrderList.html:40
 msgid "Pay"
-msgstr ""
+msgstr "Zaplatit"
 
 #: xb1/eshop/templates/manageOrderRemove.html:4
 msgid "Are you sure you want to delete order with email address:"
-msgstr ""
+msgstr "Opravdu chcete smazat objednávku s emailovou adresou:"
 
 #: xb1/eshop/templates/manageShopAdd.html:22
 #, fuzzy
 #| msgid "Create article"
 msgid "Create"
-msgstr "Přidat článek"
+msgstr "Vytvořit"
 
 #: xb1/eshop/templates/manageShopEdit.html:11
 msgid "Edit product"
-msgstr ""
+msgstr "Editovat produkt"
 
 #: xb1/eshop/templates/manageShopEdit.html:22
 msgid "Apply change"
-msgstr ""
+msgstr "Potvrdit změny"
 
-#: xb1/eshop/templates/manageShopList.html:19
+#: xb1/eshop/templates/manageShopList.html:20
 #, fuzzy
 #| msgid "Forum description"
 msgid "Description"
 msgstr "Popis fóra"
 
-#: xb1/eshop/templates/manageShopList.html:20
-msgid "Type"
-msgstr ""
-
 #: xb1/eshop/templates/manageShopList.html:21
+msgid "Type"
+msgstr "Typ"
+
+#: xb1/eshop/templates/manageShopList.html:22
 msgid "Active"
-msgstr ""
+msgstr "Aktivní"
 
-#: xb1/eshop/templates/manageShopList.html:35
-msgid "Upravit"
-msgstr ""
-
-#: xb1/eshop/views.py:132 xb1/eshop/views.py:298 xb1/eshop/views.py:395
-#: xb1/eshop/views.py:433
+#: xb1/eshop/views.py:136 xb1/eshop/views.py:303 xb1/eshop/views.py:400
+#: xb1/eshop/views.py:438
 msgid "Something bad happened"
-msgstr ""
+msgstr "Stalo se něco špatného"
 
-#: xb1/eshop/views.py:132
+#: xb1/eshop/views.py:136
 msgid "Item can not be found"
-msgstr ""
+msgstr "Položka nebyla nalezena"
 
-#: xb1/eshop/views.py:132
+#: xb1/eshop/views.py:136
 msgid "Item is no longer available"
-msgstr ""
+msgstr "Položka již není dostupná"
 
-#: xb1/eshop/views.py:298
+#: xb1/eshop/views.py:303
 msgid "Bad address, only numbers can be use"
-msgstr ""
+msgstr "Špatný formát adresy, lze použít jen čísla"
 
-#: xb1/eshop/views.py:298
+#: xb1/eshop/views.py:303
 msgid "Order not found"
-msgstr ""
+msgstr "Objednávka nebyla nalezena"
 
-#: xb1/eshop/views.py:298
+#: xb1/eshop/views.py:303
 msgid "Payment not found"
-msgstr ""
+msgstr "Platba nebyla nalezena"
 
-#: xb1/eshop/views.py:370
+#: xb1/eshop/views.py:375
 msgid "Order successfully received"
-msgstr ""
+msgstr "Objednávka byla úspěšně doručena"
 
-#: xb1/eshop/views.py:395
+#: xb1/eshop/views.py:400
 msgid "Empty cart can not be ordered"
-msgstr ""
+msgstr "Nelze objednat prázdný košík"
 
-#: xb1/eshop/views.py:396
+#: xb1/eshop/views.py:401
 msgid "Item in your cart doesn't exist, reset cart"
-msgstr ""
+msgstr "Produkt v košíku neexistuje, prosím resetujte košík"
 
-#: xb1/eshop/views.py:397
+#: xb1/eshop/views.py:402
 msgid "Item in your cart is no longer available, reset cart"
-msgstr ""
+msgstr "Produkt v košíku již není dostupný, prosím resetujte košík"
 
-#: xb1/eshop/views.py:433
+#: xb1/eshop/views.py:438
 msgid "Order related with this tracker doesn't exists"
-msgstr ""
+msgstr "Objednávka s tímto trackovacím číslem neexistuje"
 
 #: xb1/forum/templates/forum_list.html:13
 msgid "New thread"
-msgstr ""
+msgstr "Nové vlákno"
 
 #: xb1/forum/templates/forum_list.html:17
 #, fuzzy
@@ -585,7 +591,7 @@ msgstr "Přidat kategorii"
 
 #: xb1/forum/templates/forum_list.html:41
 msgid "Last post"
-msgstr ""
+msgstr "Poslední příspěvek"
 
 #: xb1/forum/templates/forum_list.html:45
 #, fuzzy
@@ -595,106 +601,112 @@ msgstr "Odpovědět"
 
 #: xb1/forum/views.py:33
 msgid "All forums"
-msgstr ""
+msgstr "Všechna fóra"
 
 #: xb1/forum/views.py:60
 msgid "Last forums"
-msgstr ""
+msgstr "Poslední fórum"
 
 #: xb1/forum/views.py:177
 #, fuzzy
 #| msgid "Author"
 msgid "Unauthorized"
-msgstr "Autor"
+msgstr "Přístup zamítnut"
 
 #: xb1/settings.py:193
 msgid "Czech"
 msgstr "Čeština"
 
-#: xb1/templates/base.html:35 xb1/templates/base.html:45
+#: xb1/templates/base.html:34 xb1/templates/base.html:44
 #: xb1/templates/registration/login.html:9
 #: xb1/templates/registration/login.html:19
 msgid "Login"
 msgstr "Přihlásit se"
 
-#: xb1/templates/base.html:46 xb1/templates/registration/login.html:20
+#: xb1/templates/base.html:40
+#, fuzzy
+#| msgid "Password"
+msgid "Forgotten password"
+msgstr "Zapomenuté heslo"
+
+#: xb1/templates/base.html:45 xb1/templates/registration/login.html:20
 msgid "Sign Up"
 msgstr "Registrovat se"
 
-#: xb1/templates/base.html:62
+#: xb1/templates/base.html:56
 msgid "Profile"
 msgstr "Profil"
 
-#: xb1/templates/base.html:66
+#: xb1/templates/base.html:61
 msgid "Orders"
-msgstr ""
+msgstr "Objednávky"
 
-#: xb1/templates/base.html:70 xb1/templates/base.html:97
-#: xb1/templates/base.html:99 xb1/templates/contact.html:11
+#: xb1/templates/base.html:66 xb1/templates/base.html:93
+#: xb1/templates/base.html:95 xb1/templates/contact.html:11
 msgid "Contact"
 msgstr "Kontakt"
 
-#: xb1/templates/base.html:80
+#: xb1/templates/base.html:76
 msgid "Logout"
 msgstr "Odhlásit se"
 
-#: xb1/templates/base.html:93
+#: xb1/templates/base.html:89
 msgid "Log in"
 msgstr "Přihlásit se"
 
-#: xb1/templates/base.html:102
+#: xb1/templates/base.html:98
 msgid "Eshop"
 msgstr "Obchod"
 
-#: xb1/templates/base.html:103
+#: xb1/templates/base.html:99
 msgid "Articles"
 msgstr "Články"
 
-#: xb1/templates/base.html:104
+#: xb1/templates/base.html:100
 msgid "About us"
 msgstr "O nás"
 
-#: xb1/templates/base.html:107
+#: xb1/templates/base.html:103
 msgid "Admin"
-msgstr ""
+msgstr "Admin"
 
-#: xb1/templates/base.html:109
-msgid "Switch language"
-msgstr ""
+#: xb1/templates/base.html:106
+msgid "User"
+msgstr "Uživatel"
 
 #: xb1/templates/ckeditor_browse.html:5
 msgid "Select an image to embed"
-msgstr ""
+msgstr "Vyberte obráztek pro vložení"
 
 #: xb1/templates/ckeditor_browse.html:50
 msgid "Browse for the image you want, then click 'Embed Image' to continue..."
-msgstr ""
+msgstr "Vyhledejte vhodný obrázek a následně klikněte na 'Embed Image'"
 
 #: xb1/templates/ckeditor_browse.html:52
 msgid ""
 "No images found. Upload images using the 'Image Button' dialog's 'Upload' "
 "tab."
-msgstr ""
+msgstr "Žádné obrázky nenalezeny. Nahrajte obrázek pomocí záložky Nahrát."
 
 #: xb1/templates/ckeditor_browse.html:73
 #, fuzzy
 #| msgid "Image"
 msgid "Images in: "
-msgstr "Obrázek"
+msgstr "Obrázek v:"
 
 #: xb1/templates/ckeditor_browse.html:85 xb1/templates/ckeditor_browse.html:108
 #, fuzzy
 #| msgid "Image"
 msgid "Embed Image"
-msgstr "Obrázek"
+msgstr "Vložený obrázek"
 
 #: xb1/templates/ckeditor_browse.html:86 xb1/templates/ckeditor_browse.html:109
 msgid "Delete Image"
-msgstr ""
+msgstr "Smazat obrázek"
 
 #: xb1/templates/ckeditor_browse.html:180
 msgid "Play Slideshow"
-msgstr ""
+msgstr "Spustit prezentaci"
 
 #: xb1/templates/ckeditor_browse.html:181
 msgid "Pause Slideshow"
@@ -730,13 +742,32 @@ msgstr "Odeslat"
 msgid "No articles created."
 msgstr "Žádné články nejsou dostupné"
 
-#: xb1/templates/profile.html:23
+#: xb1/templates/profile.html:23 xb1/templates/users/user_detail.html:22
 msgid "Account info"
 msgstr "Informace o účtu"
 
-#: xb1/templates/profile.html:32
+#: xb1/templates/profile.html:32 xb1/templates/users/user_detail.html:27
 msgid "Informace o uživateli"
 msgstr ""
+
+#: xb1/templates/users/user_comments.html:43
+#: xb1/templates/users/user_list.html:64
+msgid "Stránka"
+msgstr ""
+
+#: xb1/templates/users/user_detail.html:44
+msgid "Správa uživatele"
+msgstr ""
+
+#: xb1/templates/users/user_list.html:13
+msgid "Search"
+msgstr "Vyhledat"
+
+#: xb1/templates/users/user_list.html:32
+#, fuzzy
+#| msgid "Login"
+msgid "Last login"
+msgstr "Poslední přihlášení"
 
 #~ msgid "Add A Reply"
 #~ msgstr "Přidat odpověď"
@@ -800,9 +831,6 @@ msgstr ""
 #~| msgid "Hidden"
 #~ msgid "Forbidden"
 #~ msgstr "Skrytý"
-
-#~ msgid "User"
-#~ msgstr "Uživatel"
 
 #~ msgid "Read more"
 #~ msgstr "Zobrazit více"

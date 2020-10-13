@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-06 18:05+0200\n"
+"POT-Creation-Date: 2020-10-13 14:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: xb1/articles/models.py:20 xb1/articles/models.py:31 xb1/core/forms.py:125
 #: xb1/core/models.py:22 xb1/eshop/models.py:38
-#: xb1/eshop/templates/manageShopList.html:16
+#: xb1/eshop/templates/manageShopList.html:17
 msgid "Name"
 msgstr ""
 
@@ -111,7 +111,7 @@ msgstr ""
 msgid "Article"
 msgstr ""
 
-#: xb1/articles/models.py:123 xb1/templates/base.html:105
+#: xb1/articles/models.py:123 xb1/templates/base.html:101
 msgid "Forum"
 msgstr ""
 
@@ -134,6 +134,7 @@ msgstr ""
 
 #: xb1/articles/templates/article_comment.html:26
 #: xb1/forum/templates/forum_comment.html:31
+#: xb1/templates/users/user_comments.html:20
 msgid "Censure"
 msgstr ""
 
@@ -144,6 +145,7 @@ msgstr ""
 
 #: xb1/articles/templates/article_comment.html:36
 #: xb1/forum/templates/forum_comment.html:41
+#: xb1/templates/users/user_comments.html:25
 msgid "Banned text:"
 msgstr ""
 
@@ -215,13 +217,14 @@ msgstr ""
 msgid "Publish"
 msgstr ""
 
-#: xb1/articles/templates/get_articles.html:42 xb1/templates/index.html:29
+#: xb1/articles/templates/get_articles.html:42
+#: xb1/eshop/templates/manageShopList.html:35 xb1/templates/index.html:29
 msgid "Edit"
 msgstr ""
 
 #: xb1/articles/templates/get_articles.html:43
 #: xb1/articles/templates/get_articles.html:124
-#: xb1/eshop/templates/manageOrderList.html:39
+#: xb1/eshop/templates/manageOrderList.html:41
 msgid "Delete"
 msgstr ""
 
@@ -251,6 +254,7 @@ msgid "Email has been successfully sent."
 msgstr ""
 
 #: xb1/core/forms.py:16 xb1/core/forms.py:49
+#: xb1/templates/users/user_list.html:22
 msgid "User name"
 msgstr ""
 
@@ -259,7 +263,7 @@ msgid "Password"
 msgstr ""
 
 #: xb1/core/forms.py:50 xb1/eshop/models.py:40
-#: xb1/eshop/templates/manageOrderList.html:17
+#: xb1/eshop/templates/manageOrderList.html:20
 msgid "Email"
 msgstr ""
 
@@ -288,11 +292,12 @@ msgid "Invalid file"
 msgstr ""
 
 #: xb1/core/forms.py:123 xb1/core/models.py:17 xb1/eshop/models.py:27
-#: xb1/eshop/templates/manageShopList.html:18
+#: xb1/eshop/templates/manageShopList.html:19
 msgid "Image"
 msgstr ""
 
 #: xb1/core/forms.py:124 xb1/core/models.py:18
+#: xb1/templates/users/user_list.html:27
 msgid "Nickname"
 msgstr ""
 
@@ -301,7 +306,7 @@ msgid "Surname"
 msgstr ""
 
 #: xb1/core/forms.py:127 xb1/core/models.py:19 xb1/eshop/models.py:41
-#: xb1/eshop/templates/manageOrderList.html:18
+#: xb1/eshop/templates/manageOrderList.html:21
 msgid "City"
 msgstr ""
 
@@ -342,7 +347,7 @@ msgid "Product name"
 msgstr ""
 
 #: xb1/eshop/models.py:26 xb1/eshop/templates/eshop.html:39
-#: xb1/eshop/templates/manageShopList.html:17
+#: xb1/eshop/templates/manageShopList.html:18
 msgid "Price"
 msgstr ""
 
@@ -439,31 +444,36 @@ msgstr ""
 msgid "Your order has been successfully received."
 msgstr ""
 
-#: xb1/eshop/templates/manageOrderList.html:15
-msgid "First name"
-msgstr ""
-
-#: xb1/eshop/templates/manageOrderList.html:16
-msgid "Last Name"
+#: xb1/eshop/templates/manageOrderList.html:18
+msgid "First Name"
 msgstr ""
 
 #: xb1/eshop/templates/manageOrderList.html:19
-msgid "Street"
-msgstr ""
-
-#: xb1/eshop/templates/manageOrderList.html:20
-msgid "Street Number"
-msgstr ""
-
-#: xb1/eshop/templates/manageOrderList.html:21
-msgid "Post Number"
+msgid "Last Name"
 msgstr ""
 
 #: xb1/eshop/templates/manageOrderList.html:22
+msgid "Street"
+msgstr ""
+
+#: xb1/eshop/templates/manageOrderList.html:23
+msgid "Street Number"
+msgstr ""
+
+#: xb1/eshop/templates/manageOrderList.html:24
+msgid "Post Number"
+msgstr ""
+
+#: xb1/eshop/templates/manageOrderList.html:25
 msgid "Payed"
 msgstr ""
 
-#: xb1/eshop/templates/manageOrderList.html:38
+#: xb1/eshop/templates/manageOrderList.html:26
+#: xb1/eshop/templates/manageShopList.html:23
+msgid "Action"
+msgstr ""
+
+#: xb1/eshop/templates/manageOrderList.html:40
 msgid "Pay"
 msgstr ""
 
@@ -483,64 +493,60 @@ msgstr ""
 msgid "Apply change"
 msgstr ""
 
-#: xb1/eshop/templates/manageShopList.html:19
+#: xb1/eshop/templates/manageShopList.html:20
 msgid "Description"
 msgstr ""
 
-#: xb1/eshop/templates/manageShopList.html:20
+#: xb1/eshop/templates/manageShopList.html:21
 msgid "Type"
 msgstr ""
 
-#: xb1/eshop/templates/manageShopList.html:21
+#: xb1/eshop/templates/manageShopList.html:22
 msgid "Active"
 msgstr ""
 
-#: xb1/eshop/templates/manageShopList.html:35
-msgid "Upravit"
-msgstr ""
-
-#: xb1/eshop/views.py:132 xb1/eshop/views.py:298 xb1/eshop/views.py:395
-#: xb1/eshop/views.py:433
+#: xb1/eshop/views.py:136 xb1/eshop/views.py:303 xb1/eshop/views.py:400
+#: xb1/eshop/views.py:438
 msgid "Something bad happened"
 msgstr ""
 
-#: xb1/eshop/views.py:132
+#: xb1/eshop/views.py:136
 msgid "Item can not be found"
 msgstr ""
 
-#: xb1/eshop/views.py:132
+#: xb1/eshop/views.py:136
 msgid "Item is no longer available"
 msgstr ""
 
-#: xb1/eshop/views.py:298
+#: xb1/eshop/views.py:303
 msgid "Bad address, only numbers can be use"
 msgstr ""
 
-#: xb1/eshop/views.py:298
+#: xb1/eshop/views.py:303
 msgid "Order not found"
 msgstr ""
 
-#: xb1/eshop/views.py:298
+#: xb1/eshop/views.py:303
 msgid "Payment not found"
 msgstr ""
 
-#: xb1/eshop/views.py:370
+#: xb1/eshop/views.py:375
 msgid "Order successfully received"
 msgstr ""
 
-#: xb1/eshop/views.py:395
+#: xb1/eshop/views.py:400
 msgid "Empty cart can not be ordered"
 msgstr ""
 
-#: xb1/eshop/views.py:396
+#: xb1/eshop/views.py:401
 msgid "Item in your cart doesn't exist, reset cart"
 msgstr ""
 
-#: xb1/eshop/views.py:397
+#: xb1/eshop/views.py:402
 msgid "Item in your cart is no longer available, reset cart"
 msgstr ""
 
-#: xb1/eshop/views.py:433
+#: xb1/eshop/views.py:438
 msgid "Order related with this tracker doesn't exists"
 msgstr ""
 
@@ -576,55 +582,59 @@ msgstr ""
 msgid "Czech"
 msgstr ""
 
-#: xb1/templates/base.html:35 xb1/templates/base.html:45
+#: xb1/templates/base.html:34 xb1/templates/base.html:44
 #: xb1/templates/registration/login.html:9
 #: xb1/templates/registration/login.html:19
 msgid "Login"
 msgstr ""
 
-#: xb1/templates/base.html:46 xb1/templates/registration/login.html:20
+#: xb1/templates/base.html:40
+msgid "Forgotten password"
+msgstr ""
+
+#: xb1/templates/base.html:45 xb1/templates/registration/login.html:20
 msgid "Sign Up"
 msgstr ""
 
-#: xb1/templates/base.html:62
+#: xb1/templates/base.html:56
 msgid "Profile"
 msgstr ""
 
-#: xb1/templates/base.html:66
+#: xb1/templates/base.html:61
 msgid "Orders"
 msgstr ""
 
-#: xb1/templates/base.html:70 xb1/templates/base.html:97
-#: xb1/templates/base.html:99 xb1/templates/contact.html:11
+#: xb1/templates/base.html:66 xb1/templates/base.html:93
+#: xb1/templates/base.html:95 xb1/templates/contact.html:11
 msgid "Contact"
 msgstr ""
 
-#: xb1/templates/base.html:80
+#: xb1/templates/base.html:76
 msgid "Logout"
 msgstr ""
 
-#: xb1/templates/base.html:93
+#: xb1/templates/base.html:89
 msgid "Log in"
 msgstr ""
 
-#: xb1/templates/base.html:102
+#: xb1/templates/base.html:98
 msgid "Eshop"
 msgstr ""
 
-#: xb1/templates/base.html:103
+#: xb1/templates/base.html:99
 msgid "Articles"
 msgstr ""
 
-#: xb1/templates/base.html:104
+#: xb1/templates/base.html:100
 msgid "About us"
 msgstr ""
 
-#: xb1/templates/base.html:107
+#: xb1/templates/base.html:103
 msgid "Admin"
 msgstr ""
 
-#: xb1/templates/base.html:109
-msgid "Switch language"
+#: xb1/templates/base.html:106
+msgid "User"
 msgstr ""
 
 #: xb1/templates/ckeditor_browse.html:5
@@ -691,10 +701,27 @@ msgstr ""
 msgid "No articles created."
 msgstr ""
 
-#: xb1/templates/profile.html:23
+#: xb1/templates/profile.html:23 xb1/templates/users/user_detail.html:22
 msgid "Account info"
 msgstr ""
 
-#: xb1/templates/profile.html:32
+#: xb1/templates/profile.html:32 xb1/templates/users/user_detail.html:27
 msgid "Informace o uživateli"
+msgstr ""
+
+#: xb1/templates/users/user_comments.html:43
+#: xb1/templates/users/user_list.html:64
+msgid "Stránka"
+msgstr ""
+
+#: xb1/templates/users/user_detail.html:44
+msgid "Správa uživatele"
+msgstr ""
+
+#: xb1/templates/users/user_list.html:13
+msgid "Search"
+msgstr ""
+
+#: xb1/templates/users/user_list.html:32
+msgid "Last login"
 msgstr ""
