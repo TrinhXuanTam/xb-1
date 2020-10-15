@@ -105,7 +105,7 @@ class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, View):
         """A new category will be created if and only if the category doesn't already exists and is not an empty string."""
 
         category_name = request.POST.get("category_name")
-        if category_name and not Category.objects.filter(name=category).exists():
+        if category_name and not Category.objects.filter(name=category_name).exists():
             Category.objects.create(name=request.POST.get("category_name"))
 
         return HttpResponseRedirect(reverse_lazy("articles:article_list"))
