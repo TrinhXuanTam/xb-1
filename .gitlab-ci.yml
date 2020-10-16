@@ -1,13 +1,13 @@
-stages:
-  - test
+image: docker:latest
 
-test:
-  stage: test
-  script:
-  - apk update
-  - apk add python3
-  - apk add --no-cache --update python3
-  - apk add --no-cache --update python3-dev gcc jpeg-dev zlib-dev musl-dev
-  - pip3 install --upgrade pip setuptools
-  - pip3 install -r requirements.txt
-  - cd xb1
+services:
+    - docker:dind
+
+before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+
+build:
+    stage: build
+    script:
+        - docker build --pull -t "$CI_REGISTRY_IMAGE" .
+        - docker push "$CI_REGISTRY_IMAGE"
