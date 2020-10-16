@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM debian:latest
 
 RUN apt-get update && apt-get install -y python3-pip git nginx
 RUN pip3 install --upgrade pip
