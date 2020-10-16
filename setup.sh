@@ -5,22 +5,66 @@ server_name=8.8.8.8
 home_folder=/home/dev
 
 
+# echo "server {
+#     listen $port_number;
+#     server_name $server_name;
+
+#     location = /favicon.ico { access_log off; log_not_found off; }
+#     location /static/ {
+#         root $home_folder/xb1;
+#     }
+    
+#     location /media/ {
+#         root /home/ridzodan/xb1/xb1;
+#     }
+
+#     location / {
+#         include         uwsgi_params;
+#         uwsgi_pass      unix:$home_folder/xb1/xb1.sock;
+#     }
+# }" > $home_folder/nginx_conf
+
 echo "server {
-    listen $port_number;
-    server_name $server_name;
+  listen 80;
+  server_name ikarie.sic.cz;
+  return 301 https://ikarie.sic.cz$request_uri;
+}
+
+server {
+    listen       443 ssl http2 default_server;                                                      
+    server_name  ikarie.sic.cz;
+
+    ssl_certificate "/etc/ssl/ikarie.sic.cz.crt";                                                                                          
+    ssl_certificate_key "/etc/ssl/ikarie.sic.cz.key";       
+    ssl_session_cache shared:SSL:1m;                                                                     
+    ssl_session_timeout  10m;                                                                            
+    ssl_ciphers HIGH:!aNULL:!MD5;                                                                        
+    ssl_prefer_server_ciphers on;
 
     location = /favicon.ico { access_log off; log_not_found off; }
     location /static/ {
-        root $home_folder/xb1;
+        root /home/ridzodan/xb1;
     }
-    
+
     location /media/ {
         root /home/ridzodan/xb1/xb1;
     }
 
     location / {
-        include         uwsgi_params;
-        uwsgi_pass      unix:$home_folder/xb1/xb1.sock;
+        proxy_set_header Host $http_host;                                                                
+        proxy_set_header X-Real-IP $remote_addr;                                                         
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;                                     
+        proxy_set_header X-Forwarded-Proto $scheme;
+        include          uwsgi_params;
+        uwsgi_pass       unix:/home/ridzodan/xb1/xb1.sock;
+    }
+
+    error_page 404 /404.html;                                                                            
+        location = /40x.html {                                                                           
+    }                                                                                                    
+                                                                                                             
+    error_page 500 502 503 504 /50x.html;                                                                
+        location = /50x.html {                                                                           
     }
 }" > $home_folder/nginx_conf
 
