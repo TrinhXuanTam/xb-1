@@ -3,11 +3,7 @@ image: docker:latest
 services:
     - docker:dind
 
-before_script:
-    - docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
-
 build:
     stage: build
     script:
-        - docker build -t --pull "$CI_REGISTRY_IMAGE" .
-        - docker push "$CI_REGISTRY_IMAGE"
+        - echo $CI_REGISTRY
