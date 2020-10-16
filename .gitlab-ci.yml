@@ -9,5 +9,5 @@ before_script:
 build:
     stage: build
     script:
-        - docker build .
+        - docker build -t "$CI_REGISTRY_IMAGE" .
         - docker push "$CI_REGISTRY_IMAGE"
