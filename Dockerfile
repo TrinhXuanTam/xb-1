@@ -7,3 +7,6 @@ COPY requirements.txt /usr/src/ikaria/requirements.txt
 RUN pip3 install -r /usr/src/ikaria/requirements.txt
 
 COPY xb1/ /usr/src/ikaria/xb1/
+WORKDIR /usr/src/ikaria/xb1/
+
+CMD ["python", "manage.py runserver"]
