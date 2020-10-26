@@ -30,3 +30,7 @@ cursor: pointer;
         transform: translateY(0);
     }
 }
+
+.article_content {
+    text-align: left;
+}

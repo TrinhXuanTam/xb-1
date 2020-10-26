@@ -1,0 +1,727 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-13 14:27+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: xb1/articles/models.py:20 xb1/articles/models.py:31 xb1/core/forms.py:125
+#: xb1/core/models.py:22 xb1/eshop/models.py:38
+#: xb1/eshop/templates/manageShopList.html:17
+msgid "Name"
+msgstr ""
+
+#: xb1/articles/models.py:63
+msgid "Hidden"
+msgstr ""
+
+#: xb1/articles/models.py:64
+msgid "Published"
+msgstr ""
+
+#: xb1/articles/models.py:67 xb1/articles/models.py:100
+#: xb1/articles/models.py:110
+msgid "Title"
+msgstr ""
+
+#: xb1/articles/models.py:68
+msgid "Thumbnail"
+msgstr ""
+
+#: xb1/articles/models.py:69
+msgid "Preview text"
+msgstr ""
+
+#: xb1/articles/models.py:69
+msgid "Read more..."
+msgstr ""
+
+#: xb1/articles/models.py:70 xb1/articles/models.py:112
+#: xb1/articles/models.py:125
+msgid "Author"
+msgstr ""
+
+#: xb1/articles/models.py:71 xb1/eshop/models.py:45
+msgid "Slug"
+msgstr ""
+
+#: xb1/articles/models.py:72 xb1/articles/models.py:114
+#: xb1/articles/templates/articles.html:20
+msgid "Category"
+msgstr ""
+
+#: xb1/articles/models.py:73
+msgid "Tag"
+msgstr ""
+
+#: xb1/articles/models.py:74
+msgid "Comments allowed"
+msgstr ""
+
+#: xb1/articles/models.py:75
+msgid "Published from"
+msgstr ""
+
+#: xb1/articles/models.py:76
+msgid "Published to"
+msgstr ""
+
+#: xb1/articles/models.py:77 xb1/articles/models.py:126
+msgid "Text"
+msgstr ""
+
+#: xb1/articles/models.py:78
+msgid "Sources"
+msgstr ""
+
+#: xb1/articles/models.py:79
+msgid "State"
+msgstr ""
+
+#: xb1/articles/models.py:101
+msgid "Is public"
+msgstr ""
+
+#: xb1/articles/models.py:102
+msgid "Category description"
+msgstr ""
+
+#: xb1/articles/models.py:111
+msgid "Forum description"
+msgstr ""
+
+#: xb1/articles/models.py:113
+msgid "Is closed"
+msgstr ""
+
+#: xb1/articles/models.py:122
+msgid "Article"
+msgstr ""
+
+#: xb1/articles/models.py:123 xb1/templates/base.html:101
+msgid "Forum"
+msgstr ""
+
+#: xb1/articles/models.py:124
+msgid "Reacts to"
+msgstr ""
+
+#: xb1/articles/models.py:127
+msgid "Is censured"
+msgstr ""
+
+#: xb1/articles/models.py:128
+msgid "Posted on"
+msgstr ""
+
+#: xb1/articles/templates/article_comment.html:14
+#: xb1/forum/templates/forum_comment.html:15
+msgid "Comment has been banned for inappropriate speech."
+msgstr ""
+
+#: xb1/articles/templates/article_comment.html:26
+#: xb1/forum/templates/forum_comment.html:31
+#: xb1/templates/users/user_comments.html:20
+msgid "Censure"
+msgstr ""
+
+#: xb1/articles/templates/article_comment.html:32
+#: xb1/forum/templates/forum_comment.html:37
+msgid "Un-censure"
+msgstr ""
+
+#: xb1/articles/templates/article_comment.html:36
+#: xb1/forum/templates/forum_comment.html:41
+#: xb1/templates/users/user_comments.html:25
+msgid "Banned text:"
+msgstr ""
+
+#: xb1/articles/templates/article_comment.html:41
+#: xb1/articles/templates/article_comment.html:48
+msgid "Reply"
+msgstr ""
+
+#: xb1/articles/templates/articles.html:14
+msgid "Create article"
+msgstr ""
+
+#: xb1/articles/templates/articles.html:17
+msgid "Add category"
+msgstr ""
+
+#: xb1/articles/templates/articles.html:27
+msgid "Search articles"
+msgstr ""
+
+#: xb1/articles/templates/articles.html:39
+msgid "All"
+msgstr ""
+
+#: xb1/articles/templates/articles_detail.html:25
+msgid "categories"
+msgstr ""
+
+#: xb1/articles/templates/articles_detail.html:32
+msgid "author"
+msgstr ""
+
+#: xb1/articles/templates/articles_detail.html:39
+msgid "tags"
+msgstr ""
+
+#: xb1/articles/templates/articles_detail.html:47
+msgid "sources"
+msgstr ""
+
+#: xb1/articles/templates/articles_detail.html:54
+msgid "Edit Article"
+msgstr ""
+
+#: xb1/articles/templates/articles_detail.html:72
+#: xb1/forum/templates/forum_detail.html:26
+msgid "Post"
+msgstr ""
+
+#: xb1/articles/templates/articles_form.html:26
+#: xb1/eshop/templates/manageShopUpdate.html:6
+#: xb1/forum/templates/forum_category_form.html:25
+#: xb1/forum/templates/forum_form.html:17
+msgid "Submit"
+msgstr ""
+
+#: xb1/articles/templates/articles_form.html:66
+#: xb1/eshop/templates/manageOrderCreate.html:21
+msgid "Back"
+msgstr ""
+
+#: xb1/articles/templates/get_articles.html:36
+#: xb1/articles/templates/get_articles.html:87
+msgid "Hide"
+msgstr ""
+
+#: xb1/articles/templates/get_articles.html:38
+#: xb1/articles/templates/get_articles.html:66
+msgid "Publish"
+msgstr ""
+
+#: xb1/articles/templates/get_articles.html:42
+#: xb1/eshop/templates/manageShopList.html:35 xb1/templates/index.html:29
+msgid "Edit"
+msgstr ""
+
+#: xb1/articles/templates/get_articles.html:43
+#: xb1/articles/templates/get_articles.html:124
+#: xb1/eshop/templates/manageOrderList.html:41
+msgid "Delete"
+msgstr ""
+
+#: xb1/articles/templates/get_articles.html:118
+#: xb1/eshop/templates/manageOrderRemove.html:5
+msgid "Confirm"
+msgstr ""
+
+#: xb1/contact/forms.py:6
+msgid "Message"
+msgstr ""
+
+#: xb1/contact/forms.py:7
+msgid "Your message..."
+msgstr ""
+
+#: xb1/contact/forms.py:8
+msgid "Subject"
+msgstr ""
+
+#: xb1/contact/forms.py:9
+msgid "Subject..."
+msgstr ""
+
+#: xb1/contact/views.py:29
+msgid "Email has been successfully sent."
+msgstr ""
+
+#: xb1/core/forms.py:16 xb1/core/forms.py:49
+#: xb1/templates/users/user_list.html:22
+msgid "User name"
+msgstr ""
+
+#: xb1/core/forms.py:17 xb1/core/forms.py:51
+msgid "Password"
+msgstr ""
+
+#: xb1/core/forms.py:50 xb1/eshop/models.py:40
+#: xb1/eshop/templates/manageOrderList.html:20
+msgid "Email"
+msgstr ""
+
+#: xb1/core/forms.py:52
+msgid "Confirm password"
+msgstr ""
+
+#: xb1/core/forms.py:82
+msgid "Current password"
+msgstr ""
+
+#: xb1/core/forms.py:83
+msgid "New password"
+msgstr ""
+
+#: xb1/core/forms.py:84 xb1/core/forms.py:104
+msgid "New password confirmation"
+msgstr ""
+
+#: xb1/core/forms.py:103
+msgid "New pasword"
+msgstr ""
+
+#: xb1/core/forms.py:112
+msgid "Invalid file"
+msgstr ""
+
+#: xb1/core/forms.py:123 xb1/core/models.py:17 xb1/eshop/models.py:27
+#: xb1/eshop/templates/manageShopList.html:19
+msgid "Image"
+msgstr ""
+
+#: xb1/core/forms.py:124 xb1/core/models.py:18
+#: xb1/templates/users/user_list.html:27
+msgid "Nickname"
+msgstr ""
+
+#: xb1/core/forms.py:126 xb1/core/models.py:23 xb1/eshop/models.py:39
+msgid "Surname"
+msgstr ""
+
+#: xb1/core/forms.py:127 xb1/core/models.py:19 xb1/eshop/models.py:41
+#: xb1/eshop/templates/manageOrderList.html:21
+msgid "City"
+msgstr ""
+
+#: xb1/core/forms.py:128 xb1/eshop/forms.py:12
+msgid "Postal code"
+msgstr ""
+
+#: xb1/core/forms.py:129 xb1/core/models.py:21 xb1/eshop/models.py:42
+msgid "Address"
+msgstr ""
+
+#: xb1/core/forms.py:130
+msgid "Phone number"
+msgstr ""
+
+#: xb1/core/forms.py:141
+msgid "New email"
+msgstr ""
+
+#: xb1/core/forms.py:157
+msgid "This email has alredy been registered."
+msgstr ""
+
+#: xb1/core/forms.py:168
+msgid "Enter your email"
+msgstr ""
+
+#: xb1/core/models.py:20 xb1/eshop/models.py:43
+msgid "Postal Code"
+msgstr ""
+
+#: xb1/core/models.py:24 xb1/eshop/models.py:44
+msgid "Phone"
+msgstr ""
+
+#: xb1/eshop/models.py:25
+msgid "Product name"
+msgstr ""
+
+#: xb1/eshop/models.py:26 xb1/eshop/templates/eshop.html:39
+#: xb1/eshop/templates/manageShopList.html:18
+msgid "Price"
+msgstr ""
+
+#: xb1/eshop/models.py:28
+msgid "Detail"
+msgstr ""
+
+#: xb1/eshop/models.py:29
+msgid "Product type"
+msgstr ""
+
+#: xb1/eshop/models.py:30
+msgid "Activate"
+msgstr ""
+
+#: xb1/eshop/models.py:75
+msgid "TotalPrice"
+msgstr ""
+
+#: xb1/eshop/models.py:76
+msgid "Received"
+msgstr ""
+
+#: xb1/eshop/models.py:77
+msgid "VariableSymbol"
+msgstr ""
+
+#: xb1/eshop/models.py:78
+msgid "SpecificSymbol"
+msgstr ""
+
+#: xb1/eshop/models.py:79 xb1/eshop/models.py:89
+msgid "ShopOrder"
+msgstr ""
+
+#: xb1/eshop/models.py:88
+msgid "ShopItem"
+msgstr ""
+
+#: xb1/eshop/models.py:90
+msgid "ItemCount"
+msgstr ""
+
+#: xb1/eshop/templates/eshop.html:14 xb1/eshop/templates/manageShopAdd.html:11
+msgid "New product"
+msgstr ""
+
+#: xb1/eshop/templates/eshop.html:19
+msgid "Show products list"
+msgstr ""
+
+#: xb1/eshop/templates/eshop.html:27
+msgid "Cart"
+msgstr ""
+
+#: xb1/eshop/templates/eshop.html:33
+msgid "Cart is empty"
+msgstr ""
+
+#: xb1/eshop/templates/eshop.html:37
+msgid "Product"
+msgstr ""
+
+#: xb1/eshop/templates/eshop.html:38
+msgid "Amount"
+msgstr ""
+
+#: xb1/eshop/templates/eshop.html:40
+msgid "Add"
+msgstr ""
+
+#: xb1/eshop/templates/eshop.html:41
+msgid "Remove"
+msgstr ""
+
+#: xb1/eshop/templates/eshop.html:42
+msgid "Cancel"
+msgstr ""
+
+#: xb1/eshop/templates/eshop.html:60
+msgid "Delete all"
+msgstr ""
+
+#: xb1/eshop/templates/eshop.html:63 xb1/eshop/templates/eshop.html:88
+#: xb1/eshop/templates/manageOrderCreate.html:20
+msgid "Create order"
+msgstr ""
+
+#: xb1/eshop/templates/manageOrderCreate.html:10
+msgid "Order products"
+msgstr ""
+
+#: xb1/eshop/templates/manageOrderEmail.html:5
+msgid "Your order has been successfully received."
+msgstr ""
+
+#: xb1/eshop/templates/manageOrderList.html:18
+msgid "First Name"
+msgstr ""
+
+#: xb1/eshop/templates/manageOrderList.html:19
+msgid "Last Name"
+msgstr ""
+
+#: xb1/eshop/templates/manageOrderList.html:22
+msgid "Street"
+msgstr ""
+
+#: xb1/eshop/templates/manageOrderList.html:23
+msgid "Street Number"
+msgstr ""
+
+#: xb1/eshop/templates/manageOrderList.html:24
+msgid "Post Number"
+msgstr ""
+
+#: xb1/eshop/templates/manageOrderList.html:25
+msgid "Payed"
+msgstr ""
+
+#: xb1/eshop/templates/manageOrderList.html:26
+#: xb1/eshop/templates/manageShopList.html:23
+msgid "Action"
+msgstr ""
+
+#: xb1/eshop/templates/manageOrderList.html:40
+msgid "Pay"
+msgstr ""
+
+#: xb1/eshop/templates/manageOrderRemove.html:4
+msgid "Are you sure you want to delete order with email address:"
+msgstr ""
+
+#: xb1/eshop/templates/manageShopAdd.html:22
+msgid "Create"
+msgstr ""
+
+#: xb1/eshop/templates/manageShopEdit.html:11
+msgid "Edit product"
+msgstr ""
+
+#: xb1/eshop/templates/manageShopEdit.html:22
+msgid "Apply change"
+msgstr ""
+
+#: xb1/eshop/templates/manageShopList.html:20
+msgid "Description"
+msgstr ""
+
+#: xb1/eshop/templates/manageShopList.html:21
+msgid "Type"
+msgstr ""
+
+#: xb1/eshop/templates/manageShopList.html:22
+msgid "Active"
+msgstr ""
+
+#: xb1/eshop/views.py:136 xb1/eshop/views.py:303 xb1/eshop/views.py:400
+#: xb1/eshop/views.py:438
+msgid "Something bad happened"
+msgstr ""
+
+#: xb1/eshop/views.py:136
+msgid "Item can not be found"
+msgstr ""
+
+#: xb1/eshop/views.py:136
+msgid "Item is no longer available"
+msgstr ""
+
+#: xb1/eshop/views.py:303
+msgid "Bad address, only numbers can be use"
+msgstr ""
+
+#: xb1/eshop/views.py:303
+msgid "Order not found"
+msgstr ""
+
+#: xb1/eshop/views.py:303
+msgid "Payment not found"
+msgstr ""
+
+#: xb1/eshop/views.py:375
+msgid "Order successfully received"
+msgstr ""
+
+#: xb1/eshop/views.py:400
+msgid "Empty cart can not be ordered"
+msgstr ""
+
+#: xb1/eshop/views.py:401
+msgid "Item in your cart doesn't exist, reset cart"
+msgstr ""
+
+#: xb1/eshop/views.py:402
+msgid "Item in your cart is no longer available, reset cart"
+msgstr ""
+
+#: xb1/eshop/views.py:438
+msgid "Order related with this tracker doesn't exists"
+msgstr ""
+
+#: xb1/forum/templates/forum_list.html:13
+msgid "New thread"
+msgstr ""
+
+#: xb1/forum/templates/forum_list.html:17
+msgid "Edit category"
+msgstr ""
+
+#: xb1/forum/templates/forum_list.html:41
+msgid "Last post"
+msgstr ""
+
+#: xb1/forum/templates/forum_list.html:45
+msgid "Replies"
+msgstr ""
+
+#: xb1/forum/views.py:33
+msgid "All forums"
+msgstr ""
+
+#: xb1/forum/views.py:60
+msgid "Last forums"
+msgstr ""
+
+#: xb1/forum/views.py:177
+msgid "Unauthorized"
+msgstr ""
+
+#: xb1/settings.py:193
+msgid "Czech"
+msgstr ""
+
+#: xb1/templates/base.html:34 xb1/templates/base.html:44
+#: xb1/templates/registration/login.html:9
+#: xb1/templates/registration/login.html:19
+msgid "Login"
+msgstr ""
+
+#: xb1/templates/base.html:40
+msgid "Forgotten password"
+msgstr ""
+
+#: xb1/templates/base.html:45 xb1/templates/registration/login.html:20
+msgid "Sign Up"
+msgstr ""
+
+#: xb1/templates/base.html:56
+msgid "Profile"
+msgstr ""
+
+#: xb1/templates/base.html:61
+msgid "Orders"
+msgstr ""
+
+#: xb1/templates/base.html:66 xb1/templates/base.html:93
+#: xb1/templates/base.html:95 xb1/templates/contact.html:11
+msgid "Contact"
+msgstr ""
+
+#: xb1/templates/base.html:76
+msgid "Logout"
+msgstr ""
+
+#: xb1/templates/base.html:89
+msgid "Log in"
+msgstr ""
+
+#: xb1/templates/base.html:98
+msgid "Eshop"
+msgstr ""
+
+#: xb1/templates/base.html:99
+msgid "Articles"
+msgstr ""
+
+#: xb1/templates/base.html:100
+msgid "About us"
+msgstr ""
+
+#: xb1/templates/base.html:103
+msgid "Admin"
+msgstr ""
+
+#: xb1/templates/base.html:106
+msgid "User"
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:5
+msgid "Select an image to embed"
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:50
+msgid "Browse for the image you want, then click 'Embed Image' to continue..."
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:52
+msgid ""
+"No images found. Upload images using the 'Image Button' dialog's 'Upload' "
+"tab."
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:73
+msgid "Images in: "
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:85 xb1/templates/ckeditor_browse.html:108
+msgid "Embed Image"
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:86 xb1/templates/ckeditor_browse.html:109
+msgid "Delete Image"
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:180
+msgid "Play Slideshow"
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:181
+msgid "Pause Slideshow"
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:182
+msgid "&lsaquo; Previous Photo"
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:183
+msgid "Next Photo &rsaquo;"
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:184
+msgid "Next &rsaquo;"
+msgstr ""
+
+#: xb1/templates/ckeditor_browse.html:185
+msgid "&lsaquo; Prev"
+msgstr ""
+
+#: xb1/templates/contact.html:13
+msgid "Contact form header text"
+msgstr ""
+"Do you have any idea, what should we improve? Or you just want to contact "
+"us. Use our contact form. We apriciate all your messages!"
+
+#: xb1/templates/contact.html:23
+msgid "Send"
+msgstr ""
+
+#: xb1/templates/index.html:50 xb1/templates/index.html:66
+msgid "No articles created."
+msgstr ""
+
+#: xb1/templates/profile.html:23 xb1/templates/users/user_detail.html:22
+msgid "Account info"
+msgstr ""
+
+#: xb1/templates/profile.html:32 xb1/templates/users/user_detail.html:27
+msgid "Informace o uživateli"
+msgstr ""
+
+#: xb1/templates/users/user_comments.html:43
+#: xb1/templates/users/user_list.html:64
+msgid "Stránka"
+msgstr ""
+
+#: xb1/templates/users/user_detail.html:44
+msgid "Správa uživatele"
+msgstr ""
+
+#: xb1/templates/users/user_list.html:13
+msgid "Search"
+msgstr ""
+
+#: xb1/templates/users/user_list.html:32
+msgid "Last login"
+msgstr ""

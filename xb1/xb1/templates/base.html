@@ -7,16 +7,19 @@
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="{% static 'js/loading.js' %}"></script>
-    <script src="{% static 'js/fontawesome.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/loading.css' %}" />
     <link rel="stylesheet" href="{% static 'css/login.css' %}" />
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/chat.css' %}" />
     <link rel="stylesheet" href="{% static 'css/logo.css' %}" />
+<<<<<<< HEAD
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+=======
+
+>>>>>>> master
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
     {% block include %}{% endblock %}
@@ -26,8 +29,6 @@
 
      <!-- Loading animation during slow connection -->
     <div id="loading"></div>
-
-
 
     <!-- Modal login form -->
     <div id="login_modal" class="modal">
@@ -41,6 +42,7 @@
             {% csrf_token %}
             {{ login_form.username }}
             {{ login_form.password }}
+            <a href="{% url 'password_reset' %}" class = "password_reset">{% trans "Forgotten password" %}</a>
             <br>
             <br>
 
@@ -51,86 +53,80 @@
       </div>
     </div>
 
+<<<<<<< HEAD
     <div id="wrapper">
         <!-- Left sidebar -->
         <div class="sidebar">
             <!-- Top sidebar options -->
             <ul class="sidebar-options">
                 {% if user.is_authenticated %}
-                <li>
-                    <a href="{% url 'profile' %}"><i class="fas fa-user"></i> {% trans "Profile" %}</a>
-                </li>
-                {% else %}
-                <li>
-                    <a class="login_trigger" onclick="openDialog()"><i class="fas fa-user"></i> {% trans "Login" %}</a>
-                </li>
-                {% endif %}
-
-                {% if user.is_authenticated %}
-                <li>
-                    <a href="{% url 'contact:contact' %}"><i class="fas fa-envelope"></i> {% trans "Contact" %}</a>
-                </li>
-                {% else %}
-                <li>
-                    <a class="login_trigger" onclick="openDialog()"><i class="fas fa-envelope"></i> {% trans "Contact" %}</a>
-                </li>
-                {% endif %}
-
-                <li>
-                    <a href="#"><i class="fas fa-calendar-week"></i> {% trans "Link" %}</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fas fa-link"></i> {% trans "Link" %}</a>
-                </li>
-            </ul>
-
-            <!-- Bottom sidebar options -->
-            <ul class="sidebar-options bottom">
-                <li>
-                    <a href="#"><i class="fas fa-circle color"></i> {% trans "Color" %}</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fas fa-question-circle"></i> {% trans "Link" %}</a>
-                </li>
-
-                {% if user.is_authenticated %}
-                <li>
-                    <a href="{% url 'logout' %}"
-                    ><i class="fas fa-power-off"></i> {% trans "Logout" %}
-                </a>
+=======
+    <!-- Left sidebar -->
+    <div class="sidebar">
+        <!-- Top sidebar options -->
+        <ul class="sidebar-options">
+            <li>
+                <a href="{% url 'profile' %}"><i class="fas fa-user sidebarOffset"></i> {% trans "Profile" %}</a>
             </li>
+
+            {% if perms.eshop.view_shoporder %}
+>>>>>>> master
+                <li>
+                    <a href="{% url 'eshop:manageOrderList' %}"><i class="fas fa-shopping-basket sidebarOffset"></i>{% trans "Orders" %}</a>
+                </li>
             {% endif %}
-            </ul>
-      </div>
+
+            <li>
+                <a href="{% url 'contact:contact' %}"><i class="fas fa-envelope sidebarOffset"></i>{% trans "Contact" %}</a>
+            </li>
+
+        </ul>
+
+        <!-- Bottom sidebar options -->
+        <ul class="sidebar-options bottom">
+
+            {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'logout' %}"><i class="fas fa-power-off sidebarOffset"></i>{% trans "Logout" %}</a>
+                </li>
+            {% endif %}
+        </ul>
+  </div>
 
 
 
-      <!-- Top navbar -->
-      <nav class="navigation_bar">
-          <!-- Options -->
-          <ul>
-              {% if not user.is_authenticated %}
-              <li><a class="login_trigger" onclick="openDialog()">{% trans "Log in" %}</a></li>
-              {% endif %}
+    <!-- Top navbar -->
+    <nav class="navigation_bar navbar-fixed-top">
+        <!-- Options -->
+        <ul>
+            {% if not user.is_authenticated %}
+            <li><a class="login_trigger" onclick="openDialog()">{% trans "Log in" %}</a></li>
+            {% endif %}
 
-              {% if user.is_authenticated %}
-                  <li><a href="{% url 'contact:contact' %}">{% trans "Contact" %}</a></li>
-              {% else %}
-                  <li><a class="login_trigger" onclick="openDialog()">{% trans "Contact" %}</a></li>
-              {% endif %}
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'contact:contact' %}">{% trans "Contact" %}</a></li>
+            {% else %}
+                <li><a class="login_trigger" onclick="openDialog()">{% trans "Contact" %}</a></li>
+            {% endif %}
 
-              <li><a href="#">{% trans "Eshop" %}</a></li>
-              <li><a href="{% url 'articles:article_list' %}">{% trans "Articles" %}</a></li>
-              <li><a href="#">{% trans "About us" %}</a></li>
-          </ul>
+            <li><a href="{% url 'eshop:shopIndex' %}">{% trans "Eshop" %}</a></li>
+            <li><a href="{% url 'articles:article_list' %}">{% trans "Articles" %}</a></li>
+            <li><a href="#">{% trans "About us" %}</a></li>
+            <li><a href="{% url 'forum:index' %}">{% trans "Forum" %}</a></li>
+            {% if user.is_superuser %}
+                <li><a href="/admin/">{% trans "Admin" %}</a></li>
+            {% endif %}
+            {% if user.is_superuser %}
+                <li><a href="{% url 'user_list' %}">{% trans "User" %}</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+      <!-- Success message content -->
+     {% if messages %} {% for message in messages %}
+     <div class="alert " id="hideMe" >{{ message }}</div>
+     {% endfor %} {% endif %}
 
-          {% if messages %} {% for message in messages %}
-          <li><a>{{ message }} </a></li>
-          {% endfor %} {% endif %}
-      </nav>
-
-
-
+    <div id="wrapper">
       <!-- Page content -->
       <div class="content">
           <!-- Header -->
@@ -143,9 +139,29 @@
           {% block content %} {% endblock %}
       </div>
 
-
-
       <!-- Scripts -->
+      <script>
+            $(function () {
+              $(document).scroll(function () {
+                  var $nav = $(".navbar-fixed-top");
+                  $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+                });
+            });
+      </script>
+      <script>
+            $(document).on({
+                ajaxStart: function() {
+                    $('#wrapper').css('filter', 'blur(10px)');
+                    $('#loading').css('visibility', 'visible');
+                    $('#loading').css('display', 'block');
+            },
+                ajaxStop: function() {
+                    $('#wrapper').css('filter', 'blur(0)');
+                    $('#loading').css('visibility', 'hidden');
+                    $('#loading').css('display', 'none');
+            }
+            });
+      </script>
 
       <!-- Display warning if user fails to authenticate -->
       <script>
@@ -155,7 +171,7 @@
                   type:'POST',
                   async: true,
                   cache: false,
-                  url:'{% url "login" %}',
+                  url:'{% url "login_modal" %}',
                   dataType: "json",
                   data: {
                       csrfmiddlewaretoken: $("#login_form input[type='hidden']").val(),

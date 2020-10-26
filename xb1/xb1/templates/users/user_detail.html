@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block include %}
+{% load i18n %}
+
+
+<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+{% endblock %}
+
+{%block content %}
+
+<div class="profile_content">
+    {% if user.is_authenticated %}
+        {%if object.profile.image%}
+        <img class="profile_image" src="{{ object.profile.image.url }}">
+        {%else%}
+        <img class="profile_image" src="{% get_media_prefix %}default.jpg">
+        {%endif%}
+        <form method="POST" enctype="multipart/form-data">
+            <label style="font-size: 23px;">Obrázek: {{form.image}} </label>
+        <div class="profile_main">
+        <h1>{% trans "Account info" %}</h1>
+        <h3>{{ object.username }}</h3>
+        <p>{{ object.email }}</p>
+
+            {% csrf_token %}
+            <h1>{% trans "Informace o uživateli" %}</h1>
+                {% for field in form %}
+            {% if field != form.image %}
+                {{field.label_tag }}
+                {{ field }}
+            {% endif %}
+            {% endfor %}
+
+
+            <button class="profile_btn" type="submit" name="update_user">Aktualizovat</button>
+        </div>
+        </form>
+    {% else %}
+        <h3>
+            Pro zobrazení profilu je nutné se přihlásit.
+        </h3>
+    {% endif %}
+    <h1>{% trans "Správa uživatele" %}</h1>
+
+    <a style="text-decoration: None;" href="{% url 'user_comments' pk=object.pk %}"><button class="profile_btn">Zobrazit komentáře</button></a>
+    <form method="POST">
+        {% csrf_token %}
+        {% if object.is_active %}
+        <button class="profile_btn" type="submit" name="ban_user">Ban</button>
+        {% else %}
+        <button class="profile_btn" type="submit" name="unban_user">Unban</button>
+        {% endif %}
+    </form>
+
+</div>
+
+{% endblock %}

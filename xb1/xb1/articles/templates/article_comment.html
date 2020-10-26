@@ -1,0 +1,97 @@
+{% load i18n %}
+{% for comment in comments %}
+    <li>
+    <div class="comment">
+        <img class=comment_profile_pic src="{{comment.author.profile.image.url}}">
+        <div class="comment_content">
+            <div class= "comment_header">
+                <div class="comment_nickname">{{comment.author.profile.nickname}}</div>
+                <div class="comment_date">{{comment.date}}</div>
+            </div>
+
+            {% if comment.is_censured %}
+                <div class="comment_text">
+                    <b>{% trans "Comment has been banned for inappropriate speech." %}</b>
+                </div>
+            {% else %}
+                <div class="comment_text">{{ comment.text }}</div>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+                <!-- Admin section for banning -->
+                {% if perms.articles.change_comment %}
+                    {% if not comment.is_censured %}
+                        <a href="{% url 'articles:ban_comment' pk=comment.id %}">
+                            <button>
+                                {% trans "Censure" %}<i class="fas fa-ban" style="font-size: 15px;"></i>
+                            </button>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'articles:unban_comment' pk=comment.id %}">
+                            <button>
+                                {% trans "Un-censure" %}<i class="fas fa-lock-open" style="font-size: 15px;"></i>
+                            </button>
+                        </a>
+                        <div class="comment_text">
+                            {% trans "Banned text:" %}{{comment.text }}
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                <button class="comment_section_reply_button" id="button_comment_{{comment.id}}" onclick="showReply('comment_{{comment.id}}')">{% trans "Reply" %}</button>
+
+                <div id="comment_{{comment.id}}" style="display: none" >
+                    <form id="{{comment.id}}" class="comment_reply_form" method="POST">
+                        {% csrf_token %}
+                        <!-- {{ comment.form.text }} -->
+                        <textarea required rows=1 placeholder="Add a reply"></textarea>
+                        <button class="comment_section_button">{% trans "Reply" %}</button>
+                    </form>
+                </div>
+
+                <script>
+                    function showReply(comment_id) {
+                        var x = document.getElementById(comment_id);
+                        x.style.display = "block";
+
+                        var y = document.getElementById("button_" + comment_id);
+                        y.style.display = "none";
+                    }
+                </script>
+            {% endif %}
+        </div>
+    </div>
+
+        <div class="subcomments">
+            <ul>
+                {% if comment.comments|length %}
+                    {% include "article_comment.html" with comments=comment.comments %}
+                {% endif %}
+            </ul>
+        </div>
+    </li>
+
+    <!-- Post a comment -->
+    <script>
+        $("#{{comment.id}}").submit(function(event) {
+            event.preventDefault();
+            ref = $(this)
+            $.ajax({
+                type:'POST',
+                async: true,
+                cache: false,
+                url:'{% url "articles:post_comment" %}',
+                data: {
+                    csrfmiddlewaretoken: $(this).find("input[type='hidden']").val(),
+                    article_id: "{{ article.pk }}",
+                    text: $(this).find("textarea").val(),
+                    comment_id: ref.attr('id')
+                },
+                success: function(data) {
+                    ref.parents().eq(3).find(".subcomments ul").first().prepend(data)
+                    ref.find("textarea").val('')
+                }
+            });
+        })
+    </script>
+{%endfor%}

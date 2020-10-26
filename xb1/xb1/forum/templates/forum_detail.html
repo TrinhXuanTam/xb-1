@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block include %}
+    <link rel="stylesheet" href="{% static 'css/forum_detail.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/forum_comments.css' %}" >
+{% endblock %}
+
+{% block content %}
+<div class="forum_detail_content">
+	<div class="forum_detail_info">
+		<a class="forum_category_title" href="{% url 'forum:forum_list' pk=object.category.pk %}">{{object.category.title}} /</a>
+		<a class="forum_thread_title" href="{% url 'forum:forum_detail' pk=object.pk %}">{{object.title}}</a>
+	</div>
+
+	<div class="forum_detail_info2">
+		{% if object.description %}
+		<div class="forum_thread_description">{{object.description}}</div>
+		{% endif %}
+
+		{% if user.is_authenticated %}
+		<form id="comment_post_form" method="POST">
+			{% csrf_token %}
+			<textarea required rows=1 placeholder="Add a comment"></textarea>
+			<button class="forum_detail_post">{% trans "Post" %}</button>
+		</form>
+		<script src="{% static 'js/articles_detail.js' %}"></script>
+		<!-- Post a new comment and display it -->
+		<script>
+			document.getElementById("comment_post_form").onsubmit = function(event) {
+				event.preventDefault();
+				$.ajax({
+					type:'POST',
+					async: true,
+					cache: false,
+					url:'{% url "forum:post_comment" %}',
+					data: {
+						csrfmiddlewaretoken: $("#comment_post_form input[type='hidden']").val(),
+						forum_id: "{{ forum_id }}",
+						text: $("#comment_post_form textarea").val(),
+						comment_id: -1,
+					},
+					success: function(data) {
+						$('.comments ul:first').prepend(data)
+						$('#comment_post_form textarea').val('')
+					}
+				});
+			}
+		</script>
+		{% endif %}
+	</div>
+
+    <div class="comments">
+        <ul>
+            {% include "forum_comment.html" %}
+        </ul>
+    </div>
+
+</div>
+{% endblock %}

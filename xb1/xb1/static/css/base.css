@@ -18,6 +18,19 @@ body {
     margin: 0;
 }
 
+.alert {
+  float: right;
+  padding: 10px;
+  background-color: #32CD32;
+  color: white;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  position: fixed;
+  margin-left: 70px;
+  margin-top: 20px;
+  z-index: 1;
+ }
+
 
 .content {
     min-height: 100vh;
@@ -42,6 +55,7 @@ body {
     border-radius: 10px;
 }
 
+<<<<<<< HEAD
 @media only screen and (max-width: 768px) {
     #login_modal {
         width: 100%;
@@ -61,5 +75,33 @@ body {
     .modal_content > .close {
         order: 1;
         scale: 1.8;
+=======
+#hideMe {
+    -moz-animation: hide 0s ease-in 3s forwards;
+    /* Firefox */
+    -webkit-animation: hide 0s ease-in 3s forwards;
+    /* Safari and Chrome */
+    -o-animation: hide 0s ease-in 3s forwards;
+    /* Opera */
+    animation: hide 0s ease-in 3s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+@keyframes hide {
+    to {
+        padding: 0;
+        width:0;
+        height:0;
+        overflow:hidden;
+    }
+}
+::-webkit-keyframes hide {
+    to {
+        padding: 0;
+        width:0;
+        height:0;
+        visibility:hidden;
+>>>>>>> master
     }
 }

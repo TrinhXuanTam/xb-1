@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {%block include%}
-  <link rel="stylesheet" href="{% static 'css/article_form.css' %}" />
+<link rel="stylesheet" href="{% static 'css/article_form.css' %}" />
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 {% endblock %}
 
 {%block content%}
@@ -18,9 +23,46 @@
       </tr>
     {% endfor %}
   </table>
-  <input type="submit" value="Submit">
+  <input type="submit" value="{% trans 'Submit' %}">
 </form>
 
-<a class = "back" href="{% url 'articles:article_list' %}">Back</a> <br>
+<script>
+  $('#id_tags').select2({
+	  tags: true,
+    tokenSeparators: [','], 
+    placeholder: "Add your tags here",
+    selectOnclose: true,
+    createTag: function(params) {
+      return {
+          id: params.term,
+          text: params.term,
+          newTag: true,
+      }
+              },
+  }).on("select2:select", function(e) {
+    data = e.params.data
+    if(data.newTag == true) {
+      ref = $("#id_tags option[value=" + data.id + "]")
+      $.ajax({
+        type:'POST',
+        cache: false,
+        url:'{% url "articles:create_tag" %}',
+        dataType: "json",
+        data: {
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+            tag_text: data.text
+          },
+
+        success: function(ret) {
+          ref.remove()
+          var newOption = new Option(data.text, ret.tag_id, true, true);
+          $("#id_tags").append(newOption).trigger('change');
+        }
+      });
+    }
+  });
+</script>
+
+<a class = "back" href="{% url 'articles:article_list' %}">{% trans "Back" %}</a> <br>
     </div>
 {% endblock %}

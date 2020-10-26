@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block include %}
+<link rel="stylesheet" href="{% static 'css/layout_shopIndex.css' %}" >
+<link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}" />
+{% endblock %}
+
+{%block content %}
+<div class="eshop_topnav">
+	{% if perms.eshop.add_shopitem %}
+	<div>
+		<a class="add_product_button" href="{% url 'eshop:manageShopCreate' %}">{% trans "New product" %}<i class="fas fa-plus"></i></a>
+	</div>
+	{% endif %}
+	{% if perms.eshop.view_shopitem %}
+	<div>
+		<a class="view_products_button" href="{% url 'eshop:manageShopList' %}">{% trans "Show products list" %}<i class="fas fa-list"></i></a>
+	</div>
+	{% endif %}
+</div>
+
+<div class="shopOrderBox">
+
+	<div class="cart_header">
+		<button class="cart_caption"><i class="fas fa-shopping-cart"></i> {% trans "Cart" %} ({{totalCount}}) <i class="cart_display_arrow fas"></i></button>
+	</div>
+
+	<div class="collapsible_cart">
+		<div class="collapsible_cart_wrapper">
+			{% if request.session.orderList == None %}
+				<div class="empty_cart">{% trans "Cart is empty" %}</div>
+			{% else %}
+				<table class = "cartTable" cellspacing="0" cellpadding="0">
+				<tr class="cartTableRow">
+				<th class="cartTableCol" colspan="2">{% trans "Product" %}</th>
+				<th class="cartTableCol">{% trans "Amount" %}</th>
+				<th class="cartTableCol">{% trans "Price" %}</th>
+				<th class="cartTableCol" >{% trans "Add" %}</th>
+				<th class="cartTableCol" >{% trans "Remove" %}</th>
+				<th class="cartTableCol" >{% trans "Cancel" %}</th>
+
+			  </tr>
+				{% for orderItem in orderItems %}
+				<tr class="cartTableRow">
+					<td class="cartTableColMerge">
+						<img class=shopOfferImageCart src="{{ orderItem.0.itemImg.url }}">
+					</td>
+					<td class="cartTableColMerge"> {{ orderItem.0.itemName }} </td>
+					<td class="cartTableCol"> {{ orderItem.1 }}  </td>
+					<td class="cartTableCol"> {{ orderItem.0.itemPrice }} </td>
+					<td class="cartTableCol"><a href="{% url 'eshop:cartItemAdd' pk=orderItem.0.pk %}"><i class="fas fa-plus"></i></a> </td>
+					<td class="cartTableCol"><a href="{% url 'eshop:cartItemRemove' pk=orderItem.0.pk %}"><i class="fas fa-minus"></i></a> </td>
+					<td class="cartTableCol"><a href="{% url 'eshop:cartItemDiscard' pk=orderItem.0.pk %}"><i class="fas fa-times"></i></a> </td>
+					</tr>
+				{% endfor %}
+			</table>
+			<br>
+			<a href="{% url 'eshop:cartItemsDiscard' %}"><i class="fas fa-trash"></i> {% trans "Delete all" %}</a> <br>
+			<div class="cartBottom">
+				Celková cena: {{ totalPrice }} <br>
+				<input class="order_btn" type="button" onclick="location.href='{% url 'eshop:manageOrderCreate' %}'" value="{% trans 'Create order' %}"/>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+<div class="shopItemBox">
+	<ul>
+		{% for shopItem in object_list %}
+		{% if shopItem.itemActive == True %}
+		<li>
+			{%if shopItem.itemType != 2 %}
+			<div class="shopSpecialItem shopSpecial{{ shopItem.itemType }}">{{ shopItem.get_itemType_display }}</div>
+			{% endif %}
+			<div class="shopOfferItem">
+				<div class="shopOfferImage">
+					<img class=shopOfferImage src="{{ shopItem.itemImg.url }}">
+				</div>
+				<div class="shopOfferText">
+					<span class="shopOfferName">{{ shopItem.itemName }}</span>
+					<div class="shopOfferDesc">{{ shopItem.itemDesc }}</div>
+				</div>
+				<div class="shopOfferControl">
+					<div>{{ shopItem.itemPrice }}</div>
+					<div><a onclick="sessionStorage.setItem('cartStatus', 'opened');" href="{% url 'eshop:cartItemAdd' pk=shopItem.pk %}">{% trans "Add to cart" %}</a></div>
+				</div>
+			</div>
+		</li>
+		{% endif %}
+		{% endfor %}
+	</ul>
+</div>
+
+<script>
+	$(".collapsible_cart").css("transition",  'none')
+	if(sessionStorage.getItem('cartStatus') == "opened") {
+		$(".cart_caption .cart_display_arrow").addClass('fa-angle-up')
+		$(".collapsible_cart").css("max-height", $(".collapsible_cart_wrapper").height() + 'px')
+    } else if(sessionStorage.getItem('cartStatus') == "collapsed"){
+		$(".cart_caption .cart_display_arrow").addClass('fa-angle-down')
+		$(".cart_caption").addClass('cart-collapsed')
+    } else {
+		sessionStorage.setItem('cartStatus', 'collapsed');
+		$(".cart_caption .cart_display_arrow").addClass('fa-angle-down')
+		$(".cart_caption").addClass('cart-collapsed')
+		$(".collapsible_cart").css("max-height", '0px')
+	}
+
+
+	$(".cart_caption").click(function(event){
+		$(this).toggleClass('cart-collapsed')
+		$(this).find(".cart_display_arrow").removeClass('fa-angle-down fa-angle-up')
+
+		if($(this).hasClass('cart-collapsed')) {
+			sessionStorage.setItem('cartStatus', 'collapsed');
+			$(this).find(".cart_display_arrow").addClass('fa-angle-down')
+			$(".collapsible_cart").css("max-height", '0px')
+		}else {
+			sessionStorage.setItem('cartStatus', 'opened');
+			$(this).find(".cart_display_arrow").addClass('fa-angle-up')
+			$(".collapsible_cart").css("max-height", $(".collapsible_cart_wrapper").height() + 'px')
+		}
+	});
+</script>
+
+<script defer>
+	$(".collapsible_cart").css("transition",  'max-height 0.5s ease-out')
+</script>
+{% endblock %}

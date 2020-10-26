@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{%block include%}
+<link rel="stylesheet" href="{% static 'css/article_detail.css' %}" >
+<link rel="stylesheet" href="{% static 'css/article_comments.css' %}" >
+{%endblock%}
+
+{%block content%}
+	<div class="article_wrapper">
+		<div class="article">
+			<h2>{{ article.title }}</h2>
+			<hr>
+			<div class="article_date">
+				<p>{{ article.published_from }}</p>
+			</div>
+			<div class="article_text">
+				<p>{{ article.text | safe }}</p>
+			</div>
+			<div class="article_footer">
+				<div class="article_footer_left">
+					{% if categories %}
+					<div class="article_footer_item">
+						<h1>{% trans "categories" %}</h1>
+						{% for category in categories %}
+						<p class="article_category">{{ category }}</p>
+						{% endfor %}
+					</div>
+					{% endif %}
+					<div class="article_footer_item">
+						<h1>{% trans "author" %}</h1>
+						<p>{{ article.author }}</p>
+					</div>
+				</div>
+				<div class="article_footer_right">
+					{% if tags %}
+					<div class="article_footer_item">
+						<h1 class="tags_h">{% trans "tags" %}</h1>
+						{% for tag in tags %}
+						<div class="article_tag">{{ tag }}</div>
+						{% endfor %}
+					</div>
+					{% endif %}
+					{% if article.sources %}
+					<div class="article_footer_item">
+						<h1>{% trans "sources" %}</h1>
+						<p>{{ article.sources }}</p>
+					</div>
+					{% endif %}
+				</div>
+				{%if perms.articles.change_article %}
+				<br>
+				<a href="/articles/{{ article.id }}"><button class="edit_button">{% trans "Edit Article" %}</button></a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	{% if article.allow_comments %}
+
+		<div class="comment_wrapper">
+			<ul>
+				{% include "article_comment.html" %}
+			</ul>
+
+			{% if user.is_authenticated %}
+				<form id="comment_post_form" method="POST">
+					{% csrf_token %}
+					<!-- {{ comment_form.text }} -->
+					<textarea required rows=1 placeholder="Add a comment"></textarea>
+					<button class="comment_section_button">{% trans "Post" %}</button>
+				</form>
+
+				<script src="{% static 'js/articles_detail.js' %}"></script>
+				<!-- Post a new comment and display it -->
+				<script>
+					document.getElementById("comment_post_form").onsubmit = function(event) {
+						event.preventDefault();
+						$.ajax({
+							type:'POST',
+							async: true,
+							cache: false,
+							url:'{% url "articles:post_comment" %}',
+							data: {
+								csrfmiddlewaretoken: $("#comment_post_form input[type='hidden']").val(),
+								article_id: "{{ article.pk }}",
+								text: $("#comment_post_form textarea").val(),
+								comment_id: -1,
+							},
+							success: function(data) {
+								$('#comment_post_form').before(data)
+								$('#comment_post_form textarea').val('')
+							}
+						});
+					}
+				</script>
+			{% endif %}
+		</div>
+
+	{% endif %}
+{% endblock %}

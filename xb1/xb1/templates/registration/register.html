@@ -1,37 +1,29 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 {% load static %}
-<html>
+{%block content %}
     <head>
         <link rel="stylesheet" href="{% static 'css/base.css' %}" />
-        <link rel="stylesheet" href="{% static 'css/logo.css' %}" />
         <link rel="stylesheet" href="{% static 'css/register.css' %}" />
     </head>
-    <body>
 
         <div class="registration_content">
-            
-            <div class="header">
-                <!-- Logo -->
-                <a href="{% url 'index' %}">
-                    <img id="logo" src="{% static 'img/logo.png' %}"/>
-                </a>
-            </div>
+
 
 
             <!-- Registration form -->
             <div class="registration_form">
                 <form method = "POST">
                     {% csrf_token %}
-                    <h1>Join Today</h1>
+                    <h1>Registrace</h1>
                     {{ form.as_p }}
 
                     <div>
-                        <button type = "submit">Sign Up</button>
+                        <button type = "submit">Potvrdit</button>
                     </div>
                 </form>
 
             </div>
     </div>
 
-    </body>
-</html>
+{% endblock %}
+

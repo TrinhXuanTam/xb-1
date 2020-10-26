@@ -11,4 +11,3 @@ test:
   - pip3 install --upgrade pip setuptools
   - pip3 install -r requirements.txt
   - cd xb1
-  - python3 manage.py test

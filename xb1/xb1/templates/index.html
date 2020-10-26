@@ -8,33 +8,57 @@
 
 {%block content %}
   <div class="right">
-    <ul class="preview">
+    <div class="article_previews">
         {% for article in object_list %}
-        <li>
-          <h1>{{ article.title }}</h1>
-          <div class="preview-thumb">
-          <img src="{% static 'img/universe.jpg' %}">
-          <div class="preview-content">
-            {{ article.text|slice:":100" }}<br>
-            <a href = "#">{% trans "Read more" %}</a>
+        {% if article.article_state == 1 %}
+        <div class="preview">
+          <div class="preview_title">
+            <a href = "{% url 'articles:detail' slug=article.slug %}">
+              {{ article.title }}
+            </a>
           </div>
+          <div class="preview_header">
+            <img src="{{article.author.profile.image.url}}">
+            <div class="preview_author_info">
+              <div class="preview_author">{{article.author.profile.nickname}}</div>
+              <div class="preview_date">{{article.modified}}</div>
+            </div>
+            {%if perms.articles.change_article %}
+            <div class="preview_edit_button">
+              <a href="{% url 'articles:article_update' pk=article.pk %}">
+                {%trans "Edit"%}
+              </a>
+            </div>
+            {%endif%}
           </div>
-        </li>
+          <a href = "{% url 'articles:detail' slug=article.slug %}">
+            <div class="preview_content">
+              {% if article.thumbnail %}
+              <div class="preview_thumb">
+                <img src="{{article.thumbnail.url}}">
+              </div>
+              {%endif%}
 
-          {% empty %}
-          <li>{% trans "No articles created." %}</li>
+              <div class="preview_text">
+                {{ article.preview_text | safe | default_if_none:"" }}<br>
+              </div>
+            </div>
+          </a>
+        </div>
+        {%endif%}
+        {% empty %}
+          {% trans "No articles created." %}
         {% endfor %}
-    </ul>
+      </div>
   </div>
 
 
 
   <div class="left">
     {% for article in object_list %}
-      {%if forloop.last %}
+      {%if forloop.first %}
         <h1>{{ article.title }}</h1><br>
-        <img src="{% static 'img/universe.jpg' %}">
-        <p>{{ article.text }}</p><br>
+        <p>{{ article.text | safe}}</p><br>
         <h3>{{ article.author.label }} {{ article.author }}</h3>
       {% endif %}
 

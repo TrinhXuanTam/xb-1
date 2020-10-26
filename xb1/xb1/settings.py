@@ -12,11 +12,12 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from django.utils.translation import ugettext_lazy as _
+from selenium import webdriver
 
 try:
     from .passwords import EMAIL_PASSWORD
 except ModuleNotFoundError:
-    EMAIL_PASSWORD = ""
+    EMAIL_PASSWORD = "fitwiki1"
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -50,7 +51,11 @@ INSTALLED_APPS = [
     'xb1.articles',
     'xb1.core',
     'xb1.contact',
+    'xb1.forum',
+    'xb1.eshop',
     'django_cleanup',
+    'ckeditor',
+    'ckeditor_uploader'
 ]
 
 
@@ -76,7 +81,9 @@ TEMPLATES = [
         'DIRS': [
             BASE_DIR + "/templates/",
             BASE_DIR + "/articles/templates/",
-            BASE_DIR + "/core/templates/"
+            BASE_DIR + "/core/templates/",
+            BASE_DIR + "/forum/templates/",
+            BASE_DIR + "/eshop/templates/",
         ],
         'APP_DIRS': False,
         'OPTIONS': {
@@ -98,16 +105,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'xb1.wsgi.application'
 
+# WEB_DRIVER_LOCATION = BASE_DIR + '/resource/chromedriver.exe'
+WEB_DRIVER_LOCATION = BASE_DIR + '/resource/chromedriver'
+
+# Eshop bank account
+ESHOP_BANK_ACCOUNT = "0525827/0100"
+
 # Email service backend
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
+# EMAIL_USE_SSL = False
 EMAIL_PORT = 587
 
 # Email from which emails will be sent.
 EMAIL_HOST_USER = "xb1.feedback@gmail.com"
-EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
+EMAIL_HOST_PASSWORD = 'fitwiki1'
 
 # Email where feedback emails will be sent.
 FEEDBACK_EMAIL = "xb1.feedback@gmail.com"
@@ -178,20 +191,37 @@ FORMAT_MODULE_PATH = [
 # Provide a lists of languages which your site supports.
 LANGUAGES = (
     ('cs', _('Czech')),
+    # ('en', _('English')),
 )
 
 # Default language
 LANGUAGE_CODE = 'cs'
+TIME_ZONE = 'Europe/Prague'
 
 # Tell Django where the project's translation files should be.
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 
-TIME_ZONE = 'Europe/Prague'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
+
+# CKEDITOR settings
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+
+CKEDITOR_UPLOAD_PATH = 'article_content_images/'
+
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Standard',
+        'extraPlugins': 'autogrow',
+        'width': '100%',
+    },
+    "comment": {
+        'width': '100%',
+        "toolbar": [["Bold", "Italic", "Underline", "SpellChecker"],],
+    }
+}

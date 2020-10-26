@@ -1,17 +1,24 @@
 .navigation_bar {
-    list-style: none;
+    width: 100%;
     display: block;
     position: fixed;
     top: 0;
     right: 0;
     overflow: hidden;
     z-index: 1;
+    background: rgba(0, 0, 0, 0);
+}
+.navbar-fixed-top.scrolled {
+  background-color: rgba(22, 27, 30, 1);
+  transition: background-color 200ms linear;
 }
 
 .navigation_bar ul {
+    list-style: none;
     margin-left: 50px;
-    height: 30px;
-    background-color: none;
+    height: 40px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .navigation_bar li {
