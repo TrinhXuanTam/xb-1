@@ -33,6 +33,8 @@ echo "server {
 server {
     listen       443 ssl http2 default_server;                                                      
     server_name  ikarie.sic.cz;
+    
+    client_max_body_size 10M
 
     ssl_certificate "/etc/ssl/ikarie.sic.cz.crt";                                                                                          
     ssl_certificate_key "/etc/ssl/ikarie.sic.cz.key";       
