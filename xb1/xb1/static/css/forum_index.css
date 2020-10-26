@@ -94,3 +94,13 @@
     margin-bottom: 10px;
     white-space: nowrap;
 }
+
+@media only screen and (max-width: 768px) {
+    .forum_index_topnav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+  }

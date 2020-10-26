@@ -283,3 +283,17 @@ a {
     padding-bottom: 8px;
     padding-top: 8px;
 }
+
+@media only screen and (max-width: 768px) {
+    .eshop_topnav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+  
+    .eshop_topnav > div {
+      margin-bottom: 10px;
+    }
+  }
