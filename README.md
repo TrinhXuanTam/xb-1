@@ -51,13 +51,6 @@ prvni zapnuti projektu ve windows powershellu
 * zapnete django server (`python manage.py runserver`)
 
 
-spusteni serveru ve windows powershellu
----------------------------------------
-* prejdete do home directory projektu
-* zapnete virtual enviroment (`./xb1_env/Source/activate.ps1`)
-* prejdete do slozky, ve ktere je django projekt (`cd xb1`)
-* zapnete django server (`python manage.py runserver`)
-
 
 zaponuti virtualenv
 -------------------
