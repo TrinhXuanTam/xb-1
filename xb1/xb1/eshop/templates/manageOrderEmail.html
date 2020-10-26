@@ -3,11 +3,18 @@
 {% autoescape off %}
 
 {% trans "Your order has been successfully received." %}
-Tracking: http://{{ domain }}{% url 'eshop:manageOrderTracker' slug=slug %}
-Total price: {{ price }}
-Payment information:
-	Account number: {{ account }}
-	VS: {{ vs }}
-	SS: {{ ss }}
+{% trans "Tracking info" %}: http://{{ domain }}{% url 'eshop:manageOrderTracker' slug=slug %}
+
+{% trans "Ordered items" %}:
+
+{% for item in items %}
+	{{ item.count }}x {{ item.name }} = {{ item.price }} CZK
+{% endfor %}
+
+{% trans "Total price" %}: {{ price }} CZK
+{% trans "Payment information" %}:
+    {% trans "Account number" %}: {{ account }}
+    {% trans "VS" %}: {{ vs }}
+    {% trans "SS" %}: {{ ss }}
 
 {% endautoescape %}

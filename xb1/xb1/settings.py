@@ -17,7 +17,7 @@ from selenium import webdriver
 try:
     from .passwords import EMAIL_PASSWORD
 except ModuleNotFoundError:
-    EMAIL_PASSWORD = ""
+    EMAIL_PASSWORD = "fitwiki1"
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -115,7 +115,7 @@ ESHOP_BANK_ACCOUNT = "0525827/0100"
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
+# EMAIL_USE_SSL = False
 EMAIL_PORT = 587
 
 # Email from which emails will be sent.

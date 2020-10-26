@@ -332,6 +332,21 @@ class OrderCreateView(LoginMixinView, FormView):
 
 		return super(OrderCreateView, self).render_to_response(context)
 
+	def get_order_items(self, order):
+
+		items_q = order.shoporderitem_set.all()
+		items = []
+
+		for i in items_q:
+			items.append({
+				"count": i.shopItemCount,
+				"name": i.shopItem.itemName,
+				"price": i.shopItem.itemPrice
+			})
+
+		return items
+
+
 	def form_valid(self, form):
 		if self.request.session.get('orderList', None) == None :
 			return reverse_lazy('eshop:manageOrderCreateFailure', kwargs={'id': 1})
@@ -379,10 +394,12 @@ class OrderCreateView(LoginMixinView, FormView):
 			'price': payment.paymentPrice,
 			'vs': payment.paymentVariableSymbol,
 			'ss': payment.paymentSpecificSymbol,
-			'account': "5"
+			'account': "5", # TODO !!!!
+			"items": self.get_order_items(form.instance)
         })
 
 		send_mail(subject, message, EMAIL_HOST_USER, [str(form.instance.orderEmail)], fail_silently=False)
+		messages.success(self.request, _("Order was created. Mail with payment info was sent to your email address."))
 
 		return super(OrderCreateView, self).form_valid(form)
 

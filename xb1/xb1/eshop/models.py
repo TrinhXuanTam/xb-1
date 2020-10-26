@@ -61,9 +61,9 @@ class ShopOrder(models.Model):
 		Specific method to generate slug, used for order tracking
 		"""
 
-		slg = random.randint(100, 5000)
+		slg = random.randint(100000000, 9999999999)
 		while ShopOrder.objects.filter(orderSlug=slg).exists():
-			orderSlug = orderSlug + "_" + str(random.randint(0, 1000))
+			orderSlug = random.randint(100000000, 9999999999)
 		self.orderSlug = slg
 
 class ShopPayment(models.Model):
