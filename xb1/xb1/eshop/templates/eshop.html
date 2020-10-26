@@ -85,7 +85,7 @@
 				</div>
 				<div class="shopOfferControl">
 					<div>{{ shopItem.itemPrice }}</div>
-					<div><a onclick="sessionStorage.setItem('cartStatus', 'opened');" href="{% url 'eshop:cartItemAdd' pk=shopItem.pk %}">{% trans "Create order" %}</a></div>
+					<div><a onclick="sessionStorage.setItem('cartStatus', 'opened');" href="{% url 'eshop:cartItemAdd' pk=shopItem.pk %}">{% trans "Add to cart" %}</a></div>
 				</div>
 			</div>
 		</li>
