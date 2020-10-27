@@ -71,7 +71,7 @@ class Article(TimeStampedModel):
     slug           = models.SlugField(verbose_name=_("Slug"), unique=True, max_length=100, blank=True, null=True)
     category       = models.ManyToManyField(Category, verbose_name=_("Category"), blank=True)
     tags           = models.ManyToManyField(Tag, verbose_name=_("Tag"), blank=True)
-    allow_comments = models.BooleanField(verbose_name=_("Comments allowed"), default=False)
+    allow_comments = models.BooleanField(verbose_name=_("Comments allowed"), default=True)
     published_from = models.DateTimeField(verbose_name=_("Published from"), default=timezone.now, null=True, blank=True)
     published_to   = models.DateTimeField(verbose_name=_("Published to"), null=True, blank=True)
     text           = RichTextField(verbose_name=_("Text"), blank=True, null=True)
