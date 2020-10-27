@@ -90,6 +90,21 @@
             {% endif %}
 
             {% if user.is_authenticated %}
+                <li>
+                    <div id="profile-dropdown" class="collapsed">
+                        <img src="{{ user.profile.image.url }}" alt="profile photo">
+                        <span>{{ user }} &#9660</span>
+                        
+                        <ul>
+                            <li>
+                                <a href="{% url 'profile' %}">{% trans "Profile" %}</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 <li><a href="{% url 'contact:contact' %}">{% trans "Contact" %}</a></li>
             {% else %}
                 <li><a class="login_trigger" onclick="openDialog()">{% trans "Contact" %}</a></li>
@@ -133,6 +148,10 @@
                   $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
                 });
             });
+
+            $("#profile-dropdown").click(function() {
+                $(this).toggleClass("collapsed")
+            })
       </script>
       <script>
             $(document).on({
