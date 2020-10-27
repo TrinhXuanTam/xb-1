@@ -102,8 +102,8 @@
             {% if user.is_superuser %}
                 <li><a href="/admin/">{% trans "Admin" %}</a></li>
             {% endif %}
-            {% if user.is_superuser %}
-                <li><a href="{% url 'user_list' %}">{% trans "User" %}</a></li>
+            {% if perms.core.view_user %}
+                <li><a href="{% url 'user_list' %}">{% trans "User list" %}</a></li>
             {% endif %}
         </ul>
     </nav>

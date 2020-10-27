@@ -1,5 +1,6 @@
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.models import Group
 from django.contrib.auth.views import LoginView as BaseLoginView, LogoutView as BaseLogoutView, \
     PasswordResetConfirmView as AuthPasswordResetConfirmView, \
     PasswordResetCompleteView as AuthPasswordResetCompleteView, \
@@ -17,6 +18,7 @@ from django.contrib import messages
 from django.contrib.auth.signals import user_logged_out, user_logged_in
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
+from django.utils.translation import ugettext_lazy as _
 
 from .core.tokens import account_activation_token
 from .core.views import LoginMixinView
@@ -351,9 +353,11 @@ class CKEditorDeleteView(LoginRequiredMixin, View):
         return HttpResponseRedirect("/ckeditor/browse")
 
 
-class UserListView(LoginMixinView, LoginRequiredMixin, ListView):
+class UserListView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, ListView):
+
     template_name = 'users/user_list.html'
     paginate_by = 10
+    permission_required = "core.view_user"
 
     def get_queryset(self):
         keywords = self.request.GET.get('keywords')
@@ -368,11 +372,13 @@ class UserListView(LoginMixinView, LoginRequiredMixin, ListView):
             return User.objects.all().order_by("-pk")
 
 
-class UserDetailView(LoginMixinView, LoginRequiredMixin, UpdateView):
+class UserDetailView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+
     model = User
     template_name = "users/user_detail.html"
     form_class = ProfileUpdateForm
     success_url = reverse_lazy("user_list")
+    permission_required = "core.view_user"
 
     def get_context_data(self, *args, **kwargs):
         """
@@ -380,30 +386,56 @@ class UserDetailView(LoginMixinView, LoginRequiredMixin, UpdateView):
         """
         context = super(UserDetailView, self).get_context_data(*args, **kwargs)
         context["form"] = ProfileUpdateForm(instance=self.object.profile)
+        context["is_user_staff_member"] = self.object.has_perm("core.view_user")
         return context
 
     def post(self, request, **kwargs):
-        if 'update_user' in request.POST:
+
+        if "update_user" in request.POST:
             p_form = ProfileUpdateForm(self.request.POST, self.request.FILES, instance=User.objects.get(pk=self.kwargs['pk']).profile)
             if p_form.is_valid():
                 p_form.save()
-                return redirect('user_list')
-        elif 'ban_user' in request.POST:
+                messages.success(request, _("User has successfuly updated."))
+
+        elif "ban_user" in request.POST:
             user = User.objects.get(pk=self.kwargs['pk'])
             user.is_active = False
             user.save()
-            return redirect('user_list')
-        elif 'unban_user' in request.POST:
+            messages.success(request, _("User has been banned"))
+
+        elif "unban_user" in request.POST:
             user = User.objects.get(pk=self.kwargs['pk'])
             user.is_active = True
             user.save()
+            messages.success(request, _("User's ban has been removed."))
+
+        elif "set_user_as_staff" in request.POST:
+            user = User.objects.get(pk=self.kwargs['pk'])
+            group = Group.objects.get(pk=3)
+            if group:
+                user.groups.add(group)
+                user.save()
+                messages.success(request, _("User has been set as a staff member."))
+            else:
+                messages.error(request, _("User cannot be set as a staff member."))
+
+        elif "remove_staff_group" in request.POST:
+            user = User.objects.get(pk=self.kwargs['pk'])
+            if user == self.request.user:
+                messages.error(request, _("You cannot remove your permission."))
+            else:
+                group = Group.objects.get(pk=3)
+                user.groups.remove(group)
+                user.save()
+                messages.success(request, _("Staff group was removed from the user."))
 
         return redirect('user_list')
 
 
-class UserCommentsView(LoginMixinView, LoginRequiredMixin, ListView):
+class UserCommentsView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = 'users/user_comments.html'
     paginate_by = 5
+    permission_required = "core.view_user"
 
     def get_queryset(self):
         return Comment.objects.filter(author__pk=self.kwargs['pk']).order_by("-pk")

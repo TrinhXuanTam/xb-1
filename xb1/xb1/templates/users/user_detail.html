@@ -17,14 +17,14 @@
         <img class="profile_image" src="{% get_media_prefix %}default.jpg">
         {%endif%}
         <form method="POST" enctype="multipart/form-data">
-            <label style="font-size: 23px;">Obrázek: {{form.image}} </label>
+            <label style="font-size: 23px;">{% trans "Image" %}: {{form.image}} </label>
         <div class="profile_main">
         <h1>{% trans "Account info" %}</h1>
         <h3>{{ object.username }}</h3>
         <p>{{ object.email }}</p>
 
             {% csrf_token %}
-            <h1>{% trans "Informace o uživateli" %}</h1>
+            <h1>{% trans "User info" %}</h1>
                 {% for field in form %}
             {% if field != form.image %}
                 {{field.label_tag }}
@@ -33,23 +33,29 @@
             {% endfor %}
 
 
-            <button class="profile_btn" type="submit" name="update_user">Aktualizovat</button>
+            <button class="profile_btn" type="submit" name="update_user">{% trans "Actualize" %}</button>
         </div>
         </form>
     {% else %}
         <h3>
-            Pro zobrazení profilu je nutné se přihlásit.
+            {% trans "You cannot see profile without beeing logged in." %}
         </h3>
     {% endif %}
-    <h1>{% trans "Správa uživatele" %}</h1>
+    <h1>{% trans "User management" %}</h1>
 
-    <a style="text-decoration: None;" href="{% url 'user_comments' pk=object.pk %}"><button class="profile_btn">Zobrazit komentáře</button></a>
+    <a style="text-decoration: None;" href="{% url 'user_comments' pk=object.pk %}"><button class="profile_btn">{% trans "See user's comments" %}</button></a>
     <form method="POST">
         {% csrf_token %}
         {% if object.is_active %}
-        <button class="profile_btn" type="submit" name="ban_user">Ban</button>
+            <button class="profile_btn" type="submit" name="ban_user">{% trans "Ban" %}</button>
         {% else %}
-        <button class="profile_btn" type="submit" name="unban_user">Unban</button>
+            <button class="profile_btn" type="submit" name="unban_user">{% trans "Unban" %}</button>
+        {% endif %}
+
+        {% if is_user_staff_member %}
+            <button class="profile_btn" type="submit" name="remove_staff_group">{% trans "Remove staff permissions." %}</button>
+        {% else %}
+            <button class="profile_btn" type="submit" name="set_user_as_staff">{% trans "Set staff permissions." %}</button>
         {% endif %}
     </form>
 
