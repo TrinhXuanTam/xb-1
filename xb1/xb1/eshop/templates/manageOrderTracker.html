@@ -1,3 +1,48 @@
+{% extends 'base.html' %}
 {% load i18n %}
+{% load static %}
 
-{% trans "Is order paid" %}: {{ result.isPaid }}
+{%block content %}
+
+<div>
+    <span>{% trans "Oder number" %}: {{ order.pk }}</span>
+    <span>{% trans "Oder state" %}: {{ order.isPaid }}</span>
+</div>
+
+{% if admin %}
+<table>
+    <tr>
+        <th>{% trans "FirstName" %}</th>
+        <th>{% trans "LastName" %}</th>
+        <th>{% trans "Email" %}</th>
+        <th>{% trans "City" %}</th>
+        <th>{% trans "Street" %}</th>
+        <th>{% trans "PostNumber" %}</th>
+        <th>{% trans "PhoneNumber" %}</th>
+    </tr>
+    <tr>
+        <td>{{ order.orderFirstName }}</td>
+        <td>{{ oder.orderLastName }}</td>
+        <td>{{ order.orderEmail }}</td>
+        <td>{{ order.orderAddressCity }}</td>
+        <td>{{ order.orderAddressStreet }}</td>
+        <td>{{ order.orderAddressPostNumber }}</td>
+        <td>{{ order.orderPhone}}</td>
+    </tr>   
+</table>
+{% endif %}
+
+<table>
+    <tr>
+        <th>{% trans "Item" %}</th>
+        <th>{% trans "Count" %}</th>
+    </tr>
+{% for orderItem in orderItems %}
+    <tr>
+        <td>{{ orderItem.shopItem.itemName }}</td>
+        <td>{{ orderItem.shopItemCount }}</td>
+    </tr>
+{% endfor %}
+</table>
+
+{% endblock %}
