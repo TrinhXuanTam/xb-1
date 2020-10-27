@@ -14,12 +14,14 @@ class ShopItem(models.Model):
 	SALE = 1
 	NONE = 2
 	NEW = 3
+	DISCOUNT = 4
 
 	TYPE_CHOICES = (
-		(TOP, "Top"),
-		(SALE, "Sale"),
-		(NONE, "None"),
-		(NEW, "New")
+		(TOP, _("Top")),
+		(SALE, _("Sale")),
+		(NONE, _("None")),
+		(NEW, _("New")),
+		(DISCOUNT, _("Discount")),
 	)
 
 	itemName = models.CharField(_("Product name"), max_length = 50)

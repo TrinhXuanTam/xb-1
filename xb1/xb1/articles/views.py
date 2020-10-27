@@ -132,7 +132,7 @@ class ArticleDetailView(LoginMixinView, DetailView):
     also renders comments under the article
     """
     model = Article
-    template_name = "articles_detail.html"
+    template_name = "article_detail.html"
 
     def get_context_data(self, *args, **kwargs):
         context  = super(ArticleDetailView, self).get_context_data(*args, **kwargs)
@@ -189,7 +189,7 @@ class ArticleDetailView(LoginMixinView, DetailView):
         if not tmp:
             return redirect('articles:article_list')
         else:
-            return render(request, 'articles_detail.html', tmp)
+            return render(request, 'article_detail.html', tmp)
 
 
 class PostCommentView(LoginRequiredMixin, View):
