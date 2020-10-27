@@ -1,3 +1,5 @@
+import datetime
+
 from django.core.mail import send_mail
 from django.shortcuts import render
 from django.template.loader import render_to_string
@@ -379,8 +381,14 @@ class OrderCreateView(LoginMixinView, FormView):
 		payment.paymentOrder = form.instance
 		payment.paymentReceived = False
 		payment.paymentPrice = totalPrice
-		payment.paymentVariableSymbol = form.instance.pk % 9999999999
-		payment.paymentSpecificSymbol = random.randint(0, 9999999999)
+		
+		# Specific way to create variable symbol
+		yearVariableSymbol = ( datetime.datetime.now().year * 1000000 ) % 10000000000
+		orderVariableSymbol = ( form.instance.pk * 15 - ( random.randint(0, 29) - 15 )) % 1000000
+		
+		paymentVariableSymbol = yearVariableSymbol + orderVariableSymbol
+		payment.paymentVariableSymbol = paymentVariableSymbol
+		payment.paymentSpecificSymbol = 0
 		payment.save()
 
 		self.request.session['orderList'] = None
@@ -394,7 +402,7 @@ class OrderCreateView(LoginMixinView, FormView):
 			'price': payment.paymentPrice,
 			'vs': payment.paymentVariableSymbol,
 			'ss': payment.paymentSpecificSymbol,
-			'account': "5", # TODO !!!!
+			'account': ESHOP_BANK_ACCOUNT,
 			"items": self.get_order_items(form.instance)
         })
 
