@@ -19,6 +19,8 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.db import transaction
+
 
 from .models import ShopItem
 from .models import ShopOrder
@@ -365,52 +367,55 @@ class OrderCreateView(LoginMixinView, FormView):
 
 			totalPrice += self.request.session['orderList'][orderItemID] * resultObject.itemPrice;
 			confirmedItems.append((resultObject, self.request.session['orderList'][orderItemID]))
-
-		form.instance.save()
-
-		# Create links beetwen items
-		for confirmedItem in confirmedItems:
-			item = ShopOrderItem()
-			item.shopItem = confirmedItem[0]
-			item.shopOrder = form.instance
-			item.shopItemCount = confirmedItem[1]
-			item.save()
-
-		# Create payment for this order
-		payment = ShopPayment()
-		payment.paymentOrder = form.instance
-		payment.paymentReceived = False
-		payment.paymentPrice = totalPrice
 		
-		# Specific way to create variable symbol
-		yearVariableSymbol = ( datetime.datetime.now().year * 1000000 ) % 10000000000
-		orderVariableSymbol = ( form.instance.pk * 15 - ( random.randint(0, 29) - 15 )) % 1000000
-		
-		paymentVariableSymbol = yearVariableSymbol + orderVariableSymbol
-		payment.paymentVariableSymbol = paymentVariableSymbol
-		payment.paymentSpecificSymbol = 0
-		payment.save()
+		try:
+			with transaction.atomic():
+			
+				form.instance.save()
+				# Create links with items
+				for confirmedItem in confirmedItems:
+					item = ShopOrderItem()
+					item.shopItem = confirmedItem[0]
+					item.shopOrder = form.instance
+					item.shopItemCount = confirmedItem[1]
+					item.save()
 
+				# Create payment for this order
+				payment = ShopPayment()
+				payment.paymentOrder = form.instance
+				payment.paymentReceived = False
+				payment.paymentPrice = totalPrice	
+					
+				# Specific way to create variable symbol
+				yearVariableSymbol = ( datetime.datetime.now().year * 1000000 ) % 10000000000
+				orderVariableSymbol = ( form.instance.pk * 15 - ( random.randint(0, 29) - 15 )) % 1000000
+				
+				paymentVariableSymbol = yearVariableSymbol + orderVariableSymbol
+				payment.paymentVariableSymbol = paymentVariableSymbol
+				payment.paymentSpecificSymbol = 0	
+				payment.save()
+				
+				subject = _("Order successfully received")
+				message = render_to_string('manageOrderEmail.html', {
+					'domain': get_current_site(self.request).domain,
+					'slug': form.instance.orderSlug,
+					'price': payment.paymentPrice,
+					'vs': payment.paymentVariableSymbol,
+					'ss': payment.paymentSpecificSymbol,
+					'account': ESHOP_BANK_ACCOUNT,
+					"items": self.get_order_items(form.instance)
+				})
+		
+		
+				send_mail(subject, message, EMAIL_HOST_USER, [str(form.instance.orderEmail)], fail_silently=False)
+		except:	
+			messages.warning(self.request, _("Order can not be created now, please try again later"))
+			return redirect(reverse('eshop:shopIndex'))
+			
 		self.request.session['orderList'] = None
-
-		# Set and send email to inserted mail address, with link to track delivery
-		current_site = get_current_site(self.request)
-		subject = _("Order successfully received")
-		message = render_to_string('manageOrderEmail.html', {
-			'domain': current_site.domain,
-			'slug': form.instance.orderSlug,
-			'price': payment.paymentPrice,
-			'vs': payment.paymentVariableSymbol,
-			'ss': payment.paymentSpecificSymbol,
-			'account': ESHOP_BANK_ACCOUNT,
-			"items": self.get_order_items(form.instance)
-        })
-
-		send_mail(subject, message, EMAIL_HOST_USER, [str(form.instance.orderEmail)], fail_silently=False)
 		messages.success(self.request, _("Order was created. Mail with payment info was sent to your email address."))
-
+		
 		return super(OrderCreateView, self).form_valid(form)
-
 
 class OrderCreateFailureView(DelayRedirectView):
 	"""
