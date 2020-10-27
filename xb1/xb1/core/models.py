@@ -11,6 +11,11 @@ class User(AbstractUser):
     temp_email = models.EmailField(null=True)
     signup_confirmation = models.BooleanField(default=False)
 
+    class Meta:
+        permissions = (
+            ("is_staff_user", "Is user a staff"),
+        )
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -43,4 +48,3 @@ class Profile(models.Model):
                 output_size = (300, 300)
                 img.thumbnail(output_size)
                 img.save(self.image.path)
-
