@@ -450,7 +450,9 @@ class OrderTrackerView(LoginMixinView, TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(OrderTrackerView, self).get_context_data(**kwargs)
-		context['result'] = ShopOrder.objects.filter(orderSlug = kwargs['slug']).first()
+		context['order'] = ShopOrder.objects.filter(orderSlug = kwargs['slug']).first()
+		context['admin'] = self.request.user and self.request.user.has_perm('core.view_user')
+		context['orderItems'] = ShopOrderItem.objects.filter(shopOrder = context['order']) 
 
 		return context
 

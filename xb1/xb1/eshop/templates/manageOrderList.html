@@ -23,7 +23,7 @@
 					<th>{% trans "Street Number" %}</th>
 					<th>{% trans "Post Number" %}</th>
 					<th>{% trans "Payed" %}</th>
-					<th colspan="2">{% trans "Action" %}</th>
+					<th colspan="3">{% trans "Action" %}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -37,6 +37,7 @@
 					<td>{{ order.orderAddressStreetNumber }}</td>
 					<td>{{ order.orderAddressPostNumber }}</td>
 					<td>{{ order.isPaid }}</td>
+					<td><a href="{% url 'eshop:manageOrderTracker' slug=order.orderSlug %}"><i class="fas fa-info"></i> {% trans "Detail" %}</a></td>
 					<td><a href="{% url 'eshop:manageOrderPay' pk=order.pk %}"><i class="fas fa-dollar-sign"></i> {% trans "Pay" %}</a></td>
 					<td><a href="{% url 'eshop:manageOrderRemove' pk=order.pk %}"><i class="fas fa-trash"></i> {% trans "Delete" %}</a></td>
 				</tr>
