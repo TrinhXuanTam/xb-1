@@ -30,11 +30,14 @@
       <div class="modal_content">
         <span class="close">&times;</span>
 
+        {% block modal %}
 
         <h1>{% trans "Login" %}</h1>
 
         <form id="login_form" method = "POST">
             {% csrf_token %}
+            
+
             {{ login_form.username }}
             {{ login_form.password }}
             <a href="{% url 'password_reset' %}" class = "password_reset">{% trans "Forgotten password" %}</a>
@@ -43,8 +46,13 @@
 
             <button type = "submit">{% trans "Login" %}</button>
             <a id="sign_up" href = "{% url 'register' %}">{% trans "Sign Up" %}</a>
+
+            
         </form>
         <div id="login_warning"></div>
+
+        {% endblock %}
+        
       </div>
     </div>
 

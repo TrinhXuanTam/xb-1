@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
@@ -97,6 +97,21 @@ class ForumCategoryUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequ
     permission_required = "articles.change_forumcategory"
     model = ForumCategory
     fields = ("title", "is_open", "description")
+
+
+class ForumCategoryDeleteView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    """
+    View for deleting existing forum category.
+    """
+
+    permission_required = "articles.change_forumcategory"
+
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            ForumCategory.objects.get(pk=kwargs.get("pk")).delete()
+            return HttpResponseRedirect(reverse_lazy("forum:index"))
+        else:
+            return HttpResponse(status=401)
 
 
 class ForumDetailView(LoginMixinView, TemplateView):
