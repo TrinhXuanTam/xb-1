@@ -389,29 +389,13 @@ class OrderCreateView(LoginMixinView, FormView):
 					
 				# Specific way to create variable symbol
 				yearVariableSymbol = ( datetime.datetime.now().year * 1000000 ) % 10000000000
-				orderVariableSymbol = ( form.instance.pk * 15 - ( random.randint(0, 29) - 15 )) % 1000000
+				orderVariableSymbol = ( form.instance.pk * 15 + ( random.randint(0, 14))) % 1000000
 				
 				paymentVariableSymbol = yearVariableSymbol + orderVariableSymbol
 				payment.paymentVariableSymbol = paymentVariableSymbol
 				payment.paymentSpecificSymbol = 0	
 				payment.save()
 				
-				
-				"""
-				subject = _("Order successfully received")
-				message = render_to_string('manageOrderEmail.html', {
-					'domain': get_current_site(self.request).domain,
-					'slug': form.instance.orderSlug,
-					'price': payment.paymentPrice,
-					'vs': payment.paymentVariableSymbol,
-					'ss': payment.paymentSpecificSymbol,
-					'account': ESHOP_BANK_ACCOUNT,
-					"items": self.get_order_items(form.instance)
-				})
-		
-				send_mail(subject, message, EMAIL_HOST_USER, [str(form.instance.orderEmail)], fail_silently=False)
-				"""
-
 				message = render_to_string('manageOrderEmail.html', {
 					'domain': get_current_site(self.request).domain,
 					'slug': form.instance.orderSlug,
@@ -422,13 +406,14 @@ class OrderCreateView(LoginMixinView, FormView):
 					"items": self.get_order_items(form.instance)
 				})
 
-				subject = _("Order successfully received")
-				text_content = "XXXYYY"
+				subject = "" + str(_("Order number")) + ": " + str(form.instance.pk) + " " + str(_("succesfully created")) 
+				text_content = ""
 				msg = EmailMultiAlternatives(subject, text_content, EMAIL_HOST_USER, [str(form.instance.orderEmail)])
 				msg.attach_alternative(message, "text/html")
 				msg.send()
 
-		except:	
+		except Exception as e:
+			print(e)
 			messages.warning(self.request, _("Order can not be created now, please try again later"))
 			return redirect(reverse('eshop:shopIndex'))
 			
