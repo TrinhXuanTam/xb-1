@@ -617,6 +617,9 @@ msgstr "Nové vlákno"
 msgid "Edit category"
 msgstr "Přidat kategorii"
 
+msgid "Delete category"
+msgstr "Smazat kategorii"
+
 #: xb1/forum/templates/forum_list.html:41
 msgid "Last post"
 msgstr "Poslední příspěvek"
@@ -887,5 +890,18 @@ msgstr "Uživateli byla odebrána správcovská práva"
 #~ msgid "Change email"
 #~ msgstr "Změna emailu"
 
-#~ msgid "Confirm"
-#~ msgstr "Potvrdit"
+msgid "Do you really want to delete forum:"
+msgstr "Opravdu si přejete smazat fórum:"
+
+msgid "All related comments will be deleted!"
+msgstr "Všechny komentáře budou smazány!"
+
+msgid "Delete forum"
+msgstr "Smazat fórum"
+
+msgid "Do you really want to delete forum category:"
+msgstr "Opravdu si přejete smazat kategorii:"
+
+msgid "All related forums will be deleted!"
+msgstr "Všechna souvijící fóra budou smazána!"
+
