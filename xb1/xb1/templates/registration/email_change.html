@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 {%block content %}
     <head>
@@ -14,10 +15,10 @@
             <div class="registration_form">
                 <form method = "POST">
                     {% csrf_token %}
-                    <h1>Změna emailu</h1>
+                    <h1>{% trans "Change email" %}</h1>
                     {{ form.as_p }}
                     <div>
-                        <button type = "submit">Potvrdit</button>
+                        <button type = "submit">{% trans "Confirm" %}</button>
                     </div>
                 </form>
 

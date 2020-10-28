@@ -36,10 +36,10 @@ class UserLoginForm(AuthenticationForm):
         try:
             User.objects.get(username__iexact=self.cleaned_data["username"])
         except User.DoesNotExist:
-            raise ValidationError(_("Incorrect username."))
+            raise ValidationError(_("Incorrect username"))
 
         if not authenticate(username=self.cleaned_data["username"], password=self.cleaned_data["password"]):
-            raise ValidationError(_("Incorrect password."))
+            raise ValidationError(_("Incorrect password"))
 
         cleaned_data = super(UserLoginForm, self).clean()
         return cleaned_data

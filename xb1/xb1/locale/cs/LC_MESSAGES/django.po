@@ -871,3 +871,21 @@ msgstr "Uživateli byla odebrána správcovská práva"
 
 #~ msgid "Email address"
 #~ msgstr "Adresa"
+
+#~ msgid "Incorrect password"
+#~ msgstr "Nesprávné heslo"
+
+#~ msgid "Incorrect username"
+#~ msgstr "Nesprávné uživatelské jméno"
+
+#~ msgid "Set password"
+#~ msgstr "Nastavit nové heslo"
+
+#~ msgid "Link has expired"
+#~ msgstr "Odkaz vypršel"
+
+#~ msgid "Change email"
+#~ msgstr "Změna emailu"
+
+#~ msgid "Confirm"
+#~ msgstr "Potvrdit"
