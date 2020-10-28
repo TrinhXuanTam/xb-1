@@ -44,7 +44,7 @@
             <button type = "submit">{% trans "Login" %}</button>
             <a id="sign_up" href = "{% url 'register' %}">{% trans "Sign Up" %}</a>
         </form>
-        <div id="login_warning">The username or password is incorrect</div>
+        <div id="login_warning"></div>
       </div>
     </div>
 
@@ -169,8 +169,11 @@
                         location.reload(true);
                     },
                     // display warning message
-                    error: function() {
-                        $("#login_warning").css("opacity", 1);
+                    error: function(data) {
+                        var warning = $("#login_warning")
+                        warning.css("opacity", 1);
+                        warning.empty().append('<p>' +  data.responseJSON.error + '</p>')
+
                     }
                 });
             }

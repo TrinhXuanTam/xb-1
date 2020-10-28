@@ -19,6 +19,13 @@
             <button type = "submit">{% trans "Login" %}</button>
             <a id="sign_up" href = "{% url 'register' %}">{% trans "Sign Up" %}</a>
         </form>
+          {% if form.errors %}
+                {% for error in form.non_field_errors %}
+                    <div style="color:red; padding-top:10px;">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+          {% endif %}
       </div>
     </div>
 {% endblock %}
