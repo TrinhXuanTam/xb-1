@@ -91,9 +91,9 @@ class LoginViewModal(LoginMixinView, BaseLoginView):
         data = form.cleaned_data
         try:
             User.objects.get(username=data["username"])
-            response = JsonResponse({"error": _("Incorrect password.")})
+            response = JsonResponse({"error": _("Incorrect password")})
         except User.DoesNotExist:
-            response = JsonResponse({"error": _("Incorrect username.")})
+            response = JsonResponse({"error": _("Incorrect username")})
 
         response.status_code = 401
         return response

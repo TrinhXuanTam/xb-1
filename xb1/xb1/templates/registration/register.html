@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {%block content %}
     <head>
         <link rel="stylesheet" href="{% static 'css/base.css' %}" />
@@ -14,11 +15,11 @@
             <div class="registration_form">
                 <form method = "POST">
                     {% csrf_token %}
-                    <h1>Registrace</h1>
+                    <h1>{% trans "Sign Up" %}</h1>
                     {{ form.as_p }}
 
                     <div>
-                        <button type = "submit">Potvrdit</button>
+                        <button type = "submit">{% trans "Confirm" %}</button>
                     </div>
                 </form>
 

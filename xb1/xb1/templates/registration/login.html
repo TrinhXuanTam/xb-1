@@ -12,7 +12,7 @@
             {% csrf_token %}
             {{ login_form.username }}
             {{ login_form.password }}
-            <a href="{% url 'password_reset' %}" class = "password_reset">Zapomenuté heslo</a>
+            <a href="{% url 'password_reset' %}" class = "password_reset">{% trans "Forgotten password" %}</a>
             <br>
             <br>
 
