@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-27 20:12+0100\n"
+"POT-Creation-Date: 2020-10-28 12:40+0100\n"
 "Language: cz\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -215,7 +215,7 @@ msgstr "Upravit"
 
 #: xb1/articles/templates/get_articles.html:43
 #: xb1/articles/templates/get_articles.html:124
-#: xb1/eshop/templates/manageOrderList.html:41
+#: xb1/eshop/templates/manageOrderList.html:42
 msgid "Delete"
 msgstr "Smazat"
 
@@ -255,6 +255,7 @@ msgstr "Heslo"
 
 #: xb1/core/forms.py:50 xb1/eshop/models.py:42
 #: xb1/eshop/templates/manageOrderList.html:20
+#: xb1/eshop/templates/manageOrderTracker.html:17
 msgid "Email"
 msgstr "E-mail"
 
@@ -299,6 +300,7 @@ msgstr "Příjmení"
 
 #: xb1/core/forms.py:127 xb1/core/models.py:24 xb1/eshop/models.py:43
 #: xb1/eshop/templates/manageOrderList.html:21
+#: xb1/eshop/templates/manageOrderTracker.html:18
 msgid "City"
 msgstr "Město"
 
@@ -359,11 +361,12 @@ msgid "Product name"
 msgstr "Název produktu"
 
 #: xb1/eshop/models.py:28 xb1/eshop/templates/eshop.html:39
+#: xb1/eshop/templates/manageOrderEmail.html:22
 #: xb1/eshop/templates/manageShopList.html:18
 msgid "Price"
 msgstr "Cena"
 
-#: xb1/eshop/models.py:30
+#: xb1/eshop/models.py:30 xb1/eshop/templates/manageOrderList.html:40
 msgid "Detail"
 msgstr "Detail"
 
@@ -420,6 +423,7 @@ msgid "Cart is empty"
 msgstr "Košík je prázdný"
 
 #: xb1/eshop/templates/eshop.html:37
+#: xb1/eshop/templates/manageOrderEmail.html:21
 msgid "Product"
 msgstr "Produkt"
 
@@ -456,35 +460,37 @@ msgstr "Přidat do košíku"
 msgid "Order products"
 msgstr "Objednat produkty"
 
-#: xb1/eshop/templates/manageOrderEmail.html:5
-msgid "Your order has been successfully received."
+msgid "Your order has been successfully created."
 msgstr "Objednávka byla úspěšně odeslána."
 
-#: xb1/eshop/templates/manageOrderEmail.html:6
+#: xb1/eshop/templates/manageOrderEmail.html:14
 msgid "Tracking info"
 msgstr "Odkaz pro sledování objednávky"
 
-#: xb1/eshop/templates/manageOrderEmail.html:8
+#: xb1/eshop/templates/manageOrderEmail.html:16
 msgid "Ordered items"
-msgstr "Objednávky"
+msgstr "Zboží"
 
-#: xb1/eshop/templates/manageOrderEmail.html:14
+msgid "Count"
+msgstr "Počet"
+
+#: xb1/eshop/templates/manageOrderEmail.html:32
 msgid "Total price"
 msgstr "Celková cena"
 
-#: xb1/eshop/templates/manageOrderEmail.html:15
+#: xb1/eshop/templates/manageOrderEmail.html:35
 msgid "Payment information"
 msgstr "Platební údaje"
 
-#: xb1/eshop/templates/manageOrderEmail.html:16
+#: xb1/eshop/templates/manageOrderEmail.html:38
 msgid "Account number"
 msgstr "Číslo účtu"
 
-#: xb1/eshop/templates/manageOrderEmail.html:17
+#: xb1/eshop/templates/manageOrderEmail.html:42
 msgid "VS"
 msgstr "Variabilní symbol"
 
-#: xb1/eshop/templates/manageOrderEmail.html:18
+#: xb1/eshop/templates/manageOrderEmail.html:46
 msgid "SS"
 msgstr "Specifický symbol"
 
@@ -497,6 +503,7 @@ msgid "Last Name"
 msgstr "Příjmení"
 
 #: xb1/eshop/templates/manageOrderList.html:22
+#: xb1/eshop/templates/manageOrderTracker.html:19
 msgid "Street"
 msgstr "Ulice"
 
@@ -517,7 +524,7 @@ msgstr "Zaplaceno"
 msgid "Action"
 msgstr "Akce"
 
-#: xb1/eshop/templates/manageOrderList.html:40
+#: xb1/eshop/templates/manageOrderList.html:41
 msgid "Pay"
 msgstr "Zaplatit"
 
@@ -525,9 +532,45 @@ msgstr "Zaplatit"
 msgid "Are you sure you want to delete order with email address:"
 msgstr "Opravdu chcete smazat objednávku s emailovou adresou:"
 
-#: xb1/eshop/templates/manageOrderTracker.html:3
-msgid "Is order paid"
-msgstr "Je objednávka zaplacena"
+#: xb1/eshop/templates/manageOrderTracker.html:8
+#, fuzzy
+#| msgid "Phone number"
+msgid "Oder number"
+msgstr "Telefon"
+
+#: xb1/eshop/templates/manageOrderTracker.html:9
+msgid "Oder state"
+msgstr "Stav objednávky"
+
+#: xb1/eshop/templates/manageOrderTracker.html:15
+#, fuzzy
+#| msgid "First Name"
+msgid "FirstName"
+msgstr "Křestní jméno"
+
+#: xb1/eshop/templates/manageOrderTracker.html:16
+#, fuzzy
+#| msgid "Last Name"
+msgid "LastName"
+msgstr "Příjmení"
+
+#: xb1/eshop/templates/manageOrderTracker.html:20
+#, fuzzy
+#| msgid "Post Number"
+msgid "PostNumber"
+msgstr "PSČ"
+
+#: xb1/eshop/templates/manageOrderTracker.html:21
+#, fuzzy
+#| msgid "Phone number"
+msgid "PhoneNumber"
+msgstr "Telefon"
+
+#: xb1/eshop/templates/manageOrderTracker.html:37
+#, fuzzy
+#| msgid "ShopItem"
+msgid "Item"
+msgstr "Položka objednávky"
 
 #: xb1/eshop/templates/manageShopAdd.html:22
 msgid "Create"
@@ -553,59 +596,61 @@ msgstr "Typ"
 msgid "Active"
 msgstr "Aktivní"
 
-#: xb1/eshop/views.py:140 xb1/eshop/views.py:307 xb1/eshop/views.py:430
-#: xb1/eshop/views.py:468
+#: xb1/eshop/views.py:141 xb1/eshop/views.py:308 xb1/eshop/views.py:435
+#: xb1/eshop/views.py:475
 msgid "Something bad happened"
 msgstr "Stalo se něco špatného"
 
-#: xb1/eshop/views.py:140
+#: xb1/eshop/views.py:141
 msgid "Item can not be found"
 msgstr "Položka nebyla nalezena"
 
-#: xb1/eshop/views.py:140
+#: xb1/eshop/views.py:141
 msgid "Item is no longer available"
 msgstr "Položka již není dostupná"
 
-#: xb1/eshop/views.py:307
+#: xb1/eshop/views.py:308
 msgid "Bad address, only numbers can be use"
 msgstr "Špatný formát adresy, lze použít jen čísla"
 
-#: xb1/eshop/views.py:307
+#: xb1/eshop/views.py:308
 msgid "Order not found"
 msgstr "Objednávka nebyla nalezena"
 
-#: xb1/eshop/views.py:307
+#: xb1/eshop/views.py:308
 msgid "Payment not found"
 msgstr "Platba nebyla nalezena"
 
-#: xb1/eshop/views.py:398
-msgid "Order successfully received"
-msgstr "Objednávka byla úspěšně doručena"
+msgid "Order number"
+msgstr "Číslo objednávky"
 
-#: xb1/eshop/views.py:412
+msgid "succesfully created"
+msgstr "úspěšně vytvořena"
+
+#: xb1/eshop/views.py:417
 msgid "Order can not be created now, please try again later"
 msgstr "Objednávka nyní nemohla být vytvořena, zkuste to prosím později"
 
-#: xb1/eshop/views.py:416
+#: xb1/eshop/views.py:421
 msgid ""
 "Order was created. Mail with payment info was sent to your email address."
 msgstr ""
 "Objednávka byla vytvořena. Email s platebními údaji byl zaslán na vaši "
 "adresu."
 
-#: xb1/eshop/views.py:430
+#: xb1/eshop/views.py:435
 msgid "Empty cart can not be ordered"
 msgstr "Nelze objednat prázdný košík"
 
-#: xb1/eshop/views.py:431
+#: xb1/eshop/views.py:436
 msgid "Item in your cart doesn't exist, reset cart"
 msgstr "Produkt v košíku neexistuje, prosím resetujte košík"
 
-#: xb1/eshop/views.py:432
+#: xb1/eshop/views.py:437
 msgid "Item in your cart is no longer available, reset cart"
 msgstr "Produkt v košíku již není dostupný, prosím resetujte košík"
 
-#: xb1/eshop/views.py:468
+#: xb1/eshop/views.py:475
 msgid "Order related with this tracker doesn't exists"
 msgstr "Objednávka s tímto trackovacím číslem neexistuje"
 
@@ -847,6 +892,9 @@ msgstr "Nemůžete si odebrat vlastní práva"
 #: xb1/views.py:430
 msgid "Staff group was removed from the user."
 msgstr "Uživateli byla odebrána správcovská práva"
+
+#~ msgid "Is order paid"
+#~ msgstr "Je objednávka zaplacena"
 
 #~ msgid "Add A Reply"
 #~ msgstr "Přidat odpověď"

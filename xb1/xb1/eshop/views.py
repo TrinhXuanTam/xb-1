@@ -20,6 +20,7 @@ from django.shortcuts import redirect
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.db import transaction
+from django.core.mail import EmailMultiAlternatives
 
 
 from .models import ShopItem
@@ -367,10 +368,10 @@ class OrderCreateView(LoginMixinView, FormView):
 
 			totalPrice += self.request.session['orderList'][orderItemID] * resultObject.itemPrice;
 			confirmedItems.append((resultObject, self.request.session['orderList'][orderItemID]))
-		
+
 		try:
 			with transaction.atomic():
-			
+
 				form.instance.save()
 				# Create links with items
 				for confirmedItem in confirmedItems:
@@ -384,18 +385,17 @@ class OrderCreateView(LoginMixinView, FormView):
 				payment = ShopPayment()
 				payment.paymentOrder = form.instance
 				payment.paymentReceived = False
-				payment.paymentPrice = totalPrice	
-					
+				payment.paymentPrice = totalPrice
+
 				# Specific way to create variable symbol
 				yearVariableSymbol = ( datetime.datetime.now().year * 1000000 ) % 10000000000
-				orderVariableSymbol = ( form.instance.pk * 15 - ( random.randint(0, 29) - 15 )) % 1000000
-				
+				orderVariableSymbol = ( form.instance.pk * 15 + ( random.randint(0, 14))) % 1000000
+
 				paymentVariableSymbol = yearVariableSymbol + orderVariableSymbol
 				payment.paymentVariableSymbol = paymentVariableSymbol
-				payment.paymentSpecificSymbol = 0	
+				payment.paymentSpecificSymbol = 0
 				payment.save()
-				
-				subject = _("Order successfully received")
+
 				message = render_to_string('manageOrderEmail.html', {
 					'domain': get_current_site(self.request).domain,
 					'slug': form.instance.orderSlug,
@@ -405,16 +405,21 @@ class OrderCreateView(LoginMixinView, FormView):
 					'account': ESHOP_BANK_ACCOUNT,
 					"items": self.get_order_items(form.instance)
 				})
-		
-		
-				send_mail(subject, message, EMAIL_HOST_USER, [str(form.instance.orderEmail)], fail_silently=False)
-		except:	
+
+				subject = "" + str(_("Order number")) + ": " + str(form.instance.pk) + " " + str(_("succesfully created"))
+				text_content = ""
+				msg = EmailMultiAlternatives(subject, text_content, EMAIL_HOST_USER, [str(form.instance.orderEmail)])
+				msg.attach_alternative(message, "text/html")
+				msg.send()
+
+		except Exception as e:
+			print(e)
 			messages.warning(self.request, _("Order can not be created now, please try again later"))
 			return redirect(reverse('eshop:shopIndex'))
-			
+
 		self.request.session['orderList'] = None
 		messages.success(self.request, _("Order was created. Mail with payment info was sent to your email address."))
-		
+
 		return super(OrderCreateView, self).form_valid(form)
 
 class OrderCreateFailureView(DelayRedirectView):
@@ -450,7 +455,9 @@ class OrderTrackerView(LoginMixinView, TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(OrderTrackerView, self).get_context_data(**kwargs)
-		context['result'] = ShopOrder.objects.filter(orderSlug = kwargs['slug']).first()
+		context['order'] = ShopOrder.objects.filter(orderSlug = kwargs['slug']).first()
+		context['admin'] = self.request.user and self.request.user.has_perm('core.view_user')
+		context['orderItems'] = ShopOrderItem.objects.filter(shopOrder = context['order'])
 
 		return context
 
