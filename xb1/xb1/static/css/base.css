@@ -19,17 +19,30 @@ body {
 }
 
 .alert {
-  float: right;
-  padding: 10px;
-  background-color: #32CD32;
-  color: white;
-  margin-bottom: 15px;
-  border-radius: 10px;
-  position: fixed;
-  margin-left: 70px;
-  margin-top: 20px;
-  z-index: 1;
- }
+    float: right;
+    padding: 10px;
+    color: white;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    position: fixed;
+    margin-left: 70px;
+    margin-top: 20px;
+    z-index: 1;
+}
+
+.alert-info,
+.alert-success {
+    background-color: #32CD32;
+}
+
+.alert-warning,
+.alert-debug {
+    background-color: #f7a000;
+}
+
+.alert-error {
+    background-color: #c83225;
+}
 
 
 .content {

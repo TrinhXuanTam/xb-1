@@ -123,9 +123,9 @@
         </ul>
     </nav>
       <!-- Success message content -->
-     {% if messages %} {% for message in messages %}
-     <div class="alert " id="hideMe" >{{ message }}</div>
-     {% endfor %} {% endif %}
+     {% for message in messages %}
+     <div class="alert alert-{{message.tags}}" id="hideMe" >{{ message }}</div>
+     {% endfor %}
 
     <div id="wrapper">
       <!-- Page content -->
