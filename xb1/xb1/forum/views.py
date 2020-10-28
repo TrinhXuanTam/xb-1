@@ -224,3 +224,18 @@ class ForumCreateView(LoginMixinView, LoginRequiredMixin, CreateView):
         form.instance.save()
 
         return super(ForumCreateView, self).form_valid(form)
+
+
+class ForumDeleteView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    """
+    View for deleting existing forum category.
+    """
+
+    permission_required = "articles.change_forumcategory"
+
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            Forum.objects.get(pk=kwargs.get("pk")).delete()
+            return HttpResponseRedirect(reverse_lazy("forum:index"))
+        else:
+            return HttpResponse(status=401)

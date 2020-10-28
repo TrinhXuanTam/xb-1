@@ -8,6 +8,12 @@
 {% endblock %}
 
 {% block content %}
+<div class="forum_list_topnav">
+{%if perms.articles.change_forum_category %}
+	<a class="delete_forum_button" onclick="openDialog()">{% trans "Delete forum" %}<i class="fas fa-trash-alt"></i></a>
+{%endif%}
+</div>
+
 <div class="forum_detail_content">
 	<div class="forum_detail_info">
 		<a class="forum_category_title" href="{% url 'forum:forum_list' pk=object.category.pk %}">{{object.category.title}} /</a>
@@ -58,4 +64,20 @@
     </div>
 
 </div>
+{% endblock %}
+
+
+{% block modal %}
+
+{%if perms.articles.change_forum_category %}
+    <h1>{% trans "Delete forum" %}</h1>
+    <p>{% trans "Do you really want to delete forum:" %} <strong>{{ title }}</strong>?</p>
+    <p>{% trans "All related comments will be deleted!" %}</p>
+
+    <form action="{% url 'forum:delete_forum' pk=object.pk %}" method="POST">
+        {% csrf_token %}
+        <button name="forum_pk" value="{{object.pk}}">{% trans "Confirm" %}</button>
+    </form>
+{% endif %}
+
 {% endblock %}
