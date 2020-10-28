@@ -3,7 +3,7 @@
 <style>
     #products td {
         min-width: 250px;
-        text-align: center; 
+        text-align: center;
     }
     #info td {
         min-width: 250px;
@@ -29,7 +29,8 @@
             </tr>
         {% endfor %}
         </table>
-        <div style="text-align: right;">{% trans "Total price" %}: {{ price }} CZK</div>
+        <br>
+       <strong><div style="text-align: right;">{% trans "Total price" %}: {{ price }} CZK</div></strong>
     </div>
 
     <div style="margin-top: 10px;">{% trans "Payment information" %}:</div>
