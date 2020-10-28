@@ -57,7 +57,7 @@ def show_logout_message(sender, user, request, **kwargs):
 
 
 def show_login_message(sender, user, request, **kwargs):
-    messages.info(request, f'Vítejte {user.username}.')
+    messages.info(request, f'Vítejte {user.profile.nickname}.')
 
 
 user_logged_out.connect(show_logout_message)
@@ -88,7 +88,13 @@ class LoginViewModal(LoginMixinView, BaseLoginView):
         return response
 
     def form_invalid(self, form):
-        response = JsonResponse({"error": "login failed"})
+        data = form.cleaned_data
+        try:
+            User.objects.get(username=data["username"])
+            response = JsonResponse({"error": _("Incorrect password")})
+        except User.DoesNotExist:
+            response = JsonResponse({"error": _("Incorrect username")})
+
         response.status_code = 401
         return response
 
@@ -162,9 +168,6 @@ def activate_email(request, uidb64, token):
         user = None
     # checking if the user exists, if the token is valid.
     if user is not None and account_activation_token.check_token(user, token):
-        # if valid set active true
-        if User.objects.get(temp_email=user.temp_email) is not None:
-            return render(request, 'registration/activation_email_unique_fail.html')
 
         user.email = user.temp_email
         user.temp_email = None
@@ -244,6 +247,7 @@ class PasswordResetConfirmView(LoginMixinView, AuthPasswordResetConfirmView):
     """
     form_class = ChangePasswordResetForm
     template_name = "registration/password_reset_confirm.html"
+    token_generator = account_activation_token
 
 
 class PasswordResetDoneView(LoginMixinView, AuthPasswordResetDoneView):

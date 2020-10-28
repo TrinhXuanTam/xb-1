@@ -1,6 +1,8 @@
 from django import forms
+from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm, PasswordChangeForm, \
     SetPasswordForm, PasswordResetForm
+from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.forms import Textarea
 
@@ -26,9 +28,21 @@ class UserLoginForm(AuthenticationForm):
     def confirm_login_allowed(self, user):
         if not user.is_active:
             raise forms.ValidationError(
-                "This account is inactive.",
+                _("Your account has been banned."),
                 code='inactive',
             )
+
+    def clean(self):
+        try:
+            User.objects.get(username__iexact=self.cleaned_data["username"])
+        except User.DoesNotExist:
+            raise ValidationError(_("Incorrect username"))
+
+        if not authenticate(username=self.cleaned_data["username"], password=self.cleaned_data["password"]):
+            raise ValidationError(_("Incorrect password"))
+
+        cleaned_data = super(UserLoginForm, self).clean()
+        return cleaned_data
 
 
 class UserRegistrationForm(UserCreationForm):

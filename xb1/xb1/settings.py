@@ -127,7 +127,7 @@ LOGOUT_REDIRECT_URL = "index"
 LOGIN_URL = "login"
 LOGOUT_URL = "logout"
 
-PASSWORD_RESET_TIMEOUT_DAYS = 1
+PASSWORD_RESET_TIMEOUT = 1800
 
 FORMAT_MODULE_PATH = [
     'formats',
@@ -195,6 +195,6 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 
 EMAIL_HOST_USER = "xb1.feedback@gmail.com"
-EMAIL_HOST_PASSWORD = 'fitwiki1'
+EMAIL_HOST_PASSWORD = 'fitwikif1'
 
 FEEDBACK_EMAIL = "xb1.feedback@gmail.com"

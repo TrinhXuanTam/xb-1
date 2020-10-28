@@ -532,9 +532,6 @@ msgstr "Zaplatit"
 msgid "Are you sure you want to delete order with email address:"
 msgstr "Opravdu chcete smazat objednávku s emailovou adresou:"
 
-#: xb1/eshop/templates/manageOrderTracker.html:8
-#, fuzzy
-#| msgid "Phone number"
 msgid "Oder number"
 msgstr "Telefon"
 
@@ -542,33 +539,18 @@ msgstr "Telefon"
 msgid "Oder state"
 msgstr "Stav objednávky"
 
-#: xb1/eshop/templates/manageOrderTracker.html:15
-#, fuzzy
-#| msgid "First Name"
 msgid "FirstName"
 msgstr "Křestní jméno"
 
-#: xb1/eshop/templates/manageOrderTracker.html:16
-#, fuzzy
-#| msgid "Last Name"
 msgid "LastName"
 msgstr "Příjmení"
 
-#: xb1/eshop/templates/manageOrderTracker.html:20
-#, fuzzy
-#| msgid "Post Number"
 msgid "PostNumber"
 msgstr "PSČ"
 
-#: xb1/eshop/templates/manageOrderTracker.html:21
-#, fuzzy
-#| msgid "Phone number"
 msgid "PhoneNumber"
 msgstr "Telefon"
 
-#: xb1/eshop/templates/manageOrderTracker.html:37
-#, fuzzy
-#| msgid "ShopItem"
 msgid "Item"
 msgstr "Položka objednávky"
 
@@ -661,6 +643,9 @@ msgstr "Nové vlákno"
 #: xb1/forum/templates/forum_list.html:17
 msgid "Edit category"
 msgstr "Přidat kategorii"
+
+msgid "Delete category"
+msgstr "Smazat kategorii"
 
 #: xb1/forum/templates/forum_list.html:41
 msgid "Last post"
@@ -919,3 +904,33 @@ msgstr "Uživateli byla odebrána správcovská práva"
 
 #~ msgid "Email address"
 #~ msgstr "Adresa"
+
+#~ msgid "Incorrect password"
+#~ msgstr "Nesprávné heslo"
+
+#~ msgid "Incorrect username"
+#~ msgstr "Nesprávné uživatelské jméno"
+
+#~ msgid "Set password"
+#~ msgstr "Nastavit nové heslo"
+
+#~ msgid "Link has expired"
+#~ msgstr "Odkaz vypršel"
+
+#~ msgid "Change email"
+#~ msgstr "Změna emailu"
+
+msgid "Do you really want to delete forum:"
+msgstr "Opravdu si přejete smazat fórum:"
+
+msgid "All related comments will be deleted!"
+msgstr "Všechny komentáře budou smazány!"
+
+msgid "Delete forum"
+msgstr "Smazat fórum"
+
+msgid "Do you really want to delete forum category:"
+msgstr "Opravdu si přejete smazat kategorii:"
+
+msgid "All related forums will be deleted!"
+msgstr "Všechna souvijící fóra budou smazána!"

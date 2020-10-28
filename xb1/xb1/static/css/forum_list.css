@@ -19,7 +19,8 @@
 }
 
 .edit_forum_button,
-.new_thread_button {
+.new_thread_button,
+.delete_forum_button {
     height: 30px;
     display: flex;
     align-items: center;
@@ -38,7 +39,8 @@
 }
 
 .edit_forum_button .fas,
-.new_thread_button .fas {
+.new_thread_button .fas,
+.delete_forum_button .fas {
     padding: 7px;
     margin-left: 5px;
 }
@@ -53,8 +55,17 @@
     color: #32CD32;
 }
 
+.delete_forum_button {
+    border: 1px solid #c80000;
+    color: #c80000;
+}
+
 .edit_forum_button .fas {
     border-left: 1px solid #FFD700;
+}
+
+.delete_forum_button .fas {
+    border-left: 1px solid #c80000;
 }
 
 .new_thread_button .fas {
@@ -69,6 +80,12 @@
 .new_thread_button:hover {
     color: black;
     background: #32CD32;
+}
+
+
+.delete_forum_button:hover {
+    color: black;
+    background: #c80000;
 }
 
 .forum_thread {

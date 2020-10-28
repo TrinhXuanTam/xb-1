@@ -12,13 +12,20 @@
             {% csrf_token %}
             {{ login_form.username }}
             {{ login_form.password }}
-            <a href="{% url 'password_reset' %}" class = "password_reset">Zapomenuté heslo</a>
+            <a href="{% url 'password_reset' %}" class = "password_reset">{% trans "Forgotten password" %}</a>
             <br>
             <br>
 
             <button type = "submit">{% trans "Login" %}</button>
             <a id="sign_up" href = "{% url 'register' %}">{% trans "Sign Up" %}</a>
         </form>
+          {% if form.errors %}
+                {% for error in form.non_field_errors %}
+                    <div style="color:red; padding-top:10px;">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+          {% endif %}
       </div>
     </div>
 {% endblock %}

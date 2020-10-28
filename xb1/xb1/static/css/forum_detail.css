@@ -60,3 +60,51 @@
     color: black;
     background: white;
 }
+
+.forum_list_topnav {
+    display: flex;
+    width: 91%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    white-space: nowrap;
+}
+
+
+.delete_forum_button {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 10px 0px 55px 1px rgba(0, 0, 0, 0.75);
+    border: none;
+    outline: none;
+    padding: 5px;
+    border-radius: 8px;
+    transition: 0.2s;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.edit_forum_button .fas,
+.new_thread_button .fas,
+.delete_forum_button .fas {
+    padding: 7px;
+    margin-left: 5px;
+}
+
+.delete_forum_button {
+    border: 1px solid #c80000;
+    color: #c80000;
+}
+
+.delete_forum_button .fas {
+    border-left: 1px solid #c80000;
+}
+
+.delete_forum_button:hover {
+    color: black;
+    background: #c80000;
+}

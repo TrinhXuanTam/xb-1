@@ -111,7 +111,7 @@ class Forum(TimeStampedModel):
     description = models.TextField(verbose_name=_("Forum description"), blank=True, null=True)
     author = models.ForeignKey(User, verbose_name=_("Author"), on_delete=models.SET_NULL, blank=True, null=True)
     is_closed = models.BooleanField(verbose_name=_("Is closed"), default=False)
-    category = models.ForeignKey(ForumCategory, verbose_name=_("Category"), on_delete=models.SET_NULL, blank=True, null=True)
+    category = models.ForeignKey(ForumCategory, verbose_name=_("Category"), on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.title

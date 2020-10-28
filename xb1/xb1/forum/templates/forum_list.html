@@ -15,6 +15,7 @@
 
 {%if perms.articles.change_forum_category and category_pk %}
     <a href="{% url 'forum:update_forum_category' pk=category_pk %}" class="edit_forum_button">{% trans "Edit category" %}<i class="fas fa-edit"></i></a>
+    <a class="delete_forum_button" onclick="openDialog()">{% trans "Delete category" %}<i class="fas fa-trash-alt"></i></a>
 {%endif%}
 </div>
 
@@ -53,4 +54,21 @@
     </div>
 
 </div>
+{% endblock %}
+
+
+
+{% block modal %}
+
+{%if perms.articles.change_forum_category and category_pk %}
+    <h1>{% trans "Delete category" %}</h1>
+    <p>{% trans "Do you really want to delete forum category:" %} <strong>{{ title }}</strong>?</p>
+    <p>{% trans "All related forums will be deleted!" %}</p>
+
+    <form action="{% url 'forum:delete_forum_category' pk=category_pk %}" method="POST">
+        {% csrf_token %}
+        <button name="category_pk" value="{{category_pk}}">{% trans "Confirm" %}</button>
+    </form>
+{% endif %}
+
 {% endblock %}

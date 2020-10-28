@@ -30,11 +30,14 @@
       <div class="modal_content">
         <span class="close">&times;</span>
 
+        {% block modal %}
 
         <h1>{% trans "Login" %}</h1>
 
         <form id="login_form" method = "POST">
             {% csrf_token %}
+            
+
             {{ login_form.username }}
             {{ login_form.password }}
             <a href="{% url 'password_reset' %}" class = "password_reset">{% trans "Forgotten password" %}</a>
@@ -43,8 +46,13 @@
 
             <button type = "submit">{% trans "Login" %}</button>
             <a id="sign_up" href = "{% url 'register' %}">{% trans "Sign Up" %}</a>
+
+            
         </form>
-        <div id="login_warning">The username or password is incorrect</div>
+        <div id="login_warning"></div>
+
+        {% endblock %}
+        
       </div>
     </div>
 
@@ -90,6 +98,21 @@
             {% endif %}
 
             {% if user.is_authenticated %}
+                <li>
+                    <div id="profile-dropdown" class="collapsed">
+                        <img src="{{ user.profile.image.url }}" alt="profile photo">
+                        <span>{{ user }} &#9660</span>
+                        
+                        <ul>
+                            <li>
+                                <a href="{% url 'profile' %}">{% trans "Profile" %}</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 <li><a href="{% url 'contact:contact' %}">{% trans "Contact" %}</a></li>
             {% else %}
                 <li><a class="login_trigger" onclick="openDialog()">{% trans "Contact" %}</a></li>
@@ -108,9 +131,9 @@
         </ul>
     </nav>
       <!-- Success message content -->
-     {% if messages %} {% for message in messages %}
-     <div class="alert " id="hideMe" >{{ message }}</div>
-     {% endfor %} {% endif %}
+     {% for message in messages %}
+     <div class="alert alert-{{message.tags}}" id="hideMe" >{{ message }}</div>
+     {% endfor %}
 
     <div id="wrapper">
       <!-- Page content -->
@@ -133,6 +156,10 @@
                   $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
                 });
             });
+
+            $("#profile-dropdown").click(function() {
+                $(this).toggleClass("collapsed")
+            })
       </script>
       <script>
             $(document).on({
@@ -169,8 +196,11 @@
                         location.reload(true);
                     },
                     // display warning message
-                    error: function() {
-                        $("#login_warning").css("opacity", 1);
+                    error: function(data) {
+                        var warning = $("#login_warning")
+                        warning.css("opacity", 1);
+                        warning.empty().append('<p>' +  data.responseJSON.error + '</p>')
+
                     }
                 });
             }
