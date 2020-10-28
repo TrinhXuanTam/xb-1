@@ -38,6 +38,4 @@ class ArticleForm(forms.ModelForm):
 
         cleaned_data = super(ArticleForm, self ).clean()
 
-        print(cleaned_data)
-
         return cleaned_data

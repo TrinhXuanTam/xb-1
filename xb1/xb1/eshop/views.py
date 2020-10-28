@@ -23,17 +23,11 @@ from django.db import transaction
 from django.core.mail import EmailMultiAlternatives
 
 
-from .models import ShopItem
-from .models import ShopOrder
-from .models import ShopOrderItem
-from .models import ShopPayment
-
-from .forms import OrderForm
-from .forms import ShopItemForm
-
+from ..core.models import Log
 from ..core.views import LoginMixinView
-from ..settings import EMAIL_HOST_USER
-from ..settings import ESHOP_BANK_ACCOUNT
+from .forms import OrderForm, ShopItemForm
+from .models import ShopItem, ShopOrder, ShopOrderItem, ShopPayment
+from ..settings import EMAIL_HOST_USER, ESHOP_BANK_ACCOUNT
 
 import random
 
@@ -395,6 +389,8 @@ class OrderCreateView(LoginMixinView, FormView):
 				payment.paymentVariableSymbol = paymentVariableSymbol
 				payment.paymentSpecificSymbol = 0
 				payment.save()
+
+				Log.user_created_order(self.request.user, form.instance)
 
 				message = render_to_string('manageOrderEmail.html', {
 					'domain': get_current_site(self.request).domain,
