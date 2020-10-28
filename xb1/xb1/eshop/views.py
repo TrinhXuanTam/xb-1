@@ -20,6 +20,7 @@ from django.shortcuts import redirect
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.db import transaction
+from django.core.mail import EmailMultiAlternatives
 
 
 from .models import ShopItem
@@ -395,6 +396,8 @@ class OrderCreateView(LoginMixinView, FormView):
 				payment.paymentSpecificSymbol = 0	
 				payment.save()
 				
+				
+				"""
 				subject = _("Order successfully received")
 				message = render_to_string('manageOrderEmail.html', {
 					'domain': get_current_site(self.request).domain,
@@ -406,8 +409,25 @@ class OrderCreateView(LoginMixinView, FormView):
 					"items": self.get_order_items(form.instance)
 				})
 		
-		
 				send_mail(subject, message, EMAIL_HOST_USER, [str(form.instance.orderEmail)], fail_silently=False)
+				"""
+
+				message = render_to_string('manageOrderEmail.html', {
+					'domain': get_current_site(self.request).domain,
+					'slug': form.instance.orderSlug,
+					'price': payment.paymentPrice,
+					'vs': payment.paymentVariableSymbol,
+					'ss': payment.paymentSpecificSymbol,
+					'account': ESHOP_BANK_ACCOUNT,
+					"items": self.get_order_items(form.instance)
+				})
+
+				subject = _("Order successfully received")
+				text_content = "XXXYYY"
+				msg = EmailMultiAlternatives(subject, text_content, EMAIL_HOST_USER, [str(form.instance.orderEmail)])
+				msg.attach_alternative(message, "text/html")
+				msg.send()
+
 		except:	
 			messages.warning(self.request, _("Order can not be created now, please try again later"))
 			return redirect(reverse('eshop:shopIndex'))
