@@ -30,7 +30,7 @@ from .articles.models import Article, UploadedFile, Comment
 from .core.forms import UserRegistrationForm, UserLoginForm, ProfileUpdateForm, UserChangeEmailForm, \
     ChangePasswordForm, ChangePasswordResetForm, PasswordResetEmailForm
 
-from .core.models import User, Profile
+from .core.models import User, Profile, Log
 from django.contrib.auth.forms import UserCreationForm
 
 from django.http import JsonResponse, HttpResponseRedirect
@@ -83,6 +83,7 @@ class LoginViewModal(LoginMixinView, BaseLoginView):
 
     def form_valid(self, form):
         login(self.request, form.get_user())
+        Log.user_login(form.get_user())
         response = JsonResponse({"ok": "login success"})
         response.status_code = 200
         return response
@@ -90,7 +91,8 @@ class LoginViewModal(LoginMixinView, BaseLoginView):
     def form_invalid(self, form):
         data = form.cleaned_data
         try:
-            User.objects.get(username=data["username"])
+            user = User.objects.get(username=data["username"])
+            Log.user_invalid_login(user)
             response = JsonResponse({"error": _("Incorrect password")})
         except User.DoesNotExist:
             response = JsonResponse({"error": _("Incorrect username")})
@@ -105,6 +107,12 @@ class LoginView(LoginMixinView, BaseLoginView):
     """
     template_name = "registration/login.html"
     form_class = UserLoginForm
+
+    def form_valid(self, form):
+
+        response = super(LoginView, self).form_valid(form)
+        Log.user_login(form.get_user())
+        return response
 
 
 class LogoutView(BaseLogoutView):
@@ -155,6 +163,12 @@ class PasswordChangeView(LoginMixinView, AuthPasswordChangeView):
     success_url = '/profile/'
     template_name = "registration/password_change_form.html"
 
+    def form_valid(self, form):
+
+        data = super().form_valid(form)
+        Log.user_changed_password(self.request.user)
+        return data
+
 
 def activate_email(request, uidb64, token):
     """
@@ -199,6 +213,7 @@ def activate_registration(request, uidb64, token):
         profile = Profile(user=user)
         profile.nickname = user.username
         profile.save()
+        Log.user_verified(user)
         login(request, user)
         return redirect('index')
     else:
@@ -288,6 +303,7 @@ class Register(LoginMixinView, FormView):
             'token': account_activation_token.make_token(user),
         })
         user.email_user(subject, message)
+        Log.user_registered(user)
         return redirect('activation_sent')
 
 

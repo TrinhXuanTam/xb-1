@@ -175,7 +175,7 @@ CKEDITOR_CONFIGS = {
 
 #
 #	TEST SETTINGS - DO NOT CHANGE
-#	
+#
 
 WEB_DRIVER_LOCATION = BASE_DIR + '/resource/chromedriver'
 
@@ -195,6 +195,6 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 
 EMAIL_HOST_USER = "xb1.feedback@gmail.com"
-EMAIL_HOST_PASSWORD = 'fitwikif1'
+EMAIL_HOST_PASSWORD = 'fitwiki1'
 
 FEEDBACK_EMAIL = "xb1.feedback@gmail.com"

@@ -14,7 +14,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView, CreateView, UpdateView
 from django.views.generic.list import ListView
 
-from ..core.models import Profile
+from ..core.models import Profile, Log
 from ..core.views import LoginMixinView
 from .forms import ArticleForm
 from .models import Article, Comment, Category, Tag
@@ -55,7 +55,9 @@ class ArticleCreateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMi
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        return super(ArticleCreateView, self).form_valid(form)
+        response = super(ArticleCreateView, self).form_valid(form)
+        Log.user_created_article(self.request.user, form.instance)
+        return response
 
 
 class ArticleUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
@@ -71,6 +73,7 @@ class ArticleUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMi
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        Log.user_modified_article(self.request.user, form.instance)
         return super(ArticleUpdateView, self).form_valid(form)
 
 
@@ -218,6 +221,7 @@ class PostCommentView(LoginRequiredMixin, View):
                 "comments":[comment],
                 "article": Article.objects.get(id=article_id)
             }
+            Log.user_posted_comment(request.user, comment)
             return render(request, 'article_comment.html', context)
         else:
             response = JsonResponse({"error": "Unauthorized"})
@@ -295,8 +299,9 @@ class HideArticleView(LoginRequiredMixin, PermissionRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         article = Article.objects.get(id=int(request.POST.get('article_id')))
         if article:
-            article.article_state = 0
+            article.article_state = Article.HIDDEN
             article.save()
+            Log.user_hide_article(request.user, article)
             return HttpResponse(status=200)
         else:
             return HttpResponse(status=401)
@@ -313,8 +318,9 @@ class PublishArticleView(LoginRequiredMixin, PermissionRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         article = Article.objects.get(id=int(request.POST.get('article_id')))
         if article:
-            article.article_state = 1
+            article.article_state = Article.PUBLISHED
             article.save()
+            Log.user_published_article(request.user, article)
             return HttpResponse(status=200)
         else:
             return HttpResponse(status=401)
@@ -333,6 +339,7 @@ class BanCommentView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin
 
         comment.is_censured = True
         comment.save()
+        Log.user_banned_comment(request.user, comment)
 
         return HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))
 
@@ -350,5 +357,6 @@ class UnbanCommentView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMix
 
         comment.is_censured = False
         comment.save()
+        Log.user_unbanned_comment(request.user, comment)
 
         return HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))

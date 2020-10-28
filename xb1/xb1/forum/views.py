@@ -9,7 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView
 
 from ..articles.models import ForumCategory, Forum, Comment
 from ..core.views import LoginMixinView
-from ..core.models import Profile
+from ..core.models import Profile, Log
 
 
 class ForumIndexView(LoginMixinView, TemplateView):
@@ -185,6 +185,7 @@ class PostCommentView(LoginRequiredMixin, View):
                 comment.reaction_to_id=reaction_to_id
 
             comment.save()
+            Log.user_posted_comment(request.user, comment)
             comment.user = Profile.objects.get(user_id=request.user.id)
             return render(request, 'forum_comment.html', {"forum_id":forum_id, "comments":[comment]})
 
@@ -222,6 +223,7 @@ class ForumCreateView(LoginMixinView, LoginRequiredMixin, CreateView):
         form.instance.is_closed = False
 
         form.instance.save()
+        Log.user_created_forum(self.request.user, form.instance)
 
         return super(ForumCreateView, self).form_valid(form)
 
