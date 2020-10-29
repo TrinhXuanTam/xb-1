@@ -1,42 +1,43 @@
 from django.contrib import admin
 
+from ..core.admin import CustomAdmin
 from .models import Article, Category, Tag, Comment, Forum, ForumCategory, UploadedFile
 
 
 @admin.register(Article)
-class ArticleAdmin(admin.ModelAdmin):
+class ArticleAdmin(CustomAdmin):
 
-    list_display = ("title", "author", "text")
+    list_display = ("title", "author", "is_deleted", "text")
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(CustomAdmin):
 
-    list_display = ["name"]
+    list_display = ["name", "is_deleted"]
 
 
 @admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
+class TagAdmin(CustomAdmin):
 
-    list_display = ["name"]
+    list_display = ["name", "is_deleted"]
 
 
 @admin.register(Forum)
-class ForumAdmin(admin.ModelAdmin):
+class ForumAdmin(CustomAdmin):
 
-    list_display = ("title", "description", "author", "is_closed", "category")
+    list_display = ("title", "description", "author", "is_closed", "category", "is_deleted")
 
 
 @admin.register(ForumCategory)
-class ForumAdmin(admin.ModelAdmin):
+class ForumAdmin(CustomAdmin):
 
-    list_display = ("title", "is_open")
+    list_display = ("title", "is_open", "is_deleted")
 
 
 @admin.register(Comment)
-class ForumAdmin(admin.ModelAdmin):
+class ForumAdmin(CustomAdmin):
 
-    list_display = ("article", "forum", "text", "author", "is_censured", "reaction_to")
+    list_display = ("article", "forum", "text", "author", "is_censured", "reaction_to", "is_deleted")
 
 @admin.register(UploadedFile)
 class UploadedfileAdmin(admin.ModelAdmin):

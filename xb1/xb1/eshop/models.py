@@ -2,9 +2,12 @@ from django.db import models
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 
+from ..core.models import DeleteMixin
+
 import random
 
-class ShopItem(models.Model):
+
+class ShopItem(DeleteMixin):
 	"""
 	ShopItem is object which contains all informations about each items in shop
 	NOTE: Any change to object should create new object with new values
@@ -31,7 +34,8 @@ class ShopItem(models.Model):
 	itemType = models.PositiveSmallIntegerField(_("Product type"), choices=TYPE_CHOICES, default=NONE)
 	itemActive = models.BooleanField(_("Activate"), default=True)
 
-class ShopOrder(models.Model):
+
+class ShopOrder(DeleteMixin):
 	"""
 	ShopOrder is used for storing all information about order, each order has own instance of object
 	NOTE: This object does not contain information about ordered items
@@ -68,7 +72,8 @@ class ShopOrder(models.Model):
 			orderSlug = random.randint(100000000, 9999999999)
 		self.orderSlug = slg
 
-class ShopPayment(models.Model):
+
+class ShopPayment(DeleteMixin):
 	"""
 	ShopPayment is connected to ShopOrder, each order has own instance of ShopPayment.
 	This object contains all informations about state of payment, include if is payed or not
@@ -80,7 +85,8 @@ class ShopPayment(models.Model):
 	paymentSpecificSymbol = models.DecimalField(_("SpecificSymbol"), decimal_places = 0, max_digits = 10)
 	paymentOrder = models.ForeignKey(ShopOrder, verbose_name=_("ShopOrder"), on_delete = models.CASCADE, blank = True, null = True)
 
-class ShopOrderItem(models.Model):
+
+class ShopOrderItem(DeleteMixin):
 	"""
 	ShopOrderItem is used as connection between ShopItem and ShopOrder
 	One ShopOder instance can have many of ShopOrderItem instances of different ShopItem liked to it.
