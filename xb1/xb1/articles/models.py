@@ -8,11 +8,11 @@ from os.path import basename, splitext
 from django.utils.text import slugify
 
 
-from ..core.models import User
+from ..core.models import User, DeleteMixin
 
 import random
 
-class Category(models.Model):
+class Category(DeleteMixin):
     """
     Category model for filtering articles.
     """
@@ -23,7 +23,7 @@ class Category(models.Model):
         return self.name
 
 
-class Tag(models.Model):
+class Tag(DeleteMixin):
     """
     Category tags model for filtering articles.
     """
@@ -55,7 +55,7 @@ class UploadedFile(models.Model):
         file_storage.delete(file_path)
         file_storage.delete(name + "_thumb" + ext)
 
-class Article(TimeStampedModel):
+class Article(TimeStampedModel, DeleteMixin):
 
     HIDDEN = 0
     PUBLISHED = 1
@@ -95,7 +95,7 @@ class Article(TimeStampedModel):
         self.slug = slg
 
 
-class ForumCategory(models.Model):
+class ForumCategory(DeleteMixin):
 
     title = models.CharField(verbose_name=_("Title"), max_length=100)
     is_open = models.BooleanField(verbose_name=_("Is public"), default=True)
@@ -105,7 +105,7 @@ class ForumCategory(models.Model):
         return self.title
 
 
-class Forum(TimeStampedModel):
+class Forum(TimeStampedModel, DeleteMixin):
 
     title = models.CharField(verbose_name=_("Title"), max_length=100)
     description = models.TextField(verbose_name=_("Forum description"), blank=True, null=True)
@@ -117,7 +117,7 @@ class Forum(TimeStampedModel):
         return self.title
 
 
-class Comment(TimeStampedModel):
+class Comment(TimeStampedModel, DeleteMixin):
 
     article = models.ForeignKey(Article, verbose_name=_("Article"), on_delete=models.CASCADE, blank=True, null=True)
     forum = models.ForeignKey(Forum, verbose_name=_("Forum"), on_delete=models.CASCADE, blank=True, null=True)

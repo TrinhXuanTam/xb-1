@@ -259,6 +259,14 @@ class OrderRemoveView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixi
 	success_url = reverse_lazy("eshop:manageOrderList")
 	permission_required = "eshop.delete_shoporder"
 
+	def get_success_url(self, *args, **kwargs):
+
+		if self.success_url:
+			Log.user_deleted_order(self.request.user, self.object)
+			return self.success_url.format(**self.object.__dict__)
+		else:
+			raise ImproperlyConfigured("No URL to redirect to. Provide a success_url.")
+
 
 class OrderPayView(LoginMixinView, LoginRequiredMixin, RedirectView):
 	"""
@@ -417,6 +425,7 @@ class OrderCreateView(LoginMixinView, FormView):
 		messages.success(self.request, _("Order was created. Mail with payment info was sent to your email address."))
 
 		return super(OrderCreateView, self).form_valid(form)
+
 
 class OrderCreateFailureView(DelayRedirectView):
 	"""

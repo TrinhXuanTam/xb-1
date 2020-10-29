@@ -1,24 +1,20 @@
 from django.contrib import admin
 
-from .models import ShopItem
-from .models import ShopOrder
-from .models import ShopOrderItem
-from .models import ShopPayment
+from ..core.admin import CustomAdmin
+from .models import ShopItem, ShopOrder, ShopOrderItem, ShopPayment
 
 @admin.register(ShopItem)
-class ShopItemAdmin(admin.ModelAdmin):
-	list_display = ("itemName", "itemPrice", "itemImg", "itemDesc", "itemType", "itemActive")
-	
+class ShopItemAdmin(CustomAdmin):
+	list_display = ("itemName", "itemPrice", "itemImg", "itemDesc", "itemType", "itemActive", "is_deleted")
+
 @admin.register(ShopOrder)
-class ShopOrderAdmin(admin.ModelAdmin):
-	list_display = ("orderFirstName", "orderLastName", "orderEmail", "orderAddressCity", "orderAddressStreet", "orderAddressPostNumber", "orderPhone")
-	
+class ShopOrderAdmin(CustomAdmin):
+	list_display = ("orderFirstName", "orderLastName", "orderEmail", "orderAddressCity", "orderAddressStreet", "orderAddressPostNumber", "orderPhone", "is_deleted")
+
 @admin.register(ShopOrderItem)
-class ShopOrderItemAdmin(admin.ModelAdmin):
-	list_display = ("shopItem", "shopOrder", "shopItemCount")
+class ShopOrderItemAdmin(CustomAdmin):
+	list_display = ("shopItem", "shopOrder", "shopItemCount", "is_deleted")
 
 @admin.register(ShopPayment)
-class ShopPaymentAdmin(admin.ModelAdmin):
-	list_display = ("paymentPrice", "paymentReceived", "paymentVariableSymbol", "paymentSpecificSymbol")
-	
-	
+class ShopPaymentAdmin(CustomAdmin):
+	list_display = ("paymentPrice", "paymentReceived", "paymentVariableSymbol", "paymentSpecificSymbol", "is_deleted")
