@@ -283,6 +283,7 @@ class ArticleDeleteView(LoginRequiredMixin, PermissionRequiredMixin, View):
         article = Article.objects.get(id=int(request.POST.get('article_id')))
         if article:
             article.delete()
+            Log.user_deleted_article(self.request.user, article)
             return HttpResponse(status=204)
         else:
             return HttpResponse(status=401)

@@ -255,6 +255,13 @@ class PasswordResetView(LoginMixinView, AuthPasswordResetView):
     form_class = PasswordResetEmailForm
     template_name = "registration/password_reset.html"
 
+    def form_valid(self, form):
+        response = super(PasswordResetView, self).form_valid(form)
+        user = User.objects.filter(email=form.cleaned_data.get("email", None)).first()
+        if user:
+            Log.user_sent_password_reset_request(user)
+        return response
+
 
 class PasswordResetConfirmView(LoginMixinView, AuthPasswordResetConfirmView):
     """
@@ -263,6 +270,12 @@ class PasswordResetConfirmView(LoginMixinView, AuthPasswordResetConfirmView):
     form_class = ChangePasswordResetForm
     template_name = "registration/password_reset_confirm.html"
     token_generator = account_activation_token
+
+    def form_valid(self, form):
+
+        response = super(PasswordResetConfirmView, self).form_valid(form)
+        Log.user_changed_password_via_email(form.user)
+        return response
 
 
 class PasswordResetDoneView(LoginMixinView, AuthPasswordResetDoneView):

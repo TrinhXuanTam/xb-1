@@ -109,7 +109,7 @@ class Profile(models.Model):
 class Log(models.Model):
 
     user = models.ForeignKey(User, verbose_name=_("User"), blank=False, null=False, on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(_("Timestamp"), default=datetime.now())
+    timestamp = models.DateTimeField(_("Timestamp"), auto_now_add=True, null=True, blank=True)
     action = models.CharField(_("Action"), max_length=100, null=True, blank=True)
 
     article = models.ForeignKey("articles.Article", verbose_name=_("Article"), blank=True, null=True, on_delete=models.CASCADE)
@@ -133,6 +133,26 @@ class Log(models.Model):
         log = Log(
             user=user,
             action=_("user failed to log in")
+        )
+        log.save()
+        return log
+
+    @staticmethod
+    def user_sent_password_reset_request(user):
+
+        log = Log(
+            user=user,
+            action=_("user sent password reset request")
+        )
+        log.save()
+        return log
+
+    @staticmethod
+    def user_changed_password_via_email(user):
+
+        log = Log(
+            user=user,
+            action=_("user changed password via email")
         )
         log.save()
         return log
@@ -211,7 +231,7 @@ class Log(models.Model):
         log.save()
         return log
 
-    @staticmethod  # TODO add Delete mixin to the article
+    @staticmethod
     def user_deleted_article(user, article):
 
         log = Log(
@@ -277,7 +297,7 @@ class Log(models.Model):
         log.save()
         return log
 
-    @staticmethod  # TODO
+    @staticmethod
     def user_deleted_order(user, order):
 
         log = Log(
@@ -320,3 +340,47 @@ class Log(models.Model):
         )
         log.save()
         return log
+
+
+class DeactivateQueryset(models.query.QuerySet):
+
+    def delete(self, force=False):
+
+        if force:
+            super(DeactivateQueryset, self).delete()
+        else:
+            self.deactivate()
+
+    def deactivate(self):
+        self.update(is_deleted=True)
+
+
+class DeactivateManager(models.Manager):
+
+    def get_queryset(self):
+        return DeactivateQueryset(self.model).filter(is_deleted=False)
+
+    def get_full_queryset(self):
+        return super(DeactivateManager, self).get_queryset()
+
+
+class DeleteMixin(models.Model):
+
+    is_deleted = models.BooleanField(default=False, db_index=True, verbose_name=_("Deleted"))
+
+    objects = DeactivateManager()
+
+    class Meta:
+        abstract = True
+
+    def delete(self, force=False):
+
+        if force:
+            super(DeleteMixin, self).delete()
+        else:
+            self.deactivate()
+
+    def deactivate(self):
+
+        self.is_deleted = True
+        self.save()
