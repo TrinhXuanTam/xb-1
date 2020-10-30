@@ -934,3 +934,21 @@ msgstr "Opravdu si přejete smazat kategorii:"
 
 msgid "All related forums will be deleted!"
 msgstr "Všechna souvijící fóra budou smazána!"
+
+msgid "Search user"
+msgstr "Vyhledat uživatele"
+
+msgid "Order Detail"
+msgstr "Detail objednávky"
+
+msgid "Personal Information"
+msgstr "Osobní informace"
+
+msgid "Not Paid"
+msgstr "Nezaplacená"
+
+msgid "Paid"
+msgstr "Zaplacená"
+
+
+

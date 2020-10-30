@@ -1,48 +1,72 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
-
+{% block include %}
+<link rel="stylesheet" href="{% static 'css/manage_order.css' %}" />
+{% endblock %}
 {%block content %}
 
-<div>
-    <span>{% trans "Oder number" %}: {{ order.pk }}</span>
-    <span>{% trans "Oder state" %}: {{ order.isPaid }}</span>
+<div class="top-info">
+    <p>{% trans "Oder number" %}: {{ order.pk }}</p>
+    <p>{% trans "Oder state" %}: 
+        {% if order.isPaid %}
+        <span class="paid">{% trans "Paid" %}</span>
+        {% else %}
+        <span class="not-paid">{% trans "Not Paid" %}</span>
+        {% endif %}
+    </p>
 </div>
+<hr>
 
-{% if admin %}
-<table>
-    <tr>
-        <th>{% trans "FirstName" %}</th>
-        <th>{% trans "LastName" %}</th>
-        <th>{% trans "Email" %}</th>
-        <th>{% trans "City" %}</th>
-        <th>{% trans "Street" %}</th>
-        <th>{% trans "PostNumber" %}</th>
-        <th>{% trans "PhoneNumber" %}</th>
-    </tr>
-    <tr>
-        <td>{{ order.orderFirstName }}</td>
-        <td>{{ oder.orderLastName }}</td>
-        <td>{{ order.orderEmail }}</td>
-        <td>{{ order.orderAddressCity }}</td>
-        <td>{{ order.orderAddressStreet }}</td>
-        <td>{{ order.orderAddressPostNumber }}</td>
-        <td>{{ order.orderPhone}}</td>
-    </tr>   
-</table>
-{% endif %}
-
-<table>
-    <tr>
-        <th>{% trans "Item" %}</th>
-        <th>{% trans "Count" %}</th>
-    </tr>
-{% for orderItem in orderItems %}
-    <tr>
-        <td>{{ orderItem.shopItem.itemName }}</td>
-        <td>{{ orderItem.shopItemCount }}</td>
-    </tr>
-{% endfor %}
-</table>
+<div class="table-wrapper">
+    {% if admin %}
+    <div>
+        <h2>{% trans "Personal Information" %}</h2>
+        <div id="order-detail">
+            <div class="responsive-table-wrapper">
+                <table>
+                    <tr>
+                        <th>{% trans "FirstName" %}</th>
+                        <th>{% trans "LastName" %}</th>
+                        <th>{% trans "Email" %}</th>
+                        <th>{% trans "City" %}</th>
+                        <th>{% trans "Street" %}</th>
+                        <th>{% trans "PostNumber" %}</th>
+                        <th>{% trans "PhoneNumber" %}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ order.orderFirstName }}</td>
+                        <td>{{ oder.orderLastName }}</td>
+                        <td>{{ order.orderEmail }}</td>
+                        <td>{{ order.orderAddressCity }}</td>
+                        <td>{{ order.orderAddressStreet }}</td>
+                        <td>{{ order.orderAddressPostNumber }}</td>
+                        <td>{{ order.orderPhone}}</td>
+                    </tr>   
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div>
+        <h2>{% trans "Order Detail" %}</h2>
+        <div id="order-detail">
+            <div class="responsive-table-wrapper">
+                <table>
+                    <tr>
+                        <th>{% trans "Item" %}</th>
+                        <th>{% trans "Count" %}</th>
+                    </tr>
+                    {% for orderItem in orderItems %}
+                    <tr>
+                        <td>{{ orderItem.shopItem.itemName }}</td>
+                        <td>{{ orderItem.shopItemCount }}</td>
+                    </tr>
+                    {% endfor %}
+                </div>
+            </div>
+        </table>
+    </div>
+</div>
 
 {% endblock %}
