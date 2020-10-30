@@ -68,6 +68,10 @@
                 <li>
                     <a href="{% url 'eshop:manageOrderList' %}"><i class="fas fa-shopping-basket sidebarOffset"></i>{% trans "Orders" %}</a>
                 </li>
+            {% elif user.is_authenticated %}
+                <li>
+                    <a href="{% url 'eshop:viewOrderList' %}"><i class="fas fa-shopping-basket sidebarOffset"></i>{% trans "Orders" %}</a>
+                </li>
             {% endif %}
 
             <li>
