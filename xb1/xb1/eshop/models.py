@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 
 from ..core.models import DeleteMixin
+from ..core.models import User
 
 import random
 
@@ -49,6 +50,7 @@ class ShopOrder(DeleteMixin):
 	orderAddressPostNumber = models.CharField(_("Postal Code"), max_length=10, null=True, blank=True)
 	orderPhone = models.CharField(_("Phone"), max_length=20, null=True, blank=True)
 	orderSlug = models.SlugField(verbose_name=_("Slug"), unique=True, max_length=100, blank=True, null=True)
+	orderUser = models.ForeignKey(User, verbose_name=_("User"), on_delete = models.PROTECT, blank=True, null=True)
 
 	@property
 	def isPaid(self):

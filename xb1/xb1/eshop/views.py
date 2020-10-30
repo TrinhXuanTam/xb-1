@@ -268,7 +268,7 @@ class OrderRemoveView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixi
 			raise ImproperlyConfigured("No URL to redirect to. Provide a success_url.")
 
 
-class OrderPayView(LoginMixinView, LoginRequiredMixin, RedirectView):
+class OrderPayView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, RedirectView):
 	"""
 	Set payment status of ShopOder to True
 	page: ^manage/order/remove/(?P<pk>[0-9]+)$
@@ -374,6 +374,9 @@ class OrderCreateView(LoginMixinView, FormView):
 		try:
 			with transaction.atomic():
 
+				if self.request.user:
+					form.instance.orderUser = self.request.user
+
 				form.instance.save()
 				# Create links with items
 				for confirmedItem in confirmedItems:
@@ -396,7 +399,7 @@ class OrderCreateView(LoginMixinView, FormView):
 				paymentVariableSymbol = yearVariableSymbol + orderVariableSymbol
 				payment.paymentVariableSymbol = paymentVariableSymbol
 				payment.paymentSpecificSymbol = 0
-				payment.save()
+				payment.save() 
 
 				Log.user_created_order(self.request.user, form.instance)
 
@@ -478,3 +481,13 @@ class OrderTrackerFailureView(DelayRedirectView):
 	def __init__(self):
 		super(OrderTrackerFailureView, self).__init__(5000, "eshop:shopIndex", None,
 			[_("Something bad happened"), _("Order related with this tracker doesn't exists")])
+
+class OrderListViewX(LoginMixinView, LoginRequiredMixin, ListView):
+
+	model = ShopOrder
+	template_name = "viewOrderList.html"
+	def get_context_data(self, **kwargs):
+		context = super(OrderListViewX, self).get_context_data(**kwargs)
+		context['object_list'] = ShopOrder.objects.filter(orderUser = self.request.user)
+
+		return context

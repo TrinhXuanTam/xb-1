@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load i18n %}
+
+{%block include%}
+<link rel="stylesheet" href="{% static 'css/orders_list.css' %}">
+{%endblock%}
+
+{%block content %}
+
+{% if object_list %}
+<div id="orders-list">
+	<div class="responsive-table-wrapper">
+		<table>
+			<thead>
+				<tr>
+					<th>{% trans "First Name" %}</th>
+					<th>{% trans "Last Name" %}</th>
+					<th>{% trans "Email" %}</th>
+					<th>{% trans "City" %}</th>
+					<th>{% trans "Street" %}</th>
+					<th>{% trans "Street Number" %}</th>
+					<th>{% trans "Post Number" %}</th>
+					<th>{% trans "Payed" %}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for order in object_list %}
+				<tr>
+					<td>{{ order.orderFirstName }}</td>
+					<td>{{ order.orderLastName }}</td>
+					<td>{{ order.orderEmail }}</td>
+					<td>{{ order.orderAddressCity }}</td>
+					<td>{{ order.orderAddressStreet }}</td>
+					<td>{{ order.orderAddressStreetNumber }}</td>
+					<td>{{ order.orderAddressPostNumber }}</td>
+					<td>{{ order.isPaid }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endif %}
+
+{% endblock %}
