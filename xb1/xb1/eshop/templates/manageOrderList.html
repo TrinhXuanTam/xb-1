@@ -36,7 +36,11 @@
 					<td>{{ order.orderAddressStreet }}</td>
 					<td>{{ order.orderAddressStreetNumber }}</td>
 					<td>{{ order.orderAddressPostNumber }}</td>
-					<td>{{ order.isPaid }}</td>
+					{% if order.isPaid %}
+					<td><i class="success-green fas fa-check"></i></td>
+					{% else %}
+					<td><i class="error-red fa fa-times"></i></td>
+					{% endif %}
 					<td><a href="{% url 'eshop:manageOrderTracker' slug=order.orderSlug %}"><i class="fas fa-info"></i> {% trans "Detail" %}</a></td>
 					<td><a href="{% url 'eshop:manageOrderPay' pk=order.pk %}"><i class="fas fa-dollar-sign"></i> {% trans "Pay" %}</a></td>
 					<td><a href="{% url 'eshop:manageOrderRemove' pk=order.pk %}"><i class="fas fa-trash"></i> {% trans "Delete" %}</a></td>
