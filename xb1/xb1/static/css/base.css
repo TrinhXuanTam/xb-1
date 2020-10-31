@@ -108,6 +108,9 @@ body {
 
 #profile-dropdown > img {
     height: 30px;
+    width: 30px;
+    object-fit: cover;
+    object-position: top;
     border-radius: 50%;
     margin-bottom: 5px;
 }
@@ -155,4 +158,12 @@ body {
 
 #profile-dropdown > ul > li:not(:last-of-type) {
     border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.error-red {
+    color: #c80000;
+}
+
+.success-green {
+    color: #32CD32
 }

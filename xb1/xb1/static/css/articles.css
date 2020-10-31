@@ -240,8 +240,9 @@
 .preview_author_profile_image {
     width: 30px;
     height: 30px;
-    object-fit: fill;
     border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
 }
 
 .preview_author_nickname {
@@ -261,6 +262,9 @@
 }
 
 .preview_utilities {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     margin-top: 20px;
     width: 100%;
     text-align: right;
@@ -270,6 +274,9 @@
 .preview_delete_button,
 .preview_hide_button,
 .preview_publish_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
     font-size: 14px;
     background: transparent;
@@ -279,6 +286,9 @@
     border-radius: 5px;
     transition: 0.2s;
     cursor: pointer;
+    box-sizing: border-box;
+    height: 100%;
+    margin: 0 3px;
 }
 
 .delete_confirmation {

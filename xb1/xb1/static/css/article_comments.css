@@ -36,7 +36,8 @@ ul {
   border-radius: 20%;
   width: 3.8rem;
   height: 3.8rem;
-  object-fit: fill;
+  object-fit: cover;
+  object-position: top;
   flex: none;
 }
 

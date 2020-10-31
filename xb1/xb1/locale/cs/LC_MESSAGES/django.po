@@ -642,7 +642,7 @@ msgstr "Nové vlákno"
 
 #: xb1/forum/templates/forum_list.html:17
 msgid "Edit category"
-msgstr "Přidat kategorii"
+msgstr "Upravit kategorii"
 
 msgid "Delete category"
 msgstr "Smazat kategorii"
@@ -653,7 +653,7 @@ msgstr "Poslední příspěvek"
 
 #: xb1/forum/templates/forum_list.html:45
 msgid "Replies"
-msgstr "Odpovědět"
+msgstr "Odpovědi"
 
 #: xb1/forum/views.py:33
 msgid "All forums"
@@ -949,6 +949,12 @@ msgstr "Nezaplacená"
 
 msgid "Paid"
 msgstr "Zaplacená"
+
+msgid "Delete order"
+msgstr "Smazat objednávku"
+
+msgid "This action can't be undone!"
+msgstr "Tuto akci nelze vrátit zpět!"
 
 
 
