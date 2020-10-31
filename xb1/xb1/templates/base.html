@@ -180,6 +180,7 @@
             });
       </script>
 
+      {% if not user.is_authenticated %}
       <!-- Display warning if user fails to authenticate -->
       <script>
           document.getElementById("login_form").onsubmit = function(event) {
@@ -209,6 +210,7 @@
                 });
             }
         </script>
+        {% endif %}
         <script src="{% static 'js/login.js' %}"></script>
     </div>
   </body>
