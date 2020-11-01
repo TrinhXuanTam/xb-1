@@ -311,6 +311,37 @@ class OrderPayView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, 
 		return reverse_lazy('eshop:manageOrderList')
 
 
+class OrderCancelPaymentView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, RedirectView):
+	"""
+	Set payment status of ShopOder to False
+	admin: yes
+	"""
+
+	permanent = False
+	permission_required = "eshop.update_shoporder"
+
+	def get_redirect_url(self, *args, **kwargs):
+		try:
+			id = int(kwargs.get('pk', None))
+		except ValueError:
+			return reverse_lazy('eshop:manageOrderPayFailure', kwargs={'id': 1})
+
+		order = ShopOrder.objects.filter(pk = id).first()
+		if order == None:
+			return reverse('eshop:manageOrderPayFailure', kwargs={'id': 2})
+
+		payment = ShopPayment.objects.filter(paymentOrder = order).first()
+		if payment == None:
+			return reverse('eshop:manageOrderPayFailure', kwargs={'id': 3})
+
+		payment.paymentReceived = False
+		payment.save()
+
+		Log.user_marked_order_as_unpaid(self.request.user, order)
+
+		return reverse_lazy('eshop:manageOrderList')
+
+
 class OrderPayFailureView(DelayRedirectView):
 	"""
 	In case of failure confirmation of payment

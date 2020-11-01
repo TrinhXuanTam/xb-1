@@ -298,6 +298,17 @@ class Log(models.Model):
         return log
 
     @staticmethod
+    def user_marked_order_as_unpaid(user, order):
+
+        log = Log(
+            user=user,
+            action=_("user marked order as unpaid"),
+            order=order
+        )
+        log.save()
+        return log
+
+    @staticmethod
     def user_deleted_order(user, order):
 
         log = Log(
