@@ -330,7 +330,7 @@ class Log(models.Model):
         log.save()
         return log
 
-    @staticmethod  # TODO
+    @staticmethod
     def user_deleted_forum(user, forum):
 
         log = Log(
