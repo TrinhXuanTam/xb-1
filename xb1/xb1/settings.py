@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'xb1.contact',
     'xb1.forum',
     'xb1.eshop',
+    'xb1.shop',
     'django_cleanup',
     'ckeditor',
     'ckeditor_uploader'
@@ -61,6 +62,7 @@ TEMPLATES = [
             BASE_DIR + "/core/templates/",
             BASE_DIR + "/forum/templates/",
             BASE_DIR + "/eshop/templates/",
+            BASE_DIR + "/shop/templates/",
         ],
         'APP_DIRS': False,
         'OPTIONS': {
