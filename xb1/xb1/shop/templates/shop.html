@@ -33,26 +33,25 @@
 				<div class="empty_cart">{% trans "Cart is empty" %}</div>
 			{% else %}
 				<table class = "cartTable" cellspacing="0" cellpadding="0">
-				<tr class="cartTableRow">
-				<th class="cartTableCol" colspan="2">{% trans "Product" %}</th>
-				<th class="cartTableCol">{% trans "Amount" %}</th>
-				<th class="cartTableCol">{% trans "Price" %}</th>
-				<th class="cartTableCol" >{% trans "Add" %}</th>
-				<th class="cartTableCol" >{% trans "Remove" %}</th>
-				<th class="cartTableCol" >{% trans "Cancel" %}</th>
-
-			  </tr>
-				{% for orderItem in cart %}
+					<tr class="cartTableRow">
+						<th class="cartTableCol" colspan="2">{% trans "Product" %}</th>
+						<th class="cartTableCol">{% trans "Amount" %}</th>
+						<th class="cartTableCol">{% trans "Price" %}</th>
+						<th class="cartTableCol">{% trans "Add" %}</th>
+						<th class="cartTableCol">{% trans "Remove" %}</th>
+						<th class="cartTableCol">{% trans "Cancel" %}</th>
+					</tr>
+				{% for item in cart %}
 				<tr class="cartTableRow">
 					<td class="cartTableColMerge">
-						<img class=shopOfferImageCart src="{{ orderItem.0.itemImg.url }}">
+						<img class=shopOfferImageCart src="{{ item.item.image.url }}">
 					</td>
-					<td class="cartTableColMerge"> {{ orderItem.0.itemName }} </td>
-					<td class="cartTableCol"> {{ orderItem.1 }}  </td>
-					<td class="cartTableCol"> {{ orderItem.0.itemPrice }} </td>
-					<td class="cartTableCol"><a href="{% url 'eshop:cartItemAdd' pk=orderItem.0.pk %}"><i class="fas fa-plus"></i></a> </td>
-					<td class="cartTableCol"><a href="{% url 'eshop:cartItemRemove' pk=orderItem.0.pk %}"><i class="fas fa-minus"></i></a> </td>
-					<td class="cartTableCol"><a href="{% url 'eshop:cartItemDiscard' pk=orderItem.0.pk %}"><i class="fas fa-times"></i></a> </td>
+					<td class="cartTableColMerge"> {{ item.item.name }} </td>
+					<td class="cartTableCol"> {{ item.count }}  </td>
+					<td class="cartTableCol"> {{ item.price.price }} </td>
+					<td class="cartTableCol"><a href=""><i class="fas fa-plus"></i></a> </td>
+					<td class="cartTableCol"><a href=""><i class="fas fa-minus"></i></a> </td>
+					<td class="cartTableCol"><a href=""><i class="fas fa-times"></i></a> </td>
 					</tr>
 				{% endfor %}
 			</table>

@@ -39,7 +39,7 @@ class SpecificationEntry(DeleteMixin):
 
 class Order(DeleteMixin):
 
-    firstname =  models.CharField(_("Name"), max_length=100, null=True, blank=True)
+    firstname = models.CharField(_("Name"), max_length=100, null=True, blank=True)
     lastname = models.CharField(_("Surname"), max_length=100, null=True, blank=True)
     email = models.EmailField(_("Email"), max_length = 64)
     city = models.CharField(_("City"), max_length=100, null=True, blank=True)
@@ -55,7 +55,7 @@ class CartEntry(DeleteMixin):
     price = models.ForeignKey(Price, on_delete=models.CASCADE, blank=True)
     item = models.ForeignKey(Item, on_delete=models.CASCADE, blank=True)
     specification = models.ManyToManyField(SpecificationEntry, blank=True)
-    order = models.ForeignKey(Order, verbose_name=_("Order"), on_delete = models.CASCADE, blank=True, null=False)
+    order = models.ForeignKey(Order, verbose_name=_("Order"), on_delete = models.CASCADE, blank=True, null=True)
 
     @property
     def total(self):
@@ -65,4 +65,35 @@ class Cart():
     
     def __init__(self, memory=[]):
         self.memory = memory
-        # TO-DO call Validate
+
+    def add(self, item, count):
+        for entryID in self.memory:
+            entry = CartEntry.objects.filter(pk=entryID).first()
+            if entry.item.pk == item.pk:
+                entry.count += count
+                entry.save()
+                return None
+
+        entry = CartEntry()
+        entry.count = count
+        entry.price = item.price
+        entry.item = item
+        entry.order = None
+        entry.save()
+
+        self.memory.append(entry.pk)
+        return None
+
+    def set(self, item, count):
+        pass
+
+    def get(self, item):
+        pass
+
+    def asTemplate(self):
+        result = []
+        for entryID in self.memory:
+            entry = CartEntry.objects.filter(pk=entryID).first()
+            result.append(entry)
+        
+        return result
