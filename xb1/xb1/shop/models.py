@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.core import serializers
 
 from ..core.models import DeleteMixin
 from ..core.models import User
@@ -49,51 +50,19 @@ class Order(DeleteMixin):
     slug = models.SlugField(verbose_name=_("Slug"), unique=True, max_length=100, blank=True, null=True)
     user = models.ForeignKey(User, verbose_name=_("User"), on_delete = models.PROTECT, blank=True, null=True)
 
+class Cart(DeleteMixin):
+
+    creation = models.DateTimeField(verbose_name=_('Creation date'))
+    order = models.ForeignKey(Order, verbose_name=_("Order"), on_delete = models.CASCADE, blank=True, null=True)
+
 class CartEntry(DeleteMixin):
 
     count = models.IntegerField(_("Count"))
     price = models.ForeignKey(Price, on_delete=models.CASCADE, blank=True)
     item = models.ForeignKey(Item, on_delete=models.CASCADE, blank=True)
     specification = models.ManyToManyField(SpecificationEntry, blank=True)
-    order = models.ForeignKey(Order, verbose_name=_("Order"), on_delete = models.CASCADE, blank=True, null=True)
+    cart = models.ForeignKey(Cart, verbose_name=_("Cart"), on_delete = models.CASCADE, blank=True, null=True)
 
     @property
     def total(self):
         return self.count * self.price.price
-
-class Cart():
-    
-    def __init__(self, memory=[]):
-        self.memory = memory
-
-    def add(self, item, count):
-        for entryID in self.memory:
-            entry = CartEntry.objects.filter(pk=entryID).first()
-            if entry.item.pk == item.pk:
-                entry.count += count
-                entry.save()
-                return None
-
-        entry = CartEntry()
-        entry.count = count
-        entry.price = item.price
-        entry.item = item
-        entry.order = None
-        entry.save()
-
-        self.memory.append(entry.pk)
-        return None
-
-    def set(self, item, count):
-        pass
-
-    def get(self, item):
-        pass
-
-    def asTemplate(self):
-        result = []
-        for entryID in self.memory:
-            entry = CartEntry.objects.filter(pk=entryID).first()
-            result.append(entry)
-        
-        return result

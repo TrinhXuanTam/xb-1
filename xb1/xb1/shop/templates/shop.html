@@ -24,12 +24,12 @@
 <div class="shopOrderBox">
 
 	<div class="cart_header">
-		<button class="cart_caption"><i class="fas fa-shopping-cart"></i> {% trans "Cart" %} ({{ cart|length }}) <i class="cart_display_arrow fas"></i></button>
+		<button class="cart_caption"><i class="fas fa-shopping-cart"></i> {% trans "Cart" %} ({{ cart.count }}) <i class="cart_display_arrow fas"></i></button>
 	</div>
 
 	<div class="collapsible_cart">
 		<div class="collapsible_cart_wrapper">
-			{% if cart|length == 0 %}
+			{% if cart.count == 0 %}
 				<div class="empty_cart">{% trans "Cart is empty" %}</div>
 			{% else %}
 				<table class = "cartTable" cellspacing="0" cellpadding="0">
@@ -48,18 +48,18 @@
 					</td>
 					<td class="cartTableColMerge"> {{ item.item.name }} </td>
 					<td class="cartTableCol"> {{ item.count }}  </td>
-					<td class="cartTableCol"> {{ item.price.price }} </td>
-					<td class="cartTableCol"><a href=""><i class="fas fa-plus"></i></a> </td>
-					<td class="cartTableCol"><a href=""><i class="fas fa-minus"></i></a> </td>
-					<td class="cartTableCol"><a href=""><i class="fas fa-times"></i></a> </td>
+					<td class="cartTableCol"> {{ item.price.price|floatformat:"-2" }} </td>
+					<td class="cartTableCol"><a href="{% url 'shop:cartadd' pk=item.item.pk %}"><i class="fas fa-plus"></i></a> </td>
+					<td class="cartTableCol"><a href="{% url 'shop:cartremove' pk=item.item.pk %}"><i class="fas fa-minus"></i></a> </td>
+					<td class="cartTableCol"><a href="{% url 'shop:cartdiscard' pk=item.item.pk %}"><i class="fas fa-times"></i></a> </td>
 					</tr>
 				{% endfor %}
 			</table>
 			<br>
-			<a href="{% url 'eshop:cartItemsDiscard' %}"><i class="fas fa-trash"></i> {% trans "Delete all" %}</a> <br>
+			<a href="{% url 'shop:cartdiscardall' %}"><i class="fas fa-trash"></i> {% trans "Delete all" %}</a> <br>
 			<div class="cartBottom">
-				Celková cena: {{ totalPrice }} <br>
-				<input class="order_btn" type="button" onclick="location.href='{% url 'eshop:manageOrderCreate' %}'" value="{% trans 'Create order' %}"/>
+				Celková cena: {{ cart.price|floatformat:"-2" }} <br>
+				<a href="" class="order_btn">{% trans 'Create order' %}</a>
 			</div>
 			{% endif %}
 		</div>
@@ -81,7 +81,7 @@
 					</div>
 					<div class="shopOfferControl">
 						<div>{{ item.price.price|floatformat:"-2" }}</div>
-						<div><a onclick="sessionStorage.setItem('cartStatus', 'opened');" href="">{% trans "Add to cart" %}</a></div>
+						<div><a onclick="sessionStorage.setItem('cartStatus', 'opened');" href="{% url 'shop:cartadd' pk=item.pk %}">{% trans "Add to cart" %}</a></div>
 					</div>
 				</div>
 			</li>
