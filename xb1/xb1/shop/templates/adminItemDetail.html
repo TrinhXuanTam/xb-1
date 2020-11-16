@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load i18n %}
+
+{%block include%}
+	<link rel="stylesheet" href="{% static 'css/product_list.css' %}" >
+{%endblock%}
+
+{%block content %}
+	{{ item.name }}
+	{{ item.image }}
+	{{ item.desc }}
+
+	<!-- Actual price, can be null if item is not active -->
+	{{ item.price.price }}
+	{{ item.price.since }}
+	{{ item.price.till }}
+
+	<!-- Under index priceHistory is hidden list of all prices, from the oldest -->
+	{% for price in priceHistory%}
+		{{ price.price }}
+	{% endfor %}
+
+{% endblock %}
