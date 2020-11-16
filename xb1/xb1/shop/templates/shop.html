@@ -49,9 +49,9 @@
 					<td class="cartTableColMerge"> {{ item.item.name }} </td>
 					<td class="cartTableCol"> {{ item.count }}  </td>
 					<td class="cartTableCol"> {{ item.price.price|floatformat:"-2" }} </td>
-					<td class="cartTableCol"><a href="{% url 'shop:cartadd' pk=item.item.pk %}"><i class="fas fa-plus"></i></a> </td>
-					<td class="cartTableCol"><a href="{% url 'shop:cartremove' pk=item.item.pk %}"><i class="fas fa-minus"></i></a> </td>
-					<td class="cartTableCol"><a href="{% url 'shop:cartdiscard' pk=item.item.pk %}"><i class="fas fa-times"></i></a> </td>
+					<td class="cartTableCol"><a href="{% url 'shop:cartadd' pk=item.pk %}"><i class="fas fa-plus"></i></a> </td>
+					<td class="cartTableCol"><a href="{% url 'shop:cartremove' pk=item.pk %}"><i class="fas fa-minus"></i></a> </td>
+					<td class="cartTableCol"><a href="{% url 'shop:cartdiscard' pk=item.pk %}"><i class="fas fa-times"></i></a> </td>
 					</tr>
 				{% endfor %}
 			</table>
@@ -81,7 +81,7 @@
 					</div>
 					<div class="shopOfferControl">
 						<div>{{ item.price.price|floatformat:"-2" }}</div>
-						<div><a onclick="sessionStorage.setItem('cartStatus', 'opened');" href="{% url 'shop:cartadd' pk=item.pk %}">{% trans "Add to cart" %}</a></div>
+						<div><a onclick="sessionStorage.setItem('cartStatus', 'opened');" href="{% url 'shop:cartinsert' pk=item.pk %}">{% trans "Add to cart" %}</a></div>
 					</div>
 				</div>
 			</li>

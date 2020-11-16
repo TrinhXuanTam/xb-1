@@ -34,17 +34,18 @@ class Cart:
 
         return cart
 
-    def add(self, item, count=1):
-        entry = models.CartEntry.objects.filter(cart=self.cart, item=item).first()
+    def insert(self, item):
+        models.CartEntry.objects.create(cart=self.cart, item=item, count=1, price=item.price)
+
+    def add(self, pk, count=1):
+        entry = models.CartEntry.objects.filter(cart=self.cart, pk=pk).first()
         if entry:
             entry.count += count
             entry.price = entry.item.price
             entry.save()
-        else:
-            models.CartEntry.objects.create(cart=self.cart, item=item, count=count, price=item.price)
 
-    def remove(self, item, count=1):
-        entry = models.CartEntry.objects.filter(cart=self.cart, item=item).first()
+    def remove(self, pk, count=1):
+        entry = models.CartEntry.objects.filter(cart=self.cart, pk=pk).first()
         if entry:
             entry.count -= count
             if entry.count < 1:
@@ -54,14 +55,14 @@ class Cart:
                 entry.price = entry.item.price
                 entry.save()
 
-    def discard(self, item):
-        if item is None:
+    def discard(self, pk):
+        if pk is None:
             for entry in self.cart.cartentry_set.all():
                 entry.count = 0
                 entry.cart = None
                 entry.delete()
         else:    
-            entry = models.CartEntry.objects.filter(cart=self.cart, item=item).first()
+            entry = models.CartEntry.objects.filter(cart=self.cart, pk=pk).first()
             entry.count = 0
             entry.cart = None
             entry.delete()
