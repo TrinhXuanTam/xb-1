@@ -7,6 +7,8 @@ from .models import Item
 class ItemCreateForm(forms.ModelForm):
     price = forms.FloatField(label=_("Product price"))
     till = forms.DateTimeField(label=_("Till"))
+    specificationname = forms.CharField(label=_("Specification name"), max_length = 50,required=False)
+    specificationvalue = forms.CharField(label=_("Specification value"), max_length = 50,required=False)
 
     def clean(self):
         return super(ItemCreateForm, self).clean()
@@ -25,6 +27,8 @@ class ItemCreateForm(forms.ModelForm):
 class ItemUpdateForm(forms.ModelForm):
     price = forms.FloatField(label=_("Product price"))
     till = forms.DateTimeField(label=_("Till"))
+    specificationname = forms.CharField(label=_("Specification name"), max_length = 50,required=False)
+    specificationvalue = forms.CharField(label=_("Specification value"), max_length = 50,required=False)
 
     def clean(self):
         return super(ItemUpdateForm, self).clean()

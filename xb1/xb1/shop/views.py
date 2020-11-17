@@ -15,7 +15,7 @@ from django.core import serializers
 from django.utils import timezone
 
 from ..core.views import LoginMixinView
-from .models import Item, Price, CartEntry
+from .models import Item, Price, CartEntry, Specification, SpecificationEntry
 from .cart import Cart
 from .forms import ItemCreateForm, ItemUpdateForm
 
@@ -140,6 +140,12 @@ class ItemCreateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin
         item = Item.objects.create(name=form.cleaned_data['name'], desc=form.cleaned_data['desc'], image=form.cleaned_data['image'])
         Price.objects.create(price=form.cleaned_data['price'], item=item, since=timezone.now(), till=form.cleaned_data['till'])
 
+        if form.cleaned_data['specificationname'] != '' and form.cleaned_data['specificationvalue'] != '':
+            specification = Specification.objects.create(name=form.cleaned_data['specificationname'], item=item)
+            entries = form.cleaned_data['specificationvalue'].split(',')
+            for entry in entries:
+                SpecificationEntry.objects.create(value=entry, specification=specification)
+
         return super().form_valid(form)
 
 class ItemUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
@@ -155,9 +161,25 @@ class ItemUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin
         if self.object.price is not None:
             initial['price'] = self.object.price.price
             initial['till'] = self.object.price.till
+
+        if self.object.specification is not None:
+            initial['specificationname'] = self.object.specification.name
+            initial['specificationvalue'] = ",".join(entry.value for entry in self.object.specification.entry)
+                
         return initial
 
     def form_valid(self, form):
+        if self.object.specification is not None:
+            spec = self.object.specification
+            spec.active=False
+            spec.save()
+
+        if form.cleaned_data['specificationname'] != '' and form.cleaned_data['specificationvalue'] != '':
+            specification = Specification.objects.create(name=form.cleaned_data['specificationname'], item=self.object, active=True)
+            entries = form.cleaned_data['specificationvalue'].split(',')
+            for entry in entries:
+                SpecificationEntry.objects.create(value=entry, specification=specification)
+
         if self.object.price is None:
             Price.objects.create(price=form.cleaned_data['price'], item=self.object, since=timezone.now(), till=form.cleaned_data['till'])
 

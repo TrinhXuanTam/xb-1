@@ -21,6 +21,10 @@ class Item(DeleteMixin):
                 return price
         return None
 
+    @property
+    def specification(self):
+        return Specification.objects.filter(item=self, active=True).first()    
+
 class Price(DeleteMixin):
 
     price = models.FloatField(_("Product price"))
@@ -32,6 +36,11 @@ class Specification(DeleteMixin):
 
     name = models.CharField(_("Specification"), max_length = 50)
     item = models.ForeignKey(Item, on_delete=models.CASCADE, blank=True)
+    active = models.BooleanField(_("Active"), blank=True)
+
+    @property
+    def entry(self):
+        return SpecificationEntry.objects.filter(specification=self).all() 
 
 class SpecificationEntry(DeleteMixin):
 
