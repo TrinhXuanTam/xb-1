@@ -4,29 +4,38 @@ from django.utils.translation import ugettext_lazy as _
 from ..core.widgets import DatePickerInput
 from .models import Item
 
-class ItemForm(forms.ModelForm):
-    #price = forms.FloatField(label=_("Product price"))
-    since = forms.DateTimeField(label=_("Since"))
+class ItemCreateForm(forms.ModelForm):
+    price = forms.FloatField(label=_("Product price"))
     till = forms.DateTimeField(label=_("Till"))
 
     def clean(self):
-        return super(ItemForm, self).clean()
+        return super(ItemCreateForm, self).clean()
 
     def __init__(self, *args, **kwargs):
-        super(ItemForm, self).__init__(*args, **kwargs)
-
-        #self.fields['name'].widget.attrs['class'] = 'input_center'
-        #self.fields['desc'].widget.attrs['class'] = 'input_center'
-        #self.fields['image'].widget.attrs['class'] = 'input_img'
-        #self.fields['price'].widget.attrs['class'] = 'input_center'
-        #self.fields['since'].widget.attrs['class'] = 'input_center'
-        self.fields['since'].widget = DatePickerInput()
+        super(ItemCreateForm, self).__init__(*args, **kwargs)
         self.fields['till'].widget = DatePickerInput()
-        #self.fields['till'].widget.attrs['class'] = 'input_center'
 
     class Meta:
         model = Item
-        fields = ()
+        fields = ("name", "desc", "image")
+        widgets = {
+            'image': forms.FileInput
+        }
+
+class ItemUpdateForm(forms.ModelForm):
+    price = forms.FloatField(label=_("Product price"))
+    till = forms.DateTimeField(label=_("Till"))
+
+    def clean(self):
+        return super(ItemUpdateForm, self).clean()
+
+    def __init__(self, *args, **kwargs):
+        super(ItemUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['till'].widget = DatePickerInput()
+
+    class Meta:
+        model = Item
+        fields = ("name", "desc", "image")
         widgets = {
             'image': forms.FileInput
         }

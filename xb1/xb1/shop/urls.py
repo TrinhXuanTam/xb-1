@@ -18,4 +18,5 @@ urlpatterns = [
     url(r'^admin/item/list$', views.ItemListView.as_view(), name="adminItemList"),
     url(r'^admin/item/create$', views.ItemCreateView.as_view(), name="adminItemCreate"),
     url(r'^admin/item/detail/(?P<pk>[0-9]+)$', views.ItemDetailView.as_view(), name="adminItemDetail"),
+    url(r'^admin/item/update/(?P<pk>[0-9]+)$', views.ItemUpdateView.as_view(), name="adminItemUpdate"),
 ]

@@ -12,11 +12,12 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.core import serializers
+from django.utils import timezone
 
 from ..core.views import LoginMixinView
 from .models import Item, Price, CartEntry
 from .cart import Cart
-from .forms import ItemForm
+from .forms import ItemCreateForm, ItemUpdateForm
 
 class ShopIndex(LoginMixinView, ListView):
 
@@ -130,15 +131,41 @@ class ItemDetailView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin
 
 class ItemCreateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, FormView):
 
-    form_class = ItemForm
+    form_class = ItemCreateForm
     template_name = "adminItemCreate.html"
     success_url = reverse_lazy("shop:adminItemList")
     permission_required = "shop.add_item"
 
     def form_valid(self, form):
-        print("HH")
-        print(form.cleaned_data)
+        item = Item.objects.create(name=form.cleaned_data['name'], desc=form.cleaned_data['desc'], image=form.cleaned_data['image'])
+        Price.objects.create(price=form.cleaned_data['price'], item=item, since=timezone.now(), till=form.cleaned_data['till'])
 
-        
+        return super().form_valid(form)
+
+class ItemUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+
+    model = Item
+    form_class = ItemUpdateForm
+    template_name = "adminItemUpdate.html"
+    success_url = reverse_lazy("shop:adminItemList")
+    permission_required = "shop.change_item"
+
+    def get_initial(self):
+        initial = super(ItemUpdateView, self).get_initial()
+        if self.object.price is not None:
+            initial['price'] = self.object.price.price
+            initial['till'] = self.object.price.till
+        return initial
+
+    def form_valid(self, form):
+        if self.object.price is None:
+            Price.objects.create(price=form.cleaned_data['price'], item=self.object, since=timezone.now(), till=form.cleaned_data['till'])
+
+        if self.object.price is not None and ( self.object.price.price != form.cleaned_data['price'] or self.object.price.till != form.cleaned_data['till']):
+            price = self.object.price
+            price.till = timezone.now()
+            price.save()
+
+            Price.objects.create(price=form.cleaned_data['price'], item=self.object, since=timezone.now(), till=form.cleaned_data['till'])
 
         return super().form_valid(form)
