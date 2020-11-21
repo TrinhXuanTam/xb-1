@@ -12,7 +12,7 @@ from ..settings import EMAIL_HOST_USER, FEEDBACK_EMAIL
 # Create your views here.
 
 
-class ContactFormView(LoginMixinView, LoginRequiredMixin, FormView):
+class ContactFormView(FormView):
     """
     Contact form for authenticated users,
     sends message to email specified in settings.py
@@ -27,5 +27,4 @@ class ContactFormView(LoginMixinView, LoginRequiredMixin, FormView):
         subject = form.cleaned_data["subject"]
         send_mail(subject, message, EMAIL_HOST_USER, [FEEDBACK_EMAIL], fail_silently=False)
         messages.success(self.request, _("Email has been successfully sent."))
-
         return super(ContactFormView, self).form_valid(form)
