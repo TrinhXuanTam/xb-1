@@ -30,7 +30,7 @@ test:
   stage: test
   image: tiangolo/docker-with-compose
   script:
-    - docker-compose -f docker-compose.yml build
+    - docker-compose -f gitlab_ci_config/test.yml build
     # - docker-compose -f test.yml run --rm django pydocstyle
     # - docker-compose -f test.yml run --rm django flake8
     # - docker-compose -f test.yml run django coverage run -m pytest
