@@ -6,12 +6,12 @@ django-cleanup==4.0.0
 django-crispy-forms==1.9.0
 django-js-asset==1.2.2
 django-model-utils==4.0.0
-Pillow==7.1.1
+# Pillow==7.1.1
 pytz==2019.3
 six==1.14.0
 sqlparse==0.3.0
 whitenoise==5.0.1
-Pillow==7.1.1
 django-crispy-forms==1.9.0
 django-cleanup==4.0.0
 selenium
+gunicorn==20.0.4

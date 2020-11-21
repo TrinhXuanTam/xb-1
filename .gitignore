@@ -13,6 +13,7 @@ __pycache__/
 
 # Static Root folder
 staticRoot
+staticfiles
 
 # IDE settings
 .vscode
@@ -22,6 +23,10 @@ staticRoot
 passwords.py
 
 # Images
-profile_image/
-thumbnails/
-article_content_images/
+# profile_image/*
+# thumbnails/*
+# article_content_images/*
+
+# Production enviroment settings
+.env.prod
+.env.prod.db
