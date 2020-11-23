@@ -19,13 +19,14 @@ test:
         - apk update && apk add --no-cache yq
         - docker-compose -f docker-compose.ci-test.yml up -d --build
         - docker images
+        # test the entrypoint
 
 build:
     stage: build
     script:
         - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
         - echo $CONTAINER_TEST_IMAGE
-        - docker build -t $CONTAINER_TEST_IMAGE -f xb1/Dockerfile.prod .
+        - docker build -t $CONTAINER_TEST_IMAGE -f xb1/Dockerfile.ci-build .
         - docker push $CONTAINER_TEST_IMAGE
 
 release:
