@@ -77,7 +77,7 @@ RUN pip install --no-cache /wheels/*
 COPY ./xb1/entrypoint.prod.sh $APP_HOME
 
 # copy project
-COPY . $APP_HOME
+COPY ./xb1 $APP_HOME
 
 # chown all the files to the xb1 user
 RUN chown -R xb1:xb1 $APP_HOME
