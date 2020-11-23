@@ -73,3 +73,9 @@ class Cart:
             entry.count = 0
             entry.cart = None
             entry.delete()
+
+    def is_empty(self):
+        if models.CartEntry.objects.filter(cart=self.cart):
+            return False
+        else:
+            return True

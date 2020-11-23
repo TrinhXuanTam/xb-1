@@ -20,4 +20,8 @@ urlpatterns = [
     url(r'^admin/item/create$', views.ItemCreateView.as_view(), name="adminItemCreate"),
     url(r'^admin/item/detail/(?P<pk>[0-9]+)$', views.ItemDetailView.as_view(), name="adminItemDetail"),
     url(r'^admin/item/update/(?P<pk>[0-9]+)$', views.ItemUpdateView.as_view(), name="adminItemUpdate"),
+
+    url(r'^order/create$', views.OrderCreateView.as_view(), name="orderCreate"),
+
+    url(r'^admin/order/list$', views.OrderListView.as_view(), name="adminOrderList"),
 ]

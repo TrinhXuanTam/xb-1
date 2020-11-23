@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from ..core.widgets import DatePickerInput
-from .models import Item
+from .models import Item, Order
 
 class ItemCreateForm(forms.ModelForm):
     price = forms.FloatField(label=_("Product price"))
@@ -42,4 +42,19 @@ class ItemUpdateForm(forms.ModelForm):
         fields = ("name", "desc", "image")
         widgets = {
             'image': forms.FileInput
+        }
+
+class OrderCreateForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(OrderCreateForm, self).__init__(*args, **kwargs)
+
+        for field_name in ("firstname", "lastname", "email", "city", "street", "post", "phone"):
+            self.fields[field_name].widget.attrs['class'] = 'order_form_input'
+
+    class Meta:
+        model = Order
+        fields = ("firstname", "lastname", "email", "city", "street", "post", "phone")
+        labels = {
+            'post': _("Postal code"),
         }

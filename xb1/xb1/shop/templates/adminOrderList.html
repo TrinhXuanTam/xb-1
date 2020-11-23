@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load i18n %}
+
+{%block include%}
+<link rel="stylesheet" href="{% static 'css/orders_list.css' %}">
+<script defer src="{% static 'js/orders_list.js' %}"></script>
+{%endblock%}
+
+{%block content %}
+
+{% if object_list %}
+<div id="orders-list">
+	<div class="responsive-table-wrapper">
+		<table>
+			<thead>
+				<tr>
+					<th>{% trans "First Name" %}</th>
+					<th>{% trans "Last Name" %}</th>
+					<th>{% trans "Email" %}</th>
+					<th>{% trans "VS" %}</th>
+					<th>{% trans "TotalPrice" %}</th>
+					<th>{% trans "Payed" %}</th>
+					<th colspan="3">{% trans "Action" %}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for order in object_list %}
+				<tr>
+					<td>{{ order.orderFirstName }}</td>
+					<td>{{ order.orderLastName }}</td>
+					<td class="order-email">{{ order.orderEmail }}</td>
+					<td>{{ order.payment.paymentVariableSymbol }}</td>
+					<td>{{ order.payment.paymentPrice }},-</td>
+					{% if order.isPaid %}
+						<td><i class="success-green fas fa-check"></i></td>
+					{% else %}
+						<td><i class="error-red fa fa-times"></i></td>
+					{% endif %}
+					<td><a href="{% url 'eshop:manageOrderTracker' slug=order.orderSlug %}"><i class="fas fa-info"></i> {% trans "Detail" %}</a></td>
+					{% if order.isPaid %}
+						<td><a href="{% url 'eshop:manage_order_cancel_payment' pk=order.pk %}"><i class="fas fa-times"></i> {% trans "Cancel payment" %}</a></td>
+					{% else %}
+						<td><a href="{% url 'eshop:manageOrderPay' pk=order.pk %}"><i class="fas fa-dollar-sign"></i> {% trans "Pay" %}</a></td>
+					{% endif %}
+					<td><a class="delete-order-button" href="{% url 'eshop:manageOrderRemove' pk=order.pk %}"><i class="fas fa-trash"></i> {% trans "Delete" %}</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+
+{% block modal %}
+<h1>{% trans "Delete order" %}</h1>
+<p>{% trans "Are you sure you want to delete order with email address:" %} <strong></strong>?</p>
+<p>{% trans "This action can't be undone!" %}</p>
+
+<form action="" method="POST">
+	{% csrf_token %}
+	<button>{% trans "Confirm" %}</button>
+</form>
+{% endblock %}

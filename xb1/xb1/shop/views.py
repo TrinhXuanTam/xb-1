@@ -11,13 +11,15 @@ from django.views.generic.detail import DetailView
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
+from django.urls import reverse
+from django.shortcuts import redirect
 from django.core import serializers
 from django.utils import timezone
 
 from ..core.views import LoginMixinView
-from .models import Item, Price, CartEntry, Specification, SpecificationEntry
+from .models import Item, Price, CartEntry, Specification, SpecificationEntry, Order
 from .cart import Cart
-from .forms import ItemCreateForm, ItemUpdateForm
+from .forms import ItemCreateForm, ItemUpdateForm, OrderCreateForm
 
 class ShopIndex(LoginMixinView, ListView):
 
@@ -224,3 +226,38 @@ class ItemUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin
             Price.objects.create(price=form.cleaned_data['price'], item=self.object, since=timezone.now(), till=form.cleaned_data['till'])
 
         return super().form_valid(form)
+
+class OrderListView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, ListView):
+
+    model = Order
+    template_name = "adminOrderList.html"
+    permission_required = "shop.view_order"
+
+class OrderCreateView(LoginMixinView, FormView):
+
+    template_name = "orderCreate.html"
+    form_class = OrderCreateForm
+    success_url = reverse_lazy("eshop:shopIndex")
+
+    def get_initial(self):
+        initial = super(OrderCreateView, self).get_initial()
+
+        if not self.request.user.is_anonymous:
+            user = self.request.user
+            initial['firstname'] = user.profile.name
+            initial['lastname'] = user.profile.surname
+            initial['email'] = user.email
+            initial['city'] = user.profile.city
+            initial['street'] = user.profile.address
+            initial['post'] = user.profile.postalCode
+            initial['phone'] = user.profile.phone
+
+        return initial
+
+    def render_to_response(self, context):
+        cart = Cart(self.request)
+        if cart.is_empty():
+            messages.warning(self.request, _("Cart empty"))
+            return redirect(reverse('shop:shopView'))
+            
+        return super(OrderCreateView, self).render_to_response(context)
