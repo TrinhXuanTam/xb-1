@@ -26,5 +26,7 @@ RUN echo 123
 # copy project
 COPY . .
 
+RUN python manage.py migrate
+
 # run entrypoint.sh
 CMD ["/usr/src/xb1/entrypoint.ci.sh"] | RUN echo
