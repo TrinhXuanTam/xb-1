@@ -50,7 +50,7 @@ services:
     env_file:
         - ./.env.gitlab
   nginx:
-    build: ./nginx
+    build: ../nginx
     volumes:
       - static_volume:/home/xb1/web/xb1/staticfiles
       - media_volume:/home/xb1/web/xb1/media
