@@ -235,7 +235,7 @@ class ShopItemUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredM
 #
 # Order Views
 #
-class OrderListView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class OrderListView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
 	"""
 	Display all ShopOrder in list also with values of each instance
 	page: ^manage/order/list/$
@@ -245,6 +245,17 @@ class OrderListView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin,
 	model = ShopOrder
 	template_name = "manageOrderList.html"
 	permission_required = "eshop.view_shoporder"
+
+	def get_context_data(self, *args, **kwargs):
+
+		context = super(OrderListView, self).get_context_data(*args, **kwargs)
+
+		context["object_list"] = ShopOrder.objects.all()
+
+		for order in context["object_list"]:
+			order.payment = order.shoppayment_set.first()
+
+		return context
 
 
 class OrderRemoveView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
@@ -294,6 +305,39 @@ class OrderPayView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, 
 
 		payment.paymentReceived = True
 		payment.save()
+
+		Log.user_marked_order_as_paid(self.request.user, order)
+
+		return reverse_lazy('eshop:manageOrderList')
+
+
+class OrderCancelPaymentView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, RedirectView):
+	"""
+	Set payment status of ShopOder to False
+	admin: yes
+	"""
+
+	permanent = False
+	permission_required = "eshop.update_shoporder"
+
+	def get_redirect_url(self, *args, **kwargs):
+		try:
+			id = int(kwargs.get('pk', None))
+		except ValueError:
+			return reverse_lazy('eshop:manageOrderPayFailure', kwargs={'id': 1})
+
+		order = ShopOrder.objects.filter(pk = id).first()
+		if order == None:
+			return reverse('eshop:manageOrderPayFailure', kwargs={'id': 2})
+
+		payment = ShopPayment.objects.filter(paymentOrder = order).first()
+		if payment == None:
+			return reverse('eshop:manageOrderPayFailure', kwargs={'id': 3})
+
+		payment.paymentReceived = False
+		payment.save()
+
+		Log.user_marked_order_as_unpaid(self.request.user, order)
 
 		return reverse_lazy('eshop:manageOrderList')
 
@@ -399,7 +443,7 @@ class OrderCreateView(LoginMixinView, FormView):
 				paymentVariableSymbol = yearVariableSymbol + orderVariableSymbol
 				payment.paymentVariableSymbol = paymentVariableSymbol
 				payment.paymentSpecificSymbol = 0
-				payment.save() 
+				payment.save()
 
 				Log.user_created_order(self.request.user, form.instance)
 
@@ -481,6 +525,7 @@ class OrderTrackerFailureView(DelayRedirectView):
 	def __init__(self):
 		super(OrderTrackerFailureView, self).__init__(5000, "eshop:shopIndex", None,
 			[_("Something bad happened"), _("Order related with this tracker doesn't exists")])
+
 
 class OrderListViewX(LoginMixinView, LoginRequiredMixin, ListView):
 

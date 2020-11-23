@@ -19,10 +19,8 @@
 					<th>{% trans "First Name" %}</th>
 					<th>{% trans "Last Name" %}</th>
 					<th>{% trans "Email" %}</th>
-					<th>{% trans "City" %}</th>
-					<th>{% trans "Street" %}</th>
-					<th>{% trans "Street Number" %}</th>
-					<th>{% trans "Post Number" %}</th>
+					<th>{% trans "VS" %}</th>
+					<th>{% trans "TotalPrice" %}</th>
 					<th>{% trans "Payed" %}</th>
 					<th colspan="3">{% trans "Action" %}</th>
 				</tr>
@@ -33,17 +31,19 @@
 					<td>{{ order.orderFirstName }}</td>
 					<td>{{ order.orderLastName }}</td>
 					<td class="order-email">{{ order.orderEmail }}</td>
-					<td>{{ order.orderAddressCity }}</td>
-					<td>{{ order.orderAddressStreet }}</td>
-					<td>{{ order.orderAddressStreetNumber }}</td>
-					<td>{{ order.orderAddressPostNumber }}</td>
+					<td>{{ order.payment.paymentVariableSymbol }}</td>
+					<td>{{ order.payment.paymentPrice }},-</td>
 					{% if order.isPaid %}
-					<td><i class="success-green fas fa-check"></i></td>
+						<td><i class="success-green fas fa-check"></i></td>
 					{% else %}
-					<td><i class="error-red fa fa-times"></i></td>
+						<td><i class="error-red fa fa-times"></i></td>
 					{% endif %}
 					<td><a href="{% url 'eshop:manageOrderTracker' slug=order.orderSlug %}"><i class="fas fa-info"></i> {% trans "Detail" %}</a></td>
-					<td><a href="{% url 'eshop:manageOrderPay' pk=order.pk %}"><i class="fas fa-dollar-sign"></i> {% trans "Pay" %}</a></td>
+					{% if order.isPaid %}
+						<td><a href="{% url 'eshop:manage_order_cancel_payment' pk=order.pk %}"><i class="fas fa-times"></i> {% trans "Cancel payment" %}</a></td>
+					{% else %}
+						<td><a href="{% url 'eshop:manageOrderPay' pk=order.pk %}"><i class="fas fa-dollar-sign"></i> {% trans "Pay" %}</a></td>
+					{% endif %}
 					<td><a class="delete-order-button" href="{% url 'eshop:manageOrderRemove' pk=order.pk %}"><i class="fas fa-trash"></i> {% trans "Delete" %}</a></td>
 				</tr>
 				{% endfor %}
