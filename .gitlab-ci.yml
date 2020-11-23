@@ -1,7 +1,7 @@
-image: docker:stable-dind
+image: tiangolo/docker-with-compose
 
 services:
-    - docker:stable-dind
+    - docker:dind
 
 stages:
     - test
