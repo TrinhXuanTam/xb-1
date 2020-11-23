@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0021_auto_20201123_2102'),
+        ('core', '0021_log_order_ref'),
         ('eshop', '0015_delete_shoporderitem'),
     ]
 
