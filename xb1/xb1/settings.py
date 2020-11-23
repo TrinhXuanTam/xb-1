@@ -33,7 +33,8 @@ INSTALLED_APPS = [
     'xb1.eshop',
     'django_cleanup',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'captcha',
 ]
 
 MIDDLEWARE = [

@@ -35,6 +35,9 @@ class ShopItem(DeleteMixin):
 	itemType = models.PositiveSmallIntegerField(_("Product type"), choices=TYPE_CHOICES, default=NONE)
 	itemActive = models.BooleanField(_("Activate"), default=True)
 
+	def __str__(self):
+		return self.itemName
+
 
 class ShopOrder(DeleteMixin):
 	"""
