@@ -1,16 +1,3 @@
-# stages:
-#   - test
-
-# test:
-#   stage: test
-#   script:
-#   - apk update
-#   - apk add python3
-#   - apk add --no-cache --update python3
-#   - apk add --no-cache --update python3-dev gcc jpeg-dev zlib-dev musl-dev
-#   - pip3 install --upgrade pip setuptools
-#   - pip3 install -r requirements.txt
-#   - cd xb1
 image: docker:latest
 services:
   - docker:dind
@@ -21,33 +8,72 @@ variables:
   CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_SLUG
   CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest
 
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+
 stages:
-  - test
   - build
+  - test
   - release
 
-test:
-  stage: test
-  image: tiangolo/docker-with-compose
-  script:
-    - docker-compose -f gitlab_ci_config/test.yml up -d --build
-    # - docker-compose exec web python manage.py migrate
-    - docker-compose -f gitlab_ci_config/test.yml down -v
-
-build:
+db_build:
   stage: build
-  script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - echo $CONTAINER_TEST_IMAGE
-    - docker build -t $CONTAINER_TEST_IMAGE -f compose/production/django/Dockerfile .
-    - docker push $CONTAINER_TEST_IMAGE
+  image: postgres:12.0-alpine
+  volumes:
+    - postgres_data:/var/lib/postgresql/data/
+  env_file:
+    - ./.env.gitlab
 
-release:
-  stage: release
-  script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker pull $CONTAINER_TEST_IMAGE
-    - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
-    - docker push $CONTAINER_RELEASE_IMAGE
-  only:
-    - master
+django_build:
+  stage: build
+  build:
+    context: ./xb1
+    dockerfile: Dockerfile.prod
+  command: gunicorn xb1.wsgi:application --bind 0.0.0.0:8000
+  volumes:
+    - static_volume:/home/xb1/web/xb1/staticfiles
+    - media_volume:/home/xb1/web/xb1/media
+  expose:
+    - 8000
+  env_file:
+    - ./.env.gitlab
+  depends_on:
+    - db_build
+
+nginx_build:
+  build: ./nginx
+  volumes:
+    - static_volume:/home/xb1/web/xb1/staticfiles
+    - media_volume:/home/xb1/web/xb1/media
+  ports:
+    - 1337:80
+  depends_on:
+    - django_build
+
+# test:
+#   stage: test
+#   image: tiangolo/docker-with-compose
+#   script:
+#     - docker-compose -f gitlab_ci_config/test.yml up -d --build
+#     # - docker-compose exec web python manage.py migrate
+#     - docker-compose -f gitlab_ci_config/test.yml down -v
+
+# build:
+#   stage: build
+#   script:
+#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+#     - echo $CONTAINER_TEST_IMAGE
+#     - docker build -t $CONTAINER_TEST_IMAGE -f compose/production/django/Dockerfile .
+#     - docker push $CONTAINER_TEST_IMAGE
+
+# release:
+#   stage: release
+#   script:
+#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+#     - docker pull $CONTAINER_TEST_IMAGE
+#     - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
+#     - docker push $CONTAINER_RELEASE_IMAGE
+#   only:
+#     - master
