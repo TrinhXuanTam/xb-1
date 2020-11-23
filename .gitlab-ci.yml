@@ -31,7 +31,7 @@ test:
   image: tiangolo/docker-with-compose
   script:
     - docker-compose -f gitlab_ci_config/test.yml up -d --build
-    - docker-compose -f gitlab_ci_config/test.yml run web python manage.py migrate
+    - docker-compose -f gitlab_ci_config/test.yml exec web python manage.py migrate
     - docker-compose -f gitlab_ci_config/test.yml down -v
 
 build:
