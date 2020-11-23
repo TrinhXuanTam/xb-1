@@ -37,6 +37,7 @@
     transition-property: padding, background, color;
     transition-duration: 0.3s;
     white-space: nowrap;
+    cursor: pointer;
 }
 
 .sidebar ul li:hover a {
