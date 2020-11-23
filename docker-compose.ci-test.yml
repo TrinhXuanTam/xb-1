@@ -3,8 +3,8 @@ version: '3.7'
 services:
   web:
     build:
-        context: ./xb1
-        dockerfile: Dockerfile.ci
+      context: ./xb1
+      dockerfile: Dockerfile.ci
     volumes:
       - ./xb1/:/usr/src/xb1/
     ports:
@@ -12,7 +12,7 @@ services:
     env_file:
       - ./.env.dev
     depends_on:
-        - db
+      - db
   db:
     image: postgres:12.0-alpine
     volumes:

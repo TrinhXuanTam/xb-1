@@ -15,4 +15,6 @@ python manage.py flush --no-input
 python manage.py migrate --no-input
 python manage.py collectstatic --noinput
 
+echo "Running Entrypoint CI"
+
 exec "$@"
