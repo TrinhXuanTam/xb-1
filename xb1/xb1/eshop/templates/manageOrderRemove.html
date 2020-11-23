@@ -1,6 +1,0 @@
-{% load i18n %}
-
-<form method="post">{% csrf_token %}
-    <p>{% trans "Are you sure you want to delete order with email address:" %} "{{ object.orderEmail }}"?</p>
-    <input type="submit" value="{% trans 'Confirm' %}">
-</form>

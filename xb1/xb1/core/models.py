@@ -115,7 +115,7 @@ class Log(models.Model):
     article = models.ForeignKey("articles.Article", verbose_name=_("Article"), blank=True, null=True, on_delete=models.CASCADE)
     comment = models.ForeignKey("articles.Comment", verbose_name=_("Comment"), blank=True, null=True, on_delete=models.CASCADE)
     forum = models.ForeignKey("articles.Forum", verbose_name=_("Forum"), blank=True, null=True, on_delete=models.CASCADE)
-    order = models.ForeignKey("eshop.ShopOrder", verbose_name=_("Order"), blank=True, null=True, on_delete=models.CASCADE)
+    order = models.ForeignKey("shop.Order", verbose_name=_("Order"), blank=True, null=True, on_delete=models.CASCADE)
 
     @staticmethod
     def user_login(user):

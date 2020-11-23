@@ -9,12 +9,12 @@
 
 {%block content %}
 <div class="eshop_topnav">
-	{% if perms.eshop.add_shopitem %}
+	{% if perms.shop.add_item %}
 	<div>
 		<a class="add_product_button" href="{% url 'shop:adminItemCreate' %}">{% trans "New product" %}<i class="fas fa-plus"></i></a>
 	</div>
 	{% endif %}
-	{% if perms.eshop.view_shopitem %}
+	{% if perms.shop.view_item %}
 	<div>
 		<a class="view_products_button" href="{% url 'shop:adminItemList' %}">{% trans "Show products list" %}<i class="fas fa-list"></i></a>
 	</div>

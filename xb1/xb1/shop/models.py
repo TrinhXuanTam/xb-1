@@ -12,7 +12,7 @@ import random
 class Item(DeleteMixin):
 
     name = models.CharField(_("Product name"), max_length = 50)
-    image = models.ImageField(_("Product image"), default='default.jpg', upload_to='ShopItems', blank=True, null=True)
+    image = models.ImageField(_("Product image"), default='default.jpg', upload_to='Items', blank=True, null=True)
     desc = models.CharField(_("Product description"), max_length=400)
 
     @property
