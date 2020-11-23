@@ -35,7 +35,7 @@ test:
     - docker-compose -f gitlab_ci_config/test.yml down -v
   artifacts:
     paths:
-      - builds/
+      - /builds/
     expire_in: 5 days
 
 build:
