@@ -133,7 +133,7 @@
                 </li>
                 <li><a href="{% url 'contact:contact' %}">{% trans "Contact" %}</a></li>
             {% else %}
-                <li><a class="login_trigger" onclick="openDialog()">{% trans "Contact" %}</a></li>
+                <li><a href="{% url 'contact:contact' %}">{% trans "Contact" %}</a></li>
             {% endif %}
 
             <li><a href="{% url 'eshop:shopIndex' %}">{% trans "Eshop" %}</a></li>
