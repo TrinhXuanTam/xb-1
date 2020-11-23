@@ -74,7 +74,7 @@ COPY --from=builder /usr/src/xb1/requirements.txt .
 RUN pip install --no-cache /wheels/*
 
 # copy entrypoint-prod.sh
-COPY ./entrypoint.prod.sh $APP_HOME
+COPY ./xb1/entrypoint.prod.sh $APP_HOME
 
 # copy project
 COPY . $APP_HOME
