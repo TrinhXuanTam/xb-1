@@ -31,8 +31,8 @@ version: '3.7'
 services:
   web:
     build:
-      context: ./xb1
-      dockerfile: Dockerfile.prod
+      context: ../xb1
+      dockerfile: Dockerfile.ci
     command: gunicorn xb1.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:/home/xb1/web/xb1/staticfiles
