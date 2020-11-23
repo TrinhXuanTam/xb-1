@@ -27,4 +27,4 @@ RUN echo 123
 COPY . .
 
 # run entrypoint.sh
-ENTRYPOINT ["/usr/src/xb1/entrypoint.ci.sh"]
+CMD ["/usr/src/xb1/entrypoint.ci.sh"]
