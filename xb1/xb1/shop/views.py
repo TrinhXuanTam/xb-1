@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.contrib import messages
 from django.views.generic import ListView
+from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import FormView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
-from django.views.generic.base import RedirectView
 from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
 from django.utils.translation import ugettext_lazy as _
@@ -15,11 +15,19 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from django.core import serializers
 from django.utils import timezone
+from django.db import transaction
+from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMultiAlternatives
 
 from ..core.views import LoginMixinView
-from .models import Item, Price, CartEntry, Specification, SpecificationEntry, Order
+from .models import Item, Price, CartEntry, Specification, SpecificationEntry, Order, Payment
 from .cart import Cart
 from .forms import ItemCreateForm, ItemUpdateForm, OrderCreateForm
+from ..settings import EMAIL_HOST_USER, ESHOP_BANK_ACCOUNT
+
+import datetime
+import random
 
 class ShopIndex(LoginMixinView, ListView):
 
@@ -42,7 +50,7 @@ class CartInsertItemView(RedirectView):
             return reverse_lazy("shop:shopView")
 
         item = Item.objects.filter(pk = kwargs.get('pk')).first()
-        if item is None:
+        if not item:
             messages.warning(self.request, _("Not found"))
             return reverse_lazy("shop:shopView")
 
@@ -62,7 +70,7 @@ class CartAddItemView(RedirectView):
             return reverse_lazy("shop:shopView")
 
         entry = CartEntry.objects.filter(pk = kwargs.get('pk')).first()
-        if entry is None:
+        if not entry:
             messages.warning(self.request, _("Not found"))
             return reverse_lazy("shop:shopView")
 
@@ -82,7 +90,7 @@ class CartRemoveItemView(RedirectView):
             return reverse_lazy("shop:shopView")
 
         entry = CartEntry.objects.filter(pk = kwargs.get('pk')).first()
-        if entry is None:
+        if not entry:
             messages.warning(self.request, _("Not found"))
             return reverse_lazy("shop:shopView")
 
@@ -103,7 +111,7 @@ class CartDiscardItemView(RedirectView):
 
         else:
             entry = CartEntry.objects.filter(pk = kwargs.get('pk')).first()
-            if entry is None:
+            if not entry:
                 messages.warning(self.request, _("Not found"))
                 return reverse_lazy("shop:shopView")
 
@@ -123,12 +131,12 @@ class CartSetSpecificationView(RedirectView):
             return reverse_lazy("shop:shopView")
 
         entry = CartEntry.objects.filter(pk = kwargs.get('pk')).first()
-        if entry is None:
+        if not entry:
             messages.warning(self.request, _("Not found"))
             return reverse_lazy("shop:shopView")
 
         specentry = SpecificationEntry.objects.filter(pk = kwargs.get('spec')).first()  
-        if specentry is None:
+        if not specentry:
             messages.warning(self.request, _("Not found"))
             return reverse_lazy("shop:shopView")
 
@@ -233,15 +241,26 @@ class OrderListView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin,
     template_name = "adminOrderList.html"
     permission_required = "shop.view_order"
 
+class OrderListUserView(LoginMixinView, LoginRequiredMixin, ListView):
+
+    model = Order
+    template_name = "userOrderList.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderListUserView, self).get_context_data(**kwargs)
+        context['object_list'] = Order.objects.filter(user=self.request.user).all()
+
+        return context
+
+
 class OrderCreateView(LoginMixinView, FormView):
 
     template_name = "orderCreate.html"
     form_class = OrderCreateForm
-    success_url = reverse_lazy("eshop:shopIndex")
+    success_url = reverse_lazy("shop:shopView")
 
     def get_initial(self):
         initial = super(OrderCreateView, self).get_initial()
-
         if not self.request.user.is_anonymous:
             user = self.request.user
             initial['firstname'] = user.profile.name
@@ -256,8 +275,134 @@ class OrderCreateView(LoginMixinView, FormView):
 
     def render_to_response(self, context):
         cart = Cart(self.request)
+
         if cart.is_empty():
             messages.warning(self.request, _("Cart empty"))
             return redirect(reverse('shop:shopView'))
-            
+
+        if cart.is_valid() is False:
+            messages.warning(self.request, _("Missing specification"))
+            return redirect(reverse('shop:shopView'))
+
         return super(OrderCreateView, self).render_to_response(context)
+
+    def form_valid(self, form):
+        cart = Cart(self.request)
+
+        if cart.is_empty():
+            messages.warning(self.request, _("Cart empty"))
+            return redirect(reverse('shop:shopView'))
+
+        try:
+            with transaction.atomic():
+                if self.request.user:
+                    form.instance.user = self.request.user
+                form.instance.save()
+                cart.attach(form.instance)
+
+                yearVariableSymbol = ( datetime.datetime.now().year * 1000000 ) % 10000000000
+                orderVariableSymbol = ( form.instance.pk * 15 + ( random.randint(0, 14))) % 1000000
+                variableSymbol = yearVariableSymbol + orderVariableSymbol
+                specificSymbol = 0
+
+                Payment.objects.create(received=False, variableSymbol=variableSymbol, specificSymbol=specificSymbol, order=form.instance)
+
+                message = render_to_string('orderEmail.html', {
+                    'domain': get_current_site(self.request).domain,
+                    'slug': form.instance.slug,
+                    'vs': variableSymbol,
+                    'ss': specificSymbol,
+                    'account': ESHOP_BANK_ACCOUNT,
+                    'cart': cart.cart
+                })
+
+                subject = "" + str(_("Order number")) + ": " + str(form.instance.pk) + " " + str(_("succesfully created"))
+                text_content = ""
+                msg = EmailMultiAlternatives(subject, text_content, EMAIL_HOST_USER, [str(form.instance.email)])
+                msg.attach_alternative(message, "text/html")
+                msg.send()
+
+
+        except Exception as e:
+            print(e)
+            messages.warning(self.request, _("Order can not be created now, please try again later"))
+            return redirect(reverse('shop:shopView'))
+
+        cart.detach(self.request)
+        messages.success(self.request, _("Order was created. Mail with payment info was sent to your email address."))
+        return super(OrderCreateView, self).form_valid(form)
+
+class OrderPaymentConfirmView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, RedirectView):
+
+    permanent = False
+    permission_required = "shop.update_payment"
+
+    def get_redirect_url(self, *args, **kwargs):
+        paymentPK = kwargs.get('pk', None)
+        if paymentPK is None:
+            messages.warning(self.request, _("Unknown key"))
+            return reverse_lazy('shop:adminOrderList')
+
+        order = Order.objects.filter(pk=paymentPK).first()
+        if not order:
+            messages.warning(self.request, _("Not found"))
+            return reverse_lazy('shop:adminOrderList')
+
+        payment = order.payment
+        payment.received = True
+        payment.save()
+
+        messages.success(self.request, _("Order paid"))
+        return reverse_lazy('shop:adminOrderList')
+
+class OrderPaymentRevokeView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, RedirectView):
+
+    permanent = False
+    permission_required = "shop.update_payment"
+
+    def get_redirect_url(self, *args, **kwargs):
+        paymentPK = kwargs.get('pk', None)
+        if paymentPK is None:
+            messages.warning(self.request, _("Unknown key"))
+            return reverse_lazy('shop:adminOrderList')
+
+        order = Order.objects.filter(pk=paymentPK).first()
+        if not order:
+            messages.warning(self.request, _("Not found"))
+            return reverse_lazy('shop:adminOrderList')
+
+        payment = order.payment
+        payment.received = False
+        payment.save()
+
+        messages.success(self.request, _("Order paid"))
+        return reverse_lazy('shop:adminOrderList')
+
+class OrderTrackerView(LoginMixinView, TemplateView):
+
+    template_name = "orderTracker.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        orderSlug = kwargs.get('slug', None)
+        if orderSlug is None:
+            messages.warning(self.request, _("Unknown key"))
+            return redirect(reverse('shop:shopView'))
+
+        order = Order.objects.filter(slug=orderSlug).first()
+        if not order:
+            messages.warning(self.request, _("Not found"))
+            return redirect(reverse('shop:shopView'))
+
+        return super(OrderTrackerView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderTrackerView, self).get_context_data(**kwargs)
+        context['order'] = Order.objects.filter(slug = kwargs['slug']).first()
+
+        return context
+
+class OrderDetailView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+
+    model = Order
+    template_name = "adminOrderDetail.html"
+    permission_required = "shop.view_order"

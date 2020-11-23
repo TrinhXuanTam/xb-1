@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from ..core.admin import CustomAdmin
-from .models import Item, Price, CartEntry, Cart, Specification, SpecificationEntry
+from .models import Item, Price, CartEntry, Cart, Specification, SpecificationEntry, Order, Payment
 
 @admin.register(Item)
 class ItemAdmin(CustomAdmin):
@@ -26,3 +26,11 @@ class SpecificationAdmin(CustomAdmin):
 @admin.register(SpecificationEntry)
 class SpecificationAdmin(CustomAdmin):
 	list_display = ("value", "specification", "is_deleted")
+	
+@admin.register(Order)
+class OrderAdmin(CustomAdmin):
+	list_display = ("firstname", "lastname", "email", "phone", "is_deleted")
+
+@admin.register(Payment)
+class PaymentAdmin(CustomAdmin):
+	list_display = ("received", "variableSymbol", "specificSymbol", "order", "is_deleted")

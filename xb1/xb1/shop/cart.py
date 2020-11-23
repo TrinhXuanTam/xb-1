@@ -79,3 +79,22 @@ class Cart:
             return False
         else:
             return True
+
+    def is_valid(self):
+        for entry in self.cart.cartentry_set.all():
+            if entry.item.specification is None:
+                continue
+
+            if entry.item.specification is not None and entry.specification is None:
+                return False
+            
+            if entry.item.specification.pk is not entry.specification.specification.pk:
+                return False
+        return True
+
+    def attach(self, order):
+        self.cart.order = order
+        self.cart.save()
+
+    def detach(self, request):
+        del request.session[CART_KEY]

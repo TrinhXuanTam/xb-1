@@ -1,0 +1,57 @@
+{% load i18n %}
+{% autoescape off %}
+
+<style>
+    #products td {
+        min-width: 250px;
+        text-align: center;
+    }
+    #info td {
+        min-width: 250px;
+    }
+</style>
+<div>
+    <div>{% trans "Your order has been successfully created." %}</div>
+    <div>{% trans "Tracking info" %}: http://{{ domain }}{% url 'shop:orderTracker' slug=slug %}</div>
+    <div style="margin-top: 10px;">{% trans "Ordered items" %}:</div>
+    <div style="width: max-content">
+        <table id="products">
+            <tr>
+                <th>{% trans "Product" %}</th>
+                <th colspan="2">{% trans "Specification" %}</th>
+                <th>{% trans "Count" %}</th>
+                <th>{% trans "Price" %}</th>
+                <th>{% trans "Total Price" %}</th>
+            </tr>
+            {% for entry in cart.entries %}
+                <tr>
+                    <td>{{ entry.item.name }}</td>
+                    <td>{{ entry.specification.specification.name }}</td>
+                    <td>{{ entry.specification.value }}</td>
+                    <td>{{ entry.count }}x</td>
+                    <td>{{ entry.item.price.price }} CZK </td>
+                    <td>{{ entry.total }} CZK </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <br>
+       <strong><div style="text-align: right;">{% trans "Total price" %}: {{ cart.total }} CZK</div></strong>
+    </div>
+
+    <div style="margin-top: 10px;">{% trans "Payment information" %}:</div>
+    <table id="info">
+        <tr>
+            <td>{% trans "Account number" %}</td>
+            <td>{{ account }}</td>
+        </tr>
+        <tr>
+            <td>{% trans "VS" %}</td>
+            <td>{{ vs }}</td>
+        </tr>
+        <tr>
+            <td>{% trans "SS" %}</td>
+            <td>{{ ss }}</td>
+        </tr>
+    </table>
+</div>
+{% endautoescape %}

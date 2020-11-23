@@ -21,7 +21,14 @@ urlpatterns = [
     url(r'^admin/item/detail/(?P<pk>[0-9]+)$', views.ItemDetailView.as_view(), name="adminItemDetail"),
     url(r'^admin/item/update/(?P<pk>[0-9]+)$', views.ItemUpdateView.as_view(), name="adminItemUpdate"),
 
+
     url(r'^order/create$', views.OrderCreateView.as_view(), name="orderCreate"),
+    url(r'^order/tracker/(?P<slug>[\w-]+)/$', views.OrderTrackerView.as_view(), name="orderTracker"),
+
+    url(r'^user/order/list$', views.OrderListUserView.as_view(), name="userOrderList"),
 
     url(r'^admin/order/list$', views.OrderListView.as_view(), name="adminOrderList"),
+    url(r'^admin/order/payment/confirm/(?P<pk>[0-9]+)$', views.OrderPaymentConfirmView.as_view(), name="adminOrderPaymentConfirm"),
+    url(r'^admin/order/payment/revoke/(?P<pk>[0-9]+)$', views.OrderPaymentRevokeView.as_view(), name="adminOrderPaymentRevoke"),
+    url(r'^admin/order/detail/(?P<pk>[0-9]+)$', views.OrderDetailView.as_view(), name="adminOrderDetail"),
 ]

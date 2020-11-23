@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block include %}
+<link rel="stylesheet" href="{% static 'css/manage_order.css' %}" />
+{% endblock %}
+{%block content %}
+
+<div class="top-info">
+    <p>{% trans "Oder number" %}: {{ order.pk }}</p>
+    <p>{% trans "Oder state" %}: 
+        {% if order.isPaid %}
+        <span class="paid">{% trans "Paid" %}</span>
+        {% else %}
+        <span class="not-paid">{% trans "Not Paid" %}</span>
+        {% endif %}
+    </p>
+</div>
+<hr>
+
+<div class="table-wrapper">
+    <div>
+        <h2>{% trans "Personal Information" %}</h2>
+        <div id="order-detail">
+            <div class="responsive-table-wrapper">
+                <table>
+                    <tr>
+                        <th>{% trans "FirstName" %}</th>
+                        <th>{% trans "LastName" %}</th>
+                        <th>{% trans "Email" %}</th>
+                        <th>{% trans "City" %}</th>
+                        <th>{% trans "Street" %}</th>
+                        <th>{% trans "PostNumber" %}</th>
+                        <th>{% trans "PhoneNumber" %}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ object.firstname }}</td>
+                        <td>{{ object.lastname }}</td>
+                        <td>{{ object.email }}</td>
+                        <td>{{ object.city }}</td>
+                        <td>{{ object.street }}</td>
+                        <td>{{ object.post }}</td>
+                        <td>{{ object.phone }}</td>
+                    </tr>   
+                </table>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h2>{% trans "Order Detail" %}</h2>
+        <div id="order-detail">
+            <div class="responsive-table-wrapper">
+                <table>
+                    <tr>
+                        <th>{% trans "Item" %}</th>
+                        <th>{% trans "Count" %}</th>
+                        <th colspan="2">{% trans "Specification" %}</th>
+                    </tr>
+                    {% for entry in object.cart.entries %}
+                        <tr>
+                            <td>{{ entry.item.name }}</td>
+                            <td>{{ entry.count }}</td>
+                            <td>{{ entry.specification.specification.name }}</td>
+                            <td>{{ entry.specification.value }}</td>
+                        </tr>
+                    {% endfor %}
+                </div>
+            </div>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
