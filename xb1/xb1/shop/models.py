@@ -69,7 +69,7 @@ class CartEntry(DeleteMixin):
     count = models.IntegerField(_("Count"))
     price = models.ForeignKey(Price, on_delete=models.CASCADE, blank=True)
     item = models.ForeignKey(Item, on_delete=models.CASCADE, blank=True)
-    specification = models.ManyToManyField(SpecificationEntry, blank=True)
+    specification = models.ForeignKey(SpecificationEntry, on_delete=models.CASCADE, blank=True, null=True)
     cart = models.ForeignKey(Cart, verbose_name=_("Cart"), on_delete = models.CASCADE, blank=True, null=True)
 
     @property

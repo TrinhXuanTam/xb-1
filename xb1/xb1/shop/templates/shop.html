@@ -35,6 +35,7 @@
 				<table class = "cartTable" cellspacing="0" cellpadding="0">
 					<tr class="cartTableRow">
 						<th class="cartTableCol" colspan="2">{% trans "Product" %}</th>
+						<th class="cartTableCol" colspan="3">{% trans "Specification" %}</th>
 						<th class="cartTableCol">{% trans "Amount" %}</th>
 						<th class="cartTableCol">{% trans "Price" %}</th>
 						<th class="cartTableCol">{% trans "Add" %}</th>
@@ -42,16 +43,27 @@
 						<th class="cartTableCol">{% trans "Cancel" %}</th>
 					</tr>
 				{% for item in cart %}
-				<tr class="cartTableRow">
-					<td class="cartTableColMerge">
-						<img class=shopOfferImageCart src="{{ item.item.image.url }}">
-					</td>
-					<td class="cartTableColMerge"> {{ item.item.name }} </td>
-					<td class="cartTableCol"> {{ item.count }}  </td>
-					<td class="cartTableCol"> {{ item.price.price|floatformat:"-2" }} </td>
-					<td class="cartTableCol"><a href="{% url 'shop:cartadd' pk=item.pk %}"><i class="fas fa-plus"></i></a> </td>
-					<td class="cartTableCol"><a href="{% url 'shop:cartremove' pk=item.pk %}"><i class="fas fa-minus"></i></a> </td>
-					<td class="cartTableCol"><a href="{% url 'shop:cartdiscard' pk=item.pk %}"><i class="fas fa-times"></i></a> </td>
+					<tr class="cartTableRow">
+						<td class="cartTableColMerge">
+							<img class=shopOfferImageCart src="{{ item.item.image.url }}">
+						</td>
+						<td class="cartTableColMerge"> {{ item.item.name }} </td>
+						<td class="cartTableColMerge" style="text-align: center;">{{ item.item.specification.name}}</td>
+						<td class="cartTableColMerge" style="text-align: center;">{{ item.specification.value }}</td>
+
+						<!-- -->
+						<td class="cartTableColMerge" style="text-align: center">
+						{% for specentry in item.item.specification.entry %}
+							<a style="color: red" href="{% url 'shop:cartspecificationset' pk=item.pk spec=specentry.pk %}">{{ specentry.value }}</i></a>
+						{% endfor %}
+						</td>
+						<!-- -->
+
+						<td class="cartTableCol"> {{ item.count }}  </td>
+						<td class="cartTableCol"> {{ item.price.price|floatformat:"-2" }} </td>
+						<td class="cartTableCol"><a href="{% url 'shop:cartadd' pk=item.pk %}"><i class="fas fa-plus"></i></a> </td>
+						<td class="cartTableCol"><a href="{% url 'shop:cartremove' pk=item.pk %}"><i class="fas fa-minus"></i></a></td>
+						<td class="cartTableCol"><a href="{% url 'shop:cartdiscard' pk=item.pk %}"><i class="fas fa-times"></i></a></td>
 					</tr>
 				{% endfor %}
 			</table>

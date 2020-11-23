@@ -22,4 +22,9 @@
 		{{ price.price }}
 	{% endfor %}
 
+	<!-- Specification, can be null -->
+	{{ item.specification.name }}
+	{% for entry in item.specification.entry %}
+		{{ entry.value }}
+	{% endfor %}
 {% endblock %}

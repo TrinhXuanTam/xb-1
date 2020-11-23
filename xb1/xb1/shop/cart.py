@@ -44,6 +44,13 @@ class Cart:
             entry.price = entry.item.price
             entry.save()
 
+    def spec(self, pk, specpk):
+        entry = models.CartEntry.objects.filter(cart=self.cart, pk=pk).first()
+        spec = models.SpecificationEntry.objects.filter(pk=specpk).first()
+        if entry and spec:
+            entry.specification = spec
+            entry.save()
+
     def remove(self, pk, count=1):
         entry = models.CartEntry.objects.filter(cart=self.cart, pk=pk).first()
         if entry:

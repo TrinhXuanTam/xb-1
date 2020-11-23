@@ -111,6 +111,39 @@ class CartDiscardItemView(RedirectView):
         messages.success(self.request, _('Cart was updated.'))
         return reverse_lazy("shop:shopView")
 
+class CartSetSpecificationView(RedirectView):
+
+    permanent = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        if kwargs.get('pk', None) is None or kwargs.get('spec', None) is None:
+            messages.warning(self.request, _("Unknown key"))
+            return reverse_lazy("shop:shopView")
+
+        entry = CartEntry.objects.filter(pk = kwargs.get('pk')).first()
+        if entry is None:
+            messages.warning(self.request, _("Not found"))
+            return reverse_lazy("shop:shopView")
+
+        specentry = SpecificationEntry.objects.filter(pk = kwargs.get('spec')).first()  
+        if specentry is None:
+            messages.warning(self.request, _("Not found"))
+            return reverse_lazy("shop:shopView")
+
+        if specentry.specification.active is False:
+            messages.warning(self.request, _("Not active"))
+            return reverse_lazy("shop:shopView")
+
+        if specentry.specification.item.pk is not entry.item.pk:
+            messages.warning(self.request, _("Not related specification"))
+            return reverse_lazy("shop:shopView") 
+
+        cart = Cart(self.request)
+        cart.spec(entry.pk, specentry.pk)  
+
+        messages.success(self.request, _('Cart was updated.'))
+        return reverse_lazy("shop:shopView")       
+
 class ItemListView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
     model = Item
