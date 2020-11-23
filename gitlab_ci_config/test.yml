@@ -32,7 +32,7 @@ services:
   web:
     build:
       context: ../xb1
-      dockerfile: Dockerfile.ci
+      dockerfile: ./Dockerfile.ci
     command: gunicorn xb1.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:/home/xb1/web/xb1/staticfiles
