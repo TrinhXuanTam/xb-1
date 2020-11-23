@@ -5,8 +5,6 @@ services:
     build:
         context: ./xb1
         dockerfile: Dockerfile.ci
-    # build: ./xb1
-    # command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./xb1/:/usr/src/xb1/
     ports:

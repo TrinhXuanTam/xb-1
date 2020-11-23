@@ -3,17 +3,17 @@ image: tiangolo/docker-with-compose
 services:
     - docker:dind
 
-variables:
-    DEBUG: 1
-    SECRET_KEY: 6**laao0t2_n4&o#4js)a&i_^prv*ys@$bvf&kffk1p*4#)41)
-    DJANGO_ALLOWED_HOSTS: localhost 127.0.0.1 [::1] 0.0.0.0
-    SQL_ENGINE: django.db.backends.postgresql
-    SQL_DATABASE: xb1_dev
-    SQL_USER: xb1_user
-    SQL_PASSWORD: hello_xb1
-    SQL_HOST: db
-    SQL_PORT: 5432
-    DATABASE: postgres
+# variables:
+#     DEBUG: 1
+#     SECRET_KEY: 6**laao0t2_n4&o#4js)a&i_^prv*ys@$bvf&kffk1p*4#)41)
+#     DJANGO_ALLOWED_HOSTS: localhost 127.0.0.1 [::1] 0.0.0.0
+#     SQL_ENGINE: django.db.backends.postgresql
+#     SQL_DATABASE: xb1_dev
+#     SQL_USER: xb1_user
+#     SQL_PASSWORD: hello_xb1
+#     SQL_HOST: db
+#     SQL_PORT: 5432
+#     DATABASE: postgres
 
 
 stages:
@@ -26,6 +26,6 @@ test:
     script:
         - echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
         - apk update && apk add --no-cache yq
-        - docker-compose -f docker-compose.ci.yml build
+        - docker-compose -f docker-compose.ci.yml up -d --build
         - docker images
         # - docker-compose -f docker-compose.ci.yml push
