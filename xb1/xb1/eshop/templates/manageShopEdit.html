@@ -18,9 +18,9 @@
             {{ field }}<br>
 
         {% endfor %}
-
     <button type="submit">{% trans "Apply change" %}</button>
 </form>
+    <a href="{% url 'eshop:manageShopDelete' pk=object.pk %}"><button> Smazat produkt </button></a>
 
 </div>
 {% endblock %}

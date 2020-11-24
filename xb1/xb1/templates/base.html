@@ -56,13 +56,20 @@
       </div>
     </div>
 
+    {% block sidebar %}
     <!-- Left sidebar -->
     <div class="sidebar">
         <!-- Top sidebar options -->
         <ul class="sidebar-options">
+            {% if user.is_authenticated %}
             <li>
                 <a href="{% url 'profile' %}"><i class="fas fa-user sidebarOffset"></i> {% trans "Profile" %}</a>
             </li>
+            {% else %}
+            <li>
+                <a onclick="openDialog()"><i class="fas fa-user sidebarOffset"></i> {% trans "Profile" %}</a>
+            </li>
+            {% endif %}
 
             {% if perms.eshop.view_shoporder %}
                 <li>
@@ -74,9 +81,15 @@
                 </li>
             {% endif %}
 
+            {% if user.is_authenticated %}
             <li>
                 <a href="{% url 'contact:contact' %}"><i class="fas fa-envelope sidebarOffset"></i>{% trans "Contact" %}</a>
             </li>
+            {% else %}
+            <li>
+                <a onclick="openDialog()"><i class="fas fa-envelope sidebarOffset"></i>{% trans "Contact" %}</a>
+            </li>
+            {% endif %}
 
         </ul>
 
@@ -89,10 +102,11 @@
                 </li>
             {% endif %}
         </ul>
-  </div>
+    </div>
+    {% endblock %}
 
 
-
+    {% block topnav %}
     <!-- Top navbar -->
     <nav class="navigation_bar navbar-fixed-top">
         <!-- Options -->
@@ -119,7 +133,7 @@
                 </li>
                 <li><a href="{% url 'contact:contact' %}">{% trans "Contact" %}</a></li>
             {% else %}
-                <li><a class="login_trigger" onclick="openDialog()">{% trans "Contact" %}</a></li>
+                <li><a href="{% url 'contact:contact' %}">{% trans "Contact" %}</a></li>
             {% endif %}
 
             <li><a href="{% url 'eshop:shopIndex' %}">{% trans "Eshop" %}</a></li>
@@ -134,6 +148,8 @@
             {% endif %}
         </ul>
     </nav>
+    {% endblock %}
+    
       <!-- Success message content -->
      {% for message in messages %}
      <div class="alert alert-{{message.tags}}" id="hideMe" >{{ message }}</div>

@@ -536,3 +536,11 @@ class OrderListViewX(LoginMixinView, LoginRequiredMixin, ListView):
 		context['object_list'] = ShopOrder.objects.filter(orderUser = self.request.user)
 
 		return context
+
+class ShopItemDeleteView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+	model = ShopItem
+	permission_required = "eshop.delete_shop_item"
+	template_name = "shopitem_confirm_delete.html"
+	success_url = reverse_lazy('eshop:manageShopList')
+
+
