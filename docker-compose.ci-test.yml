@@ -4,7 +4,7 @@ services:
   web:
     build:
       context: ./xb1
-      dockerfile: Dockerfile.ci
+      dockerfile: Dockerfile.ci-test
     volumes:
       - ./xb1/:/usr/src/xb1/
     ports:
