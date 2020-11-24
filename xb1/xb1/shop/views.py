@@ -184,7 +184,7 @@ class ItemCreateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin
         Price.objects.create(price=form.cleaned_data['price'], item=item, since=timezone.now(), till=form.cleaned_data['till'])
 
         if form.cleaned_data['specificationname'] != '' and form.cleaned_data['specificationvalue'] != '':
-            specification = Specification.objects.create(name=form.cleaned_data['specificationname'], item=item)
+            specification = Specification.objects.create(name=form.cleaned_data['specificationname'], item=item, active=True)
             entries = form.cleaned_data['specificationvalue'].split(',')
             for entry in entries:
                 SpecificationEntry.objects.create(value=entry, specification=specification)
