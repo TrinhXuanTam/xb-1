@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block include %}
+<link rel="stylesheet" href="{% static 'css/manage_order.css' %}" />
+{% endblock %}
+{%block content %}
+
+<div class="top-info">
+    <p>{% trans "Oder number" %}: {{ order.pk }}</p>
+    <p>{% trans "Oder state" %}: 
+        {% if order %}
+            <span class="paid">{% trans "Paid" %}</span>
+        {% else %}
+            <span class="not-paid">{% trans "Not Paid" %}</span>
+        {% endif %}
+    </p>
+</div>
+<hr>
+
+<div class="table-wrapper">
+    <div>
+        <h2>{% trans "Order Detail" %}</h2>
+        <div id="order-detail">
+            <div class="responsive-table-wrapper">
+                <table>
+                    <tr>
+                        <th>{% trans "Item" %}</th>
+                        <th>{% trans "Count" %}</th>
+                        <th colspan="2">{% trans "Specification" %}</th>
+                    </tr>
+                    {% for entry in order.cart.entries %}
+                        <tr>
+                            <td>{{ entry.item.name }}</td>
+                            <td>{{ entry.count }}</td>
+                            <td>{{ entry.specification.specification.name }}</td>
+                            <td>{{ entry.specification.value }}</td>
+                        </tr>
+                    {% endfor %}
+                </div>
+            </div>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

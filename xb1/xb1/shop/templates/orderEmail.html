@@ -1,5 +1,6 @@
 {% load i18n %}
 {% autoescape off %}
+
 <style>
     #products td {
         min-width: 250px;
@@ -11,26 +12,30 @@
 </style>
 <div>
     <div>{% trans "Your order has been successfully created." %}</div>
-    <div>{% trans "Tracking info" %}: http://{{ domain }}{% url 'eshop:manageOrderTracker' slug=slug %}</div>
-
+    <div>{% trans "Tracking info" %}: http://{{ domain }}{% url 'shop:orderTracker' slug=slug %}</div>
     <div style="margin-top: 10px;">{% trans "Ordered items" %}:</div>
     <div style="width: max-content">
         <table id="products">
             <tr>
-                <th>{% trans "Count" %}</th>
                 <th>{% trans "Product" %}</th>
+                <th colspan="2">{% trans "Specification" %}</th>
+                <th>{% trans "Count" %}</th>
                 <th>{% trans "Price" %}</th>
+                <th>{% trans "Total Price" %}</th>
             </tr>
-        {% for item in items %}
-            <tr>
-                <td>{{ item.count }}</td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.price }} CZK </td>
-            </tr>
-        {% endfor %}
+            {% for entry in cart.entries %}
+                <tr>
+                    <td>{{ entry.item.name }}</td>
+                    <td>{{ entry.specification.specification.name }}</td>
+                    <td>{{ entry.specification.value }}</td>
+                    <td>{{ entry.count }}x</td>
+                    <td>{{ entry.item.price.price }} CZK </td>
+                    <td>{{ entry.total }} CZK </td>
+                </tr>
+            {% endfor %}
         </table>
         <br>
-       <strong><div style="text-align: right;">{% trans "Total price" %}: {{ price }} CZK</div></strong>
+       <strong><div style="text-align: right;">{% trans "Total price" %}: {{ cart.total }} CZK</div></strong>
     </div>
 
     <div style="margin-top: 10px;">{% trans "Payment information" %}:</div>

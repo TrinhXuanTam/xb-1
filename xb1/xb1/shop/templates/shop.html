@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block include %}
+<link rel="stylesheet" href="{% static 'css/layout_shopIndex.css' %}" >
+<link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="eshop_topnav">
+	{% if perms.shop.add_item %}
+	<div>
+		<a class="add_product_button" href="{% url 'shop:adminItemCreate' %}">{% trans "New product" %}<i class="fas fa-plus"></i></a>
+	</div>
+	{% endif %}
+	{% if perms.shop.view_item %}
+	<div>
+		<a class="view_products_button" href="{% url 'shop:adminItemList' %}">{% trans "Show products list" %}<i class="fas fa-list"></i></a>
+	</div>
+	{% endif %}
+</div>
+
+<div class="shopOrderBox">
+
+	<div class="cart_header">
+		<button class="cart_caption"><i class="fas fa-shopping-cart"></i> {% trans "Cart" %} ({{ cart.count }}) <i class="cart_display_arrow fas"></i></button>
+	</div>
+
+	<div class="collapsible_cart">
+		<div class="collapsible_cart_wrapper">
+			{% if cart.count == 0 %}
+				<div class="empty_cart">{% trans "Cart is empty" %}</div>
+			{% else %}
+				<table class = "cartTable" cellspacing="0" cellpadding="0">
+					<tr class="cartTableRow">
+						<th class="cartTableCol" colspan="2">{% trans "Product" %}</th>
+						<th class="cartTableCol" colspan="3">{% trans "Specification" %}</th>
+						<th class="cartTableCol">{% trans "Amount" %}</th>
+						<th class="cartTableCol">{% trans "Price" %}</th>
+						<th class="cartTableCol">{% trans "Add" %}</th>
+						<th class="cartTableCol">{% trans "Remove" %}</th>
+						<th class="cartTableCol">{% trans "Cancel" %}</th>
+					</tr>
+				{% for item in cart %}
+					<tr class="cartTableRow">
+						<td class="cartTableColMerge">
+							<img class=shopOfferImageCart src="{{ item.item.image.url }}">
+						</td>
+						<td class="cartTableColMerge"> {{ item.item.name }} </td>
+						<td class="cartTableColMerge" style="text-align: center;">{{ item.item.specification.name}}: </td>
+						<!-- <td class="cartTableColMerge" style="text-align: center;">{{ item.specification.value }}</td> -->
+					 
+						<td class="cartTableColMerge" style="text-align: center">
+							<select id="specification-select">
+								{% for specentry in item.item.specification.entry %}
+									{% if specentry.value == item.specification.value %}
+										<option value="{% url 'shop:cartspecificationset' pk=item.pk spec=specentry.pk %}" selected>{{ specentry.value }}</option>
+									{% else %}
+										<option value="{% url 'shop:cartspecificationset' pk=item.pk spec=specentry.pk %}">{{ specentry.value }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+
+						<td class="cartTableCol"> {{ item.count }}  </td>
+						<td class="cartTableCol"> {{ item.price.price|floatformat:"-2" }} </td>
+						<td class="cartTableCol"><a href="{% url 'shop:cartadd' pk=item.pk %}"><i class="fas fa-plus"></i></a> </td>
+						<td class="cartTableCol"><a href="{% url 'shop:cartremove' pk=item.pk %}"><i class="fas fa-minus"></i></a></td>
+						<td class="cartTableCol"><a href="{% url 'shop:cartdiscard' pk=item.pk %}"><i class="fas fa-times"></i></a></td>
+					</tr>
+				{% endfor %}
+			</table>
+			<br>
+			<a href="{% url 'shop:cartdiscardall' %}"><i class="fas fa-trash"></i> {% trans "Delete all" %}</a> <br>
+			<div class="cartBottom">
+				Celková cena: {{ cart.price|floatformat:"-2" }} <br>
+				<a href="{% url 'shop:orderCreate' %}" class="order_btn">{% trans 'Create order' %}</a>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+<div class="shopItemBox">
+	<ul>
+		{% for item in object_list %}
+			{% if item.price %}
+			<li>
+				<div class="shopOfferItem">
+					<div class="shopOfferImage">
+						<img class=shopOfferImage src="{{ item.image.url }}">
+					</div>
+					<div class="shopOfferText">
+						<span class="shopOfferName">{{ item.name }}</span>
+						<div class="shopOfferDesc">{{ item.desc }}</div>
+					</div>
+					<div class="shopOfferControl">
+						<div>{{ item.price.price|floatformat:"-2" }}</div>
+						<div><a onclick="sessionStorage.setItem('cartStatus', 'opened');" href="{% url 'shop:cartinsert' pk=item.pk %}">{% trans "Add to cart" %}</a></div>
+					</div>
+				</div>
+			</li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+</div>
+
+<script>
+	$("#specification-select").on('change', function() {
+		window.location.href = this.value;
+	});
+
+	$(".collapsible_cart").css("transition",  'none')
+	if(sessionStorage.getItem('cartStatus') == "opened") {
+		$(".cart_caption .cart_display_arrow").addClass('fa-angle-up')
+		$(".collapsible_cart").css("max-height", $(".collapsible_cart_wrapper").height() + 'px')
+    } else if(sessionStorage.getItem('cartStatus') == "collapsed"){
+		$(".cart_caption .cart_display_arrow").addClass('fa-angle-down')
+		$(".cart_caption").addClass('cart-collapsed')
+    } else {
+		sessionStorage.setItem('cartStatus', 'collapsed');
+		$(".cart_caption .cart_display_arrow").addClass('fa-angle-down')
+		$(".cart_caption").addClass('cart-collapsed')
+		$(".collapsible_cart").css("max-height", '0px')
+	}
+
+
+	$(".cart_caption").click(function(event){
+		$(this).toggleClass('cart-collapsed')
+		$(this).find(".cart_display_arrow").removeClass('fa-angle-down fa-angle-up')
+
+		if($(this).hasClass('cart-collapsed')) {
+			sessionStorage.setItem('cartStatus', 'collapsed');
+			$(this).find(".cart_display_arrow").addClass('fa-angle-down')
+			$(".collapsible_cart").css("max-height", '0px')
+		}else {
+			sessionStorage.setItem('cartStatus', 'opened');
+			$(this).find(".cart_display_arrow").addClass('fa-angle-up')
+			$(".collapsible_cart").css("max-height", $(".collapsible_cart_wrapper").height() + 'px')
+		}
+	});
+</script>
+{% endblock %}

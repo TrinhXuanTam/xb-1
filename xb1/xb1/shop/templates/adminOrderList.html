@@ -28,23 +28,23 @@
 			<tbody>
 				{% for order in object_list %}
 				<tr>
-					<td>{{ order.orderFirstName }}</td>
-					<td>{{ order.orderLastName }}</td>
-					<td class="order-email">{{ order.orderEmail }}</td>
-					<td>{{ order.payment.paymentVariableSymbol }}</td>
-					<td>{{ order.payment.paymentPrice }},-</td>
-					{% if order.isPaid %}
+					<td>{{ order.firstname }}</td>
+					<td>{{ order.lastname }}</td>
+					<td class="order-email">{{ order.email }}</td>
+					<td>{{ order.payment.variableSymbol }}</td>
+					<td>{{ order.cart.total }},-</td>
+					{% if order.payment.received %}
 						<td><i class="success-green fas fa-check"></i></td>
 					{% else %}
 						<td><i class="error-red fa fa-times"></i></td>
 					{% endif %}
-					<td><a href="{% url 'eshop:manageOrderTracker' slug=order.orderSlug %}"><i class="fas fa-info"></i> {% trans "Detail" %}</a></td>
-					{% if order.isPaid %}
-						<td><a href="{% url 'eshop:manage_order_cancel_payment' pk=order.pk %}"><i class="fas fa-times"></i> {% trans "Cancel payment" %}</a></td>
+					<td><a href="{% url 'shop:adminOrderDetail' pk=order.pk %}"><i class="fas fa-info"></i> {% trans "Detail" %}</a></td>
+					{% if order.payment.received %}
+						<td><a href="{% url 'shop:adminOrderPaymentRevoke' pk=order.pk %}"><i class="fas fa-times"></i> {% trans "Cancel payment" %}</a></td>
 					{% else %}
-						<td><a href="{% url 'eshop:manageOrderPay' pk=order.pk %}"><i class="fas fa-dollar-sign"></i> {% trans "Pay" %}</a></td>
+						<td><a href="{% url 'shop:adminOrderPaymentConfirm' pk=order.pk %}"><i class="fas fa-dollar-sign"></i> {% trans "Pay" %}</a></td>
 					{% endif %}
-					<td><a class="delete-order-button" href="{% url 'eshop:manageOrderRemove' pk=order.pk %}"><i class="fas fa-trash"></i> {% trans "Delete" %}</a></td>
+					<td><a class="delete-order-button" href=""><i class="fas fa-trash"></i> {% trans "Delete" %}</a></td>
 				</tr>
 				{% endfor %}
 			</tbody>

@@ -58,7 +58,7 @@ def show_logout_message(sender, user, request, **kwargs):
 
 
 def show_login_message(sender, user, request, **kwargs):
-    messages.info(request, f'Vítejte {user.profile.nickname}.')
+    messages.info(request, f'Vítejte zpět.')
 
 
 user_logged_out.connect(show_logout_message)

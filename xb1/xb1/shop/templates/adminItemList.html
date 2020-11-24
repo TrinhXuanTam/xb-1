@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load i18n %}
+
+{%block include%}
+	<link rel="stylesheet" href="{% static 'css/product_list.css' %}" >
+{%endblock%}
+
+{%block content %}
+	{% if object_list %}
+		<div id="product-list">
+			<div class="responsive-table-wrapper">
+				<table>
+					<thead>
+						<tr>
+							<th>{% trans "Name" %}</th>
+							<th>{% trans "Price" %}</th>
+							<th>{% trans "Image" %}</th>
+							<th>{% trans "Description" %}</th>
+							<th>{% trans "Active" %}</th>
+							<th colspan="2">{% trans "Action" %}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in object_list %}
+						<tr>
+							<td>{{ item.name }}</td>
+							<td>{{ item.price.price }}</td>
+							<td><a href="{{ item.image.url }}"><img class=productImg src="{{ item.image.url }}"></a></td>
+							<td>{{ item.desc }}</td>
+							{% if item.price %}
+								<td><i class="success-green fas fa-check"></i></td>
+							{% else %}
+								<td><i class="error-red fa fa-times"></i></td>
+							{% endif %}
+							<td><a href="{% url 'shop:adminItemDetail' pk=item.pk %}"><i class="fas fa-info"></i> {% trans "Detail" %}</a></td>
+							<td><a href="{% url 'shop:adminItemUpdate' pk=item.pk %}"><i class="fas fa-edit"></i> {% trans "Edit" %}</a></td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}

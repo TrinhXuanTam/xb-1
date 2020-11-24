@@ -8,7 +8,7 @@
 
 <div class="top-info">
     <p>{% trans "Oder number" %}: {{ order.pk }}</p>
-    <p>{% trans "Oder state" %}: 
+    <p>{% trans "Oder state" %}:
         {% if order.isPaid %}
         <span class="paid">{% trans "Paid" %}</span>
         {% else %}
@@ -19,7 +19,6 @@
 <hr>
 
 <div class="table-wrapper">
-    {% if admin %}
     <div>
         <h2>{% trans "Personal Information" %}</h2>
         <div id="order-detail">
@@ -35,19 +34,18 @@
                         <th>{% trans "PhoneNumber" %}</th>
                     </tr>
                     <tr>
-                        <td>{{ order.orderFirstName }}</td>
-                        <td>{{ order.orderLastName }}</td>
-                        <td>{{ order.orderEmail }}</td>
-                        <td>{{ order.orderAddressCity }}</td>
-                        <td>{{ order.orderAddressStreet }}</td>
-                        <td>{{ order.orderAddressPostNumber }}</td>
-                        <td>{{ order.orderPhone}}</td>
-                    </tr>   
+                        <td>{{ object.firstname }}</td>
+                        <td>{{ object.lastname }}</td>
+                        <td>{{ object.email }}</td>
+                        <td>{{ object.city }}</td>
+                        <td>{{ object.street }}</td>
+                        <td>{{ object.post }}</td>
+                        <td>{{ object.phone }}</td>
+                    </tr>
                 </table>
             </div>
         </div>
     </div>
-    {% endif %}
     <div>
         <h2>{% trans "Order Detail" %}</h2>
         <div id="order-detail">
@@ -56,12 +54,15 @@
                     <tr>
                         <th>{% trans "Item" %}</th>
                         <th>{% trans "Count" %}</th>
+                        <th colspan="2">{% trans "Specification" %}</th>
                     </tr>
-                    {% for orderItem in orderItems %}
-                    <tr>
-                        <td>{{ orderItem.shopItem.itemName }}</td>
-                        <td>{{ orderItem.shopItemCount }}</td>
-                    </tr>
+                    {% for entry in object.cart.entries %}
+                        <tr>
+                            <td>{{ entry.item.name }}</td>
+                            <td>{{ entry.count }}</td>
+                            <td>{{ entry.specification.specification.name }}</td>
+                            <td>{{ entry.specification.value }}</td>
+                        </tr>
                     {% endfor %}
                 </div>
             </div>
