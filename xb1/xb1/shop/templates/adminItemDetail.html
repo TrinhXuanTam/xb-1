@@ -4,27 +4,50 @@
 {% load i18n %}
 
 {%block include%}
-	<link rel="stylesheet" href="{% static 'css/product_list.css' %}" >
+	<link rel="stylesheet" href="{% static 'css/product_detail.css' %}" >
 {%endblock%}
 
 {%block content %}
-	{{ item.name }}
-	{{ item.image }}
-	{{ item.desc }}
+	<div id="product-detail">
+		<h2>{{ item.name }}</h2>
+		<hr>
+		<div>
+			<img src="{{ item.image.url }}" alt="product image">
+			<div id="product-detail-info">
+				<div id="product-detail-description">
+					{{ item.desc }}
+				</div>
 
-	<!-- Actual price, can be null if item is not active -->
-	{{ item.price.price }}
-	{{ item.price.since }}
-	{{ item.price.till }}
+				<div class="bordered-info" id="product-detail-specification">
+					<strong>{{ item.specification.name }}:</strong>
+					<div>
+						{% for entry in item.specification.entry %}
+							{{ entry.value }}
+						{% endfor %}
+					</div>
+				</div>
 
-	<!-- Under index priceHistory is hidden list of all prices, from the oldest -->
-	{% for price in priceHistory%}
-		{{ price.price }}
-	{% endfor %}
+				<div class="bordered-info" id="product-detail-price">
+					<!-- Actual price, can be null if item is not active -->
+					<div><h2>Price: </h2> <h2>{{ item.price.price }}</h2></div>
+					<div id="product-detail-price-date"> 
+						<span><strong>From:</strong> {{ item.price.since }}</span>
+						-
+						<span><strong>To:</strong> {{ item.price.till }}</span>
+					</div>
+				</div>
+			</div>
+		</div>
 
-	<!-- Specification, can be null -->
-	{{ item.specification.name }}
-	{% for entry in item.specification.entry %}
-		{{ entry.value }}
-	{% endfor %}
+		{% if priceHistory%}
+			<hr>
+			<h3>Price History</h3>
+			<div id="product-detail-price-history">
+				<!-- Under index priceHistory is hidden list of all prices, from the oldest -->
+				{% for price in priceHistory%}
+					{{ price.price }}
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
 {% endblock %}

@@ -20,6 +20,31 @@ width:100%;
     width: 8%;
 }
 
+.shopAdd_form form {
+    margin: 0 10%;
+}
+
+.shopAdd_form form > span {
+    display: flex;
+    flex-direction: column;
+}
+
+.shopAdd_form form > span > label {
+    margin: 0;
+    font-size: 20px;
+}
+
+.shopAdd_form form > span > input {
+    color: white;
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 10px;
+    padding: 10px;
+}
+
 .shopAdd_form button:hover {
     color: black;
     background: white;
