@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
-from django.shortcuts import render
+from django.db import transaction
+from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -12,7 +13,7 @@ from ..settings import EMAIL_HOST_USER, FEEDBACK_EMAIL
 # Create your views here.
 
 
-class ContactFormView(LoginMixinView, LoginRequiredMixin, FormView):
+class ContactFormView(FormView):
     """
     Contact form for authenticated users,
     sends message to email specified in settings.py
@@ -22,10 +23,15 @@ class ContactFormView(LoginMixinView, LoginRequiredMixin, FormView):
     success_url = reverse_lazy("index")
 
     def form_valid(self, form):
+        try:
+            with transaction.atomic():
 
-        message = form.cleaned_data["message"] + "\n\nFrom: " + self.request.user.username
-        subject = form.cleaned_data["subject"]
-        send_mail(subject, message, EMAIL_HOST_USER, [FEEDBACK_EMAIL], fail_silently=False)
-        messages.success(self.request, _("Email has been successfully sent."))
+                message = form.cleaned_data["message"] + "\n\nFrom: " + self.request.user.username
+                subject = form.cleaned_data["subject"]
+                send_mail(subject, message, EMAIL_HOST_USER, [FEEDBACK_EMAIL], fail_silently=False)
+                messages.success(self.request, _("Email has been successfully sent."))
+                return super(ContactFormView, self).form_valid(form)
+        except Exception as e:
+            messages.warning(self.request, _("Error trying to send email. If problem persists, please contact staff members."))
+            return super(ContactFormView, self).form_invalid(form)
 
-        return super(ContactFormView, self).form_valid(form)

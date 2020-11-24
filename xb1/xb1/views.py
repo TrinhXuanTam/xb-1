@@ -7,6 +7,7 @@ from django.contrib.auth.views import LoginView as BaseLoginView, LogoutView as 
     PasswordResetView as AuthPasswordResetView, PasswordResetDoneView as AuthPasswordResetDoneView
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
+from django.db import transaction
 from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
@@ -230,22 +231,29 @@ class EmailChangeView(LoginMixinView, LoginRequiredMixin, FormView):
     form_class = UserChangeEmailForm
 
     def form_valid(self, form):
-        form = self.form_class(self.request.POST, instance=self.request.user)
-        form.save()
-        self.request.user.temp_email = form.cleaned_data['temp_email']
-        self.request.user.save()
-        current_site = get_current_site(self.request)
-        subject = 'Potvrďte Váš nový email'
-        # load a template like get_template()
-        # and calls its render() method immediately.
-        message = render_to_string('registration/activation_request_email.html', {
-            'domain': current_site.domain,
-            'uid': urlsafe_base64_encode(force_bytes(self.request.user.pk)),
-            # method will generate a hash value with user related data
-            'token': account_activation_token.make_token(self.request.user),
-        })
-        send_mail(subject, message, EMAIL_HOST_USER, [str(self.request.user.temp_email)], fail_silently=False)
-        return redirect('activation_sent')
+        try:
+            with transaction.atomic():
+                form = self.form_class(self.request.POST, instance=self.request.user)
+                form.save()
+                self.request.user.temp_email = form.cleaned_data['temp_email']
+                self.request.user.save()
+                current_site = get_current_site(self.request)
+                subject = 'Potvrďte Váš nový email'
+                # load a template like get_template()
+                # and calls its render() method immediately.
+                message = render_to_string('registration/activation_request_email.html', {
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(self.request.user.pk)),
+                    # method will generate a hash value with user related data
+                    'token': account_activation_token.make_token(self.request.user),
+                })
+                send_mail(subject, message, EMAIL_HOST_USER, [str(self.request.user.temp_email)], fail_silently=False)
+                return redirect('activation_sent')
+
+        except Exception as e:
+            messages.warning(self.request, _("Error trying to send email. If problem persists, please contact staff members."))
+            return redirect('register')
+
 
 
 class PasswordResetView(LoginMixinView, AuthPasswordResetView):
@@ -300,24 +308,30 @@ class Register(LoginMixinView, FormView):
     form_class = UserRegistrationForm
 
     def form_valid(self, form):
-        form = self.form_class(self.request.POST)
-        user = form.save()
-        current_site = get_current_site(self.request)
-        subject = 'Potvrďte Váš email'
-        user.is_active = False
-        user.signup_confirmation = False
-        user.save()
-        # load a template like get_template()
-        # and calls its render() method immediately.
-        message = render_to_string('registration/activation_request_register.html', {
-            'domain': current_site.domain,
-            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-            # method will generate a hash value with user related data
-            'token': account_activation_token.make_token(user),
-        })
-        user.email_user(subject, message)
-        Log.user_registered(user)
-        return redirect('activation_sent')
+        try:
+            with transaction.atomic():
+                form = self.form_class(self.request.POST)
+                user = form.save()
+                current_site = get_current_site(self.request)
+                subject = 'Potvrďte Váš email'
+                user.is_active = False
+                user.signup_confirmation = False
+                user.save()
+                # load a template like get_template()
+                # and calls its render() method immediately.
+                message = render_to_string('registration/activation_request_register.html', {
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    # method will generate a hash value with user related data
+                    'token': account_activation_token.make_token(user),
+                })
+                user.email_user(subject, message, fail_silently=False)
+                Log.user_registered(user)
+                return redirect('activation_sent')
+
+        except Exception as e:
+            messages.warning(self.request, _("Error trying to send email. If problem persists, please contact staff members."))
+            return redirect('register')
 
 
 # CKEDITOR
