@@ -34,7 +34,8 @@ INSTALLED_APPS = [
     'xb1.shop',
     'django_cleanup',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -200,3 +201,9 @@ EMAIL_HOST_USER = "xb1.feedback@gmail.com"
 EMAIL_HOST_PASSWORD = 'fitwiki1'
 
 FEEDBACK_EMAIL = "xb1.feedback@gmail.com"
+
+#
+#   SESSION SETTINGS
+#
+SESSION_COOKIE_AGE = 24 * 60 * 60
+SESSION_SAVE_EVERY_REQUEST = True

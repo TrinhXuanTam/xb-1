@@ -8,7 +8,7 @@
 
 <div class="top-info">
     <p>{% trans "Oder number" %}: {{ order.pk }}</p>
-    <p>{% trans "Oder state" %}: 
+    <p>{% trans "Oder state" %}:
         {% if order.isPaid %}
         <span class="paid">{% trans "Paid" %}</span>
         {% else %}
@@ -41,7 +41,7 @@
                         <td>{{ object.street }}</td>
                         <td>{{ object.post }}</td>
                         <td>{{ object.phone }}</td>
-                    </tr>   
+                    </tr>
                 </table>
             </div>
         </div>

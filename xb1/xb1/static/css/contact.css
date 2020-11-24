@@ -16,6 +16,16 @@
     cursor: pointer;
 }
 
+.captcha {
+  float: left;
+  padding-left: 60px;
+  padding-top: 10px;
+}
+
+#id_captcha_1{
+    width:60%;
+}
+
 .contact_form {
     text-align: center;
     position: relative;

@@ -1113,3 +1113,6 @@ msgstr "Uživateli byla odebrána správcovská práva"
 
 #~ msgid "Email address"
 #~ msgstr "Adresa"
+
+#~ msgid "Error trying to send email. If problem persists, please contact staff members."
+#~ msgstr "Chyba při posílání emailu. Pokud problém přetřvává, kontaktujte správce."

@@ -58,6 +58,9 @@ urlpatterns = [
     url(r'^ckeditor/upload/', CKEditorUploadView.as_view(), name='ckeditor_upload'),
     url(r'^ckeditor/browse/', CKEditorBrowseView.as_view(), name='ckeditor_browse'),
     url(r'^ckeditor/delete/', CKEditorDeleteView.as_view(), name='ckeditor_delete'),
+
+    path('captcha/', include('captcha.urls')),
+
 ]
 
 if settings.DEBUG:

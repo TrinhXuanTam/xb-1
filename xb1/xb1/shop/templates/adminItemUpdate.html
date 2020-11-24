@@ -12,13 +12,13 @@
         <h1>{% trans "Update product" %}</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <span>{{ form.name.label }} {{ form.name }}</span>
-            <span>{{ form.desc.label }} {{ form.desc }}</span>
-            <span>{{ form.image.label }} {{ form.image }}</span>
-            <span>{{ form.price.label }} {{ form.price }}</span>
-            <span>{{ form.till.label }} {{ form.till }}</span>
-            <span>{{ form.specificationname.label }} {{ form.specificationname }}</span>
-            <span>{{ form.specificationvalue.label }} {{ form.specificationvalue }}</span>
+            <span>{{ form.name.label_tag }} {{ form.name }}</span>
+            <span>{{ form.desc.label_tag }} {{ form.desc }}</span>
+            <span>{{ form.image.label_tag }} {{ form.image }}</span>
+            <span>{{ form.price.label_tag }} {{ form.price }}</span>
+            <span>{{ form.till.label_tag }} {{ form.till }}</span>
+            <span>{{ form.specificationname.label_tag }} {{ form.specificationname }}</span>
+            <span>{{ form.specificationvalue.label_tag }} {{ form.specificationvalue }}</span>
             <button type="submit">{% trans "Update" %}</button>
         </form>
     </div>
