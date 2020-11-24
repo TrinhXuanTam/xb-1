@@ -71,13 +71,13 @@
             </li>
             {% endif %}
 
-            {% if perms.eshop.view_shoporder %}
+            {% if perms.shop.view_order %}
                 <li>
-                    <a href="{% url 'eshop:manageOrderList' %}"><i class="fas fa-shopping-basket sidebarOffset"></i>{% trans "Orders" %}</a>
+                    <a href="{% url 'shop:adminOrderList' %}"><i class="fas fa-shopping-basket sidebarOffset"></i>{% trans "Orders" %}</a>
                 </li>
             {% elif user.is_authenticated %}
                 <li>
-                    <a href="{% url 'eshop:viewOrderList' %}"><i class="fas fa-shopping-basket sidebarOffset"></i>{% trans "Orders" %}</a>
+                    <a href="{% url 'shop:userOrderList' %}"><i class="fas fa-shopping-basket sidebarOffset"></i>{% trans "Orders" %}</a>
                 </li>
             {% endif %}
 
@@ -136,7 +136,7 @@
                 <li><a href="{% url 'contact:contact' %}">{% trans "Contact" %}</a></li>
             {% endif %}
 
-            <li><a href="{% url 'eshop:shopIndex' %}">{% trans "Eshop" %}</a></li>
+            <li><a href="{% url 'shop:shopView' %}">{% trans "Eshop" %}</a></li>
             <li><a href="{% url 'articles:article_list' %}">{% trans "Articles" %}</a></li>
             <!-- <li><a href="#">{% trans "About us" %}</a></li> -->
             <li><a href="{% url 'forum:index' %}">{% trans "Forum" %}</a></li>

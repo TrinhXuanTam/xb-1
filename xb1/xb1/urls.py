@@ -44,6 +44,7 @@ urlpatterns = [
     url(r"^contact/", include("xb1.contact.urls")),
     url(r"^forum/", include("xb1.forum.urls")),
     url(r"^eshop/", include("xb1.eshop.urls")),
+    url(r"^shop/", include("xb1.shop.urls")),
 
     url(r"^sent/", views.ActivationSentView.as_view(), name="activation_sent"),
     path('activate_registration/<slug:uidb64>/<slug:token>/', activate_registration, name='activate_registration'),
