@@ -1,13 +1,41 @@
+image: tiangolo/docker-with-compose
+
+services:
+    - docker:dind
+
+variables:
+    CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_SLUG
+    CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest
+
 stages:
-  - test
+    - test
+    - build
+    - release
 
 test:
-  stage: test
-  script:
-  - apk update
-  - apk add python3
-  - apk add --no-cache --update python3
-  - apk add --no-cache --update python3-dev gcc jpeg-dev zlib-dev musl-dev
-  - pip3 install --upgrade pip setuptools
-  - pip3 install -r requirements.txt
-  - cd xb1
+    stage: test
+    script:
+        - echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+        - apk update && apk add --no-cache yq
+        - docker-compose -f docker-compose.ci-test.yml up -d --build
+        - docker images
+        # test the entrypoint
+
+build:
+    stage: build
+    script:
+        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+        - echo $CONTAINER_TEST_IMAGE
+        - docker build -t $CONTAINER_TEST_IMAGE -f xb1/Dockerfile.ci-build .
+        - docker push $CONTAINER_TEST_IMAGE
+
+release:
+    stage: release
+    script:
+        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+        - docker pull $CONTAINER_TEST_IMAGE
+        - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
+        - docker push $CONTAINER_RELEASE_IMAGE
+        - echo "Finished"
+    #   only:
+    #     - master

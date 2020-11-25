@@ -1,0 +1,89 @@
+# BUILDER #
+###########
+
+# pull official base image
+FROM python:3.7.3-alpine as builder
+
+# set work directory
+WORKDIR /usr/src/xb1
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# install psycopg2 dependencies
+RUN apk update \
+    && apk add postgresql-dev gcc python3-dev musl-dev
+
+# lint
+RUN pip install --upgrade pip
+# RUN pip install flake8
+COPY . .
+# RUN flake8 --ignore=E501,F401 .  < TODO add it later
+
+# install dependencies
+RUN apk update \
+    && apk add --virtual build-deps gcc python3-dev musl-dev \
+    && apk add postgresql \
+    && apk add postgresql-dev \
+    && pip install psycopg2 \
+    && apk add jpeg-dev zlib-dev libjpeg \
+    && pip install Pillow==7.1.1 \
+    && pip install psycopg2-binary==2.8.5 \
+    && apk del build-deps
+RUN ls -l
+COPY ./xb1/requirements.txt .
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/xb1/wheels -r requirements.txt
+
+
+#########
+# FINAL #
+#########
+
+# pull official base image
+FROM python:3.7.3-alpine
+
+# create directory for the xb1 user
+RUN mkdir -p /home/xb1
+
+# create the xb1 user
+RUN addgroup -S xb1 && adduser -S xb1 -G xb1
+
+# create the appropriate directories
+ENV HOME=/home/xb1
+ENV APP_HOME=/home/xb1/web
+RUN mkdir $APP_HOME
+RUN mkdir $APP_HOME/xb1
+RUN mkdir $APP_HOME/xb1/staticfiles
+RUN mkdir $APP_HOME/xb1/media
+WORKDIR $APP_HOME
+
+# install dependencies
+RUN apk update && apk add libpq
+RUN apk update \
+    && apk add --virtual build-deps gcc python3-dev musl-dev \
+    && apk add postgresql \
+    && apk add postgresql-dev \
+    && pip install psycopg2 \
+    && apk add jpeg-dev zlib-dev libjpeg \
+    && pip install Pillow==7.1.1 \
+    && pip install psycopg2-binary==2.8.5 \
+    && apk del build-deps
+COPY --from=builder /usr/src/xb1/wheels /wheels
+COPY --from=builder /usr/src/xb1/requirements.txt .
+RUN pip install --no-cache /wheels/*
+
+# copy entrypoint-prod.sh
+COPY ./xb1/entrypoint.prod.sh $APP_HOME
+
+# copy project
+COPY ./xb1 $APP_HOME
+
+# chown all the files to the xb1 user
+RUN chown -R xb1:xb1 $APP_HOME
+
+# change to the app user
+USER xb1
+
+# run entrypoint.prod.sh
+ENTRYPOINT ["/home/xb1/web/entrypoint.prod.sh"]
