@@ -54,11 +54,11 @@ Messages shown at login/logout
 
 
 def show_logout_message(sender, user, request, **kwargs):
-    messages.info(request, 'Byl jste úspěšně odhlášen.')
+    messages.info(request, _("You have been successfully logged out."))
 
 
 def show_login_message(sender, user, request, **kwargs):
-    messages.info(request, f'Vítejte zpět.')
+    messages.info(request, _("Welcome back"))
 
 
 user_logged_out.connect(show_logout_message)
