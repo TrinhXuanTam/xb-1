@@ -1,70 +1,39 @@
 Návod na instalaci a deploy (Debian server)
 ===========================================
-- stáhněte si zip tohoto projektu: https://gitlab.fit.cvut.cz/trinhxu2/xb-1/-/archive/master/xb-1-master.zip
-- tento zip vyextrahujte a prejdete do jeho slozky
-- v souboru setup.sh upravte nasledujici promenne:
-    - `port_number` - zde zadejte na jakem portu aplikace pobezi
-    - `server_name` - zde zadejte public IP serveru / domenove jmeno
-    - `home_folder` - zde zadejte cestu do home slozky uzivatele (napr.: `/home/dev`)
-- pridejte skriptu prava pro spusteni: `chmod +x setup.sh`
-- spuste skript: `./setup.sh` (Behem behu skriptu budete pozadani o potvrzeni instalaci balicku pomoci `y`, pro zadani hesla pro sudo prikazy a pro vytvoreni superusera database serveru)
-- skript nejprve stahne potrebne zavislosti, nasledne spusti konfiguraci django serveru, nakonec nakonfiguruje nginx server.
-- po dokonceni behu skriptu, zacne byt server dostupny pres zvolenou adresu a port
-- log soubory nginx jsou v adresari `/var/log/nginx/`
-- pro restart serveru zadejte (např při změně zdrojových souborů django serveru): `sudo service uwsgi restart`
 
-Zapnutí projektu
-================
+- nainstalujte si docker a docker-compose
+- stáhněte si tento projekt
+    - vytvořte novou složku a přejděte do ní
+    - zadejte `git init`
+    - zadejte `git clone git@gitlab.fit.cvut.cz:trinhxu2/xb-1.git`
+- v souboru `production/.env.prod` a v souboru `production/.env.prod.db` nastavte proměnné produkčního serveru (popsané v sekci níže = TODO)
+- autentizujte se gitlab deploy tokenem (Autentizační token vám předá správce git repozitáře projektu): `sudo docker login -u <<nazev_tokenu>> -p <<klic_tokenu>> gitlab.fit.cvut.cz:5000`
+- zadejte prikaz `./start.sh`
 
+Zapnutí projektu pro development
+================================
 
-Instalace
----------
-Pro prvni zapnuti serveru zadejte: `sudo sh install.sh`
+zapnutí serveru
+---------------
+v home adresáři `sudo docker-compose up`, případně `sudo docker-compose up -d` pro běh v detached módu (bez viditelného logu)
 
+pokud za běhu budete chtít zadávat další příkazy např. migrate apod, otevřte si druhé okno v konzoli (Ctrl + Shift + T) a tam je zadávejte
 
-Spusteni serveru
-----------------
-Pokud jste jiz provedli prvni instalaci, server spustite takto: `sh run.sh`
+vypnutí serveru
+---------------
+`Ctrl + C`
 
+vytvoření migrací databáze
+--------------------------
+`sudo docker-compose exec web python manage.py makemigrations`
 
-Zapnuti na linux subsystemu pro windows
----------------------------------------
-Nemuzu zarucit ze to bude na 100% fungovat
-
-instalace: `sudo -H ./windows_install.sh`
-
-spusteni: `./windows_run.sh`
-
-
-prvni zapnuti projektu ve windows powershellu
----------------------------------------------
-! pro python muzete mit v systemu jiny alias nez `python`, pokud `python` nefunguje zkuste `python3`/`py`/`py3`
-
-* aby spravne fungovalo virtualni prostredi v powershellu, je nutne ho spustit v rezimu spravce a spustit: `Set-ExecutionPolicy Unrestricted -Force`
-* prejdete do home directory projektu (pro spusteni initial webu prejdete do slozky initial_web)
-* vytvorte novy virtual enviroment (`virtualenv xb1_env`)
-* zapnete virtual enviroment (`./xb1_env/Source/activate.ps1`)
-* stahnete potrebne zavislosti (`pip install -r requirements.txt`)
-* prejdete do slozky, ve ktere je django projekt (`cd xb1`)
-* zapnete django server (`python manage.py runserver`) - zobrazi se hlasky, "You have xx unaplied migratoions..." -> nejsou aplikovane migrace do databaze
-* vypnete server a spuste (`python manage.py migrate`), aplikuji se zmeny v aplikaci do databaze
-* zapnete django server (`python manage.py runserver`)
-
-
-
-zaponuti virtualenv
--------------------
-`source xb1_env/bin/activate`
-
-
-vypnuti virtualenv
-------------------
-`deactivate`
-
+aplikování migrací na databázi
+------------------------------
+`sudo docker-compose exec web python manage.py migrate`
 
 vytvoreni superusera
 --------------------
-`python3 manage.py createsuperuser`
+`sudo docker-compose exec web python manage.py createsuperuser`
 
 tvorba prekladu
 ---------------
@@ -77,17 +46,17 @@ preklad v py souborech:
  2. preklad: `_("What I want to translate.")`
 
 pred prvnim spustenim stahnete gettext (linux) `sudo apt-get install gettext`
- 1. `python manage.py makemessages  -l 'cs'` - vytvori seznam prekladu
- 2. `python manage.py compilemessages` - zkompiluje sepsane preklady
+ 1. `sudo docker-compose exec web python manage.py makemessages  -l 'cs'` - vytvori seznam prekladu
+ 2. `sudo docker-compose exec web python manage.py compilemessages` - zkompiluje sepsane preklady
 
 
 nahrani uzivatelskych skupin do db
 ----------------------------------
-`python3 manage.py loaddata groups.json`
+`sudo docker-compose exec web python manage.py loaddata groups.json` - TODO otestovat
 
 export uzivatelskych skupin do json
 -----------------------------------
-`python manage.py dumpdata --indent 1 auth.group > groups.json`
+`sudo docker-compose exec web python manage.py dumpdata --indent 1 auth.group > groups.json` - TODO otestovat
 
 typy uzivatelskych prav
 -----------------------
