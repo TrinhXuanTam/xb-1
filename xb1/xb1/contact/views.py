@@ -13,7 +13,7 @@ from ..settings import EMAIL_HOST_USER, FEEDBACK_EMAIL
 # Create your views here.
 
 
-class ContactFormView(FormView):
+class ContactFormView(LoginMixinView, FormView):
     """
     Contact form for authenticated users,
     sends message to email specified in settings.py
