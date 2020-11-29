@@ -15,7 +15,7 @@ class ItemCreateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ItemCreateForm, self).__init__(*args, **kwargs)
-        self.fields['till'].widget = DatePickerInput()
+        self.fields['till'].widget = DatePickerInput(attrs={'autocomplete':'off'})
 
     class Meta:
         model = Item
@@ -35,7 +35,7 @@ class ItemUpdateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ItemUpdateForm, self).__init__(*args, **kwargs)
-        self.fields['till'].widget = DatePickerInput()
+        self.fields['till'].widget = DatePickerInput(attrs={'autocomplete':'off'})
 
     class Meta:
         model = Item

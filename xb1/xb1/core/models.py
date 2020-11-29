@@ -29,6 +29,12 @@ class MyUserManager(BaseUserManager):
 
         user.set_password(password)
         user.save(using=self._db)
+
+        # Automatically create user profile
+        profile = Profile()
+        profile.user = user
+        profile.save()
+
         return user
 
     def create_staffuser(self, username, email, password):
@@ -42,6 +48,12 @@ class MyUserManager(BaseUserManager):
         )
         user.is_staff = True
         user.save(using=self._db)
+
+        # Automatically create user profile
+        profile = Profile()
+        profile.user = user
+        profile.save()
+
         return user
 
     def create_superuser(self, username, email, password):
@@ -56,6 +68,12 @@ class MyUserManager(BaseUserManager):
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
+
+        # Automatically create user profile
+        profile = Profile()
+        profile.user = user
+        profile.save()
+
         return user
 
 # Create your models here.
