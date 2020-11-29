@@ -211,9 +211,6 @@ def activate_registration(request, uidb64, token):
         # set signup_confirmation true
         user.signup_confirmation = True
         user.save()
-        profile = Profile(user=user)
-        profile.nickname = user.username
-        profile.save()
         Log.user_verified(user)
         login(request, user)
         return redirect('index')

@@ -33,6 +33,7 @@ class MyUserManager(BaseUserManager):
         # Automatically create user profile
         profile = Profile()
         profile.user = user
+        profile.nickname = user.username
         profile.save()
 
         return user
@@ -48,12 +49,7 @@ class MyUserManager(BaseUserManager):
         )
         user.is_staff = True
         user.save(using=self._db)
-
-        # Automatically create user profile
-        profile = Profile()
-        profile.user = user
-        profile.save()
-
+        
         return user
 
     def create_superuser(self, username, email, password):
@@ -68,11 +64,6 @@ class MyUserManager(BaseUserManager):
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
-
-        # Automatically create user profile
-        profile = Profile()
-        profile.user = user
-        profile.save()
 
         return user
 
