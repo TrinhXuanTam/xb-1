@@ -17,7 +17,7 @@ class Cart:
         self.validate()
 
     def __iter__(self):
-        for item in self.cart.cartentry_set.all():
+        for item in self.cart.cartentry_set.all().order_by('pk'):
             yield item
 
     def validate(self):
