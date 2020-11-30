@@ -252,7 +252,6 @@ class OrderListUserView(LoginMixinView, LoginRequiredMixin, ListView):
 
         return context
 
-
 class OrderCreateView(LoginMixinView, FormView):
 
     template_name = "orderCreate.html"
