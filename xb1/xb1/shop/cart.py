@@ -35,7 +35,8 @@ class Cart:
         return cart
 
     def insert(self, item):
-        models.CartEntry.objects.create(cart=self.cart, item=item, count=1, price=item.price)
+        specification = item.specification.entry.first() if item.specification else None
+        models.CartEntry.objects.create(cart=self.cart, item=item, count=1, price=item.price, specification=specification)
 
     def add(self, pk, count=1):
         entry = models.CartEntry.objects.filter(cart=self.cart, pk=pk).first()
