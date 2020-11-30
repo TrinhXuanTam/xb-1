@@ -194,6 +194,29 @@ class ItemDeactivateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredM
         messages.success(self.request, _('Item deactivated'))
         return reverse_lazy("shop:adminItemList")
 
+class ItemDeleteView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, RedirectView):
+
+    permanent = False
+    permission_required = "shop.delete_item"
+
+    def get_redirect_url(self, *args, **kwargs):
+        if kwargs.get('pk', None) is None:
+            messages.warning(self.request, _("Unknown key"))
+            return reverse_lazy("shop:adminItemList")
+
+        item = Item.objects.filter(pk = kwargs.get('pk')).first()
+        if not item:
+            messages.warning(self.request, _("Not found"))
+            return reverse_lazy("shop:adminItemList")
+
+        if item.price:
+            messages.warning(self.request, _("Can not delete active items"))
+            return reverse_lazy("shop:adminItemList")
+
+        item.delete()
+        messages.success(self.request, _('Item deleted'))
+        return reverse_lazy("shop:adminItemList")
+
 class ItemCreateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, FormView):
 
     form_class = ItemCreateForm
