@@ -20,8 +20,9 @@ urlpatterns = [
     url(r'^admin/item/create$', views.ItemCreateView.as_view(), name="adminItemCreate"),
     url(r'^admin/item/detail/(?P<pk>[0-9]+)$', views.ItemDetailView.as_view(), name="adminItemDetail"),
     url(r'^admin/item/update/(?P<pk>[0-9]+)$', views.ItemUpdateView.as_view(), name="adminItemUpdate"),
-
-
+    url(r'^admin/item/deactivate/(?P<pk>[0-9]+)$', views.ItemDeactivateView.as_view(), name="adminItemDeactivate"),
+    url(r'^admin/item/create/(?P<pk>[0-9]+)$', views.ItemCreateAsView.as_view(), name="adminItemCreateAs"),
+    
     url(r'^order/create$', views.OrderCreateView.as_view(), name="orderCreate"),
     url(r'^order/tracker/(?P<slug>[\w-]+)/$', views.OrderTrackerView.as_view(), name="orderTracker"),
 

@@ -172,6 +172,28 @@ class ItemDetailView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin
 
         return context
 
+class ItemDeactivateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, RedirectView):
+
+    permanent = False
+    permission_required = "shop.update_item"
+
+    def get_redirect_url(self, *args, **kwargs):
+        if kwargs.get('pk', None) is None:
+            messages.warning(self.request, _("Unknown key"))
+            return reverse_lazy("shop:adminItemList")
+
+        item = Item.objects.filter(pk = kwargs.get('pk')).first()
+        if not item:
+            messages.warning(self.request, _("Not found"))
+            return reverse_lazy("shop:adminItemList")
+
+        price = item.price
+        price.till = timezone.now()
+        price.save()
+
+        messages.success(self.request, _('Item deactivated'))
+        return reverse_lazy("shop:adminItemList")
+
 class ItemCreateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, FormView):
 
     form_class = ItemCreateForm
@@ -234,6 +256,40 @@ class ItemUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin
             Price.objects.create(price=form.cleaned_data['price'], item=self.object, since=timezone.now(), till=form.cleaned_data['till'])
 
         return super().form_valid(form)
+
+class ItemCreateAsView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+
+    model = Item
+    form_class = ItemCreateForm
+    template_name = "adminItemCreate.html"
+    success_url = reverse_lazy("shop:adminItemList")
+    permission_required = "shop.add_item"
+
+    def get_initial(self):
+        initial = super(ItemCreateAsView, self).get_initial()
+        if self.object.price is not None:
+            initial['price'] = self.object.price.price
+            initial['till'] = self.object.price.till
+
+        if self.object.specification is not None:
+            initial['specificationname'] = self.object.specification.name
+            initial['specificationvalue'] = ",".join(entry.value for entry in self.object.specification.entry)
+                
+        return initial
+
+    def form_valid(self, form):
+        valid = super().form_valid(form)
+
+        item = Item.objects.create(name=form.cleaned_data['name'], desc=form.cleaned_data['desc'], image=form.cleaned_data['image'])
+        Price.objects.create(price=form.cleaned_data['price'], item=item, since=timezone.now(), till=form.cleaned_data['till'])
+
+        if form.cleaned_data['specificationname'] != '' and form.cleaned_data['specificationvalue'] != '':
+            specification = Specification.objects.create(name=form.cleaned_data['specificationname'], item=item, active=True)
+            entries = form.cleaned_data['specificationvalue'].split(',')
+            for entry in entries:
+                SpecificationEntry.objects.create(value=entry, specification=specification)
+
+        return valid
 
 class OrderListView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
