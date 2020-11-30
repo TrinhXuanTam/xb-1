@@ -52,7 +52,7 @@
 						<td class="cartTableColMerge" style="text-align: center">
 							{% if item.item.specification %}
 								<div class="dropdown">
-									<div class="dropbtn">{{ item.specification.value }}</div>
+									<div class="dropbtn">{{ item.specification.value }}  <i class="fas fa-angle-down"></i></div>
 									<div class="dropdown-content">
 										{% for specentry in item.item.specification.entry %}
 											{% if specentry.value != item.specification.value %}
