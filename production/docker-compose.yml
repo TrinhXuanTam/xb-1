@@ -5,8 +5,9 @@ services:
     image: gitlab.fit.cvut.cz:5000/trinhxu2/xb-1:latest
     command: gunicorn xb1.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - static_volume:/home/xb1/web/xb1/staticfiles
-      - media_volume:/home/xb1/web/xb1/media
+      - ./staticfiles:/home/xb1/web/xb1/staticfiles
+      - ./media:/home/xb1/web/xb1/media
+      - ./dumps:/home/xb1/web/xb1/dumps
     expose:
       - 8000
     env_file:
@@ -22,14 +23,14 @@ services:
   nginx:
     build: ../nginx
     volumes:
-      - static_volume:/home/xb1/web/xb1/staticfiles
-      - media_volume:/home/xb1/web/xb1/media
+      - ./staticfiles:/home/xb1/web/xb1/staticfiles
+      - ./media:/home/xb1/web/xb1/media
+      - /etc/ssl:/etc/ssl
     ports:
-      - 1337:80
+      - 80:80
+      - 443:443
     depends_on:
       - web
 
 volumes:
   postgres_data:
-  static_volume:
-  media_volume:
