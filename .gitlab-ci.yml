@@ -19,7 +19,7 @@ test:
         - apk update && apk add --no-cache yq
         - docker-compose -f docker-compose.ci-test.yml up -d --build
         - docker images
-        # test the entrypoint
+        # test the entrypoin t
 
 build:
     stage: build
