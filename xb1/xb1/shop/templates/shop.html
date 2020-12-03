@@ -48,19 +48,20 @@
 							<img class=shopOfferImageCart src="{{ item.item.image.url }}">
 						</td>
 						<td class="cartTableColMerge"> {{ item.item.name }} </td>
-						<td class="cartTableColMerge" style="text-align: center;">{{ item.item.specification.name}}: </td>
-						<!-- <td class="cartTableColMerge" style="text-align: center;">{{ item.specification.value }}</td> -->
-					 
+						<td class="cartTableColMerge" style="text-align: center;">{{ item.item.specification.name}}</td>
 						<td class="cartTableColMerge" style="text-align: center">
-							<select id="specification-select">
-								{% for specentry in item.item.specification.entry %}
-									{% if specentry.value == item.specification.value %}
-										<option value="{% url 'shop:cartspecificationset' pk=item.pk spec=specentry.pk %}" selected>{{ specentry.value }}</option>
-									{% else %}
-										<option value="{% url 'shop:cartspecificationset' pk=item.pk spec=specentry.pk %}">{{ specentry.value }}</option>
-									{% endif %}
-								{% endfor %}
-							</select>
+							{% if item.item.specification %}
+								<div class="dropdown">
+									<div class="dropbtn">{{ item.specification.value }}  <i class="fas fa-angle-down"></i></div>
+									<div class="dropdown-content">
+										{% for specentry in item.item.specification.entry %}
+											{% if specentry.value != item.specification.value %}
+												<a href="{% url 'shop:cartspecificationset' pk=item.pk spec=specentry.pk %}">{{ specentry.value }}</a>
+											{% endif %}
+										{% endfor %}
+									</div>
+								</div>
+							{% endif %}
 						</td>
 
 						<td class="cartTableCol"> {{ item.count }}  </td>

@@ -19,7 +19,7 @@
 							<th>{% trans "Image" %}</th>
 							<th>{% trans "Description" %}</th>
 							<th>{% trans "Active" %}</th>
-							<th colspan="2">{% trans "Action" %}</th>
+							<th colspan="4">{% trans "Action" %}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -36,6 +36,12 @@
 							{% endif %}
 							<td><a href="{% url 'shop:adminItemDetail' pk=item.pk %}"><i class="fas fa-info"></i> {% trans "Detail" %}</a></td>
 							<td><a href="{% url 'shop:adminItemUpdate' pk=item.pk %}"><i class="fas fa-edit"></i> {% trans "Edit" %}</a></td>
+							{% if item.price %}
+								<td><a href="{% url 'shop:adminItemDeactivate' pk=item.pk %}"><i class="fas fa-power-off"></i> {% trans "Deactivate" %}</a></td>
+							{% else %}
+								<td><a href="{% url 'shop:adminItemDelete' pk=item.pk %}"><i class="far fa-trash-alt"></i> {% trans "Delete" %}</a></td>
+							{% endif %}
+							<td><a href="{% url 'shop:adminItemCreateAs' pk=item.pk %}"><i class="far fa-plus-square"></i> {% trans "Create" %}</a></td>
 						</tr>
 						{% endfor %}
 					</tbody>
