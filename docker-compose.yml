@@ -15,7 +15,7 @@ services:
     labels:
       ofelia.enabled: "true"
       ofelia.job-exec.db_backup.schedule: "@weekly"
-      ofelia.job-exec.db_backup.command: "sh -c 'python3 manage.py dumpdata --all --e sessions --e auth.permission --e contenttypes --indent 2 > db_backup_$$(date +%Y_%m_%d).json'"
+      ofelia.job-exec.db_backup.command: 'sh -c "python3 manage.py dumpdata --all --natural-foreign --natural-primary -e contenttypes -e auth.Permission --indent 2 > dumps/$$(date +%F-%R).json"'
       ofelia.job-exec.article_update.schedule: "@daily"
       ofelia.job-exec.article_update.command: "python3 manage.py update_articles"
   db:
