@@ -13,7 +13,8 @@ services:
       - ./.env.dev
     depends_on:
       - db
-    ofelia.enabled: "true"
+    labels:
+      ofelia.enabled: "true"
       ofelia.job-exec.db_backup.schedule: "@weekly"
       ofelia.job-exec.db_backup.command: 'sh -c "python3 manage.py dumpdata --all --natural-foreign --natural-primary -e contenttypes -e auth.Permission --indent 2 > dumps/$$(date +%F-%R).json"'
       ofelia.job-exec.article_update.schedule: "@daily"
