@@ -404,3 +404,7 @@ class DeleteMixin(models.Model):
 
         self.is_deleted = True
         self.save()
+
+class WarningMessage(models.Model):
+    date = models.DateTimeField(null=false)
+    message_text = models.TextField(default=_("There will be a server maintenance."))

@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.forms import Textarea
 
-from .models import User, Profile
+from .models import User, Profile, WarningMessage
 
 
 # custom login form
@@ -186,3 +186,7 @@ class PasswordResetEmailForm(PasswordResetForm):
     class Meta:
         model = User
         fields = ['email']
+
+class WarningMessageForm(forms.ModelForm):
+    class Meta:
+        model = WarningMessage
