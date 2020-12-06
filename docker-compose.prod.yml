@@ -16,12 +16,6 @@ services:
       - ./.env.prod
     depends_on:
       - db
-    labels:
-      ofelia.enabled: "true"
-      ofelia.job-exec.db_backup.schedule: "@weekly"
-      ofelia.job-exec.db_backup.command: 'sh -c "python3 manage.py dumpdata --all --natural-foreign --natural-primary -e contenttypes -e auth.Permission --indent 2 > dumps/$$(date +%F-%R).json"'
-      ofelia.job-exec.article_update.schedule: "@daily"
-      ofelia.job-exec.article_update.command: "python3 manage.py update_articles"
   db:
     image: postgres:12.0-alpine
     restart: unless-stopped
@@ -39,14 +33,6 @@ services:
       - 1337:80
     depends_on:
       - web
-  ofelia:
-    image: mcuadros/ofelia:latest
-    restart: unless-stopped
-    depends_on:
-      - web
-    command: daemon --docker
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
 volumes:
   postgres_data:
   static_volume:
