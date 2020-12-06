@@ -2,6 +2,7 @@ Návod na instalaci a deploy (Debian server)
 ===========================================
 
 - nainstalujte si docker a docker-compose
+- povolte docker daemon pomocí příkazu `sudo systemctl enable docker`
 - stáhněte si tento projekt
     - vytvořte novou složku a přejděte do ní
     - zadejte `git init`
