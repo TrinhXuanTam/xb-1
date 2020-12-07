@@ -69,7 +69,6 @@ class MyUserManager(BaseUserManager):
 
         return user
 
-
 # Create your models here.
 class User(AbstractUser):
     email = models.EmailField(unique=True)
@@ -85,6 +84,7 @@ class User(AbstractUser):
 
 
 class Profile(models.Model):
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(_("Image"), default='default.jpg', blank=True, null=True, upload_to='profile_image')
     nickname = models.CharField(_('Nickname'), unique=True, max_length=30, null=True, blank=True)
@@ -118,20 +118,19 @@ class Profile(models.Model):
 
 
 class Log(models.Model):
+
     user = models.ForeignKey(User, verbose_name=_("User"), blank=False, null=False, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(_("Timestamp"), auto_now_add=True, null=True, blank=True)
     action = models.CharField(_("Action"), max_length=100, null=True, blank=True)
 
-    article = models.ForeignKey("articles.Article", verbose_name=_("Article"), blank=True, null=True,
-                                on_delete=models.CASCADE)
-    comment = models.ForeignKey("articles.Comment", verbose_name=_("Comment"), blank=True, null=True,
-                                on_delete=models.CASCADE)
-    forum = models.ForeignKey("articles.Forum", verbose_name=_("Forum"), blank=True, null=True,
-                              on_delete=models.CASCADE)
+    article = models.ForeignKey("articles.Article", verbose_name=_("Article"), blank=True, null=True, on_delete=models.CASCADE)
+    comment = models.ForeignKey("articles.Comment", verbose_name=_("Comment"), blank=True, null=True, on_delete=models.CASCADE)
+    forum = models.ForeignKey("articles.Forum", verbose_name=_("Forum"), blank=True, null=True, on_delete=models.CASCADE)
     order = models.ForeignKey("shop.Order", verbose_name=_("Order"), blank=True, null=True, on_delete=models.CASCADE)
 
     @staticmethod
     def user_login(user):
+
         log = Log(
             user=user,
             action=_("user logged in")
@@ -141,6 +140,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_invalid_login(user):
+
         log = Log(
             user=user,
             action=_("user failed to log in")
@@ -150,6 +150,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_sent_password_reset_request(user):
+
         log = Log(
             user=user,
             action=_("user sent password reset request")
@@ -159,6 +160,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_changed_password_via_email(user):
+
         log = Log(
             user=user,
             action=_("user changed password via email")
@@ -168,6 +170,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_registered(user):
+
         log = Log(
             user=user,
             action=_("user registered a new account")
@@ -177,6 +180,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_changed_password(user):
+
         log = Log(
             user=user,
             action=_("user changed a password")
@@ -186,6 +190,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_verified(user):
+
         log = Log(
             user=user,
             action=_("user verified the account")
@@ -195,6 +200,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_created_article(user, article):
+
         log = Log(
             user=user,
             action=_("user created new article"),
@@ -205,6 +211,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_modified_article(user, article):
+
         log = Log(
             user=user,
             action=_("user modified article"),
@@ -215,6 +222,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_published_article(user, article):
+
         log = Log(
             user=user,
             action=_("user published article"),
@@ -225,6 +233,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_hide_article(user, article):
+
         log = Log(
             user=user,
             action=_("user hide article"),
@@ -235,6 +244,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_deleted_article(user, article):
+
         log = Log(
             user=user,
             action=_("user deleted article"),
@@ -245,6 +255,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_posted_comment(user, comment):
+
         log = Log(
             user=user,
             action=_("user posted comment"),
@@ -255,6 +266,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_banned_comment(user, comment):
+
         log = Log(
             user=user,
             action=_("user banned comment"),
@@ -265,6 +277,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_unbanned_comment(user, comment):
+
         log = Log(
             user=user,
             action=_("user unbanned comment"),
@@ -275,6 +288,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_created_order(user, order):
+
         log = Log(
             user=user,
             action=_("user created order"),
@@ -285,6 +299,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_marked_order_as_paid(user, order):
+
         log = Log(
             user=user,
             action=_("user marked order as paid"),
@@ -295,6 +310,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_marked_order_as_unpaid(user, order):
+
         log = Log(
             user=user,
             action=_("user marked order as unpaid"),
@@ -305,6 +321,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_deleted_order(user, order):
+
         log = Log(
             user=user,
             action=_("user deleted order"),
@@ -315,6 +332,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_created_forum(user, forum):
+
         log = Log(
             user=user,
             action=_("user created forum"),
@@ -325,6 +343,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_modified_forum(user, forum):
+
         log = Log(
             user=user,
             action=_("user modified forum"),
@@ -335,6 +354,7 @@ class Log(models.Model):
 
     @staticmethod
     def user_deleted_forum(user, forum):
+
         log = Log(
             user=user,
             action=_("user deleted forum"),
@@ -367,6 +387,7 @@ class DeactivateManager(models.Manager):
 
 
 class DeleteMixin(models.Model):
+
     is_deleted = models.BooleanField(default=False, db_index=True, verbose_name=_("Deleted"))
 
     objects = DeactivateManager()
