@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import UserRegistrationForm, UserUpdateForm
-from .models import User, Profile, Log
+from .models import User, Profile, Log, Message
 
 
 class CustomUserAdmin(UserAdmin):
@@ -35,3 +35,4 @@ class LogAdmin(admin.ModelAdmin):
 
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(Profile)
+admin.site.register(Message)
