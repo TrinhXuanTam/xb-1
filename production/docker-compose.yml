@@ -3,6 +3,7 @@ version: '3.7'
 services:
   web:
     image: gitlab.fit.cvut.cz:5000/trinhxu2/xb-1:latest
+    restart: unless-stopped
     command: gunicorn xb1.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - ./staticfiles:/home/xb1/web/xb1/staticfiles
@@ -14,14 +15,22 @@ services:
       - ./.env.prod
     depends_on:
       - db
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.db_backup.schedule: "@every 5s"
+      ofelia.job-exec.db_backup.command: 'sh -c "python3 manage.py dumpdata --all --natural-foreign --natural-primary -e contenttypes -e auth.Permission --indent 2 > /home/xb1/web/xb1/dumps/$$(date +%F_%R).json"'
+      ofelia.job-exec.article_update.schedule: "@daily"
+      ofelia.job-exec.article_update.command: "python3 manage.py update_articles"
   db:
     image: postgres:12.0-alpine
+    restart: unless-stopped
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./.env.prod.db
   nginx:
     build: ../nginx
+    restart: unless-stopped
     volumes:
       - ./staticfiles:/home/xb1/web/xb1/staticfiles
       - ./media:/home/xb1/web/xb1/media
@@ -31,6 +40,13 @@ services:
       - 443:443
     depends_on:
       - web
-
+  ofelia:
+    image: mcuadros/ofelia:v0.3.3
+    restart: unless-stopped
+    depends_on:
+      - web
+    command: daemon --docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 volumes:
   postgres_data:

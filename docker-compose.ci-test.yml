@@ -21,6 +21,5 @@ services:
       - POSTGRES_USER=xb1_user
       - POSTGRES_PASSWORD=hello_xb1
       - POSTGRES_DB=xb1_dev
-
 volumes:
   postgres_data:
