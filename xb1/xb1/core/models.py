@@ -427,7 +427,7 @@ class SingletonModel(models.Model):
 
 
 class Message(SingletonModel):
-    timestamp = models.DateTimeField(_("Timestamp"))
+    timestamp = models.DateTimeField(_("Timestamp"), default=timezone.now)
     text = models.CharField(_("Text"), max_length=200)
 
     def __str__(self):

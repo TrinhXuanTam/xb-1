@@ -32,7 +32,13 @@ class CustomAdmin(admin.ModelAdmin):
 class LogAdmin(admin.ModelAdmin):
 	list_display = ("user", "timestamp", "action", "article", "order", "comment", "forum")
 
+@admin.register(Message)
+class MessageAdmin(CustomAdmin):
+    model = Message
+
+    list_display = ("pk", "timestamp", "text")
+    fields = ("timestamp", "text")
+
 
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(Profile)
-admin.site.register(Message)
