@@ -151,6 +151,10 @@
     {% endblock %}
     
       <!-- Success message content -->
+     {% if message %}
+     <div class="alert alert-warning">{{ message }}</div>
+     {% endif %}
+
      {% for message in messages %}
      <div class="alert alert-{{message.tags}}" id="hideMe" >{{ message }}</div>
      {% endfor %}

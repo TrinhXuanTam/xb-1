@@ -1,7 +1,9 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from django.core.cache import cache
 
 from datetime import datetime
 from PIL import Image
@@ -49,7 +51,7 @@ class MyUserManager(BaseUserManager):
         )
         user.is_staff = True
         user.save(using=self._db)
-        
+
         return user
 
     def create_superuser(self, username, email, password):
@@ -404,3 +406,30 @@ class DeleteMixin(models.Model):
 
         self.is_deleted = True
         self.save()
+
+
+class SingletonModel(models.Model):
+    def set_cache(self):
+        cache.set(self.__class__.__name__, self)
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super(SingletonModel, self).save(*args, **kwargs)
+        self.set_cache()
+
+    @classmethod
+    def load(cls):
+        if cache.get(cls.__name__) is None:
+            obj, created = cls.objects.get_or_create(pk=1)
+            if not created:
+                obj.set_cache()
+        return cache.get(cls.__name__)
+
+
+class Message(SingletonModel):
+    timestamp = models.DateTimeField(_("Timestamp"), default=timezone.now)
+    text = models.CharField(_("Text"), max_length=200)
+
+    def __str__(self):
+        to_tz = timezone.get_default_timezone()
+        return self.timestamp.astimezone(to_tz).strftime("%d/%m/%Y, %H:%M:%S")
