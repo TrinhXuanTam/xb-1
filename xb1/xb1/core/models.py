@@ -34,14 +34,6 @@ class MyUserManager(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
 
-        # Automatically create user profile
-        profile = Profile()
-        profile.user = user
-        profile.nickname = user.username
-        profile.save(using=self._db)
-
-        print(f"Profile {profile.pk} has been created.")
-
         return user
 
     def create_staffuser(self, username, email, password):
@@ -85,6 +77,23 @@ class User(AbstractUser):
         permissions = (
             ("is_staff_user", "Is user a staff"),
         )
+
+    def save(self, *args, **kwargs):
+
+        # Create profile if user object has been created.
+        if not self.pk:
+
+            to_return = super.save(*args, **kwargs)
+            profile = Profile()
+            profile.user = user
+            profile.nickname = user.username
+            profile.save(using=self._db)
+
+            print(f"Profile {profile.pk} has been created.")
+
+            return to_return
+
+        return super().save(*args, **kwargs)
 
 
 class Profile(models.Model):
