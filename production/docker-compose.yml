@@ -34,7 +34,7 @@ services:
     build: ../nginx
     restart: unless-stopped
     volumes:
-      - ./staticfiles:/home/xb1/web/xb1/staticfiles
+      - staticfiles:/home/xb1/web/xb1/staticfiles
       - ./media:/home/xb1/web/xb1/media
       - /etc/ssl:/etc/ssl
     ports:
