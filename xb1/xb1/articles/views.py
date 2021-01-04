@@ -72,6 +72,7 @@ class ArticleUpdateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMi
     permission_required = "articles.change_article"
 
     def form_valid(self, form):
+
         form.instance.author = self.request.user
         Log.user_modified_article(self.request.user, form.instance)
         return super(ArticleUpdateView, self).form_valid(form)
