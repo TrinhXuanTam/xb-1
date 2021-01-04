@@ -9,8 +9,8 @@ services:
       - staticfiles:/home/xb1/web/xb1/staticfiles
       - ./media:/home/xb1/web/xb1/media
       - ./dumps:/home/xb1/web/xb1/dumps
-    # user:
-    #   xb1
+    user:
+      xb1
     expose:
       - 8000
     env_file:
