@@ -48,7 +48,7 @@ FROM python:3.7.3-alpine
 RUN mkdir -p /home/xb1
 
 # create the xb1 user
-RUN addgroup -S xb1 && adduser -S xb1 -G xb1
+RUN addgroup -S xb1 && adduser -S xb1 -G xb1 --uid 1004
 
 # create the appropriate directories
 ENV HOME=/home/xb1
