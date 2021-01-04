@@ -1,11 +1,11 @@
-# mkdir -p media media/thumbnails media/ShopItems media/profile_image media/article_content_images
-# mkdir -p dumps
+mkdir -p media media/thumbnails media/ShopItems media/profile_image media/article_content_images
+mkdir -p dumps
 
-# chgrp -R docker media
-# chgrp docker dumps
+chgrp -R docker media
+chgrp docker dumps
 
-# chmod -R g+w media
-# chmod g+w dumps
+chmod -R g+w media
+chmod g+w dumps
 
 docker-compose up -d
 echo "Making database backup..."
