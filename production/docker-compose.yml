@@ -9,6 +9,8 @@ services:
       - ./staticfiles:/home/xb1/web/xb1/staticfiles
       - ./media:/home/xb1/web/xb1/media
       - ./dumps:/home/xb1/web/xb1/dumps
+    user:
+      xb1
     expose:
       - 8000
     env_file:
@@ -24,6 +26,8 @@ services:
   db:
     image: postgres:12.0-alpine
     restart: unless-stopped
+    user:
+      xb1
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
@@ -31,6 +35,8 @@ services:
   nginx:
     build: ../nginx
     restart: unless-stopped
+    user:
+      xb1
     volumes:
       - ./staticfiles:/home/xb1/web/xb1/staticfiles
       - ./media:/home/xb1/web/xb1/media
@@ -43,6 +49,8 @@ services:
   ofelia:
     image: mcuadros/ofelia:v0.3.3
     restart: unless-stopped
+    user:
+      xb1
     depends_on:
       - web
     command: daemon --docker
