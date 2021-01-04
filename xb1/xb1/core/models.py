@@ -29,6 +29,8 @@ class MyUserManager(BaseUserManager):
             is_superuser=is_superuser
         )
 
+        print(f"User {user.pk} has been created.")
+
         user.set_password(password)
         user.save(using=self._db)
 
@@ -36,7 +38,9 @@ class MyUserManager(BaseUserManager):
         profile = Profile()
         profile.user = user
         profile.nickname = user.username
-        profile.save()
+        profile.save(using=self._db)
+
+        print(f"Profile {profile.pk} has been created.")
 
         return user
 
