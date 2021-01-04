@@ -1,1 +1,1 @@
-sudo docker-compose logs -f -t web nginx
+docker-compose logs -f -t web nginx
