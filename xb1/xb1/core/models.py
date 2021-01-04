@@ -29,8 +29,6 @@ class MyUserManager(BaseUserManager):
             is_superuser=is_superuser
         )
 
-        print(f"User {user.pk} has been created.")
-
         user.set_password(password)
         user.save(using=self._db)
 
@@ -83,17 +81,15 @@ class User(AbstractUser):
         # Create profile if user object has been created.
         if not self.pk:
 
-            to_return = super().save(*args, **kwargs)
+            super(User, self).save(*args, **kwargs)
+
             profile = Profile()
-            profile.user = user
-            profile.nickname = user.username
+            profile.user = self
+            profile.nickname = self.username
             profile.save()
 
-            print(f"Profile {profile.pk} has been created.")
-
-            return to_return
-
-        return super().save(*args, **kwargs)
+        else:
+            return super(User, self).save(*args, **kwargs)
 
 
 class Profile(models.Model):
