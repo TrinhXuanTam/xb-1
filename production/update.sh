@@ -1,14 +1,11 @@
 mkdir -p media
 mkdir -p dumps
-# mkdir -p staticfiles
 
 chgrp docker media
 chgrp docker dumps
-# chgrp docker staticfiles
 
 chmod g+w media
 chmod g+w dumps
-# chmod g+w staticfiles
 
 docker-compose up -d
 echo "Making database backup..."

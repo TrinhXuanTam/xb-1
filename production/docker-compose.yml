@@ -9,8 +9,8 @@ services:
       - staticfiles:/home/xb1/web/xb1/staticfiles
       - ./media:/home/xb1/web/xb1/media
       - ./dumps:/home/xb1/web/xb1/dumps
-    user:
-      xb1
+    # user:
+    #   xb1
     expose:
       - 8000
     env_file:
@@ -19,7 +19,7 @@ services:
       - db
     labels:
       ofelia.enabled: "true"
-      ofelia.job-exec.db_backup.schedule: "@every 5s"
+      ofelia.job-exec.db_backup.schedule: "@every 6h"
       ofelia.job-exec.db_backup.command: 'sh -c "python3 manage.py dumpdata --all --natural-foreign --natural-primary -e contenttypes -e auth.Permission --indent 2 > /home/xb1/web/xb1/dumps/$$(date +%F_%R).json"'
       ofelia.job-exec.article_update.schedule: "@daily"
       ofelia.job-exec.article_update.command: "python3 manage.py update_articles"
