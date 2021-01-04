@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     command: gunicorn xb1.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - ./staticfiles:/home/xb1/web/xb1/staticfiles
+      - staticfiles:/home/xb1/web/xb1/staticfiles
       - ./media:/home/xb1/web/xb1/media
       - ./dumps:/home/xb1/web/xb1/dumps
     user:
@@ -52,3 +52,4 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 volumes:
   postgres_data:
+  staticfiles:

@@ -1,14 +1,14 @@
 mkdir -p media
 mkdir -p dumps
-mkdir -p staticfiles
+# mkdir -p staticfiles
 
 chgrp docker media
 chgrp docker dumps
-chgrp docker staticfiles
+# chgrp docker staticfiles
 
 chmod g+w media
 chmod g+w dumps
-chmod g+w staticfiles
+# chmod g+w staticfiles
 
 docker-compose up -d
 echo "Making database backup..."
@@ -18,7 +18,6 @@ docker-compose stop
 docker-compose pull web
 docker-compose up --build -d
 docker-compose exec web python manage.py migrate --no-input
-docker-compose exec web whoami
-docker-compose exec web --user xb1 python manage.py collectstatic --no-input --clear
+docker-compose exec --user xb1 web python manage.py collectstatic --no-input --clear
 docker-compose stop
 echo "Updating server has successfully finished."
