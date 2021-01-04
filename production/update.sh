@@ -18,6 +18,6 @@ docker-compose stop
 docker-compose pull web
 docker-compose up --build -d
 docker-compose exec web python manage.py migrate --no-input
-docker-compose exec web python manage.py collectstatic --no-input --clear --user xb1
+docker-compose exec --user xb1 web python manage.py collectstatic --no-input --clear
 docker-compose stop
 echo "Updating server has successfully finished."
