@@ -1,10 +1,10 @@
-mkdir -p media
+mkdir -p media media/thumbnails media/ShopItems media/profile_image media/article_content_images
 mkdir -p dumps
 
-chgrp docker media
+chgrp -R docker media
 chgrp docker dumps
 
-chmod g+w media
+chmod -R g+w media
 chmod g+w dumps
 
 docker-compose up -d
