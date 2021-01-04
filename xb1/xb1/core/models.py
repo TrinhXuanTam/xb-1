@@ -83,11 +83,11 @@ class User(AbstractUser):
         # Create profile if user object has been created.
         if not self.pk:
 
-            to_return = super.save(*args, **kwargs)
+            to_return = super().save(*args, **kwargs)
             profile = Profile()
             profile.user = user
             profile.nickname = user.username
-            profile.save(using=self._db)
+            profile.save()
 
             print(f"Profile {profile.pk} has been created.")
 
