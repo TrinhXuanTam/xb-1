@@ -35,8 +35,6 @@ services:
       - staticfiles:/home/xb1/web/xb1/staticfiles
       - ./media:/home/xb1/web/xb1/media
       - /etc/ssl:/etc/ssl
-    env_file:
-      - ./.env
     ports:
       - 80:80
       - 443:443
