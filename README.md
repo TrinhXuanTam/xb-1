@@ -1,3 +1,8 @@
+TODO
+====
+Tohle přesunout do dokumentací, kam to patří a sem dát jen linky na samostatné dokumentace
+
+
 Návod na instalaci a deploy (Debian server)
 ===========================================
 
