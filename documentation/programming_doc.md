@@ -1,5 +1,19 @@
 # Programátorská dokumentace
-## Použité technologie
+
+## <a name="table_of_contents"></a>Obsah
+1. [Obsah](#table_of_contents)
+2. [Použité technologie](#technologies)
+3. [Minimum OS/HW requirements](#requirements)
+4. [Server maintenance](#)
+    1. [První spuštění](#first_start)
+    2. [Aktualizace serveru](#server_update)
+    3. [Spuštění serveru](#server_start)
+    4. [Vypnutí serveru](#server_shutdown)
+    5. [Co ještě popsat v dokumentaci - TODO](#todo)
+5. [Obsah souboru xb-1/production/.env](#envfile)
+
+
+## <a name="technologies"></a>Použité technologie
 - Virtualizace:
     - Docker
 - Backend server:
@@ -25,7 +39,7 @@
     - django-crispy-forms==1.9.0
     - django-cleanup==4.0.0
 
-## Minimum OS/HW requirements
+## <a name="requirements"></a>Minimum OS/HW requirements
 - OS:
     - Debian 9/10
     - Přístup k serveru jakou superuser
@@ -33,10 +47,9 @@
     - 2 GB RAM
     - 24 GB SSD
 
+## <a name="server_maintenance"></a>Server maintenance
 
-## Návod na instalaci (Debian server)
-
-### První spuštění
+### <a name="first_start"></a>První spuštění
 
 - Přihlaste se do systému s účtem s administrátorskými právy (uživatel s povolením sudo příkazů)
 - Nainstalujte si docker a docker-compose
@@ -66,33 +79,36 @@
 - pro zobrazení logu dockeru ve chvíli, kdy server beží, zavolejte
     - `sh log.sh`
 
-### Co ještě popsat v dokumentaci
-- opakované spuštění
-- update serveru
-- manuální vypnutí serveru
+### <a name="server_update"></a>Aktualizace serveru
+- V případě, že proběhly nějaké změny zdrojových kódů aplikace zavolejte tyto příkazy
+- Přejděte do složky production
+    - `cd xb-1/production`
+- Pokud proběhly změny i mimo django aplikaci (např. v konfiguraci databáze, nginxu či dockeru) bude potřeba aktualizovat celý repozitář:
+    - `git pull`
+- Následně spusťte skript pro update serveru
+    - `sh update.sh`
+        - Skript stáhne nově sestavený balíček django aplikace a aktualizuje jím dosavadní docker image
+        - Před svým během během skript vždy provede kompletní zálohu databáze
+- Po dokončení aktualizace zůstane server vypnutý, proto zavolejte skript pro jeho zapnutí
+    - `sh start.sh`
+
+### <a name="server_start"></a>Spuštění serveru
+- Přejděte do složky production
+    - `cd xb-1/production`
+- Zavolejte skript pro start serveru
+    - `sh start.sh`
+        - Skript před spuštěním serveru provede kompletní zálohu databáze
+
+### <a name="server_shutdown"></a>Vypnutí serveru
+- Přejděte do složky production
+    - `cd xb-1/production`
+- Zavolejte
+    -  `docker-compose down`
+
+### <a name="todo"></a>Co ještě popsat v dokumentaci - TODO
 - nahrání zálohy databáze
 
-<!-- - stáhněte si zip tohoto projektu: https://gitlab.fit.cvut.cz/ridzodan/sp1-initial-web/-/archive/master/sp1-initial-web-master.zip
-- tento zip vyextrahujte v domovském adresáři uživatele
-- následně přesuňte obsah extrahované složky o level výše (tedy do home adresáře uživatele): `mv sp1-initial-web-master/* .`
-- **před voláním následujících skriptů se ujistěte, že složka xb1 z git repositáře je v home adresáři uživatele (případně je nutné upravit cestu k projektu v konfiguračních souborech  nginxu)**
-- v souboru **nginx_conf** nastavte port (proměnná **listen**) a adresu serveru/doménu (proměnná **server_name**). Změňte výskyt proměnné *ridzodan* za jméno vašeho usera. Soubor uložte.
-- v souboru **xb1.ini** změňte proměnnou **base**, tak aby odkazovala na váš home adresář. Soubor uložte
-- spustě příkaz `chmod +x setup_django_server.sh`
-- spustě příkaz `./setup_django_server.sh`
-    - tento script stáhne potřebné závislosti pro běh django serveru
-    - následně vytvoří serveru virtuální prostředí
-    - nainstaluje potřebné python knihovny
-    - zinicializuje django server
-- spustě příkaz `chmod +x setup_nginx_server.sh`
-- spustě příkaz `./setup_nginx_server.sh`
-    - tento script stáhne potřebné závislosti pro běh nginx reverse proxy serveru
-    - vytvoří konfigurační soubory, pro nalinkování serveru
-    - server by v tuto chvíli již měl být dostupný na zadané adrese.
-- pro restart serveru zadejte (např při změně zdrojových souborů django serveru): `sudo service uwsgi restart` -->
-
-
-### <a name="envfile"></a>Obsah souboru xb-1/production/.env
+## <a name="envfile"></a>Obsah souboru xb-1/production/.env
 ukázkový obsah souboru .env:
 >DEBUG=0  
 SECRET_KEY=**change_this**  
