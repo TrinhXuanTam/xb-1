@@ -21,12 +21,3 @@ staticfiles
 
 # Password settings files
 passwords.py
-
-# Images
-# profile_image/*
-# thumbnails/*
-# article_content_images/*
-
-# Production enviroment settings
-.env.prod
-.env.prod.db
