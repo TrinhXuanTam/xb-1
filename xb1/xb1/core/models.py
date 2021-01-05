@@ -2,6 +2,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
+from django.utils.deconstruct import deconstructible
 from django.utils.translation import ugettext_lazy as _
 from django.core.cache import cache
 
@@ -11,13 +12,24 @@ from PIL import Image
 import random
 
 
+@deconstructible
+class GenerateFilepath(object):
+    path = "{0}/{1}{2}{3}"
 
-def generate_filepath(path):
-    def wrapper(instance, filename):
+    def __init__(self, folder):
+        self.folder = folder
+
+    def __call__(self, instance, filename):
         extension = "." + filename.split('.')[-1]
-        filename = str(random.randint(100000000, 999999999999)) + "_" + timezone.now().strftime("%d%m%Y%H%M%S") + extension
-        return os.path.join(path, filename)
-    return wrapper
+
+        return self.path.format(
+            self.folder,
+            random.randint(1000000000, 9999999999),
+            timezone.now().strftime("%d%m%Y%H%M%S"),
+            extension
+        )
+
+upload_dir = GenerateFilepath("profile_image")
 
 
 class MyUserManager(BaseUserManager):
@@ -106,7 +118,7 @@ class User(AbstractUser):
 class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(_("Image"), default='default.jpg', blank=True, null=True, upload_to=generate_filepath("profile_image"))
+    image = models.ImageField(_("Image"), default='default.jpg', blank=True, null=True, upload_to=upload_dir)
     nickname = models.CharField(_('Nickname'), unique=True, max_length=30, null=True, blank=True)
     city = models.CharField(_("City"), max_length=100, null=True, blank=True)
     postalCode = models.CharField(_("Postal Code"), max_length=10, null=True, blank=True)
