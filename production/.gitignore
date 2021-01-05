@@ -1,2 +1,6 @@
 # Production env file
 .env
+
+# Docker volumes
+media/
+dumps/
