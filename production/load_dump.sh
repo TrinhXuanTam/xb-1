@@ -12,7 +12,7 @@ else
     echo "Database backup finished"
 
     # Flush the database
-    docker-compose exec web python manage.py reset_db
+    docker-compose exec web python manage.py flush
 
     # Load the dump file
     docker-compose exec web python manage.py loaddata xb1/dumps/$1
