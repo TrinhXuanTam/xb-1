@@ -1,6 +1,8 @@
 mkdir -p media media/thumbnails media/ShopItems media/profile_image media/article_content_images
 mkdir -p dumps
 
+cp default.jpg media/
+
 chgrp -R docker media
 chgrp docker dumps
 
