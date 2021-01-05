@@ -9,7 +9,8 @@
     2. [Aktualizace serveru](#server_update)
     3. [Spuštění serveru](#server_start)
     4. [Vypnutí serveru](#server_shutdown)
-    5. [Co ještě popsat v dokumentaci - TODO](#todo)
+    5. [Nahrání zálohy databáze](#load_dump)
+    6. [Co ještě popsat v dokumentaci - TODO](#todo)
 5. [Obsah souboru xb-1/production/.env](#envfile)
 
 
@@ -67,7 +68,7 @@
 - Stáhněte si tento projekt
     - zadejte `git clone https://gitlab.fit.cvut.cz/trinhxu2/xb-1.git`
     - zadejte `cd xb-1` pro přejití do složky s projektem
-- v souboru `production/.env` a v souboru nastavte proměnné produkčního serveru ([popsané v sekci níže](#envfile))
+- Vytvořte soubor `production/.env`, ve kterém nastavíte proměnné produkčního serveru ([popsané v sekci níže](#envfile))
 - autentizujte se gitlab deploy tokenem (Autentizační token vám vygeneruje a předá správce git repozitáře projektu)
     - `sudo docker login -u <<nazev_tokenu>> -p <<klic_tokenu>> gitlab.fit.cvut.cz:5000`
 - přejděte do složky production
@@ -105,8 +106,17 @@
 - Zavolejte
     -  `docker-compose down`
 
+### <a name="load_dump"></a>Nahrání zálohy databáze
+- Přejděte do složky production
+    - `cd xb-1/production`
+- Ve složce `dumps/` nalezněte název zálohy, kterou chcete nahrát
+- Zavolejte skript pro nahrání zálohy s parametrem názvu zálohy(bez cesty):
+    - `sh loaddump.sh 2021-01-04_18:37.json`
+        - Během běhu se smaže celá databáze (Budete požádáni o potvrzení této akce)
+        - Pro jistotu skript před smazáním vytvoří zálohu původní databáze
+
 ### <a name="todo"></a>Co ještě popsat v dokumentaci - TODO
-- nahrání zálohy databáze
+- empty list :P
 
 ## <a name="envfile"></a>Obsah souboru xb-1/production/.env
 ukázkový obsah souboru .env:
