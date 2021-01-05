@@ -1,5 +1,7 @@
 # Programátorská dokumentace
 ## Použité technologie
+- Virtualizace:
+    - Docker
 - Backend server:
     - python 3.7
     - django 3.0.3
@@ -92,19 +94,19 @@
 
 ### <a name="envfile"></a>Obsah souboru xb-1/production/.env
 ukázkový obsah souboru .env:
->DEBUG=0
-SECRET_KEY=**change_this**
-DJANGO_ALLOWED_HOSTS=*
-DATABASE=postgres
-SQL_ENGINE=django.db.backends.postgresql
-SQL_HOST=db
-SQL_PORT=5432
-SQL_USER=xb1_user
-POSTGRES_USER=xb1_user
-SQL_PASSWORD=hello_xb1
-POSTGRES_PASSWORD=hello_xb1
-SQL_DATABASE=xb1_dev
-POSTGRES_DB=xb1_dev
+>DEBUG=0  
+SECRET_KEY=**change_this**  
+DJANGO_ALLOWED_HOSTS=*  
+DATABASE=postgres  
+SQL_ENGINE=django.db.backends.postgresql  
+SQL_HOST=db  
+SQL_PORT=5432  
+SQL_USER=xb1_user  
+POSTGRES_USER=xb1_user  
+SQL_PASSWORD=hello_xb1  
+POSTGRES_PASSWORD=hello_xb1  
+SQL_DATABASE=xb1_dev  
+POSTGRES_DB=xb1_dev  
 
 - DEBUG
     - Zanechte 0 pro běh aplikace v produkčním režimu
