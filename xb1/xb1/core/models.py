@@ -6,7 +6,18 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.cache import cache
 
 from datetime import datetime
+import os
 from PIL import Image
+import random
+
+
+
+def generate_filepath(path):
+    def wrapper(instance, filename):
+        extension = "." + filename.split('.')[-1]
+        filename = str(random.randint(100000000, 999999999999)) + "_" + timezone.now().strftime("%d%m%Y%H%M%S") + extension
+        return os.path.join(path, filename)
+    return wrapper
 
 
 class MyUserManager(BaseUserManager):
@@ -95,7 +106,7 @@ class User(AbstractUser):
 class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(_("Image"), default='default.jpg', blank=True, null=True, upload_to='profile_image')
+    image = models.ImageField(_("Image"), default='default.jpg', blank=True, null=True, upload_to=generate_filepath("profile_image"))
     nickname = models.CharField(_('Nickname'), unique=True, max_length=30, null=True, blank=True)
     city = models.CharField(_("City"), max_length=100, null=True, blank=True)
     postalCode = models.CharField(_("Postal Code"), max_length=10, null=True, blank=True)
