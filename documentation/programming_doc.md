@@ -109,7 +109,7 @@
 ### <a name="load_dump"></a>Nahrání zálohy databáze
 - Přejděte do složky production
     - `cd xb-1/production`
-- Ve složce `dumps/` nalezněte název zálohy, kterou chcete nahrát
+- Ve složce `dumps/` nalezněte název zálohy (provádí se každých 6 hodin), kterou chcete nahrát
 - Zavolejte skript pro nahrání zálohy s parametrem názvu zálohy(bez cesty):
     - `sh loaddump.sh 2021-01-04_18:37.json`
         - Během běhu se smaže celá databáze (Budete požádáni o potvrzení této akce)
