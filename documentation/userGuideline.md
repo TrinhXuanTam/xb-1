@@ -5,7 +5,7 @@ Cílem tohoto dokumentu je seznámení uživatelů XB1 fans s funkcionalitami st
     - Uživatel zadá svoje přihlašovací údaje a následně je na zadaný email zaslán aktivační odkaz.
     
     ![](pictures/register1.PNG)
-    - Expirační doba odkazu je 24 hodin.
+    - Expirační doba odkazu je 30 minut.
 
     ![](pictures/activation_link.PNG)
 
@@ -130,3 +130,36 @@ Cílem tohoto dokumentu je seznámení uživatelů XB1 fans s funkcionalitami st
 - Pod hlavičkou fóra je sekce komentářů.
 - Autorizovaní uživatelé mohou do diskuze psát komentáře a zároveň reagovat na komentáře ostatních.
 ![](pictures/forum_comments.png)
+
+### Sekce správa uživatelů
+- Sekce správy uživatelů slouží k monitorování uživatelů, cenzurování nevhodných komentářů, zablokování přístupu na web 
+a přidání správcovských práv.
+![](pictures/sprava_uzivatelu.png)
+- Pro vybrání konkrétního uživatele, klikněte na jeho uživatelské jméno.
+- Je možné využít také vyhledávání.
+![](pictures/sprava_uzivatele_vyber.png)
+#### Zobrazení komentářů a zablokování komentáře
+- Přehled komentářů konkrétního uživatele
+![](pictures/sprava_uzivatele_block_comment1.png)
+- Zablokování komentáře
+![](pictures/sprava_uzivatele_block_comment2.png)
+#### Přidání správcovských práv uživateli
+![](pictures/sprava_uzivatele_add_admin.png)
+#### Zablokování uživatele
+![](pictures/sprava_uzivatele_block.png)
+### Kontaktní formulář
+- Kontaktní formulář slouží ke komunikaci se správci (posílání připomínek, zpráv, atd.).
+- Pro poslání zprávy je nutné přepsat capcha.
+![](pictures/kontaktni_formular.png)
+
+
+
+
+
+
+
+
+
+
+
+
