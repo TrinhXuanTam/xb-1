@@ -134,22 +134,29 @@ Cílem tohoto dokumentu je seznámení uživatelů XB1 fans s funkcionalitami st
 ### Sekce správa uživatelů
 - Sekce správy uživatelů slouží k monitorování uživatelů, cenzurování nevhodných komentářů, zablokování přístupu na web 
 a přidání správcovských práv.
+
 ![](pictures/sprava_uzivatelu.png)
 - Pro vybrání konkrétního uživatele, klikněte na jeho uživatelské jméno.
 - Je možné využít také vyhledávání.
+
 ![](pictures/sprava_uzivatele_vyber.png)
 #### Zobrazení komentářů a zablokování komentáře
 - Přehled komentářů konkrétního uživatele
+
 ![](pictures/sprava_uzivatele_block_comment1.png)
 - Zablokování komentáře
+
 ![](pictures/sprava_uzivatele_block_comment2.png)
 #### Přidání správcovských práv uživateli
+
 ![](pictures/sprava_uzivatele_add_admin.png)
 #### Zablokování uživatele
+
 ![](pictures/sprava_uzivatele_block.png)
 ### Kontaktní formulář
 - Kontaktní formulář slouží ke komunikaci se správci (posílání připomínek, zpráv, atd.).
 - Pro poslání zprávy je nutné přepsat capcha.
+
 ![](pictures/kontaktni_formular.png)
 
 
