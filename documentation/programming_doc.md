@@ -183,7 +183,6 @@ POSTGRES_DB=xb1_dev
     - jméno databáze, musí se shodovat s POSTGRES_DB
 - POSTGRES_DB=xb1_dev
     - jméno databáze, musí se shodovat s SQL_DATABASE
-- TODO chtělo by to sjednotit tyto zbytečně zdvojené proměnné a odstranit proměnné, co se nesmí měnit (nahardcodit je do django settings)
 
 ## <a name="development"></a>Development
 ### <a name="local_start"></a>Zapnutí lokálního serveru
@@ -218,10 +217,10 @@ POSTGRES_DB=xb1_dev
 
 
 ### <a name="user_groups_import"></a>Nahraní uživatelských skupin do databáze
-- `sudo docker-compose exec web python manage.py loaddata groups.json` - TODO otestovat
+- `sudo docker-compose exec web python manage.py loaddata groups.json`
 
 ### <a name="user_groups_export"></a>Export uživatelských skupin do json
-- `sudo docker-compose exec web python manage.py dumpdata --indent 1 auth.group > groups.json` - TODO otestovat
+- `sudo docker-compose exec web python manage.py dumpdata --indent 1 auth.group > xb1/groups.json`
 
 ### <a name="user_permissions"></a>Typy uživatelských práv
 - Každý model automaticky generuje tyto 4 druhy práv (modelname odpovídá názvu modelu v lower case):
