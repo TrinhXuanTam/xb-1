@@ -70,7 +70,7 @@
     - zadejte `cd xb-1` pro přejití do složky s projektem
 - Vytvořte soubor `production/.env`, ve kterém nastavíte proměnné produkčního serveru ([popsané v sekci níže](#envfile))
 - autentizujte se gitlab deploy tokenem (Autentizační token vám vygeneruje a předá správce git repozitáře projektu)
-    - `sudo docker login -u <<nazev_tokenu>> -p <<klic_tokenu>> gitlab.fit.cvut.cz:5000`
+    - `docker login -u <<nazev_tokenu>> -p <<klic_tokenu>> gitlab.fit.cvut.cz:5000`
 - přejděte do složky production
     - `cd production`
 - zavolejte skript pro update serveru
