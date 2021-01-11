@@ -4,16 +4,15 @@
 1. [Obsah](#table_of_contents)
 2. [Použité technologie](#technologies)
 3. [Minimum OS/HW requirements](#requirements)
-4. [Návod na instalaci a deploy (Debian server)](#installation)
-5. [Server maintenance](#)
+4. [Server maintenance](#)
     1. [První spuštění](#first_start)
     2. [Aktualizace serveru](#server_update)
     3. [Spuštění serveru](#server_start)
     4. [Vypnutí serveru](#server_shutdown)
     5. [Nahrání zálohy databáze](#load_dump)
     6. [Vytvoření superusera serveru](#create_superuser)
-6. [Obsah souboru xb-1/production/.env](#envfile)
-7. [Development](#development)
+5. [Obsah souboru xb-1/production/.env](#envfile)
+6. [Development](#development)
     1. [Zapnutí lokálního serveru](#local_start)
     2. [Vypnutí lokálního serveru](#local_shutdown)
     3. [Vytvoření migrací databáze](#migration_create)
@@ -60,21 +59,6 @@
     - 2 GB RAM
     - 24 GB SSD
 
-## <a name="installation"></a>Návod na instalaci a deploy (Debian server)
-- nainstalujte si docker a docker-compose
-- povolte docker daemon pomocí příkazu `sudo systemctl enable docker`
-- stáhněte si tento projekt
-    - vytvořte novou složku a přejděte do ní
-    - zadejte `git init`
-    - zadejte `git clone git@gitlab.fit.cvut.cz:trinhxu2/xb-1.git`
-    - zadejte `cd xb-1`
-- v souboru `production/.env.prod` a v souboru `production/.env.prod.db` nastavte proměnné produkčního serveru (popsané v sekci níže = TODO)
-- autentizujte se gitlab deploy tokenem (Autentizační token vám předá správce git repozitáře projektu): `sudo docker login -u <<nazev_tokenu>> -p <<klic_tokenu>> gitlab.fit.cvut.cz:5000`
-- prejdete do slozky production `cd production`
-- pro update serveru zadejte prikaz `sh update.sh` (Update server nenecha zapnuty)
-- zadejte prikaz `sh start.sh`
-- oba skripty pred svym spustenim vytvori zalohu databaze do slozky production/dumps
-- pro zobrazeni logu dockeru ve chvili, kdy server bezi zadejte `sh log.sh`
 
 ## <a name="server_maintenance"></a>Server maintenance
 
