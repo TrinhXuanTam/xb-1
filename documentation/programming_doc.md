@@ -4,15 +4,27 @@
 1. [Obsah](#table_of_contents)
 2. [Použité technologie](#technologies)
 3. [Minimum OS/HW requirements](#requirements)
-4. [Server maintenance](#)
+4. [Návod na instalaci a deploy (Debian server)](#installation)
+5. [Server maintenance](#)
     1. [První spuštění](#first_start)
     2. [Aktualizace serveru](#server_update)
     3. [Spuštění serveru](#server_start)
     4. [Vypnutí serveru](#server_shutdown)
     5. [Nahrání zálohy databáze](#load_dump)
     6. [Vytvoření superusera serveru](#create_superuser)
-5. [Obsah souboru xb-1/production/.env](#envfile)
-
+6. [Obsah souboru xb-1/production/.env](#envfile)
+7. [Development](#development)
+    1. [Zapnutí lokálního serveru](#local_start)
+    2. [Vypnutí lokálního serveru](#local_shutdown)
+    3. [Vytvoření migrací databáze](#migration_create)
+    4. [Aplikování migrací na databázi](#migration_apply)
+    5. [Vytvoření superusera](#create_superuser_local)
+    6. [Tvorba překladu](#translation_create)
+    7. [Překlad v py souborech](#translation_files)
+    8. [Aplikace překladů](#translation_apply)
+    9. [Nahraní uživatelských skupin do databáze](#user_groups_import)
+    10. [Export uživatelských skupin do json](#user_groups_export)
+    11. [Typy uživatelských práv](#user_permissions)
 
 ## <a name="technologies"></a>Použité technologie
 - Virtualizace:
@@ -189,43 +201,45 @@ POSTGRES_DB=xb1_dev
     - jméno databáze, musí se shodovat s SQL_DATABASE
 - TODO chtělo by to sjednotit tyto zbytečně zdvojené proměnné a odstranit proměnné, co se nesmí měnit (nahardcodit je do django settings)
 
-## <a name="installation"></a>Development
-### <a name="installation"></a>Zapnutí lokálního serveru pro development
+## <a name="development"></a>Development
+### <a name="local_start"></a>Zapnutí lokálního serveru
 - v home adresáři `sudo docker-compose up`, případně `sudo docker-compose up -d` pro běh v detached módu (bez viditelného logu)
 - pokud za běhu budete chtít zadávat další příkazy např. migrate apod, otevřte si druhé okno v konzoli (Ctrl + Shift + T) a tam je zadávejte
 
-### <a name="installation"></a>Vypnutí lokálního serveru pro development
+### <a name="local_shutdown"></a>Vypnutí lokálního serveru
 - `Ctrl + C`
 
-### <a name="installation"></a>Vytvoření migrací databáze
+### <a name="migration_create"></a>Vytvoření migrací databáze
 - `sudo docker-compose exec web python manage.py makemigrations`
 
-### <a name="installation"></a>Aplikování migrací na databázi
+### <a name="migration_apply"></a>Aplikování migrací na databázi
 - `sudo docker-compose exec web python manage.py migrate`
 
-### <a name="installation"></a>Vytvoření superusera
+### <a name="create_superuser_local"></a>Vytvoření superusera
 - `sudo docker-compose exec web python manage.py createsuperuser`
 
-### <a name="installation"></a>Tvorba překladu
+### <a name="translation_create"></a>Tvorba překladu
 - preklad v templatu:
     - v hlavičce templatu přidejte `{% load i18n %}`
     - překlad je v následujícím formátu: `{% trans "What I want to translate." %}`
 
-### <a name="installation"></a>Překlad v py souborech:
+### <a name="translation_files"></a>Překlad v py souborech
 - `from django.utils.translation import ugettext_lazy as _`
 - překlad: `_("What I want to translate.")`
+
+### <a name="translation_apply"></a>Aplikace překladů
 - před prvním spuštěním stáhněte gettext (linux) `sudo apt-get install gettext`
 - vytvořeni seznamu prekladů: `sudo docker-compose exec web python manage.py makemessages  -l 'cs'`
 - kompilace překladů: `sudo docker-compose exec web python manage.py compilemessages`
 
 
-### <a name="installation"></a>Nahraní uživatelských skupin do databáze
+### <a name="user_groups_import"></a>Nahraní uživatelských skupin do databáze
 - `sudo docker-compose exec web python manage.py loaddata groups.json` - TODO otestovat
 
-### <a name="installation"></a>Export uživatelských skupin do json
+### <a name="user_groups_export"></a>Export uživatelských skupin do json
 - `sudo docker-compose exec web python manage.py dumpdata --indent 1 auth.group > groups.json` - TODO otestovat
 
-### <a name="installation"></a>Typy uživatelských práv
+### <a name="user_permissions"></a>Typy uživatelských práv
 - Každý model automaticky generuje tyto 4 druhy práv (modelname odpovídá názvu modelu v lower case):
     - `add_modelname`
     - `change_modelname`
@@ -233,10 +247,10 @@ POSTGRES_DB=xb1_dev
     - `view_modelname`
 - K pravum se přistupuje skrze název aplikace: `articles.add_article`
 - Jestliže chci zabránit aby uživatel mohl vstoupit na stránku:
-    - V templatu, co obsahuje odkaz na stránku musí být odkaz podmíněn právem:
+    1. V templatu, co obsahuje odkaz na stránku musí být odkaz podmíněn právem:
         - př.: `{%if perms.articles.change_article %} <a href="{% url 'articles:article_update' pk=article.pk %}">Edit article</a> {%endif%}`
         - Odkaz na editaci článku se zobrazi jen uživateli co ma příslušná oprávnění
-    - Oprávnění musí být ošetřené i na samotném view (nestačí jen skrýt tlačítko, uživatel si může domyslet jaká je url)
+    2. Oprávnění musí být ošetřené i na samotném view (nestačí jen skrýt tlačítko, uživatel si může domyslet jaká je url)
         - `from django.contrib.auth.mixins import PermissionRequiredMixin`
         - každé view, které má omezení přístupu musí dědit tuto třídu
         - je nutné specifikovat, jaké je nutne oprávnění: `permission_required = "articles.add_article"`
