@@ -10,7 +10,7 @@
     3. [Spuštění serveru](#server_start)
     4. [Vypnutí serveru](#server_shutdown)
     5. [Nahrání zálohy databáze](#load_dump)
-    6. [Co ještě popsat v dokumentaci - TODO](#todo)
+    6. [Vytvoření superusera serveru](#create_superuser)
 5. [Obsah souboru xb-1/production/.env](#envfile)
 
 
@@ -115,8 +115,12 @@
         - Během běhu se smaže celá databáze (Budete požádáni o potvrzení této akce)
         - Pro jistotu skript před smazáním vytvoří zálohu původní databáze
 
-### <a name="todo"></a>Co ještě popsat v dokumentaci - TODO
-- empty list :P
+### <a name="create_superuser"></a>Vytvoření superusera serveru
+- Přejděte do složky production
+    - `cd xb-1/production`
+- Zavolejte příkaz:
+    - `docker-compose exec web python manage.py createsuperuser`
+        - příkaz vytvoží nového uživatele serveru, kterým se můžete přihlásit na stránku
 
 ## <a name="envfile"></a>Obsah souboru xb-1/production/.env
 ukázkový obsah souboru .env:
