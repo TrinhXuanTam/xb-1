@@ -175,7 +175,7 @@ class ItemDetailView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin
 class ItemDeactivateView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, RedirectView):
 
     permanent = False
-    permission_required = "shop.update_item"
+    permission_required = "shop.change_item"
 
     def get_redirect_url(self, *args, **kwargs):
         if kwargs.get('pk', None) is None:
@@ -413,7 +413,7 @@ class OrderCreateView(LoginMixinView, FormView):
 class OrderPaymentConfirmView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, RedirectView):
 
     permanent = False
-    permission_required = "shop.update_payment"
+    permission_required = "shop.change_payment"
 
     def get_redirect_url(self, *args, **kwargs):
         paymentPK = kwargs.get('pk', None)
@@ -436,7 +436,7 @@ class OrderPaymentConfirmView(LoginMixinView, LoginRequiredMixin, PermissionRequ
 class OrderPaymentRevokeView(LoginMixinView, LoginRequiredMixin, PermissionRequiredMixin, RedirectView):
 
     permanent = False
-    permission_required = "shop.update_payment"
+    permission_required = "shop.change_payment"
 
     def get_redirect_url(self, *args, **kwargs):
         paymentPK = kwargs.get('pk', None)
