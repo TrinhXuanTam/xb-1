@@ -9,7 +9,7 @@
     2. [Aktualizace serveru](#server_update)
     3. [Spuštění serveru](#server_start)
     4. [Vypnutí serveru](#server_shutdown)
-    5. [Vytvoření zprávy o plánované odstávce](#server_maintenance)
+    5. [Vytvoření zprávy o plánované odstávce](#server_message)
     6. [Nahrání zálohy databáze](#load_dump)
     7. [Vytvoření superusera serveru](#create_superuser)
 5. [Obsah souboru xb-1/production/.env](#envfile)
@@ -119,7 +119,7 @@
 - Zavolejte
     -  `docker-compose down`
 
-### <a name="server_maintenance"></a>Vytvoření zprávy o plánované odstávce
+### <a name="server_message"></a>Vytvoření zprávy o plánované odstávce
 - Přejděte do administrátorské sekce: [https://xb1-fans.sic.cz/admin/](https://xb1-fans.sic.cz/admin/)
 - V sekci "Aplikace" vyberte možnost "Messages"
     - Pokud se na stránce nenachází žádný záznam, klikněte na tlačítko "Message: Přidat" a následně vyplňte povinná políčka
