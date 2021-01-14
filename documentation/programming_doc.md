@@ -122,8 +122,9 @@
 - Přejděte do složky production
     - `cd xb-1/production`
 - Ve složce `dumps/` nalezněte název zálohy (provádí se každých 6 hodin), kterou chcete nahrát
+- Před voláním skriptu musí být server spuštěný
 - Zavolejte skript pro nahrání zálohy s parametrem názvu zálohy(bez cesty):
-    - `sh loaddump.sh 2021-01-04_18:37.json`
+    - `sh load_dump.sh 2021-01-04_18:37.json`
         - Během běhu se smaže celá databáze (Budete požádáni o potvrzení této akce)
         - Pro jistotu skript před smazáním vytvoří zálohu původní databáze
 
